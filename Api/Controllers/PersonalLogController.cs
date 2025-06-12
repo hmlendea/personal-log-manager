@@ -12,7 +12,19 @@ namespace PersonalLogManager.Api.Controllers
     [ApiController]
     public class PersonalLogController(IPersonalLogService service) : ControllerBase
     {
-        [HttpPost("StoreTextLog")]
+        [HttpGet]
+        public ActionResult StoreTextLog([FromBody] GetLogRequest request)
+        {
+            try
+            {
+                return Ok(service.GetLogs(request));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ErrorResponse(ex));
+            }
+        }
+        [HttpPost("Text")]
         public ActionResult StoreTextLog([FromBody] StoreTextLogRequest request)
         {
             if (string.IsNullOrWhiteSpace(request?.Content))
