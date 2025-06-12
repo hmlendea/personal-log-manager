@@ -1,3 +1,4 @@
+using System;
 using NuciDAL.DataObjects;
 
 namespace PersonalLogManager.DataAccess.DataObjects
