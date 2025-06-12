@@ -2,14 +2,18 @@ using System;
 
 namespace PersonalLogManager.Service.Models
 {
-    public class PersonalLog(DateTime activityDateTime)
+    public class PersonalLog(DateOnly date, TimeOnly? time)
     {
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
-        public DateTime ActivityDateTime { get; set; } = activityDateTime;
+        public DateOnly Date { get; set; } = date;
 
-        public DateTime AddedDateTime { get; set; } = DateTime.UtcNow;
+        public TimeOnly? Time { get; set; } = time;
 
-        public DateTime? UpdatedDateTime { get; set; } = null;
+        public DateTime CreatedDateTime { get; set; } = DateTime.Now;
+
+        public DateTime? UpdatedDateTime { get; set; } = DateTime.Now;
+
+        public PersonalLog(DateOnly date) : this(date, null) { }
     }
 }

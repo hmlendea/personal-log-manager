@@ -49,11 +49,11 @@ namespace PersonalLogManager
         {
             ArgumentNullException.ThrowIfNullOrWhiteSpace(storePath);
 
-            var directory = Path.GetDirectoryName(storePath);
+            var storeDirectory = Path.GetDirectoryName(storePath);
 
-            if (!Directory.Exists(directory))
+            if (!Directory.Exists(storeDirectory))
             {
-                Directory.CreateDirectory(directory);
+                Directory.CreateDirectory(storeDirectory);
             }
 
             if (!File.Exists(storePath))

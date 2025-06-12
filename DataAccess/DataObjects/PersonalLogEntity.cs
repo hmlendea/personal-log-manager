@@ -4,10 +4,12 @@ namespace PersonalLogManager.DataAccess.DataObjects
 {
     public abstract class PersonalLogEntity : EntityBase
     {
-        public string ActivityDateTime { get; set; }
+        public string Date { get; set; }
 
-        public string AddedDateTime { get; set; }
+        public string Time { get; set; }
 
-        public string UpdatedDateTime { get; set; }
+        public string CreatedDT { get; set; }
+
+        public string UpdatedDT { get; set; }
     }
 }

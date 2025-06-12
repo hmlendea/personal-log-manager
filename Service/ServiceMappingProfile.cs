@@ -2,7 +2,6 @@ using System;
 using AutoMapper;
 
 using PersonalLogManager.Api.Models;
-using PersonalLogManager.DataAccess.DataObjects;
 using PersonalLogManager.Service.Models;
 
 namespace PersonalLogManager.Service
@@ -11,9 +10,9 @@ namespace PersonalLogManager.Service
     {
         public ServiceMappingProfile()
         {
-            CreateMap<TextLogEntity, TextLog>();
             CreateMap<StoreTextLogRequest, TextLog>()
-                .ForMember(dest => dest.ActivityDateTime, opt => opt.MapFrom(src => DateTime.Parse(src.ActivityDateTime)));
+                .ForCtorParam("date", opt => opt.MapFrom(src => DateOnly.Parse(src.Date)))
+                .ForCtorParam("time", opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.Time) ? (TimeOnly?)null : TimeOnly.Parse(src.Time)));
         }
     }
 }
