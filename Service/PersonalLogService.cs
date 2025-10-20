@@ -39,13 +39,9 @@ namespace PersonalLogManager.Service
             };
         }
 
-        public void StoreTextLog(StoreLogRequest request)
-            => StorePersonalLog(mapper.Map<PersonalLog>(request));
-
-        void StorePersonalLog(PersonalLog personalLog)
+        public void StorePersonalLog(StoreLogRequest request)
         {
-            ArgumentNullException.ThrowIfNull(personalLog);
-
+            PersonalLog personalLog = mapper.Map<PersonalLog>(request);
             PersonalLogEntity personalLogEntity = mapper.Map<PersonalLogEntity>(personalLog);
             personalLogEntity.Id = $"LOG{random.Next(0, 1000000):D7}";
 

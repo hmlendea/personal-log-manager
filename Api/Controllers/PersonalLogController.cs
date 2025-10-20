@@ -30,7 +30,7 @@ namespace PersonalLogManager.Api.Controllers
         {
             try
             {
-                service.StoreTextLog(request);
+                service.StorePersonalLog(request);
 
                 return Ok(SuccessResponse.FromMessage("Log stored successfully."));
             }

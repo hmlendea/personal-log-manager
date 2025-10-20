@@ -10,7 +10,7 @@ namespace PersonalLogManager.Service
 
             if (log.Time is not null)
             {
-                prefix += $" {log.Time:hh\\:mm}";
+                prefix += $": {log.Time:HH\\:mm} {log.TimeZone}";
             }
 
             string text = BuildLogTextByTemplate(log);
@@ -18,7 +18,7 @@ namespace PersonalLogManager.Service
             return $"{prefix}: {text}";
         }
 
-        string BuildLogTextByTemplate(PersonalLog log)
+        static string BuildLogTextByTemplate(PersonalLog log)
         {
             if (log.Template.Equals(PersonalLogTemplate.AccountRegistration))
             {
@@ -40,7 +40,7 @@ namespace PersonalLogManager.Service
             return log.Data["text"];
         }
 
-        string BuildAccountRegistrationLogText(PersonalLog log)
+        static string BuildAccountRegistrationLogText(PersonalLog log)
         {
             string text = $"I have registered the {log.Data["platform"]} account";
 
@@ -57,7 +57,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        string BuildAccountPasswordChangeLogText(PersonalLog log)
+        static string BuildAccountPasswordChangeLogText(PersonalLog log)
         {
             string text = $"I have changed the password for the {log.Data["platform"]} account";
 
@@ -69,7 +69,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        string BuildAccountPersonalNameChangeLogText(PersonalLog log)
+        static string BuildAccountPersonalNameChangeLogText(PersonalLog log)
         {
             string text = $"I have changed the personal name for the {log.Data["platform"]} account";
 
@@ -91,7 +91,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        string BuildAccountUsernameChangeLogText(PersonalLog log)
+        static string BuildAccountUsernameChangeLogText(PersonalLog log)
         {
             string verb = "changed";
 

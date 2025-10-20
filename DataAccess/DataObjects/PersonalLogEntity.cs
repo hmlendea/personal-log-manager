@@ -9,6 +9,8 @@ namespace PersonalLogManager.DataAccess.DataObjects
 
         public string Time { get; set; }
 
+        public string TimeZone { get; set; }
+
         public string CreatedDT { get; set; }
 
         public string UpdatedDT { get; set; }
