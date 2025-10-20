@@ -10,6 +10,8 @@ namespace PersonalLogManager.Api.Models
 
         public string Time { get; set; }
 
+        public string TimeZone { get; set; }
+
         public string Template { get; set; }
 
         public Dictionary<string, string> Data { get; set; }

@@ -33,7 +33,9 @@ namespace PersonalLogManager.Service
             return new GetLogResponse()
             {
                 Logs = [.. logs
-                    .OrderBy(log => log.Date)
+                    .OrderByDescending(log => log.Date)
+                    .ThenByDescending(log => log.Time)
+                    .ThenBy(log => log.CreatedDT)
                     .Take(request.Count)
                     .Select(log => $"{log.Id} " + logTextBuilder.BuildLogText(mapper.Map<PersonalLog>(log)))]
             };
@@ -41,11 +43,17 @@ namespace PersonalLogManager.Service
 
         public void StorePersonalLog(StoreLogRequest request)
         {
-            PersonalLog personalLog = mapper.Map<PersonalLog>(request);
-            PersonalLogEntity personalLogEntity = mapper.Map<PersonalLogEntity>(personalLog);
-            personalLogEntity.Id = $"LOG{random.Next(0, 1000000):D7}";
+            logRepository.Add(new()
+            {
+                Id = $"LOG{random.Next(0, 1000000):D7}",
+                Date = request.Date,
+                Time = request.Time,
+                TimeZone = request.TimeZone,
+                Template = request.Template,
+                Data = request.Data,
+                CreatedDT = DateTime.UtcNow.ToString("o")
+            });
 
-            logRepository.Add(personalLogEntity);
             logRepository.ApplyChanges();
         }
     }

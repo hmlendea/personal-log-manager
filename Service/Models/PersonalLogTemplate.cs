@@ -3,9 +3,28 @@ namespace PersonalLogManager.Service.Models
     public enum PersonalLogTemplate
     {
         Text,
+        AccountActivation,
+        AccountDeactivation,
+        AccountDeletion,
+        AccountDeletionRequest,
         AccountRegistration,
+        AccountEmailAddressChange,
+        AccountFeatureEnablement,
+        AccountFeatureDisablement,
         AccountPasswordChange,
         AccountPersonalNameChange,
-        AccountUsernameChange
+        AccountPhoneNumberAddition,
+        AccountPhoneNumberChange,
+        AccountPhoneNumberRemoval,
+        AccountProfilePictureChange,
+        AccountSubscriptionPurchase,
+        AccountUsernameChange,
+        BloodDonation,
+        DeliveryReceival,
+        InternshipApplicationSubmission,
+        MealVoucherCardCreditation,
+        OnlineReviewSubmission,
+        OnlineStorePurchase,
+        VideoUpload
     }
 }
