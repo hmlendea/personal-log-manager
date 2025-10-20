@@ -1,9 +1,9 @@
-using System;
+using System.Collections.Generic;
 using NuciDAL.DataObjects;
 
 namespace PersonalLogManager.DataAccess.DataObjects
 {
-    public abstract class PersonalLogEntity : EntityBase
+    public class PersonalLogEntity : EntityBase
     {
         public string Date { get; set; }
 
@@ -12,5 +12,9 @@ namespace PersonalLogManager.DataAccess.DataObjects
         public string CreatedDT { get; set; }
 
         public string UpdatedDT { get; set; }
+
+        public string Template { get; set; }
+
+        public Dictionary<string, string> Data { get; set; }
     }
 }

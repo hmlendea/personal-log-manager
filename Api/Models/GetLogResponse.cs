@@ -7,7 +7,7 @@ namespace PersonalLogManager.Api.Models
     {
         public int Count => Logs.Count;
 
-        public List<GetLogResponseObject> Logs { get; set; } = [];
+        public List<string> Logs { get; set; } = [];
 
         public GetLogResponse() : base(SuccessResponseMessages.Default) { }
     }

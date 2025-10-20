@@ -6,6 +6,6 @@ namespace PersonalLogManager.Service
     {
         GetLogResponse GetLogs(GetLogRequest request);
 
-        void StoreTextLog(StoreTextLogRequest request);
+        void StoreTextLog(StoreLogRequest request);
     }
 }

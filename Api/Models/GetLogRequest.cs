@@ -4,7 +4,6 @@ namespace PersonalLogManager.Api.Models
 {
     public class GetLogRequest
     {
-        [Required]
         public string Date { get; set; }
 
         public string Time { get; set; }

@@ -10,12 +10,15 @@ using PersonalLogManager.Service.Models;
 namespace PersonalLogManager.Service
 {
     public class PersonalLogService(
-        IRepository<TextLogEntity> textLogRepository,
+        IPersonalLogTextBuilder logTextBuilder,
+        IFileRepository<PersonalLogEntity> logRepository,
         IMapper mapper) : IPersonalLogService
     {
+        private readonly Random random = new();
+
         public GetLogResponse GetLogs(GetLogRequest request)
         {
-            IEnumerable<TextLogEntity> logs = textLogRepository.GetAll();
+            IEnumerable<PersonalLogEntity> logs = logRepository.GetAll();
 
             if (!string.IsNullOrWhiteSpace(request.Date))
             {
@@ -29,19 +32,25 @@ namespace PersonalLogManager.Service
 
             return new GetLogResponse()
             {
-                Logs = [.. logs.Take(request.Count).Select(mapper.Map<GetLogResponseObject>)]
+                Logs = [.. logs
+                    .OrderBy(log => log.Date)
+                    .Take(request.Count)
+                    .Select(log => $"{log.Id} " + logTextBuilder.BuildLogText(mapper.Map<PersonalLog>(log)))]
             };
         }
 
-        public void StoreTextLog(StoreTextLogRequest request)
-            => StorePersonalLog(mapper.Map<TextLog>(request));
+        public void StoreTextLog(StoreLogRequest request)
+            => StorePersonalLog(mapper.Map<PersonalLog>(request));
 
         void StorePersonalLog(PersonalLog personalLog)
         {
             ArgumentNullException.ThrowIfNull(personalLog);
 
-            textLogRepository.Add(mapper.Map<TextLogEntity>(personalLog));
-            textLogRepository.ApplyChanges();
+            PersonalLogEntity personalLogEntity = mapper.Map<PersonalLogEntity>(personalLog);
+            personalLogEntity.Id = $"LOG{random.Next(0, 1000000):D7}";
+
+            logRepository.Add(personalLogEntity);
+            logRepository.ApplyChanges();
         }
     }
 }

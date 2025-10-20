@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace PersonalLogManager.Service.Models
 {
@@ -13,6 +14,10 @@ namespace PersonalLogManager.Service.Models
         public DateTime CreatedDateTime { get; set; } = DateTime.Now;
 
         public DateTime? UpdatedDateTime { get; set; } = DateTime.Now;
+
+        public PersonalLogTemplate Template { get; set; } = PersonalLogTemplate.Text;
+
+        public Dictionary<string, string> Data { get; set; } = [];
 
         public PersonalLog(DateOnly date) : this(date, null) { }
     }

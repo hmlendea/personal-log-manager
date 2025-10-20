@@ -26,7 +26,8 @@ namespace PersonalLogManager
         }
 
         public static IServiceCollection AddCustomServices(this IServiceCollection services) => services
-            .AddSingleton<IRepository<TextLogEntity>>(x => new JsonRepository<TextLogEntity>(dataStoreSettings.TextLogStorePath))
+            .AddSingleton<IFileRepository<PersonalLogEntity>>(x => new JsonRepository<PersonalLogEntity>(dataStoreSettings.TextLogStorePath))
+            .AddSingleton<IPersonalLogTextBuilder, PersonalLogTextBuilder>()
             .AddSingleton<IPersonalLogService, PersonalLogService>()
             .AddAutoMapper(typeof(DataAccessMappingProfile))
             .AddAutoMapper(typeof(ServiceMappingProfile));

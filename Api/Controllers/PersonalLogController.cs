@@ -24,14 +24,10 @@ namespace PersonalLogManager.Api.Controllers
                 return BadRequest(new ErrorResponse(ex));
             }
         }
-        [HttpPost("Text")]
-        public ActionResult StoreTextLog([FromBody] StoreTextLogRequest request)
-        {
-            if (string.IsNullOrWhiteSpace(request?.Content))
-            {
-                return BadRequest(new ErrorResponse(ErrorResponseMessages.InvalidRequest));
-            }
 
+        [HttpPost]
+        public ActionResult StoreTextLog([FromBody] StoreLogRequest request)
+        {
             try
             {
                 service.StoreTextLog(request);
