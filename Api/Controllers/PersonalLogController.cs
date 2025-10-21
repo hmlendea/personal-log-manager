@@ -13,7 +13,7 @@ namespace PersonalLogManager.Api.Controllers
     public class PersonalLogController(IPersonalLogService service) : ControllerBase
     {
         [HttpGet]
-        public ActionResult StoreTextLog([FromBody] GetLogRequest request)
+        public ActionResult GetLogs([FromBody] GetLogRequest request)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace PersonalLogManager.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult StoreTextLog([FromBody] StoreLogRequest request)
+        public ActionResult AddLogs([FromBody] StoreLogRequest request)
         {
             try
             {
