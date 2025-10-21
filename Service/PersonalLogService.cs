@@ -35,6 +35,7 @@ namespace PersonalLogManager.Service
                 Logs = [.. logs
                     .OrderByDescending(log => log.Date)
                     .ThenByDescending(log => log.Time)
+                    .ThenBy(log => log.Template)
                     .ThenBy(log => log.CreatedDT)
                     .Take(request.Count)
                     .Select(log => $"{log.Id} " + logTextBuilder.BuildLogText(mapper.Map<PersonalLog>(log)))]
@@ -45,7 +46,7 @@ namespace PersonalLogManager.Service
         {
             logRepository.Add(new()
             {
-                Id = $"LOG{random.Next(0, 1000000):D7}",
+                Id = $"L{random.Next(0, 1000000000):D9}",
                 Date = request.Date,
                 Time = request.Time,
                 TimeZone = request.TimeZone,
