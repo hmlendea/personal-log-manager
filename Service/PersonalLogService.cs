@@ -77,6 +77,39 @@ namespace PersonalLogManager.Service
             };
         }
 
+        public void UpdatePersonalLog(UpdateLogRequest request)
+        {
+            request.ValidateHMAC(securitySettings.SharedSecretKey);
+
+            PersonalLogEntity personalLog = repository.Get(request.Identifier);
+
+            if (request.Date is not null)
+            {
+                personalLog.Date = request.Date;
+            }
+
+            if (request.Time is not null)
+            {
+                personalLog.Time = request.Time;
+            }
+
+            if (request.TimeZone is not null)
+            {
+                personalLog.TimeZone = request.TimeZone;
+            }
+
+            if (request.Data is not null)
+            {
+                foreach (string parameter in request.Data.Keys)
+                {
+                    personalLog.Data[parameter] = request.Data[parameter];
+                }
+            }
+
+            repository.Update(personalLog);
+            repository.ApplyChanges();
+        }
+
         public void DeletePersonalLog(DeleteLogRequest request)
         {
             request.ValidateHMAC(securitySettings.SharedSecretKey);

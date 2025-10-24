@@ -17,6 +17,10 @@ namespace PersonalLogManager.Api.Controllers
         public ActionResult GetPersonalLogs([FromBody] GetLogRequest request)
             => ProcessRequest(request, () => service.GetPersonalLogs(request));
 
+        [HttpPut]
+        public ActionResult UpdatePersonalLogs([FromBody] UpdateLogRequest request)
+            => ProcessRequest(request, () => service.UpdatePersonalLog(request));
+
         [HttpDelete]
         public ActionResult DeletePersonalLog([FromBody] DeleteLogRequest request)
             => ProcessRequest(request, () => service.DeletePersonalLog(request));
