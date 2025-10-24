@@ -30,6 +30,19 @@ namespace PersonalLogManager.Service
                 logs = logs.Where(log => log.Time.Equals(request.Time));
             }
 
+            if (!string.IsNullOrWhiteSpace(request.Template))
+            {
+                logs = logs.Where(log => log.Template.Equals(request.Template));
+            }
+
+            if (request.Data is not null && request.Data.Count > 0)
+            {
+                foreach (string dataKey in request.Data.Keys)
+                {
+                    logs = logs.Where(log => log.Data.ContainsKey(dataKey) && log.Data[dataKey].Equals(request.Data[dataKey], StringComparison.OrdinalIgnoreCase));
+                }
+            }
+
             return new GetLogResponse()
             {
                 Logs = [.. logs

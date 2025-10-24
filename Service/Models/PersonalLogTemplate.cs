@@ -13,6 +13,7 @@ namespace PersonalLogManager.Service.Models
         AccountDeactivation,
         AccountDeletion,
         AccountDeletionRequest,
+        AccountDeletionRequestCancellation,
         AccountDeletionRequestFulfillment,
         AccountDeletionValidation,
         AccountEmailAddressChange,
@@ -21,6 +22,7 @@ namespace PersonalLogManager.Service.Models
         AccountEmailAddressConfirmation,
         AccountFeatureEnablement,
         AccountFeatureDisablement,
+        AccountFriendshipRequestReceival,
         AccountIdentityVerification,
         AccountLinking,
         AccountMessagesErasure,
@@ -42,6 +44,7 @@ namespace PersonalLogManager.Service.Models
         AccountVisibilityMadePublic,
         BloodDonation,
         BloodGlucoseMeasurement,
+        BodyWaterRateMeasurement,
         BodyWeightMeasurement,
         DatingAppMatch,
         DeliveryReceival,
@@ -52,6 +55,8 @@ namespace PersonalLogManager.Service.Models
         ObjectSale,
         OnlineReviewSubmission,
         OnlineStorePurchase,
+        SwimmingActivity,
+        UtilityBillPayment,
         VideoUpload,
         WorkFromTheOffice
     }

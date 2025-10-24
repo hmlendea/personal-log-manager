@@ -62,6 +62,10 @@ namespace PersonalLogManager.Service
             {
                 return BuildAccountDeletionRequestLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.AccountDeletionRequestCancellation))
+            {
+                return BuildAccountDeletionRequestCancellationLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.AccountDeletionRequestFulfillment))
             {
                 return BuildAccountDeletionRequestFulfillmentLogText(log);
@@ -93,6 +97,10 @@ namespace PersonalLogManager.Service
             else if (log.Template.Equals(PersonalLogTemplate.AccountFeatureDisablement))
             {
                 return BuildAccountFeatureDisablementLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.AccountFriendshipRequestReceival))
+            {
+                return BuildAccountFriendshipRequestReceivalLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.AccountIdentityVerification))
             {
@@ -178,6 +186,10 @@ namespace PersonalLogManager.Service
             {
                 return BuildBloodGlucoseMeasurementLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.BodyWaterRateMeasurement))
+            {
+                return BuildBodyWaterRateMeasurementLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.BodyWeightMeasurement))
             {
                 return BuildBodyWeightMeasurementLogText(log);
@@ -217,6 +229,14 @@ namespace PersonalLogManager.Service
             else if (log.Template.Equals(PersonalLogTemplate.OnlineStorePurchase))
             {
                 return BuildOnlineStorePurchaseLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.SwimmingActivity))
+            {
+                return BuildSwimmingActivityLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.UtilityBillPayment))
+            {
+                return BuildUtilityBillPaymentLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.VideoUpload))
             {
@@ -350,7 +370,7 @@ namespace PersonalLogManager.Service
 
         static string BuildAccountDataObfuscationLogText(PersonalLog log)
         {
-            string text = $"I have obfuscated the data related of the {log.Data["platform"]} account";
+            string text = $"I have obfuscated the data on the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -400,6 +420,24 @@ namespace PersonalLogManager.Service
             if (log.Data.TryGetValue("request_method", out string requestMethod))
             {
                 text += $" via {requestMethod}";
+            }
+
+            return text;
+        }
+
+        static string BuildAccountDeletionRequestCancellationLogText(PersonalLog log)
+        {
+            string text = $"I have cancelled the account deletion request for the {log.Data["platform"]} account";
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            if (log.Data.TryGetValue("request_date", out string requestDate))
+            {
+                text += $", made on {requestDate},";
             }
 
             return text;
@@ -581,6 +619,24 @@ namespace PersonalLogManager.Service
             return text;
         }
 
+        static string BuildAccountFriendshipRequestReceivalLogText(PersonalLog log)
+        {
+            string text = $"I have received a friendship request on the {log.Data["platform"]} account";
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            if (log.Data.TryGetValue("from_account", out string fromAccount))
+            {
+                text += $" from {fromAccount}";
+            }
+
+            return text;
+        }
+
         static string BuildAccountIdentityVerificationLogText(PersonalLog log)
         {
             string text = $"I have verified my identity for the {log.Data["platform"]} account";
@@ -604,11 +660,22 @@ namespace PersonalLogManager.Service
                 text += $" ({discriminator})";
             }
 
-            text += $" with the {log.Data["platform_linked"]} account";
+            text += $" with";
 
-            if (log.Data.TryGetValue("account_linked", out string accountLinked))
+            if (log.Data.TryGetValue("platform_linked", out string platformLinked))
             {
-                text += $" ({accountLinked})";
+                if (log.Data.TryGetValue("account_linked", out string accountLinked))
+                {
+                    text += $" the {log.Data["platform_linked"]} account ({log.Data["account_linked"]})";
+                }
+                else
+                {
+                    text += $" {log.Data["platform_linked"]}";
+                }
+            }
+            else
+            {
+                text += $" {log.Data["account_linked"]}";
             }
 
             return text;
@@ -685,7 +752,7 @@ namespace PersonalLogManager.Service
         {
             string verb = "changed";
 
-            if (!log.Data.ContainsKey("old_phone_number"))
+            if (!log.Data.ContainsKey("old_phone_number") && log.Data.ContainsKey("new_phone_number"))
             {
                 verb = "set";
             }
@@ -825,6 +892,17 @@ namespace PersonalLogManager.Service
                 withCount += 1;
             }
 
+            if (log.Data.TryGetValue("personal_name", out string personalName))
+            {
+                if (withCount > 0)
+                {
+                    text += ", and";
+                }
+
+                text += $" with the personal name {personalName}";
+                withCount += 1;
+            }
+
             return text;
         }
 
@@ -945,7 +1023,7 @@ namespace PersonalLogManager.Service
                 verb = "set";
             }
 
-            string text = $"I have {verb} the username for the {log.Data["platform"]} account";
+            string text = $"I have {verb} the username of the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -1005,6 +1083,11 @@ namespace PersonalLogManager.Service
                 text += $" at {donationCentreName}";
             }
 
+            if (log.Data.TryGetValue("donation_code", out string donationCode))
+            {
+                text += $". The donation code was: {donationCode}";
+            }
+
             return text;
         }
 
@@ -1020,6 +1103,13 @@ namespace PersonalLogManager.Service
             string text = $"My blood glucose level measured {log.Data["glucose_level"]} {unit}";
 
             return text;
+        }
+
+        static string BuildBodyWaterRateMeasurementLogText(PersonalLog log)
+        {
+            decimal bodyWaterRate = decimal.Parse(log.Data["body_water_rate"]);
+
+            return $"My body water rate measured {bodyWaterRate:F2}%";
         }
 
         static string BuildBodyWeightMeasurementLogText(PersonalLog log)
@@ -1172,10 +1262,52 @@ namespace PersonalLogManager.Service
         static string BuildOnlineStorePurchaseLogText(PersonalLog log)
         {
             string text = $"I have purchased {log.Data["product_name"]} from {log.Data["platform"]}";
+            string discriminator = GetDiscriminator(log.Data);
 
-            if (log.Data.TryGetValue("account", out string account))
+            if (!string.IsNullOrWhiteSpace(discriminator))
             {
-                text += $" using the {account} account";
+                text += $" ({discriminator})";
+            }
+
+            if (log.Data.TryGetValue("price_amount", out string priceAmount))
+            {
+                text += $", for {priceAmount} {log.Data["price_currency"]}";
+            }
+
+            return text;
+        }
+
+        static string BuildSwimmingActivityLogText(PersonalLog log)
+        {
+            string text = $"I have gone swimming";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            return text;
+        }
+
+        static string BuildUtilityBillPaymentLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("utility_type", out string utilityType);
+
+            if (string.IsNullOrWhiteSpace(utilityType))
+            {
+                utilityType = "utility";
+            }
+
+            string text = $"I have paid my {utilityType} bill to {log.Data["provider_name"]}";
+
+            if (log.Data.TryGetValue("supply_point_number", out string supplyPointNumber))
+            {
+                text += $" for the {supplyPointNumber} supply point number";
+            }
+
+            if (log.Data.TryGetValue("cost_amount", out string costAmount))
+            {
+                text += $", amounting to {costAmount} {log.Data["cost_currency"]}";
             }
 
             return text;
