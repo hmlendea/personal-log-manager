@@ -1,0 +1,74 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
+using NuciDAL.Repositories;
+using PersonalLogManager.Api.Models;
+using PersonalLogManager.DataAccess.DataObjects;
+using PersonalLogManager.Service.Models;
+
+namespace PersonalLogManager.Service
+{
+    public class PersonalLogService(
+        IPersonalLogTextBuilder logTextBuilder,
+        IFileRepository<PersonalLogEntity> logRepository,
+        IMapper mapper) : IPersonalLogService
+    {
+        private readonly Random random = new();
+
+        public GetLogResponse GetLogs(GetLogRequest request)
+        {
+            IEnumerable<PersonalLogEntity> logs = logRepository.GetAll();
+
+            if (!string.IsNullOrWhiteSpace(request.Date))
+            {
+                logs = logs.Where(log => log.Date.Equals(request.Date));
+            }
+
+            if (!string.IsNullOrWhiteSpace(request.Time))
+            {
+                logs = logs.Where(log => log.Time.Equals(request.Time));
+            }
+
+            if (!string.IsNullOrWhiteSpace(request.Template))
+            {
+                logs = logs.Where(log => log.Template.Equals(request.Template));
+            }
+
+            if (request.Data is not null && request.Data.Count > 0)
+            {
+                foreach (string dataKey in request.Data.Keys)
+                {
+                    logs = logs.Where(log => log.Data.ContainsKey(dataKey) && log.Data[dataKey].Equals(request.Data[dataKey], StringComparison.OrdinalIgnoreCase));
+                }
+            }
+
+            return new GetLogResponse()
+            {
+                Logs = [.. logs
+                    .OrderByDescending(log => log.Date)
+                    .ThenByDescending(log => log.Time)
+                    .ThenBy(log => log.Template)
+                    .ThenBy(log => log.CreatedDT)
+                    .Take(request.Count)
+                    .Select(log => $"{log.Id} " + logTextBuilder.BuildLogText(mapper.Map<PersonalLog>(log)))]
+            };
+        }
+
+        public void StorePersonalLog(StoreLogRequest request)
+        {
+            logRepository.Add(new()
+            {
+                Id = $"L{random.Next(0, 1000000000):D9}",
+                Date = request.Date,
+                Time = request.Time,
+                TimeZone = request.TimeZone,
+                Template = request.Template,
+                Data = request.Data,
+                CreatedDT = DateTime.UtcNow.ToString("o")
+            });
+
+            logRepository.ApplyChanges();
+        }
+    }
+}
