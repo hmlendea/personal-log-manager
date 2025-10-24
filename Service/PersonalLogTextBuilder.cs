@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Microsoft.Extensions.WebEncoders.Testing;
 using PersonalLogManager.Service.Models;
 
 namespace PersonalLogManager.Service
