@@ -12,17 +12,35 @@ namespace PersonalLogManager.Service
 {
     public class PersonalLogService(
         IPersonalLogTextBuilder logTextBuilder,
-        IFileRepository<PersonalLogEntity> logRepository,
+        IFileRepository<PersonalLogEntity> repository,
         SecuritySettings securitySettings,
         IMapper mapper) : IPersonalLogService
     {
         private readonly Random random = new();
 
-        public GetLogResponse GetLogs(GetLogRequest request)
+        public void StorePersonalLog(StoreLogRequest request)
         {
             request.ValidateHMAC(securitySettings.SharedSecretKey);
 
-            IEnumerable<PersonalLogEntity> logs = logRepository.GetAll();
+            repository.Add(new()
+            {
+                Id = $"L{random.Next(0, 1000000000):D9}",
+                Date = request.Date,
+                Time = request.Time,
+                TimeZone = request.TimeZone,
+                Template = request.Template,
+                Data = request.Data,
+                CreatedDT = DateTime.UtcNow.ToString("o")
+            });
+
+            repository.ApplyChanges();
+        }
+
+        public GetLogResponse GetPersonalLogs(GetLogRequest request)
+        {
+            request.ValidateHMAC(securitySettings.SharedSecretKey);
+
+            IEnumerable<PersonalLogEntity> logs = repository.GetAll();
 
             if (!string.IsNullOrWhiteSpace(request.Date))
             {
@@ -59,22 +77,46 @@ namespace PersonalLogManager.Service
             };
         }
 
-        public void StorePersonalLog(StoreLogRequest request)
+        public void UpdatePersonalLog(UpdateLogRequest request)
         {
             request.ValidateHMAC(securitySettings.SharedSecretKey);
 
-            logRepository.Add(new()
-            {
-                Id = $"L{random.Next(0, 1000000000):D9}",
-                Date = request.Date,
-                Time = request.Time,
-                TimeZone = request.TimeZone,
-                Template = request.Template,
-                Data = request.Data,
-                CreatedDT = DateTime.UtcNow.ToString("o")
-            });
+            PersonalLogEntity personalLog = repository.Get(request.Identifier);
 
-            logRepository.ApplyChanges();
+            if (request.Date is not null)
+            {
+                personalLog.Date = request.Date;
+            }
+
+            if (request.Time is not null)
+            {
+                personalLog.Time = request.Time;
+            }
+
+            if (request.TimeZone is not null)
+            {
+                personalLog.TimeZone = request.TimeZone;
+            }
+
+            if (request.Data is not null)
+            {
+                foreach (string parameter in request.Data.Keys)
+                {
+                    personalLog.Data[parameter] = request.Data[parameter];
+                }
+            }
+
+            personalLog.UpdatedDT = DateTime.UtcNow.ToString("o");
+
+            repository.Update(personalLog);
+            repository.ApplyChanges();
+        }
+
+        public void DeletePersonalLog(DeleteLogRequest request)
+        {
+            request.ValidateHMAC(securitySettings.SharedSecretKey);
+            repository.Remove(request.Identifier);
+            repository.ApplyChanges();
         }
     }
 }

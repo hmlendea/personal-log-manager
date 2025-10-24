@@ -4,8 +4,12 @@ namespace PersonalLogManager.Service
 {
     public interface IPersonalLogService
     {
-        GetLogResponse GetLogs(GetLogRequest request);
-
         void StorePersonalLog(StoreLogRequest request);
+
+        GetLogResponse GetPersonalLogs(GetLogRequest request);
+
+        void UpdatePersonalLog(UpdateLogRequest request);
+
+        void DeletePersonalLog(DeleteLogRequest request);
     }
 }
