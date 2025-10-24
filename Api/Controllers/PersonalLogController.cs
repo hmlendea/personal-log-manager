@@ -9,12 +9,16 @@ namespace PersonalLogManager.Api.Controllers
     [ApiController]
     public class PersonalLogController(IPersonalLogService service) : NuciApiController
     {
-        [HttpGet]
-        public ActionResult GetLogs([FromBody] GetLogRequest request)
-            => ProcessRequest(request, () => service.GetLogs(request));
-
         [HttpPost]
-        public ActionResult AddLogs([FromBody] StoreLogRequest request)
+        public ActionResult AddPersonalLog([FromBody] StoreLogRequest request)
             => ProcessRequest(request, () => service.StorePersonalLog(request));
+
+        [HttpGet]
+        public ActionResult GetPersonalLogs([FromBody] GetLogRequest request)
+            => ProcessRequest(request, () => service.GetPersonalLogs(request));
+
+        [HttpDelete]
+        public ActionResult DeletePersonalLog([FromBody] DeleteLogRequest request)
+            => ProcessRequest(request, () => service.DeletePersonalLog(request));
     }
 }
