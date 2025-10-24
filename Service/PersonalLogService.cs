@@ -106,6 +106,8 @@ namespace PersonalLogManager.Service
                 }
             }
 
+            personalLog.UpdatedDT = DateTime.Now.ToString("o");
+
             repository.Update(personalLog);
             repository.ApplyChanges();
         }
