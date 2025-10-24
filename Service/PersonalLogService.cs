@@ -4,6 +4,7 @@ using System.Linq;
 using AutoMapper;
 using NuciDAL.Repositories;
 using PersonalLogManager.Api.Models;
+using PersonalLogManager.Configuration;
 using PersonalLogManager.DataAccess.DataObjects;
 using PersonalLogManager.Service.Models;
 
@@ -12,12 +13,15 @@ namespace PersonalLogManager.Service
     public class PersonalLogService(
         IPersonalLogTextBuilder logTextBuilder,
         IFileRepository<PersonalLogEntity> logRepository,
+        SecuritySettings securitySettings,
         IMapper mapper) : IPersonalLogService
     {
         private readonly Random random = new();
 
         public GetLogResponse GetLogs(GetLogRequest request)
         {
+            request.ValidateHMAC(securitySettings.SharedSecretKey);
+
             IEnumerable<PersonalLogEntity> logs = logRepository.GetAll();
 
             if (!string.IsNullOrWhiteSpace(request.Date))
@@ -57,6 +61,8 @@ namespace PersonalLogManager.Service
 
         public void StorePersonalLog(StoreLogRequest request)
         {
+            request.ValidateHMAC(securitySettings.SharedSecretKey);
+
             logRepository.Add(new()
             {
                 Id = $"L{random.Next(0, 1000000000):D9}",

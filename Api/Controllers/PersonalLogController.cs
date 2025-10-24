@@ -1,43 +1,20 @@
-using System;
-
 using Microsoft.AspNetCore.Mvc;
+using NuciAPI.Controllers;
 using PersonalLogManager.Api.Models;
 using PersonalLogManager.Service;
-
-using NuciAPI.Responses;
 
 namespace PersonalLogManager.Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class PersonalLogController(IPersonalLogService service) : ControllerBase
+    public class PersonalLogController(IPersonalLogService service) : NuciApiController
     {
         [HttpGet]
         public ActionResult GetLogs([FromBody] GetLogRequest request)
-        {
-            try
-            {
-                return Ok(service.GetLogs(request));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new ErrorResponse(ex));
-            }
-        }
+            => ProcessRequest(request, () => service.GetLogs(request));
 
         [HttpPost]
         public ActionResult AddLogs([FromBody] StoreLogRequest request)
-        {
-            try
-            {
-                service.StorePersonalLog(request);
-
-                return Ok(SuccessResponse.FromMessage("Log stored successfully."));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new ErrorResponse(ex));
-            }
-        }
+            => ProcessRequest(request, () => service.StorePersonalLog(request));
     }
 }

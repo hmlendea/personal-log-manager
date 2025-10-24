@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using NuciAPI.Responses;
+using NuciSecurity.HMAC;
 
 namespace PersonalLogManager.Api.Models
 {
-    public class GetLogResponse : SuccessResponse
+    public class GetLogResponse : NuciApiSuccessResponse
     {
-        public int Count => Logs.Count;
-
+        [HmacOrder(1)]
         public List<string> Logs { get; set; } = [];
 
-        public GetLogResponse() : base(SuccessResponseMessages.Default) { }
+        [HmacOrder(2)]
+        public int Count => Logs.Count;
     }
 }
