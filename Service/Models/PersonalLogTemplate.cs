@@ -46,10 +46,15 @@ namespace PersonalLogManager.Service.Models
         BloodGlucoseMeasurement,
         BodyWaterRateMeasurement,
         BodyWeightMeasurement,
+        ChatGroupCreation,
+        ChatGroupDeletion,
+        ChatGroupJoining,
+        ChatGroupLeaving,
         DatingAppMatch,
         DeliveryReceival,
         DentalScaling,
         EmailExport,
+        GettingOutOfBed,
         InternshipApplicationSubmission,
         MealVoucherCardCreditation,
         ObjectSale,
@@ -58,6 +63,7 @@ namespace PersonalLogManager.Service.Models
         SwimmingActivity,
         UtilityBillPayment,
         VideoUpload,
+        WakingUp,
         WorkFromTheOffice
     }
 }

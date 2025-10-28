@@ -193,6 +193,22 @@ namespace PersonalLogManager.Service
             {
                 return BuildBodyWeightMeasurementLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.ChatGroupCreation))
+            {
+                return BuildChatGroupCreationLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.ChatGroupDeletion))
+            {
+                return BuildChatGroupDeletionLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.ChatGroupJoining))
+            {
+                return BuildChatGroupJoiningLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.ChatGroupLeaving))
+            {
+                return BuildChatGroupLeavingLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.DatingAppMatch))
             {
                 return BuildDatingAppMatchLogText(log);
@@ -208,6 +224,10 @@ namespace PersonalLogManager.Service
             else if (log.Template.Equals(PersonalLogTemplate.EmailExport))
             {
                 return BuildEmailExportLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.GettingOutOfBed))
+            {
+                return BuildGettingOutOfBedLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.InternshipApplicationSubmission))
             {
@@ -240,6 +260,10 @@ namespace PersonalLogManager.Service
             else if (log.Template.Equals(PersonalLogTemplate.VideoUpload))
             {
                 return BuildVideoUploadLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.WakingUp))
+            {
+                return BuildWakingUpLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.WorkFromTheOffice))
             {
@@ -1125,6 +1149,82 @@ namespace PersonalLogManager.Service
             return text;
         }
 
+        static string BuildChatGroupCreationLogText(PersonalLog log)
+        {
+            string text = $"I have created a chat group named {log.Data["group_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        static string BuildChatGroupDeletionLogText(PersonalLog log)
+        {
+            string text = $"I have deleted the chat group named {log.Data["group_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        static string BuildChatGroupJoiningLogText(PersonalLog log)
+        {
+            string text = $"I have joined the chat group named {log.Data["group_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        static string BuildChatGroupLeavingLogText(PersonalLog log)
+        {
+            string text = $"I have left the chat group named {log.Data["group_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
         static string BuildDatingAppMatchLogText(PersonalLog log)
         {
             string text = $"I have matched with {log.Data["match_name"]} on {log.Data["platform"]}";
@@ -1174,6 +1274,18 @@ namespace PersonalLogManager.Service
             if (log.Data.TryGetValue("account", out string account))
             {
                 text += $" ({account})";
+            }
+
+            return text;
+        }
+
+        static string BuildGettingOutOfBedLogText(PersonalLog log)
+        {
+            string text = $"I have gotten out of bed";
+
+            if (log.Data.TryGetValue("get_out_time", out string getOutTime))
+            {
+                text += $" at {getOutTime}";
             }
 
             return text;
@@ -1329,6 +1441,18 @@ namespace PersonalLogManager.Service
             if (log.Data.TryGetValue("video_url", out string videoId))
             {
                 text += $", at {videoId}";
+            }
+
+            return text;
+        }
+
+        static string BuildWakingUpLogText(PersonalLog log)
+        {
+            string text = $"I have woken up";
+
+            if (log.Data.TryGetValue("wake_up_time", out string wakeUpTime))
+            {
+                text += $" at {wakeUpTime}";
             }
 
             return text;
