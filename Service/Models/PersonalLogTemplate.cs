@@ -54,6 +54,7 @@ namespace PersonalLogManager.Service.Models
         DeliveryReceival,
         DentalScaling,
         EmailExport,
+        GettingOutOfBed,
         InternshipApplicationSubmission,
         MealVoucherCardCreditation,
         ObjectSale,
@@ -62,7 +63,7 @@ namespace PersonalLogManager.Service.Models
         SwimmingActivity,
         UtilityBillPayment,
         VideoUpload,
-        WakeUp,
+        WakingUp,
         WorkFromTheOffice
     }
 }

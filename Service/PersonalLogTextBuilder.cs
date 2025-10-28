@@ -225,6 +225,10 @@ namespace PersonalLogManager.Service
             {
                 return BuildEmailExportLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.GettingOutOfBed))
+            {
+                return BuildGettingOutOfBedLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.InternshipApplicationSubmission))
             {
                 return BuildInternshipApplicationSubmissionLogText(log);
@@ -257,9 +261,9 @@ namespace PersonalLogManager.Service
             {
                 return BuildVideoUploadLogText(log);
             }
-            else if (log.Template.Equals(PersonalLogTemplate.WakeUp))
+            else if (log.Template.Equals(PersonalLogTemplate.WakingUp))
             {
-                return BuildWakeUpLogText(log);
+                return BuildWakingUpLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.WorkFromTheOffice))
             {
@@ -1275,6 +1279,18 @@ namespace PersonalLogManager.Service
             return text;
         }
 
+        static string BuildGettingOutOfBedLogText(PersonalLog log)
+        {
+            string text = $"I have gotten out of bed";
+
+            if (log.Data.TryGetValue("get_out_time", out string getOutTime))
+            {
+                text += $" at {getOutTime}";
+            }
+
+            return text;
+        }
+
         static string BuildInternshipApplicationSubmissionLogText(PersonalLog log)
         {
             string internshipType = "internship";
@@ -1430,7 +1446,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildWakeUpLogText(PersonalLog log)
+        static string BuildWakingUpLogText(PersonalLog log)
         {
             string text = $"I have woken up";
 
