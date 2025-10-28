@@ -241,6 +241,10 @@ namespace PersonalLogManager.Service
             {
                 return BuildVideoUploadLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.WakeUp))
+            {
+                return BuildWakeUpLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.WorkFromTheOffice))
             {
                 return BuildWorkFromTheOfficeLogText(log);
@@ -1329,6 +1333,18 @@ namespace PersonalLogManager.Service
             if (log.Data.TryGetValue("video_url", out string videoId))
             {
                 text += $", at {videoId}";
+            }
+
+            return text;
+        }
+
+        static string BuildWakeUpLogText(PersonalLog log)
+        {
+            string text = $"I have woken up";
+
+            if (log.Data.TryGetValue("wake_up_time", out string wakeUpTime))
+            {
+                text += $" at {wakeUpTime}";
             }
 
             return text;

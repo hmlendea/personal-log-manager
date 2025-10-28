@@ -58,6 +58,7 @@ namespace PersonalLogManager.Service.Models
         SwimmingActivity,
         UtilityBillPayment,
         VideoUpload,
+        WakeUp,
         WorkFromTheOffice
     }
 }
