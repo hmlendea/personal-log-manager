@@ -261,9 +261,17 @@ namespace PersonalLogManager.Service
             {
                 return BuildSwimmingActivityLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.TollPayment))
+            {
+                return BuildTollPaymentLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.UtilityBillPayment))
             {
                 return BuildUtilityBillPaymentLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.UtilityIndexMeasurement))
+            {
+                return BuildUtilityIndexMeasurementLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.VideoUpload))
             {
@@ -1442,6 +1450,28 @@ namespace PersonalLogManager.Service
             return text;
         }
 
+        static string BuildTollPaymentLogText(PersonalLog log)
+        {
+            string text = $"I have paid a toll";
+
+            if (log.Data.TryGetValue("provider_name", out string providerName))
+            {
+                text += $" to {providerName}";
+            }
+
+            if (log.Data.TryGetValue("toll_location", out string tollLocation))
+            {
+                text += $" for {tollLocation}";
+            }
+
+            if (log.Data.TryGetValue("cost_amount", out string costAmount))
+            {
+                text += $", amounting to {costAmount} {log.Data["cost_currency"]}";
+            }
+
+            return text;
+        }
+
         static string BuildUtilityBillPaymentLogText(PersonalLog log)
         {
             log.Data.TryGetValue("utility_type", out string utilityType);
@@ -1461,6 +1491,34 @@ namespace PersonalLogManager.Service
             if (log.Data.TryGetValue("cost_amount", out string costAmount))
             {
                 text += $", amounting to {costAmount} {log.Data["cost_currency"]}";
+            }
+
+            return text;
+        }
+
+        static string BuildUtilityIndexMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("utility_type", out string utilityType);
+
+            if (string.IsNullOrWhiteSpace(utilityType))
+            {
+                utilityType = "utility";
+            }
+
+            string text = $"I have measured the {utilityType} index";
+
+            if (log.Data.TryGetValue("supply_point_number", out string supplyPointNumber))
+            {
+                text += $" for the {supplyPointNumber} supply point number";
+            }
+            else if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("index_value", out string indexValue))
+            {
+                text += $", obtaining a value of {indexValue}";
             }
 
             return text;
