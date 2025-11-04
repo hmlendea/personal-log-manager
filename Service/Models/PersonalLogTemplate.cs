@@ -54,6 +54,7 @@ namespace PersonalLogManager.Service.Models
         DeliveryReceival,
         DentalScaling,
         EmailExport,
+        EyeCheckup,
         GettingOutOfBed,
         HairCutting,
         InternshipApplicationSubmission,

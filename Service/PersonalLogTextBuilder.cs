@@ -225,6 +225,10 @@ namespace PersonalLogManager.Service
             {
                 return BuildEmailExportLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.EyeCheckup))
+            {
+                return BuildEyeCheckupLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.GettingOutOfBed))
             {
                 return BuildGettingOutOfBedLogText(log);
@@ -1278,6 +1282,23 @@ namespace PersonalLogManager.Service
             if (log.Data.TryGetValue("account", out string account))
             {
                 text += $" ({account})";
+            }
+
+            return text;
+        }
+
+        static string BuildEyeCheckupLogText(PersonalLog log)
+        {
+            string text = $"I have undergone an eye checkup";
+
+            if (log.Data.TryGetValue("clinic_name", out string clinicName))
+            {
+                text += $" at {clinicName}";
+            }
+
+            if (log.Data.TryGetValue("optometrist_name", out string optometristName))
+            {
+                text += $", by {optometristName}";
             }
 
             return text;
