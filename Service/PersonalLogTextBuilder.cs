@@ -25,6 +25,10 @@ namespace PersonalLogManager.Service
             {
                 return BuildAccountActivationLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.AccountBanning))
+            {
+                return BuildAccountBanningLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.AccountContactEmailAddressChange))
             {
                 return BuildAccountContactEmailAddressChangeLogText(log);
@@ -225,9 +229,17 @@ namespace PersonalLogManager.Service
             {
                 return BuildEmailExportLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.EyeCheckup))
+            {
+                return BuildEyeCheckupLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.GettingOutOfBed))
             {
                 return BuildGettingOutOfBedLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.HairCutting))
+            {
+                return BuildHairCuttingLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.InternshipApplicationSubmission))
             {
@@ -253,9 +265,17 @@ namespace PersonalLogManager.Service
             {
                 return BuildSwimmingActivityLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.TollPayment))
+            {
+                return BuildTollPaymentLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.UtilityBillPayment))
             {
                 return BuildUtilityBillPaymentLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.UtilityIndexMeasurement))
+            {
+                return BuildUtilityIndexMeasurementLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.VideoUpload))
             {
@@ -281,6 +301,26 @@ namespace PersonalLogManager.Service
             if (!string.IsNullOrWhiteSpace(discriminator))
             {
                 text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        static string BuildAccountBanningLogText(PersonalLog log)
+        {
+            string text = $"The {log.Data["platform"]} account";
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            text += " has been banned";
+
+            if (log.Data.TryGetValue("ban_reason", out string banReason))
+            {
+                text += $" for the following reason: {banReason}";
             }
 
             return text;
@@ -1279,6 +1319,23 @@ namespace PersonalLogManager.Service
             return text;
         }
 
+        static string BuildEyeCheckupLogText(PersonalLog log)
+        {
+            string text = $"I have undergone an eye checkup";
+
+            if (log.Data.TryGetValue("clinic_name", out string clinicName))
+            {
+                text += $" at {clinicName}";
+            }
+
+            if (log.Data.TryGetValue("optometrist_name", out string optometristName))
+            {
+                text += $", by {optometristName}";
+            }
+
+            return text;
+        }
+
         static string BuildGettingOutOfBedLogText(PersonalLog log)
         {
             string text = $"I have gotten out of bed";
@@ -1286,6 +1343,23 @@ namespace PersonalLogManager.Service
             if (log.Data.TryGetValue("get_out_time", out string getOutTime))
             {
                 text += $" at {getOutTime}";
+            }
+
+            return text;
+        }
+
+        static string BuildHairCuttingLogText(PersonalLog log)
+        {
+            string text = $"I have gotten my hair cut";
+
+            if (log.Data.TryGetValue("salon_name", out string salonName))
+            {
+                text += $" at {salonName}";
+            }
+
+            if (log.Data.TryGetValue("hairdresser_name", out string hairdresserName))
+            {
+                text += $", by {hairdresserName}";
             }
 
             return text;
@@ -1400,6 +1474,28 @@ namespace PersonalLogManager.Service
             return text;
         }
 
+        static string BuildTollPaymentLogText(PersonalLog log)
+        {
+            string text = $"I have paid a toll";
+
+            if (log.Data.TryGetValue("provider_name", out string providerName))
+            {
+                text += $" to {providerName}";
+            }
+
+            if (log.Data.TryGetValue("toll_location", out string tollLocation))
+            {
+                text += $" for {tollLocation}";
+            }
+
+            if (log.Data.TryGetValue("cost_amount", out string costAmount))
+            {
+                text += $", amounting to {costAmount} {log.Data["cost_currency"]}";
+            }
+
+            return text;
+        }
+
         static string BuildUtilityBillPaymentLogText(PersonalLog log)
         {
             log.Data.TryGetValue("utility_type", out string utilityType);
@@ -1419,6 +1515,34 @@ namespace PersonalLogManager.Service
             if (log.Data.TryGetValue("cost_amount", out string costAmount))
             {
                 text += $", amounting to {costAmount} {log.Data["cost_currency"]}";
+            }
+
+            return text;
+        }
+
+        static string BuildUtilityIndexMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("utility_type", out string utilityType);
+
+            if (string.IsNullOrWhiteSpace(utilityType))
+            {
+                utilityType = "utility";
+            }
+
+            string text = $"I have measured the {utilityType} index";
+
+            if (log.Data.TryGetValue("supply_point_number", out string supplyPointNumber))
+            {
+                text += $" for the {supplyPointNumber} supply point number";
+            }
+            else if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("index_value", out string indexValue))
+            {
+                text += $", obtaining a value of {indexValue}";
             }
 
             return text;
