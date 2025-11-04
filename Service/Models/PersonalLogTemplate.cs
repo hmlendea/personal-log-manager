@@ -4,6 +4,7 @@ namespace PersonalLogManager.Service.Models
     {
         Text,
         AccountActivation,
+        AccountBanning,
         AccountContactEmailAddressChange,
         AccountDataExport,
         AccountDataExportRequest,

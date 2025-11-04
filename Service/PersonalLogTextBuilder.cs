@@ -25,6 +25,10 @@ namespace PersonalLogManager.Service
             {
                 return BuildAccountActivationLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.AccountBanning))
+            {
+                return BuildAccountBanningLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.AccountContactEmailAddressChange))
             {
                 return BuildAccountContactEmailAddressChangeLogText(log);
@@ -297,6 +301,26 @@ namespace PersonalLogManager.Service
             if (!string.IsNullOrWhiteSpace(discriminator))
             {
                 text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        static string BuildAccountBanningLogText(PersonalLog log)
+        {
+            string text = $"The {log.Data["platform"]} account";
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            text += " has been banned";
+
+            if (log.Data.TryGetValue("ban_reason", out string banReason))
+            {
+                text += $" for the following reason: {banReason}";
             }
 
             return text;
