@@ -102,7 +102,10 @@ namespace PersonalLogManager.Service
             {
                 foreach (string parameter in request.Data.Keys)
                 {
-                    personalLog.Data[parameter] = request.Data[parameter];
+                    if (personalLog.Data.ContainsKey(parameter))
+                    {
+                        personalLog.Data[parameter] = request.Data[parameter];
+                    }
                 }
             }
 
