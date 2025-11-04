@@ -55,6 +55,7 @@ namespace PersonalLogManager.Service.Models
         DentalScaling,
         EmailExport,
         GettingOutOfBed,
+        HairCutting,
         InternshipApplicationSubmission,
         MealVoucherCardCreditation,
         ObjectSale,

@@ -229,6 +229,10 @@ namespace PersonalLogManager.Service
             {
                 return BuildGettingOutOfBedLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.HairCutting))
+            {
+                return BuildHairCuttingLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.InternshipApplicationSubmission))
             {
                 return BuildInternshipApplicationSubmissionLogText(log);
@@ -1286,6 +1290,23 @@ namespace PersonalLogManager.Service
             if (log.Data.TryGetValue("get_out_time", out string getOutTime))
             {
                 text += $" at {getOutTime}";
+            }
+
+            return text;
+        }
+
+        static string BuildHairCuttingLogText(PersonalLog log)
+        {
+            string text = $"I have gotten my hair cut";
+
+            if (log.Data.TryGetValue("salon_name", out string salonName))
+            {
+                text += $" at {salonName}";
+            }
+
+            if (log.Data.TryGetValue("hairdresser_name", out string hairdresserName))
+            {
+                text += $", by {hairdresserName}";
             }
 
             return text;
