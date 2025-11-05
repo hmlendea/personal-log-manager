@@ -260,6 +260,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildGameAchievementUnlockLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.GameBuildingLevelUpgrade))
+            {
+                return personalLogTextBuilder.BuildGameBuildingLevelUpgradeLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.GameConstructionBeginning))
             {
                 return personalLogTextBuilder.BuildGameConstructionLogText(log);
@@ -275,6 +279,10 @@ namespace PersonalLogManager.Service.TextBuilding
             else if (log.Template.Equals(PersonalLogTemplate.GameRankUp))
             {
                 return personalLogTextBuilder.BuildGameRankUpLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.GameStartedPlaying))
+            {
+                return personalLogTextBuilder.BuildGameStartedPlayingLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.GameLevelUp))
             {

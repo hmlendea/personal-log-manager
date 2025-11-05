@@ -1251,6 +1251,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGameBuildingLevelUpgradeLogText(PersonalLog log)
+        {
+            string text = $"Am ridicat clădirea {log.Data["building_name"]} la nivelul {log.Data["new_level"]} în {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" pe {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
         public string BuildGameConstructionLogText(PersonalLog log)
         {
             string text = $"Am construit {log.Data["construction_name"]} în {log.Data["game_name"]}";
@@ -1311,6 +1330,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildGameRankUpLogText(PersonalLog log)
         {
             string text = $"Am avansat la rangul {log.Data["new_rank"]} în {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" pe {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameStartedPlayingLogText(PersonalLog log)
+        {
+            string text = $"Am început să joc {log.Data["game_name"]}";
 
             if (log.Data.TryGetValue("platform", out string platform))
             {
