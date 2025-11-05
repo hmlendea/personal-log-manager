@@ -55,6 +55,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildDatingAppMatchLogText(PersonalLog log);
         string BuildDeliveryReceivalLogText(PersonalLog log);
         string BuildDentalScalingLogText(PersonalLog log);
+        string BuildDirectBilirubinMeasurementLogText(PersonalLog log);
         string BuildEmailExportLogText(PersonalLog log);
         string BuildEyeCheckupLogText(PersonalLog log);
         string BuildGameAchievementUnlockLogText(PersonalLog log);
@@ -64,6 +65,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildGettingOutOfBedLogText(PersonalLog log);
         string BuildHairCuttingLogText(PersonalLog log);
         string BuildHdlCholesterolMeasurementLogText(PersonalLog log);
+        string BuildIndirectBilirubinMeasurementLogText(PersonalLog log);
         string BuildInternshipApplicationSubmissionLogText(PersonalLog log);
         string BuildLdlCholesterolMeasurementLogText(PersonalLog log);
         string BuildMealVoucherCardCreditationLogText(PersonalLog log);

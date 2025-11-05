@@ -1082,6 +1082,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildDirectBilirubinMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "mg/dL";
+            }
+
+            return $"My direct bilirubin level measured {log.Data["direct_bilirubin_level"]} {unit}";
+        }
+
         public string BuildEmailExportLogText(PersonalLog log)
         {
             string text = $"I have exported all of the emails from the {log.Data["platform"]} account";
@@ -1253,6 +1265,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildIndirectBilirubinMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "mg/dL";
+            }
+
+            return $"My indirect bilirubin level measured {log.Data["indirect_bilirubin_level"]} {unit}";
+        }
+
         public string BuildLdlCholesterolMeasurementLogText(PersonalLog log)
         {
             log.Data.TryGetValue("unit", out string unit);
@@ -1262,9 +1286,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 unit = "mg/dL";
             }
 
-            string text = $"My LDL cholesterol level measured {log.Data["ldl_cholesterol_level"]} {unit}";
-
-            return text;
+            return $"My LDL cholesterol level measured {log.Data["ldl_cholesterol_level"]} {unit}";
         }
 
         public string BuildMealVoucherCardCreditationLogText(PersonalLog log)

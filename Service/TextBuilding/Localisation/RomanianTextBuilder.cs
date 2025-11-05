@@ -933,7 +933,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 unit = "mg/dL";
             }
 
-            return $"Nivelul glicemiei a fost măsurat la {log.Data["glucose_level"]} {unit}";
+            return $"Nivelul de glucoză a fost măsurat la {log.Data["glucose_level"]} {unit}";
         }
 
         public string BuildBodyWaterRateMeasurementLogText(PersonalLog log)
@@ -1108,6 +1108,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildDirectBilirubinMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "mg/dL";
+            }
+
+            return $"Nivelul de bilirubină directă a fost măsurat la {log.Data["direct_bilirubin_level"]} {unit}";
+        }
+
         public string BuildEmailExportLogText(PersonalLog log)
         {
             string text = $"Am exportat toate e-mail-urile din contul de {log.Data["platform"]}";
@@ -1242,9 +1254,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 unit = "mg/dL";
             }
 
-            string text = $"Nivelul de HDL Colesterol a fost măsurat la {log.Data["hdl_cholesterol_level"]} {unit}";
-
-            return text;
+            return $"Nivelul de HDL Colesterol a fost măsurat la {log.Data["hdl_cholesterol_level"]} {unit}";
         }
 
         public string BuildInternshipApplicationSubmissionLogText(PersonalLog log)
@@ -1269,6 +1279,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
 
             return text;
+        }
+
+        public string BuildIndirectBilirubinMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "mg/dL";
+            }
+
+            return $"Nivelul de bilirubină indirectă a fost măsurat la {log.Data["indirect_bilirubin_level"]} {unit}";
         }
 
         public string BuildLdlCholesterolMeasurementLogText(PersonalLog log)
@@ -1452,7 +1474,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 unit = "mg/dL";
             }
 
-            return $"Nivelul bilirubinei totale a fost măsurat la {log.Data["total_bilirubin_level"]} {unit}";
+            return $"Nivelul de bilirubină totală a fost măsurat la {log.Data["total_bilirubin_level"]} {unit}";
         }
 
         public string BuildTotalCholesterolMeasurementLogText(PersonalLog log)
@@ -1464,7 +1486,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 unit = unitValue;
             }
 
-            return $"Nivelul colesterolului total a fost măsurat la {log.Data["total_cholesterol_level"]} {unit}";
+            return $"Nivelul de colesterol total a fost măsurat la {log.Data["total_cholesterol_level"]} {unit}";
         }
 
         public string BuildUtilityBillPaymentLogText(PersonalLog log)
