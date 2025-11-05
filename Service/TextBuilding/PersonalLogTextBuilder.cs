@@ -898,6 +898,11 @@ namespace PersonalLogManager.Service.TextBuilding
 
             string text = $"My body weight measured {log.Data["body_weight"]} {unit}";
 
+            if (log.Data.TryGetValue("scale_name", out string scaleName))
+            {
+                text += $" on the scale {scaleName}";
+            }
+
             return text;
         }
 
@@ -1300,7 +1305,12 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("toll_location", out string tollLocation))
             {
-                text += $" for {tollLocation}";
+                text += $" at {tollLocation}";
+            }
+
+            if (log.Data.TryGetValue("vehicle_registration_number", out string vehicleRegistrationNumber))
+            {
+                text += $" for the vehicle with the registration number {vehicleRegistrationNumber}";
             }
 
             if (log.Data.TryGetValue("cost_amount", out string costAmount))
