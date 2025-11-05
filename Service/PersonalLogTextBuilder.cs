@@ -265,6 +265,10 @@ namespace PersonalLogManager.Service
             {
                 return BuildSwimmingActivityLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.TeethBrushing))
+            {
+                return BuildTeethBrushingLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.TollPayment))
             {
                 return BuildTollPaymentLogText(log);
@@ -1469,6 +1473,18 @@ namespace PersonalLogManager.Service
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
+            }
+
+            return text;
+        }
+
+        static string BuildTeethBrushingLogText(PersonalLog log)
+        {
+            string text = $"I have brushed my teeth";
+
+            if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
+            {
+                text += $" for {durationMinutes} minutes";
             }
 
             return text;

@@ -64,6 +64,7 @@ namespace PersonalLogManager.Service.Models
         OnlineReviewSubmission,
         OnlineStorePurchase,
         SwimmingActivity,
+        TeethBrushing,
         TollPayment,
         UtilityBillPayment,
         UtilityIndexMeasurement,
