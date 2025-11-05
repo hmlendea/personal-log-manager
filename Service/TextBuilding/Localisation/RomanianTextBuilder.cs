@@ -1436,6 +1436,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildKinetotherapySessionLogText(PersonalLog log)
+        {
+            string text = $"Am avut o ședință de kinetoterapie";
+
+            if (log.Data.TryGetValue("clinic_name", out string clinicName))
+            {
+                text += $" la {clinicName}";
+            }
+
+            return text;
+        }
+
         public string BuildLdlCholesterolMeasurementLogText(PersonalLog log)
         {
             log.Data.TryGetValue("unit", out string unit);
@@ -1563,6 +1575,35 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("scale_name", out string scaleName))
             {
                 text += $", pe cântarul {scaleName}";
+            }
+
+            return text;
+        }
+
+        public string BuildPhysiotherapySessionLogText(PersonalLog log)
+        {
+            string text = $"Am avut o ședință de fizioterapie";
+
+            if (log.Data.TryGetValue("clinic_name", out string clinicName))
+            {
+                text += $" la {clinicName}";
+            }
+
+            return text;
+        }
+
+        public string BuildPsychotherapySessionLogText(PersonalLog log)
+        {
+            string text = $"Am avut o ședință de psihoterapie";
+
+            if (log.Data.TryGetValue("clinic_name", out string clinicName))
+            {
+                text += $" la {clinicName}";
+            }
+
+            if (log.Data.TryGetValue("therapist_name", out string therapistName))
+            {
+                text += $", cu {therapistName}";
             }
 
             return text;

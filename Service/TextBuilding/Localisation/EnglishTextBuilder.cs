@@ -1418,6 +1418,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildKinetotherapySessionLogText(PersonalLog log)
+        {
+            string text = $"I have undergone a kinetotherapy session";
+
+            if (log.Data.TryGetValue("clinic_name", out string clinicName))
+            {
+                text += $" at {clinicName}";
+            }
+
+            return text;
+        }
+
         public string BuildLdlCholesterolMeasurementLogText(PersonalLog log)
         {
             log.Data.TryGetValue("unit", out string unit);
@@ -1540,6 +1552,35 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("scale_name", out string scaleName))
             {
                 text += $" on the scale {scaleName}";
+            }
+
+            return text;
+        }
+
+        public string BuildPhysiotherapySessionLogText(PersonalLog log)
+        {
+            string text = $"I have undergone a physiotherapy session";
+
+            if (log.Data.TryGetValue("clinic_name", out string clinicName))
+            {
+                text += $" at {clinicName}";
+            }
+
+            return text;
+        }
+
+        public string BuildPsychotherapySessionLogText(PersonalLog log)
+        {
+            string text = $"I have undergone a psychotherapy session";
+
+            if (log.Data.TryGetValue("clinic_name", out string clinicName))
+            {
+                text += $" at {clinicName}";
+            }
+
+            if (log.Data.TryGetValue("therapist_name", out string therapistName))
+            {
+                text += $", by {therapistName}";
             }
 
             return text;

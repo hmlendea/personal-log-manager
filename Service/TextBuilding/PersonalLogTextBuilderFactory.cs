@@ -308,6 +308,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildInternshipApplicationSubmissionLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.KinetotherapySession))
+            {
+                return personalLogTextBuilder.BuildKinetotherapySessionLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.LdlCholesterolMeasurement))
             {
                 return personalLogTextBuilder.BuildLdlCholesterolMeasurementLogText(log);
@@ -335,6 +339,14 @@ namespace PersonalLogManager.Service.TextBuilding
             else if (log.Template.Equals(PersonalLogTemplate.PetWeightMeasurement))
             {
                 return personalLogTextBuilder.BuildPetWeightMeasurementLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.PhysiotherapySession))
+            {
+                return personalLogTextBuilder.BuildPhysiotherapySessionLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.PsychotherapySession))
+            {
+                return personalLogTextBuilder.BuildPsychotherapySessionLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.SeriesEpisodeWatching))
             {
