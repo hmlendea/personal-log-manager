@@ -20,7 +20,7 @@ namespace PersonalLogManager.Api.Models
         public Dictionary<string, string> Data { get; set; }
 
         [HmacOrder(5)]
-        [Range(1, 10000)]
+        [Range(1, 100000)]
         public int Count { get; set; } = 1;
     }
 }
