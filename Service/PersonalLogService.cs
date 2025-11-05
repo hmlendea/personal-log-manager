@@ -7,11 +7,12 @@ using PersonalLogManager.Api.Models;
 using PersonalLogManager.Configuration;
 using PersonalLogManager.DataAccess.DataObjects;
 using PersonalLogManager.Service.Models;
+using PersonalLogManager.Service.TextBuilding;
 
 namespace PersonalLogManager.Service
 {
     public class PersonalLogService(
-        IPersonalLogTextBuilder logTextBuilder,
+        IPersonalLogTextBuilderFactory logTextBuilder,
         IFileRepository<PersonalLogEntity> repository,
         SecuritySettings securitySettings,
         IMapper mapper) : IPersonalLogService

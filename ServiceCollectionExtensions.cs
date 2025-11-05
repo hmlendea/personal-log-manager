@@ -7,6 +7,7 @@ using PersonalLogManager.Configuration;
 using PersonalLogManager.DataAccess;
 using PersonalLogManager.DataAccess.DataObjects;
 using PersonalLogManager.Service;
+using PersonalLogManager.Service.TextBuilding;
 
 namespace PersonalLogManager
 {
@@ -31,6 +32,7 @@ namespace PersonalLogManager
 
         public static IServiceCollection AddCustomServices(this IServiceCollection services) => services
             .AddSingleton<IFileRepository<PersonalLogEntity>>(x => new JsonRepository<PersonalLogEntity>(dataStoreSettings.TextLogStorePath))
+            .AddSingleton<IPersonalLogTextBuilderFactory, PersonalLogTextBuilderFactory>()
             .AddSingleton<IPersonalLogTextBuilder, PersonalLogTextBuilder>()
             .AddSingleton<IPersonalLogService, PersonalLogService>()
             .AddAutoMapper(typeof(DataAccessMappingProfile))
