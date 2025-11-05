@@ -1649,6 +1649,39 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildWakingUpLogText(PersonalLog log)
             => "M-am trezit";
 
+        public string BuildWeddingAttendanceLogText(PersonalLog log)
+        {
+            string text = $"Am participat la nunta lui";
+
+            log.Data.TryGetValue("bride_name", out string brideName);
+            log.Data.TryGetValue("groom_name", out string groomName);
+
+            if (!string.IsNullOrWhiteSpace(brideName) && !string.IsNullOrWhiteSpace(groomName))
+            {
+                text += $" {groomName} și {brideName}";
+            }
+            else if (!string.IsNullOrWhiteSpace(brideName))
+            {
+                text += $" {brideName}";
+            }
+            else if (!string.IsNullOrWhiteSpace(groomName))
+            {
+                text += $" {groomName}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" în {location}";
+            }
+
+            if (log.Data.TryGetValue("venue_name", out string venueName))
+            {
+                text += $" la {venueName}";
+            }
+
+            return text;
+        }
+
         public string BuildWorkFromTheOfficeLogText(PersonalLog log)
         {
             string text = $"Am lucrat de la birou";

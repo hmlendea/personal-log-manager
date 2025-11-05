@@ -1607,6 +1607,39 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildWakingUpLogText(PersonalLog log)
             => $"I have woken up";
 
+        public string BuildWeddingAttendanceLogText(PersonalLog log)
+        {
+            string text = $"I have attended the wedding of";
+
+            log.Data.TryGetValue("bride_name", out string brideName);
+            log.Data.TryGetValue("groom_name", out string groomName);
+
+            if (!string.IsNullOrWhiteSpace(brideName) && !string.IsNullOrWhiteSpace(groomName))
+            {
+                text += $" {groomName} and {brideName}";
+            }
+            else if (!string.IsNullOrWhiteSpace(brideName))
+            {
+                text += $" {brideName}";
+            }
+            else if (!string.IsNullOrWhiteSpace(groomName))
+            {
+                text += $" {groomName}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" in {location}";
+            }
+
+            if (log.Data.TryGetValue("venue_name", out string venueName))
+            {
+                text += $" at {venueName}";
+            }
+
+            return text;
+        }
+
         public string BuildWorkFromTheOfficeLogText(PersonalLog log)
         {
             string text = $"I have worked from the office";

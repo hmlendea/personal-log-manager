@@ -85,6 +85,7 @@ namespace PersonalLogManager.Service.Models
         UtilityIndexMeasurement,
         VideoUpload,
         WakingUp,
+        WeddingAttendance,
         WorkFromTheOffice
     }
 }

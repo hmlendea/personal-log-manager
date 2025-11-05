@@ -352,6 +352,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildWakingUpLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.WeddingAttendance))
+            {
+                return personalLogTextBuilder.BuildWeddingAttendanceLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.WorkFromTheOffice))
             {
                 return personalLogTextBuilder.BuildWorkFromTheOfficeLogText(log);

@@ -86,6 +86,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildUtilityIndexMeasurementLogText(PersonalLog log);
         string BuildVideoUploadLogText(PersonalLog log);
         string BuildWakingUpLogText(PersonalLog log);
+        string BuildWeddingAttendanceLogText(PersonalLog log);
         string BuildWorkFromTheOfficeLogText(PersonalLog log);
     }
 }
