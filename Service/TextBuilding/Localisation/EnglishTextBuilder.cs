@@ -1171,6 +1171,30 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildEventTicketPurchaseLogText(PersonalLog log)
+        {
+            string text = $"I have purchased a";
+
+            if (log.Data.TryGetValue("ticket_type", out string ticketType))
+            {
+                text += $" {ticketType}";
+            }
+
+            text += $"ticket for '{log.Data["event_name"]}'";
+
+            if (log.Data.TryGetValue("event_date", out string eventDate))
+            {
+                text += $" on {eventDate}";
+            }
+
+            if (log.Data.TryGetValue("event_location", out string eventLocation))
+            {
+                text += $" at {eventLocation}";
+            }
+
+            return text;
+        }
+
         public string BuildEyeCheckupLogText(PersonalLog log)
         {
             string text = $"I have undergone an eye checkup";
@@ -1717,6 +1741,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
             {
                 text += $" for {durationMinutes} minutes";
+            }
+
+            return text;
+        }
+
+        public string BuildStepCountMeasurementLogText(PersonalLog log)
+        {
+            string text = $"I have walked {log.Data["step_count"]} steps";
+
+            if (log.Data.TryGetValue("device_name", out string deviceName))
+            {
+                text += $", as measured by my {deviceName}";
             }
 
             return text;

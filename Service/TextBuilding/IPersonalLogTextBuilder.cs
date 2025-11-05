@@ -61,6 +61,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildDeviceRepairLogText(PersonalLog log);
         string BuildDirectBilirubinMeasurementLogText(PersonalLog log);
         string BuildEmailExportLogText(PersonalLog log);
+        string BuildEventTicketPurchaseLogText(PersonalLog log);
         string BuildEyeCheckupLogText(PersonalLog log);
         string BuildGameAchievementUnlockLogText(PersonalLog log);
         string BuildGameArticlePublishingLogText(PersonalLog log);
@@ -91,6 +92,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildPsychotherapySessionLogText(PersonalLog log);
         string BuildSeriesEpisodeWatchingLogText(PersonalLog log);
         string BuildShowerTakingLogText(PersonalLog log);
+        string BuildStepCountMeasurementLogText(PersonalLog log);
         string BuildSwimmingActivityLogText(PersonalLog log);
         string BuildTeethBrushingLogText(PersonalLog log);
         string BuildTollPaymentLogText(PersonalLog log);

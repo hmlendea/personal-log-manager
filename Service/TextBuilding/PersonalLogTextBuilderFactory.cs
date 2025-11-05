@@ -252,6 +252,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildEmailExportLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.EventTicketPurchase))
+            {
+                return personalLogTextBuilder.BuildEventTicketPurchaseLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.EyeCheckup))
             {
                 return personalLogTextBuilder.BuildEyeCheckupLogText(log);
@@ -371,6 +375,10 @@ namespace PersonalLogManager.Service.TextBuilding
             else if (log.Template.Equals(PersonalLogTemplate.ShowerTaking))
             {
                 return personalLogTextBuilder.BuildShowerTakingLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.StepCountMeasurement))
+            {
+                return personalLogTextBuilder.BuildStepCountMeasurementLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.SwimmingActivity))
             {

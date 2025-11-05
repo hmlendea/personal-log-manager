@@ -1199,6 +1199,30 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildEventTicketPurchaseLogText(PersonalLog log)
+        {
+            string text = $"Am cumpărat bilet";
+
+            if (log.Data.TryGetValue("ticket_type", out string ticketType))
+            {
+                text += $" {ticketType}";
+            }
+
+            text += $"pentru '{log.Data["event_name"]}'";
+
+            if (log.Data.TryGetValue("event_date", out string eventDate))
+            {
+                text += $" pe {eventDate}";
+            }
+
+            if (log.Data.TryGetValue("event_location", out string eventLocation))
+            {
+                text += $" la {eventLocation}";
+            }
+
+            return text;
+        }
+
         public string BuildEyeCheckupLogText(PersonalLog log)
         {
             string text = $"Am efectuat un control oftalmologic";
@@ -1740,6 +1764,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
             {
                 text += $" timp de {durationMinutes} minute";
+            }
+
+            return text;
+        }
+
+        public string BuildStepCountMeasurementLogText(PersonalLog log)
+        {
+            string text = $"Am umblat {log.Data["step_count"]} de pași";
+
+            if (log.Data.TryGetValue("device_name", out string deviceName))
+            {
+                text += $", conform măsurătorilor făcute de {deviceName}";
             }
 
             return text;
