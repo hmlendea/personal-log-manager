@@ -17,7 +17,7 @@ namespace PersonalLogManager.Api.Models
         public string Template { get; set; }
 
         [HmacOrder(4)]
-        public string Localisation { get; set; }
+        public string Localisation { get; set; } = "en";
 
         [HmacOrder(5)]
         public Dictionary<string, string> Data { get; set; }

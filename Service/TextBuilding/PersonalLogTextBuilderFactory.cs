@@ -342,9 +342,11 @@ namespace PersonalLogManager.Service.TextBuilding
 
         static IPersonalLogTextBuilder GetTextBuilder(string localisation)
         {
-            if (localisation.Equals("ro-RO", StringComparison.InvariantCultureIgnoreCase))
+            if (localisation.Equals("ro-RO", StringComparison.InvariantCultureIgnoreCase) ||
+                localisation.Equals("ro-MD", StringComparison.InvariantCultureIgnoreCase) ||
+                localisation.Equals("ro", StringComparison.InvariantCultureIgnoreCase))
             {
-                return new EnglishTextBuilder();
+                return new RomanianTextBuilder();
             }
 
             return new EnglishTextBuilder();
