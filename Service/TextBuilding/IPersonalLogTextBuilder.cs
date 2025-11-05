@@ -59,6 +59,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildEmailExportLogText(PersonalLog log);
         string BuildEyeCheckupLogText(PersonalLog log);
         string BuildGameAchievementUnlockLogText(PersonalLog log);
+        string BuildGameConstructionLogText(PersonalLog log);
         string BuildGameConstructionBeginningLogText(PersonalLog log);
         string BuildGameConstructionCompletionLogText(PersonalLog log);
         string BuildGameRankUpLogText(PersonalLog log);

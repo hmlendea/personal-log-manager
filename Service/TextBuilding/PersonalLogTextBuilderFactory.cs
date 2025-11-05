@@ -246,6 +246,10 @@ namespace PersonalLogManager.Service.TextBuilding
             }
             else if (log.Template.Equals(PersonalLogTemplate.GameConstructionBeginning))
             {
+                return personalLogTextBuilder.BuildGameConstructionLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.GameConstruction))
+            {
                 return personalLogTextBuilder.BuildGameConstructionBeginningLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.GameConstructionCompletion))

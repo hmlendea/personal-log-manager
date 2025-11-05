@@ -58,6 +58,7 @@ namespace PersonalLogManager.Service.Models
         EmailExport,
         EyeCheckup,
         GameAchievementUnlock,
+        GameConstruction,
         GameConstructionBeginning,
         GameConstructionCompletion,
         GameRankUp,
