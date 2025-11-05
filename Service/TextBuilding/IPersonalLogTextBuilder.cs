@@ -17,6 +17,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildAccountDeletionRequestLogText(PersonalLog log);
         string BuildAccountDeletionRequestCancellationLogText(PersonalLog log);
         string BuildAccountDeletionRequestFulfillmentLogText(PersonalLog log);
+        string BuildAccountDeletionRequestRejectionLogText(PersonalLog log);
         string BuildAccountDeletionValidationLogText(PersonalLog log);
         string BuildAccountEmailAddressChangeLogText(PersonalLog log);
         string BuildAccountEmailAddressChangeRequestLogText(PersonalLog log);
@@ -39,6 +40,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildAccountRegistrationLogText(PersonalLog log);
         string BuildAccountRegistrationRequestLogText(PersonalLog log);
         string BuildAccountRegistrationRequestFulfillmentLogText(PersonalLog log);
+        string BuildAccountSecurityQuestionsChangeLogText(PersonalLog log);
         string BuildAccountSubscriptionPurchaseLogText(PersonalLog log);
         string BuildAccountUnlinkingLogText(PersonalLog log);
         string BuildAccountUsernameChangeLogText(PersonalLog log);

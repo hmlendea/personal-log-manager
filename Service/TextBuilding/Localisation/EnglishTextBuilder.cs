@@ -263,6 +263,31 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildAccountDeletionRequestRejectionLogText(PersonalLog log)
+        {
+            string text = $"My account deletion request for the {log.Data["platform"]} account";
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $" with the {requestId} identification code";
+            }
+
+            if (log.Data.TryGetValue("request_date", out string requestDate))
+            {
+                text += $", sent on {requestDate},";
+            }
+
+            text += " has been rejected";
+
+            return text;
+        }
+
         public string BuildAccountDeletionValidationLogText(PersonalLog log)
         {
             string text = $"I have validated that the {log.Data["platform"]} account";
@@ -798,6 +823,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
 
             text += " has been fulfilled";
+
+            return text;
+        }
+
+        public string BuildAccountSecurityQuestionsChangeLogText(PersonalLog log)
+        {
+            string text = $"I have changed the security questions for the {log.Data["platform"]} account";
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
 
             return text;
         }

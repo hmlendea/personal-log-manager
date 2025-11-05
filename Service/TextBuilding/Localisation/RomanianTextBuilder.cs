@@ -268,6 +268,31 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildAccountDeletionRequestRejectionLogText(PersonalLog log)
+        {
+            string text = $"Cererea de ștergere a contului de {log.Data["platform"]}";
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $" cu codul de identificare {requestId}";
+            }
+
+            if (log.Data.TryGetValue("request_date", out string requestDate))
+            {
+                text += $", trimisă pe {requestDate},";
+            }
+
+            text += " a fost respinsă";
+
+            return text;
+        }
+
         public string BuildAccountDeletionValidationLogText(PersonalLog log)
         {
             string text = $"Am verificat că a fost șters contul de {log.Data["platform"]}";
@@ -802,6 +827,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
 
             text += " a fost îndeplinită";
+
+            return text;
+        }
+
+        public string BuildAccountSecurityQuestionsChangeLogText(PersonalLog log)
+        {
+            string text = $"Am schimbat întrebările de securitate ale contului de {log.Data["platform"]}";
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
 
             return text;
         }

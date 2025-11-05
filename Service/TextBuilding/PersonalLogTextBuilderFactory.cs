@@ -76,6 +76,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildAccountDeletionRequestFulfillmentLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.AccountDeletionRequestRejection))
+            {
+                return personalLogTextBuilder.BuildAccountDeletionRequestRejectionLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.AccountDeletionValidation))
             {
                 return personalLogTextBuilder.BuildAccountDeletionValidationLogText(log);
@@ -163,6 +167,10 @@ namespace PersonalLogManager.Service.TextBuilding
             else if (log.Template.Equals(PersonalLogTemplate.AccountRegistrationRequestFulfillment))
             {
                 return personalLogTextBuilder.BuildAccountRegistrationRequestFulfillmentLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.AccountSecurityQuestionsChange))
+            {
+                return personalLogTextBuilder.BuildAccountSecurityQuestionsChangeLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.AccountSubscriptionPurchase))
             {
