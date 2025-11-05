@@ -1086,6 +1086,9 @@ namespace PersonalLogManager.Service.TextBuilding
             return text;
         }
 
+        public string BuildGettingInToBedLogText(PersonalLog log)
+            => $"I have gotten in to bed";
+
         public string BuildGettingOutOfBedLogText(PersonalLog log)
         {
             string text = $"I have gotten out of bed";
