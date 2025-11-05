@@ -1161,6 +1161,20 @@ namespace PersonalLogManager.Service.TextBuilding
             return text;
         }
 
+        public string BuildHdlCholesterolMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "mg/dL";
+            }
+
+            string text = $"My HDL cholesterol level measured {log.Data["hdl_cholesterol_level"]} {unit}";
+
+            return text;
+        }
+
         public string BuildInternshipApplicationSubmissionLogText(PersonalLog log)
         {
             string internshipType = "internship";
@@ -1186,6 +1200,20 @@ namespace PersonalLogManager.Service.TextBuilding
             }
 
             text = text.Replace("an summer", "a summer");
+
+            return text;
+        }
+
+        public string BuildLdlCholesterolMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "mg/dL";
+            }
+
+            string text = $"My LDL cholesterol level measured {log.Data["ldl_cholesterol_level"]} {unit}";
 
             return text;
         }
@@ -1338,6 +1366,30 @@ namespace PersonalLogManager.Service.TextBuilding
             }
 
             return text;
+        }
+
+        public string BuildTotalBilirubinMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "mg/dL";
+            }
+
+            return $"My total bilirubin level measured {log.Data["total_bilirubin_level"]} {unit}";
+        }
+
+        public string BuildTotalCholesterolMeasurementLogText(PersonalLog log)
+        {
+            string unit = "mg/dL";
+
+            if (log.Data.TryGetValue("unit", out string unitValue))
+            {
+                unit = unitValue;
+            }
+
+            return $"My cholesterol level measured {log.Data["total_cholesterol_level"]} {unit}";
         }
 
         public string BuildUtilityBillPaymentLogText(PersonalLog log)

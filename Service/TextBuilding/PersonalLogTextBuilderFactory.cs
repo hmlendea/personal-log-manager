@@ -256,9 +256,17 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildHairCuttingLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.HdlCholesterolMeasurement))
+            {
+                return personalLogTextBuilder.BuildHdlCholesterolMeasurementLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.InternshipApplicationSubmission))
             {
                 return personalLogTextBuilder.BuildInternshipApplicationSubmissionLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.LdlCholesterolMeasurement))
+            {
+                return personalLogTextBuilder.BuildLdlCholesterolMeasurementLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.MealVoucherCardCreditation))
             {
@@ -276,6 +284,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildOnlineStorePurchaseLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.PetWeightMeasurement))
+            {
+                return personalLogTextBuilder.BuildPetWeightMeasurementLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.ShowerTaking))
             {
                 return personalLogTextBuilder.BuildShowerTakingLogText(log);
@@ -291,6 +303,14 @@ namespace PersonalLogManager.Service.TextBuilding
             else if (log.Template.Equals(PersonalLogTemplate.TollPayment))
             {
                 return personalLogTextBuilder.BuildTollPaymentLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.TotalBilirubinMeasurement))
+            {
+                return personalLogTextBuilder.BuildTotalBilirubinMeasurementLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.TotalCholesterolMeasurement))
+            {
+                return personalLogTextBuilder.BuildTotalCholesterolMeasurementLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.UtilityBillPayment))
             {
