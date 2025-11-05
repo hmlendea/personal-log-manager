@@ -1146,6 +1146,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildDeviceRepairLogText(PersonalLog log)
+        {
+            string text = $"Am reparat {log.Data["device_type"]}";
+
+            if (log.Data.TryGetValue("device_name", out string deviceName))
+            {
+                text += $" ({deviceName})";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" din {location}";
+            }
+
+            return text;
+        }
+
         public string BuildDirectBilirubinMeasurementLogText(PersonalLog log)
         {
             log.Data.TryGetValue("unit", out string unit);

@@ -57,6 +57,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildDatingAppMatchLogText(PersonalLog log);
         string BuildDeliveryReceivalLogText(PersonalLog log);
         string BuildDentalScalingLogText(PersonalLog log);
+        string BuildDeviceRepairLogText(PersonalLog log);
         string BuildDirectBilirubinMeasurementLogText(PersonalLog log);
         string BuildEmailExportLogText(PersonalLog log);
         string BuildEyeCheckupLogText(PersonalLog log);

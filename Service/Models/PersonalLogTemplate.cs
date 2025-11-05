@@ -56,6 +56,7 @@ namespace PersonalLogManager.Service.Models
         DatingAppMatch,
         DeliveryReceival,
         DentalScaling,
+        DeviceRepair,
         DirectBilirubinMeasurement,
         EmailExport,
         EyeCheckup,

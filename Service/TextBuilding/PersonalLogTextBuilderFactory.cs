@@ -236,6 +236,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildDentalScalingLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.DeviceRepair))
+            {
+                return personalLogTextBuilder.BuildDeviceRepairLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.DirectBilirubinMeasurement))
             {
                 return personalLogTextBuilder.BuildDirectBilirubinMeasurementLogText(log);
