@@ -61,6 +61,8 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildGameAchievementUnlockLogText(PersonalLog log);
         string BuildGameConstructionBeginningLogText(PersonalLog log);
         string BuildGameConstructionCompletionLogText(PersonalLog log);
+        string BuildGameRankUpLogText(PersonalLog log);
+        string BuildGameLevelUpLogText(PersonalLog log);
         string BuildGettingInToBedLogText(PersonalLog log);
         string BuildGettingOutOfBedLogText(PersonalLog log);
         string BuildHairCuttingLogText(PersonalLog log);

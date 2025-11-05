@@ -1199,6 +1199,44 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGameRankUpLogText(PersonalLog log)
+        {
+            string text = $"I have ranked up to {log.Data["new_rank"]} in {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameLevelUpLogText(PersonalLog log)
+        {
+            string text = $"I have reached level {log.Data["new_level"]} in {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
         public string BuildGettingInToBedLogText(PersonalLog log)
             => $"I have gotten in to bed";
 
@@ -1236,6 +1274,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildIndirectBilirubinMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "mg/dL";
+            }
+
+            return $"My indirect bilirubin level measured {log.Data["indirect_bilirubin_level"]} {unit}";
+        }
+
         public string BuildInternshipApplicationSubmissionLogText(PersonalLog log)
         {
             string internshipType = "internship";
@@ -1263,18 +1313,6 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             text = text.Replace("an summer", "a summer");
 
             return text;
-        }
-
-        public string BuildIndirectBilirubinMeasurementLogText(PersonalLog log)
-        {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "mg/dL";
-            }
-
-            return $"My indirect bilirubin level measured {log.Data["indirect_bilirubin_level"]} {unit}";
         }
 
         public string BuildLdlCholesterolMeasurementLogText(PersonalLog log)

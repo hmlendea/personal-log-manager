@@ -60,6 +60,8 @@ namespace PersonalLogManager.Service.Models
         GameAchievementUnlock,
         GameConstructionBeginning,
         GameConstructionCompletion,
+        GameRankUp,
+        GameLevelUp,
         GettingInToBed,
         GettingOutOfBed,
         HairCutting,

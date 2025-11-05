@@ -228,6 +228,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildDentalScalingLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.DirectBilirubinMeasurement))
+            {
+                return personalLogTextBuilder.BuildDirectBilirubinMeasurementLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.EmailExport))
             {
                 return personalLogTextBuilder.BuildEmailExportLogText(log);
@@ -248,6 +252,14 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildGameConstructionCompletionLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.GameRankUp))
+            {
+                return personalLogTextBuilder.BuildGameRankUpLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.GameLevelUp))
+            {
+                return personalLogTextBuilder.BuildGameLevelUpLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.GettingInToBed))
             {
                 return personalLogTextBuilder.BuildGettingInToBedLogText(log);
@@ -263,6 +275,10 @@ namespace PersonalLogManager.Service.TextBuilding
             else if (log.Template.Equals(PersonalLogTemplate.HdlCholesterolMeasurement))
             {
                 return personalLogTextBuilder.BuildHdlCholesterolMeasurementLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.IndirectBilirubinMeasurement))
+            {
+                return personalLogTextBuilder.BuildIndirectBilirubinMeasurementLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.InternshipApplicationSubmission))
             {

@@ -1222,6 +1222,44 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGameRankUpLogText(PersonalLog log)
+        {
+            string text = $"Am avansat la rangul {log.Data["new_rank"]} în {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" pe {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameLevelUpLogText(PersonalLog log)
+        {
+            string text = $"Am avansat la nivelul {log.Data["new_level"]} în {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" pe {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
         public string BuildGettingInToBedLogText(PersonalLog log)
             => $"M-am pus în pat";
 
@@ -1257,6 +1295,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return $"Nivelul de HDL Colesterol a fost măsurat la {log.Data["hdl_cholesterol_level"]} {unit}";
         }
 
+        public string BuildIndirectBilirubinMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "mg/dL";
+            }
+
+            return $"Nivelul de bilirubină indirectă a fost măsurat la {log.Data["indirect_bilirubin_level"]} {unit}";
+        }
+
         public string BuildInternshipApplicationSubmissionLogText(PersonalLog log)
         {
             string internshipType = "internship";
@@ -1279,18 +1329,6 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
 
             return text;
-        }
-
-        public string BuildIndirectBilirubinMeasurementLogText(PersonalLog log)
-        {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "mg/dL";
-            }
-
-            return $"Nivelul de bilirubină indirectă a fost măsurat la {log.Data["indirect_bilirubin_level"]} {unit}";
         }
 
         public string BuildLdlCholesterolMeasurementLogText(PersonalLog log)
