@@ -1251,6 +1251,53 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGameArticlePublishingLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("game_name", out string gameName);
+            string text = $"Am public un articol intitulat '{log.Data["article_title"]}' în {gameName}";
+
+            if (gameName?.Equals("eRepublik") == true)
+            {
+                if (log.Data.TryGetValue("newspaper_name", out string newspaperName))
+                {
+                    text += $" în ziarul '{newspaperName}'";
+                }
+            }
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" pe {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameBuildingBoughtLogText(PersonalLog log)
+        {
+            string text = $"Am cumpărat clădirea {log.Data["building_name"]} în {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" pe {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
         public string BuildGameBuildingLevelUpgradeLogText(PersonalLog log)
         {
             string text = $"Am ridicat clădirea {log.Data["building_name"]} la nivelul {log.Data["new_level"]} în {log.Data["game_name"]}";

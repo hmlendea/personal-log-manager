@@ -1226,6 +1226,53 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGameArticlePublishingLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("game_name", out string gameName);
+            string text = $"I have published an article titled '{log.Data["article_title"]}' in the game {gameName}";
+
+            if (gameName?.Equals("eRepublik") == true)
+            {
+                if (log.Data.TryGetValue("newspaper_name", out string newspaperName))
+                {
+                    text += $" in the '{newspaperName}' newspaper";
+                }
+            }
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameBuildingBoughtLogText(PersonalLog log)
+        {
+            string text = $"I have bought {log.Data["building_name"]} in the game {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
         public string BuildGameBuildingLevelUpgradeLogText(PersonalLog log)
         {
             string text = $"I have upgraded {log.Data["building_name"]} to level {log.Data["new_level"]} in the game {log.Data["game_name"]}";

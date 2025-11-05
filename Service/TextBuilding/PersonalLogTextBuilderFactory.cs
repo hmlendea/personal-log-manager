@@ -260,6 +260,14 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildGameAchievementUnlockLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.GameArticlePublishing))
+            {
+                return personalLogTextBuilder.BuildGameArticlePublishingLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.GameBuildingBought))
+            {
+                return personalLogTextBuilder.BuildGameBuildingBoughtLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.GameBuildingLevelUpgrade))
             {
                 return personalLogTextBuilder.BuildGameBuildingLevelUpgradeLogText(log);
