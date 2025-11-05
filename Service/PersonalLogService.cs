@@ -62,7 +62,7 @@ namespace PersonalLogManager.Service
             {
                 foreach (string dataKey in request.Data.Keys)
                 {
-                    logs = logs.Where(log => log.Data.ContainsKey(dataKey) && log.Data[dataKey].Equals(request.Data[dataKey], StringComparison.OrdinalIgnoreCase));
+                    logs = logs.Where(log => log.Data is not null && log.Data.ContainsKey(dataKey) && log.Data[dataKey].Equals(request.Data[dataKey], StringComparison.OrdinalIgnoreCase));
                 }
             }
 
@@ -103,10 +103,7 @@ namespace PersonalLogManager.Service
             {
                 foreach (string parameter in request.Data.Keys)
                 {
-                    if (personalLog.Data.ContainsKey(parameter))
-                    {
-                        personalLog.Data[parameter] = request.Data[parameter];
-                    }
+                    personalLog.Data[parameter] = request.Data[parameter];
                 }
             }
 
