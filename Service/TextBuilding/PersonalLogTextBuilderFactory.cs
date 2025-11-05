@@ -260,6 +260,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildOnlineStorePurchaseLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.ShowerTaking))
+            {
+                return personalLogTextBuilder.BuildShowerTakingLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.SwimmingActivity))
             {
                 return personalLogTextBuilder.BuildSwimmingActivityLogText(log);

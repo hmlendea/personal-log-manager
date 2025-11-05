@@ -63,6 +63,7 @@ namespace PersonalLogManager.Service.Models
         ObjectSale,
         OnlineReviewSubmission,
         OnlineStorePurchase,
+        ShowerTaking,
         SwimmingActivity,
         TeethBrushing,
         TollPayment,

@@ -5,139 +5,73 @@ namespace PersonalLogManager.Service.TextBuilding
     public interface IPersonalLogTextBuilder
     {
         string BuildAccountActivationLogText(PersonalLog log);
-
         string BuildAccountBanningLogText(PersonalLog log);
-
         string BuildAccountContactEmailAddressChangeLogText(PersonalLog log);
-
         string BuildAccountDataExportLogText(PersonalLog log);
-
         string BuildAccountDataExportRequestLogText(PersonalLog log);
-
         string BuildAccountDataExportRequestFulfillmentLogText(PersonalLog log);
-
         string BuildAccountDataExportSaveLogText(PersonalLog log);
-
         string BuildAccountDataObfuscationLogText(PersonalLog log);
-
         string BuildAccountDeactivationLogText(PersonalLog log);
-
         string BuildAccountDeletionLogText(PersonalLog log);
-
         string BuildAccountDeletionRequestLogText(PersonalLog log);
-
         string BuildAccountDeletionRequestCancellationLogText(PersonalLog log);
-
         string BuildAccountDeletionRequestFulfillmentLogText(PersonalLog log);
-
         string BuildAccountDeletionValidationLogText(PersonalLog log);
-
         string BuildAccountEmailAddressChangeLogText(PersonalLog log);
-
         string BuildAccountEmailAddressChangeRequestLogText(PersonalLog log);
-
         string BuildAccountEmailAddressChangeRequestFulfillmentLogText(PersonalLog log);
-
         string BuildAccountEmailAddressConfirmationLogText(PersonalLog log);
-
         string BuildAccountFeatureEnablementLogText(PersonalLog log);
-
         string BuildAccountFeatureDisablementLogText(PersonalLog log);
-
         string BuildAccountFriendshipRequestReceivalLogText(PersonalLog log);
-
         string BuildAccountIdentityVerificationLogText(PersonalLog log);
-
         string BuildAccountLinkingLogText(PersonalLog log);
-
         string BuildAccountMessagesErasureLogText(PersonalLog log);
-
         string BuildAccountPasswordChangeLogText(PersonalLog log);
-
         string BuildAccountPersonalNameChangeLogText(PersonalLog log);
-
         string BuildAccountPhoneNumberAdditionLogText(PersonalLog log);
-
         string BuildAccountPhoneNumberChangeLogText(PersonalLog log);
-
         string BuildAccountPhoneNumberRemovalLogText(PersonalLog log);
-
         string BuildAccountProfilePictureChangeLogText(PersonalLog log);
-
         string BuildAccountRecoveryLogText(PersonalLog log);
-
         string BuildAccountRecoveryEmailAddressChangeLogText(PersonalLog log);
-
         string BuildAccountRegistrationLogText(PersonalLog log);
-
         string BuildAccountRegistrationRequestLogText(PersonalLog log);
-
         string BuildAccountRegistrationRequestFulfillmentLogText(PersonalLog log);
-
         string BuildAccountSubscriptionPurchaseLogText(PersonalLog log);
-
         string BuildAccountUnlinkingLogText(PersonalLog log);
-
         string BuildAccountUsernameChangeLogText(PersonalLog log);
-
         string BuildAccountVisibilityMadePrivateLogText(PersonalLog log);
-
         string BuildAccountVisibilityMadePublicLogText(PersonalLog log);
-
         string BuildBloodDonationLogText(PersonalLog log);
-
         string BuildBloodGlucoseMeasurementLogText(PersonalLog log);
-
         string BuildBodyWaterRateMeasurementLogText(PersonalLog log);
-
         string BuildBodyWeightMeasurementLogText(PersonalLog log);
-
         string BuildChatGroupCreationLogText(PersonalLog log);
-
         string BuildChatGroupDeletionLogText(PersonalLog log);
-
         string BuildChatGroupJoiningLogText(PersonalLog log);
-
         string BuildChatGroupLeavingLogText(PersonalLog log);
-
         string BuildDatingAppMatchLogText(PersonalLog log);
-
         string BuildDeliveryReceivalLogText(PersonalLog log);
-
         string BuildDentalScalingLogText(PersonalLog log);
-
         string BuildEmailExportLogText(PersonalLog log);
-
         string BuildEyeCheckupLogText(PersonalLog log);
-
         string BuildGettingOutOfBedLogText(PersonalLog log);
-
         string BuildHairCuttingLogText(PersonalLog log);
-
         string BuildInternshipApplicationSubmissionLogText(PersonalLog log);
-
         string BuildMealVoucherCardCreditationLogText(PersonalLog log);
-
         string BuildObjectSaleLogText(PersonalLog log);
-
         string BuildOnlineReviewSubmissionLogText(PersonalLog log);
-
         string BuildOnlineStorePurchaseLogText(PersonalLog log);
-
+        string BuildShowerTakingLogText(PersonalLog log);
         string BuildSwimmingActivityLogText(PersonalLog log);
-
         string BuildTeethBrushingLogText(PersonalLog log);
-
         string BuildTollPaymentLogText(PersonalLog log);
-
         string BuildUtilityBillPaymentLogText(PersonalLog log);
-
         string BuildUtilityIndexMeasurementLogText(PersonalLog log);
-
         string BuildVideoUploadLogText(PersonalLog log);
-
         string BuildWakingUpLogText(PersonalLog log);
-
         string BuildWorkFromTheOfficeLogText(PersonalLog log);
     }
 }

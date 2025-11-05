@@ -1174,6 +1174,18 @@ namespace PersonalLogManager.Service.TextBuilding
             return text;
         }
 
+        public string BuildShowerTakingLogText(PersonalLog log)
+        {
+            string text = $"I have taken a shower";
+
+            if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
+            {
+                text += $" for {durationMinutes} minutes";
+            }
+
+            return text;
+        }
+
         public string BuildSwimmingActivityLogText(PersonalLog log)
         {
             string text = $"I have gone swimming";
