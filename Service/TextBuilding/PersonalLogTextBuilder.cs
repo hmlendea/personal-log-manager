@@ -1258,6 +1258,25 @@ namespace PersonalLogManager.Service.TextBuilding
             return text;
         }
 
+        public string BuildPetWeightMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "kg";
+            }
+
+            string text = $"The weight of my pet {log.Data["pet_name"]} measured {log.Data["pet_weight"]} {unit}";
+
+            if (log.Data.TryGetValue("scale_name", out string scaleName))
+            {
+                text += $" on the scale {scaleName}";
+            }
+
+            return text;
+        }
+
         public string BuildShowerTakingLogText(PersonalLog log)
         {
             string text = $"I have taken a shower";

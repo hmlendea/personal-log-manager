@@ -68,6 +68,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildObjectSaleLogText(PersonalLog log);
         string BuildOnlineReviewSubmissionLogText(PersonalLog log);
         string BuildOnlineStorePurchaseLogText(PersonalLog log);
+        string BuildPetWeightMeasurementLogText(PersonalLog log);
         string BuildShowerTakingLogText(PersonalLog log);
         string BuildSwimmingActivityLogText(PersonalLog log);
         string BuildTeethBrushingLogText(PersonalLog log);

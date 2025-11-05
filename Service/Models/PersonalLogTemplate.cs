@@ -67,6 +67,7 @@ namespace PersonalLogManager.Service.Models
         ObjectSale,
         OnlineReviewSubmission,
         OnlineStorePurchase,
+        PetWeightMeasurement,
         ShowerTaking,
         SwimmingActivity,
         TeethBrushing,
