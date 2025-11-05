@@ -296,6 +296,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildMealVoucherCardCreditationLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.MovieWatching))
+            {
+                return personalLogTextBuilder.BuildMovieWatchingLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.ObjectSale))
             {
                 return personalLogTextBuilder.BuildObjectSaleLogText(log);
@@ -311,6 +315,10 @@ namespace PersonalLogManager.Service.TextBuilding
             else if (log.Template.Equals(PersonalLogTemplate.PetWeightMeasurement))
             {
                 return personalLogTextBuilder.BuildPetWeightMeasurementLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.SeriesEpisodeWatching))
+            {
+                return personalLogTextBuilder.BuildSeriesEpisodeWatchingLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.ShowerTaking))
             {

@@ -1353,6 +1353,34 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildMovieWatchingLogText(PersonalLog log)
+        {
+            string text = $"I have watched the movie '{log.Data["movie_name"]}'";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
+
+                if (log.Data.TryGetValue("location", out string location))
+                {
+                    text += $" at {location}";
+                }
+            }
+            else if (log.Data.TryGetValue("cinema_name", out string cinemaName))
+            {
+                text += $" at {cinemaName}";
+            }
+
+            return text;
+        }
+
         public string BuildObjectSaleLogText(PersonalLog log)
         {
             string text = $"I have sold the {log.Data["object_name"]}";
@@ -1428,6 +1456,45 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("scale_name", out string scaleName))
             {
                 text += $" on the scale {scaleName}";
+            }
+
+            return text;
+        }
+
+        public string BuildSeriesEpisodeWatchingLogText(PersonalLog log)
+        {
+            string text = $"I have watched the episode {log.Data["episode_number"]}";
+
+            if (log.Data.TryGetValue("episode_name", out string episodeName))
+            {
+                text += $" '{episodeName}'";
+            }
+
+            if (log.Data.TryGetValue("season_number", out string seasonNumber))
+            {
+                text += $" of season {seasonNumber}";
+            }
+
+            if (log.Data.TryGetValue("series_name", out string seriesName))
+            {
+                text += $" from the series '{seriesName}'";
+            }
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
+
+            }
+            else if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
             }
 
             return text;

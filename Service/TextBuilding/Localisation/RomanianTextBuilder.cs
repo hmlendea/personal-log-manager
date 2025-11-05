@@ -1367,6 +1367,29 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildMealVoucherCardCreditationLogText(PersonalLog log)
             => $"Cardul de bonuri de masă a fost creditat cu {log.Data["amount"]} {log.Data["currency"]}";
 
+        public string BuildMovieWatchingLogText(PersonalLog log)
+        {
+            string text = $"Am vizionat filmul '{log.Data["movie_name"]}'";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" pe {platform}";
+
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
+            }
+            else if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            return text;
+        }
+
         public string BuildObjectSaleLogText(PersonalLog log)
         {
             string text = $"Am vândut {log.Data["object_name"]}";
@@ -1454,6 +1477,45 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("scale_name", out string scaleName))
             {
                 text += $", pe cântarul {scaleName}";
+            }
+
+            return text;
+        }
+
+        public string BuildSeriesEpisodeWatchingLogText(PersonalLog log)
+        {
+            string text = $"Am vizionat episodul #{log.Data["episode_number"]}";
+
+            if (log.Data.TryGetValue("episode_name", out string episodeName))
+            {
+                text += $" '{episodeName}'";
+            }
+
+            if (log.Data.TryGetValue("season_number", out string seasonNumber))
+            {
+                text += $" din sezonul {seasonNumber}";
+            }
+
+            if (log.Data.TryGetValue("series_name", out string seriesName))
+            {
+                text += $" din '{seriesName}'";
+            }
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" pe {platform}";
+
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
+
+            }
+            else if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
             }
 
             return text;
