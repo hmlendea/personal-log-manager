@@ -974,6 +974,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return $"Nivelul de glucoză a fost măsurat la {log.Data["glucose_level"]} {unit}";
         }
 
+        public string BuildBloodPressureMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "mmHg";
+            }
+
+            return $"Tensiunea arterială a fost măsurată la {log.Data["systolic_pressure"]}/{log.Data["diastolic_pressure"]} {unit}";
+        }
+
         public string BuildBodyWaterRateMeasurementLogText(PersonalLog log)
         {
             decimal bodyWaterRate = decimal.Parse(log.Data["body_water_rate"]);
@@ -1367,6 +1379,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
 
             return $"Nivelul de HDL Colesterol a fost măsurat la {log.Data["hdl_cholesterol_level"]} {unit}";
+        }
+
+        public string BuildHeartRateMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "bpm";
+            }
+
+            string text = $"Ritmul cardiac a fost măsurat la {log.Data["heart_rate"]} {unit}";
+
+            if (log.Data.TryGetValue("device_name", out string deviceName))
+            {
+                text += $" folosind {deviceName}";
+            }
+
+            return text;
         }
 
         public string BuildIndirectBilirubinMeasurementLogText(PersonalLog log)

@@ -48,6 +48,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildAccountVisibilityMadePublicLogText(PersonalLog log);
         string BuildBloodDonationLogText(PersonalLog log);
         string BuildBloodGlucoseMeasurementLogText(PersonalLog log);
+        string BuildBloodPressureMeasurementLogText(PersonalLog log);
         string BuildBodyWaterRateMeasurementLogText(PersonalLog log);
         string BuildBodyWeightMeasurementLogText(PersonalLog log);
         string BuildChatGroupCreationLogText(PersonalLog log);
@@ -71,6 +72,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildGettingOutOfBedLogText(PersonalLog log);
         string BuildHairCuttingLogText(PersonalLog log);
         string BuildHdlCholesterolMeasurementLogText(PersonalLog log);
+        string BuildHeartRateMeasurementLogText(PersonalLog log);
         string BuildIndirectBilirubinMeasurementLogText(PersonalLog log);
         string BuildInternshipApplicationSubmissionLogText(PersonalLog log);
         string BuildLdlCholesterolMeasurementLogText(PersonalLog log);

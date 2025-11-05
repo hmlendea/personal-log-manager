@@ -971,9 +971,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 unit = "mg/dL";
             }
 
-            string text = $"My blood glucose level measured {log.Data["glucose_level"]} {unit}";
+            return $"My blood glucose level measured {log.Data["glucose_level"]} {unit}";
+        }
 
-            return text;
+        public string BuildBloodPressureMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "mmHg";
+            }
+
+            return $"My blood pressure measured {log.Data["systolic_pressure"]}/{log.Data["diastolic_pressure"]} {unit}";
         }
 
         public string BuildBodyWaterRateMeasurementLogText(PersonalLog log)
@@ -1344,6 +1354,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
 
             string text = $"My HDL cholesterol level measured {log.Data["hdl_cholesterol_level"]} {unit}";
+
+            return text;
+        }
+
+        public string BuildHeartRateMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "bpm";
+            }
+
+            string text = $"My heart rate measured {log.Data["heart_rate"]} {unit}";
+
+            if (log.Data.TryGetValue("device_name", out string deviceName))
+            {
+                text += $" on the {deviceName}";
+            }
 
             return text;
         }

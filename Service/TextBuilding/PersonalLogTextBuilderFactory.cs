@@ -200,6 +200,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildBloodGlucoseMeasurementLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.BloodPressureMeasurement))
+            {
+                return personalLogTextBuilder.BuildBloodPressureMeasurementLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.BodyWaterRateMeasurement))
             {
                 return personalLogTextBuilder.BuildBodyWaterRateMeasurementLogText(log);
@@ -291,6 +295,10 @@ namespace PersonalLogManager.Service.TextBuilding
             else if (log.Template.Equals(PersonalLogTemplate.HdlCholesterolMeasurement))
             {
                 return personalLogTextBuilder.BuildHdlCholesterolMeasurementLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.HeartRateMeasurement))
+            {
+                return personalLogTextBuilder.BuildHeartRateMeasurementLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.IndirectBilirubinMeasurement))
             {
