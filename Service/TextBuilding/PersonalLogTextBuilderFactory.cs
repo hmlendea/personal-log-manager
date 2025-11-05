@@ -1,10 +1,12 @@
+using System;
 using PersonalLogManager.Service.Models;
+using PersonalLogManager.Service.TextBuilding.Localisation;
 
 namespace PersonalLogManager.Service.TextBuilding
 {
-    public class PersonalLogTextBuilderFactory(IPersonalLogTextBuilder personalLogTextBuilder) : IPersonalLogTextBuilderFactory
+    public class PersonalLogTextBuilderFactory() : IPersonalLogTextBuilderFactory
     {
-        public string BuildLogText(PersonalLog log)
+        public string BuildLogText(PersonalLog log, string localisation)
         {
             string prefix = $"{log.Date:yyyy-MM-dd}";
 
@@ -13,13 +15,15 @@ namespace PersonalLogManager.Service.TextBuilding
                 prefix += $": {log.Time:HH\\:mm} {log.TimeZone}";
             }
 
-            string text = BuildLogTextByTemplate(log);
+            string text = BuildLogTextByTemplate(log, localisation);
 
             return $"{prefix}: {text}";
         }
 
-        string BuildLogTextByTemplate(PersonalLog log)
+        string BuildLogTextByTemplate(PersonalLog log, string localisation)
         {
+            IPersonalLogTextBuilder personalLogTextBuilder = GetTextBuilder(localisation);
+
             if (log.Template.Equals(PersonalLogTemplate.AccountActivation))
             {
                 return personalLogTextBuilder.BuildAccountActivationLogText(log);
@@ -334,6 +338,16 @@ namespace PersonalLogManager.Service.TextBuilding
             }
 
             return log.Data["text"];
+        }
+
+        static IPersonalLogTextBuilder GetTextBuilder(string localisation)
+        {
+            if (localisation.Equals("ro-RO", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return new EnglishTextBuilder();
+            }
+
+            return new EnglishTextBuilder();
         }
     }
 }

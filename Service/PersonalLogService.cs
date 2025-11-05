@@ -74,7 +74,7 @@ namespace PersonalLogManager.Service
                     .ThenBy(log => log.Template)
                     .ThenBy(log => log.CreatedDT)
                     .Take(request.Count)
-                    .Select(log => $"{log.Id} " + logTextBuilder.BuildLogText(mapper.Map<PersonalLog>(log)))]
+                    .Select(log => $"{log.Id} " + logTextBuilder.BuildLogText(mapper.Map<PersonalLog>(log), request.Localisation))]
             };
         }
 

@@ -1,9 +1,8 @@
-using System.Collections.Generic;
 using PersonalLogManager.Service.Models;
 
-namespace PersonalLogManager.Service.TextBuilding
+namespace PersonalLogManager.Service.TextBuilding.Localisation
 {
-    public class PersonalLogTextBuilder() : IPersonalLogTextBuilder
+    public class EnglishTextBuilder() : PersonalLogTextBuilderBase, IPersonalLogTextBuilder
     {
         public string BuildAccountActivationLogText(PersonalLog log)
         {
@@ -1488,38 +1487,6 @@ namespace PersonalLogManager.Service.TextBuilding
             }
 
             return text;
-        }
-
-        public string GetDiscriminator(Dictionary<string, string> data)
-        {
-            data.TryGetValue("discriminator", out string discriminator);
-
-            if (string.IsNullOrWhiteSpace(discriminator))
-            {
-                data.TryGetValue("account", out discriminator);
-            }
-
-            if (string.IsNullOrWhiteSpace(discriminator))
-            {
-                data.TryGetValue("account_id", out discriminator);
-            }
-
-            if (string.IsNullOrWhiteSpace(discriminator))
-            {
-                data.TryGetValue("username", out discriminator);
-            }
-
-            if (string.IsNullOrWhiteSpace(discriminator))
-            {
-                data.TryGetValue("phone_number", out discriminator);
-            }
-
-            if (string.IsNullOrWhiteSpace(discriminator))
-            {
-                data.TryGetValue("email_address", out discriminator);
-            }
-
-            return discriminator;
         }
     }
 }

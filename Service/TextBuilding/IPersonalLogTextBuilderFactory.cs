@@ -4,6 +4,6 @@ namespace PersonalLogManager.Service.TextBuilding
 {
     public interface IPersonalLogTextBuilderFactory
     {
-        string BuildLogText(PersonalLog log);
+        string BuildLogText(PersonalLog log, string localisation);
     }
 }
