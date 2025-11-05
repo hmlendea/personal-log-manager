@@ -1,13 +1,12 @@
-using System.Collections.Generic;
 using PersonalLogManager.Service.Models;
 
-namespace PersonalLogManager.Service.TextBuilding
+namespace PersonalLogManager.Service.TextBuilding.Localisation
 {
-    public class PersonalLogTextBuilder() : IPersonalLogTextBuilder
+    public class RomanianTextBuilder() : PersonalLogTextBuilderBase, IPersonalLogTextBuilder
     {
         public string BuildAccountActivationLogText(PersonalLog log)
         {
-            string text = $"I have activated the {log.Data["platform"]} account";
+            string text = $"Am activat contul de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -20,7 +19,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountBanningLogText(PersonalLog log)
         {
-            string text = $"The {log.Data["platform"]} account";
+            string text = $"Contul de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -28,11 +27,11 @@ namespace PersonalLogManager.Service.TextBuilding
                 text += $" ({discriminator})";
             }
 
-            text += " has been banned";
+            text += " a fost banat";
 
             if (log.Data.TryGetValue("ban_reason", out string banReason))
             {
-                text += $" for the following reason: {banReason}";
+                text += $" pentru următorul motiv: {banReason}";
             }
 
             return text;
@@ -40,14 +39,14 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountContactEmailAddressChangeLogText(PersonalLog log)
         {
-            string verb = "changed";
+            string verb = "schimbat";
 
             if (!log.Data.ContainsKey("old_contact_email_address") && log.Data.ContainsKey("new_contact_email_address"))
             {
-                verb = "set";
+                verb = "setat";
             }
 
-            string text = $"I have {verb} the contact e-mail address of the {log.Data["platform"]} account";
+            string text = $"Am {verb} adresa de e-mail de contact a contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -57,12 +56,12 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("old_contact_email_address", out string oldContactEmailAddress))
             {
-                text += $" from {oldContactEmailAddress}";
+                text += $" de la {oldContactEmailAddress}";
             }
 
             if (log.Data.TryGetValue("new_contact_email_address", out string newContactEmailAddress))
             {
-                text += $" to {newContactEmailAddress}";
+                text += $" la {newContactEmailAddress}";
             }
 
             return text;
@@ -70,7 +69,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountDataExportLogText(PersonalLog log)
         {
-            string text = $"I have exported my data related to the {log.Data["platform"]} account";
+            string text = $"Am exportat datele contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -83,7 +82,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountDataExportRequestLogText(PersonalLog log)
         {
-            string text = $"I have requested an export of my data related to the {log.Data["platform"]} account";
+            string text = $"Am solicitate un export al datelor contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -93,7 +92,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("request_method", out string requestMethod))
             {
-                text += $" via {requestMethod}";
+                text += $" prin {requestMethod}";
 
                 if (log.Data.TryGetValue("request_id", out string requestId))
                 {
@@ -106,7 +105,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountDataExportRequestFulfillmentLogText(PersonalLog log)
         {
-            string text = $"My data export request for the {log.Data["platform"]} account";
+            string text = $"Solicitarea exportului de date ale contului de {log.Data["platform"]}";
 
             string discriminator = GetDiscriminator(log.Data);
 
@@ -117,17 +116,17 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("request_date", out string requestDate))
             {
-                text += $", made on {requestDate},";
+                text += $", trimisă pe {requestDate},";
             }
 
-            text += " has been fulfilled";
+            text += " a fost îndeplinită";
 
             return text;
         }
 
         public string BuildAccountDataExportSaveLogText(PersonalLog log)
         {
-            string text = $"I have saved the export of the data related to the {log.Data["platform"]} account";
+            string text = $"Am salvat exportul datelor contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -137,7 +136,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("request_date", out string requestDate))
             {
-                text += $", following the data export request sent on {requestDate}";
+                text += $", obținut în urma solicitarii trimise pe {requestDate}";
             }
 
             return text;
@@ -145,7 +144,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountDataObfuscationLogText(PersonalLog log)
         {
-            string text = $"I have obfuscated the data on the {log.Data["platform"]} account";
+            string text = $"Am ofuscat datele contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -158,7 +157,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountDeactivationLogText(PersonalLog log)
         {
-            string text = $"I have deactivated the {log.Data["platform"]} account";
+            string text = $"Am dezactivat contul de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -171,7 +170,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountDeletionLogText(PersonalLog log)
         {
-            string text = $"I have deleted the {log.Data["platform"]} account";
+            string text = $"Am șters contul de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -184,7 +183,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountDeletionRequestLogText(PersonalLog log)
         {
-            string text = $"I have requested the deletion of the {log.Data["platform"]} account";
+            string text = $"Am solicitat ștergerea contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -194,7 +193,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("request_method", out string requestMethod))
             {
-                text += $" via {requestMethod}";
+                text += $" prin {requestMethod}";
             }
 
             return text;
@@ -202,7 +201,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountDeletionRequestCancellationLogText(PersonalLog log)
         {
-            string text = $"I have cancelled the account deletion request for the {log.Data["platform"]} account";
+            string text = $"Am anulat solicitarea ștergerii contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -212,7 +211,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("request_date", out string requestDate))
             {
-                text += $", made on {requestDate},";
+                text += $", trimisă pe {requestDate},";
             }
 
             return text;
@@ -220,7 +219,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountDeletionRequestFulfillmentLogText(PersonalLog log)
         {
-            string text = $"My account deletion request for the {log.Data["platform"]} account";
+            string text = $"Cererea de ștergere a contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -230,17 +229,17 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("request_date", out string requestDate))
             {
-                text += $", made on {requestDate},";
+                text += $", trimisă pe {requestDate},";
             }
 
-            text += " has been fulfilled";
+            text += " a fost îndeplinită";
 
             return text;
         }
 
         public string BuildAccountDeletionValidationLogText(PersonalLog log)
         {
-            string text = $"I have validated that the {log.Data["platform"]} account";
+            string text = $"Am verificat că a fost șters contul de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -248,11 +247,9 @@ namespace PersonalLogManager.Service.TextBuilding
                 text += $" ({discriminator})";
             }
 
-            text += " has been deleted";
-
             if (log.Data.TryGetValue("request_date", out string requestDate))
             {
-                text += $", following the deletion request sent on {requestDate}";
+                text += $", în urma solicitării de ștergere din {requestDate}";
             }
 
             return text;
@@ -260,14 +257,14 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountEmailAddressChangeLogText(PersonalLog log)
         {
-            string verb = "changed";
+            string verb = "schimbat";
 
             if (!log.Data.ContainsKey("old_email_address") && log.Data.ContainsKey("new_email_address"))
             {
-                verb = "set";
+                verb = "setat";
             }
 
-            string text = $"I have {verb} the e-mail address of the {log.Data["platform"]} account";
+            string text = $"Am {verb} adresa de e-mail a contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -277,12 +274,12 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("old_email_address", out string oldEmailAddress))
             {
-                text += $" from {oldEmailAddress}";
+                text += $" din {oldEmailAddress}";
             }
 
             if (log.Data.TryGetValue("new_email_address", out string newEmailAddress))
             {
-                text += $" to {newEmailAddress}";
+                text += $" în {newEmailAddress}";
             }
 
             return text;
@@ -290,7 +287,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountEmailAddressChangeRequestLogText(PersonalLog log)
         {
-            string text = $"I have requested to change the e-mail address of the {log.Data["platform"]} account";
+            string text = $"Am solicitat schimbarea adresei de e-mail a contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -300,17 +297,17 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("old_email_address", out string oldEmailAddress))
             {
-                text += $" from {oldEmailAddress}";
+                text += $" din {oldEmailAddress}";
             }
 
             if (log.Data.TryGetValue("new_email_address", out string newEmailAddress))
             {
-                text += $" to {newEmailAddress}";
+                text += $" în {newEmailAddress}";
             }
 
             if (log.Data.TryGetValue("request_method", out string requestMethod))
             {
-                text += $", via {requestMethod}";
+                text += $", prin {requestMethod}";
             }
 
             return text;
@@ -318,7 +315,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountEmailAddressChangeRequestFulfillmentLogText(PersonalLog log)
         {
-            string text = $"My e-mail address change request for the {log.Data["platform"]} account";
+            string text = $"Solicitarea de schimbare a adresei de e-mail a contului de {log.Data["platform"]}";
 
             string discriminator = GetDiscriminator(log.Data);
 
@@ -329,34 +326,34 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("old_email_address", out string oldEmailAddress))
             {
-                text += $" from {oldEmailAddress}";
+                text += $" de la {oldEmailAddress}";
             }
 
             if (log.Data.TryGetValue("new_email_address", out string newEmailAddress))
             {
-                text += $" to {newEmailAddress}";
+                text += $" la {newEmailAddress}";
             }
 
             if (log.Data.TryGetValue("request_date", out string requestDate))
             {
-                text += $", made on {requestDate},";
+                text += $", trimisă pe {requestDate}";
             }
 
-            text += " has been fulfilled";
+            text += ", a fost îndeplinită";
 
             return text;
         }
 
         public string BuildAccountEmailAddressConfirmationLogText(PersonalLog log)
         {
-            string text = $"I have confirmed the e-mail address";
+            string text = $"Am verificat că a fost schimbată adresa de e-mail";
 
             if (log.Data.TryGetValue("email_address", out string emailAddress))
             {
                 text += $" ({emailAddress})";
             }
 
-            text += $" for the {log.Data["platform"]} account";
+            text += $" a contului de {log.Data["platform"]}";
 
             string discriminator = GetDiscriminator(log.Data);
 
@@ -370,7 +367,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountFeatureEnablementLogText(PersonalLog log)
         {
-            string text = $"I have enabled the {log.Data["feature_name"]} feature for the {log.Data["platform"]} account";
+            string text = $"Am activat funcția {log.Data["feature_name"]} pe contul de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -383,7 +380,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountFeatureDisablementLogText(PersonalLog log)
         {
-            string text = $"I have disabled the {log.Data["feature_name"]} feature for the {log.Data["platform"]} account";
+            string text = $"Am dezactivat funcția de {log.Data["feature_name"]} pe contul de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -396,7 +393,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountFriendshipRequestReceivalLogText(PersonalLog log)
         {
-            string text = $"I have received a friendship request on the {log.Data["platform"]} account";
+            string text = $"Am primit o cerere de prietenie pe contul de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -406,7 +403,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("from_account", out string fromAccount))
             {
-                text += $" from {fromAccount}";
+                text += $" de la {fromAccount}";
             }
 
             return text;
@@ -414,7 +411,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountIdentityVerificationLogText(PersonalLog log)
         {
-            string text = $"I have verified my identity for the {log.Data["platform"]} account";
+            string text = $"Am verificat identitatea pentru contul de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -427,7 +424,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountLinkingLogText(PersonalLog log)
         {
-            string text = $"I have linked the {log.Data["platform"]} account";
+            string text = $"Am conectat contul de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -435,13 +432,13 @@ namespace PersonalLogManager.Service.TextBuilding
                 text += $" ({discriminator})";
             }
 
-            text += $" with";
+            text += $" cu";
 
             if (log.Data.TryGetValue("platform_linked", out string platformLinked))
             {
                 if (log.Data.TryGetValue("account_linked", out string accountLinked))
                 {
-                    text += $" the {log.Data["platform_linked"]} account ({log.Data["account_linked"]})";
+                    text += $" contul de {platformLinked} ({accountLinked})";
                 }
                 else
                 {
@@ -458,7 +455,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountMessagesErasureLogText(PersonalLog log)
         {
-            string text = $"I have erased all messages from the {log.Data["platform"]} account";
+            string text = $"Am șters toate mesajele trimise de pe contul de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -471,7 +468,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountPasswordChangeLogText(PersonalLog log)
         {
-            string text = $"I have changed the password of the {log.Data["platform"]} account";
+            string text = $"Am schimbat parola contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -484,7 +481,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountPersonalNameChangeLogText(PersonalLog log)
         {
-            string text = $"I have changed the personal name for the {log.Data["platform"]} account";
+            string text = $"Am schimbat numele personal al contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -494,12 +491,12 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("old_personal_name", out string oldPersonalName))
             {
-                text += $" from {oldPersonalName}";
+                text += $" de la {oldPersonalName}";
             }
 
             if (log.Data.TryGetValue("new_personal_name", out string newPersonalName))
             {
-                text += $" to {newPersonalName}";
+                text += $" la {newPersonalName}";
             }
 
             return text;
@@ -507,7 +504,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountPhoneNumberAdditionLogText(PersonalLog log)
         {
-            string text = $"I have added a phone number to the {log.Data["platform"]} account";
+            string text = $"Am adăugat un număr de telefon la contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -525,14 +522,14 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountPhoneNumberChangeLogText(PersonalLog log)
         {
-            string verb = "changed";
+            string verb = "schimbat";
 
             if (!log.Data.ContainsKey("old_phone_number") && log.Data.ContainsKey("new_phone_number"))
             {
-                verb = "set";
+                verb = "setat";
             }
 
-            string text = $"I have {verb} the phone number for the {log.Data["platform"]} account";
+            string text = $"Am {verb} numărul de telefon al contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -542,12 +539,12 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("old_phone_number", out string oldPhoneNumber))
             {
-                text += $" from {oldPhoneNumber}";
+                text += $" de la {oldPhoneNumber}";
             }
 
             if (log.Data.TryGetValue("new_phone_number", out string newPhoneNumber))
             {
-                text += $" to {newPhoneNumber}";
+                text += $" la {newPhoneNumber}";
             }
 
             return text;
@@ -555,7 +552,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountPhoneNumberRemovalLogText(PersonalLog log)
         {
-            string text = $"I have removed a phone number from the {log.Data["platform"]} account";
+            string text = $"Am șters un număr de telefon de la contul de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -573,7 +570,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountProfilePictureChangeLogText(PersonalLog log)
         {
-            string text = $"I have changed the profile picture of the {log.Data["platform"]} account";
+            string text = $"Am schimbat poza de profil de pe contul de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -586,7 +583,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountRecoveryLogText(PersonalLog log)
         {
-            string text = $"I have recovered the {log.Data["platform"]} account";
+            string text = $"Am recuperat contul de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -599,14 +596,14 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountRecoveryEmailAddressChangeLogText(PersonalLog log)
         {
-            string verb = "changed";
+            string verb = "schimbat";
 
             if (!log.Data.ContainsKey("old_email_address") && log.Data.ContainsKey("new_email_address"))
             {
-                verb = "set";
+                verb = "setat";
             }
 
-            string text = $"I have {verb} the recovery e-mail address of the {log.Data["platform"]} account";
+            string text = $"Am {verb} adresa de e-mail de recuperare a contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -616,12 +613,12 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("old_recovery_email_address", out string oldEmailAddress))
             {
-                text += $" from {oldEmailAddress}";
+                text += $" de la {oldEmailAddress}";
             }
 
             if (log.Data.TryGetValue("new_recovery_email_address", out string newEmailAddress))
             {
-                text += $" to {newEmailAddress}";
+                text += $" la {newEmailAddress}";
             }
 
             return text;
@@ -629,7 +626,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountRegistrationLogText(PersonalLog log)
         {
-            string text = $"I have registered the {log.Data["platform"]} account";
+            string text = $"Am înregistrat contul de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -641,7 +638,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("username", out string username))
             {
-                text += $" with the username {username}";
+                text += $" cu numele de utilizator {username}";
                 withCount += 1;
             }
 
@@ -649,10 +646,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 if (withCount > 0)
                 {
-                    text += ", and";
+                    text += ", și";
                 }
 
-                text += $" with the phone number {phoneNumber}";
+                text += $" cu numărul de telefon {phoneNumber}";
                 withCount += 1;
             }
 
@@ -660,10 +657,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 if (withCount > 0)
                 {
-                    text += ", and";
+                    text += ", și";
                 }
 
-                text += $" with the email address {emailAddress}";
+                text += $" cu adresa de e-mail {emailAddress}";
                 withCount += 1;
             }
 
@@ -671,10 +668,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 if (withCount > 0)
                 {
-                    text += ", and";
+                    text += ", și";
                 }
 
-                text += $" with the personal name {personalName}";
+                text += $" cu numele personal {personalName}";
                 withCount += 1;
             }
 
@@ -683,7 +680,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountRegistrationRequestLogText(PersonalLog log)
         {
-            string text = $"I have requested the registration of the {log.Data["platform"]} account";
+            string text = $"Am solicitat înregistrarea contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -695,7 +692,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("username", out string username))
             {
-                text += $" with the username {username}";
+                text += $" cu numele de utilizator {username}";
                 withCount += 1;
             }
 
@@ -703,10 +700,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 if (withCount > 0)
                 {
-                    text += ", and";
+                    text += ", și";
                 }
 
-                text += $" with the phone number {phoneNumber}";
+                text += $" cu numărul de telefon {phoneNumber}";
                 withCount += 1;
             }
 
@@ -714,10 +711,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 if (withCount > 0)
                 {
-                    text += ", and";
+                    text += ", și";
                 }
 
-                text += $" with the email address {emailAddress}";
+                text += $" cu adresa de e-mail {emailAddress}";
                 withCount += 1;
             }
 
@@ -726,7 +723,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountRegistrationRequestFulfillmentLogText(PersonalLog log)
         {
-            string text = $"My account registration request for the {log.Data["platform"]} account";
+            string text = $"Solicitarea înregistrării contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -736,24 +733,24 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("request_date", out string requestDate))
             {
-                text += $", made on {requestDate},";
+                text += $", trimisă pe {requestDate}";
             }
 
-            text += " has been fulfilled";
+            text += ", a fost îndeplinită";
 
             return text;
         }
 
         public string BuildAccountSubscriptionPurchaseLogText(PersonalLog log)
         {
-            string text = $"I have purchased a";
+            string text = $"Am cumpărat un abonament";
 
-            if (log.Data.TryGetValue("subscription_name", out string subscriptionType))
+            if (log.Data.TryGetValue("subscription_name", out string subscriptionName))
             {
-                text += $" {subscriptionType}";
+                text += $" {subscriptionName}";
             }
 
-            text += $" subscription for the {log.Data["platform"]} account";
+            text += $" pentru contul de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -763,7 +760,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("price_amount", out string priceAmount))
             {
-                text += $" for {priceAmount} {log.Data["price_currency"]}";
+                text += $" pentru {priceAmount} {log.Data["price_currency"]}";
             }
 
             return text;
@@ -771,7 +768,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountUnlinkingLogText(PersonalLog log)
         {
-            string text = $"I have removed the link between the {log.Data["platform"]} account";
+            string text = $"Am deconectat contul de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -779,7 +776,7 @@ namespace PersonalLogManager.Service.TextBuilding
                 text += $" ({discriminator})";
             }
 
-            text += $" and the {log.Data["platform_unlinked"]} account";
+            text += $" de contul de {log.Data["platform_unlinked"]}";
 
             if (log.Data.TryGetValue("account_unlinked", out string accountLinked))
             {
@@ -791,14 +788,14 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountUsernameChangeLogText(PersonalLog log)
         {
-            string verb = "changed";
+            string verb = "schimbat";
 
             if (!log.Data.ContainsKey("old_username"))
             {
-                verb = "set";
+                verb = "setat";
             }
 
-            string text = $"I have {verb} the username of the {log.Data["platform"]} account";
+            string text = $"Am {verb} numele de utilizator al contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -808,12 +805,12 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("old_username", out string oldUsername))
             {
-                text += $" from {oldUsername}";
+                text += $" de la {oldUsername}";
             }
 
             if (log.Data.TryGetValue("new_username", out string newUsername))
             {
-                text += $" to {newUsername}";
+                text += $" la {newUsername}";
             }
 
             return text;
@@ -821,22 +818,20 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildAccountVisibilityMadePrivateLogText(PersonalLog log)
         {
-            string text = $"I have made my {log.Data["platform"]} account";
+            string text = $"Am făcut privat contul de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
             {
                 text += $" ({discriminator})";
             }
-
-            text += " private";
 
             return text;
         }
 
         public string BuildAccountVisibilityMadePublicLogText(PersonalLog log)
         {
-            string text = $"I have made my {log.Data["platform"]} account";
+            string text = $"Am făcut public contul de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -844,23 +839,21 @@ namespace PersonalLogManager.Service.TextBuilding
                 text += $" ({discriminator})";
             }
 
-            text += " public";
-
             return text;
         }
 
         public string BuildBloodDonationLogText(PersonalLog log)
         {
-            string text = $"I have donated blood";
+            string text = $"Am donat sânge";
 
             if (log.Data.TryGetValue("donation_centre_name", out string donationCentreName))
             {
-                text += $" at {donationCentreName}";
+                text += $" la {donationCentreName}";
             }
 
             if (log.Data.TryGetValue("donation_code", out string donationCode))
             {
-                text += $". The donation code was: {donationCode}";
+                text += $". Codul donării a fost: {donationCode}";
             }
 
             return text;
@@ -875,16 +868,14 @@ namespace PersonalLogManager.Service.TextBuilding
                 unit = "mg/dL";
             }
 
-            string text = $"My blood glucose level measured {log.Data["glucose_level"]} {unit}";
-
-            return text;
+            return $"Nivelul glicemiei a fost măsurat la {log.Data["glucose_level"]} {unit}";
         }
 
         public string BuildBodyWaterRateMeasurementLogText(PersonalLog log)
         {
             decimal bodyWaterRate = decimal.Parse(log.Data["body_water_rate"]);
 
-            return $"My body water rate measured {bodyWaterRate:F2}%";
+            return $"Nivelul de hidratare corporală a fost măsurat la {bodyWaterRate:F2}%";
         }
 
         public string BuildBodyWeightMeasurementLogText(PersonalLog log)
@@ -896,11 +887,11 @@ namespace PersonalLogManager.Service.TextBuilding
                 unit = "kg";
             }
 
-            string text = $"My body weight measured {log.Data["body_weight"]} {unit}";
+            string text = $"Greutatea corporală a fost măsurată la {log.Data["body_weight"]} {unit}";
 
             if (log.Data.TryGetValue("scale_name", out string scaleName))
             {
-                text += $" on the scale {scaleName}";
+                text += $", folosind cântarul {scaleName}";
             }
 
             return text;
@@ -908,83 +899,111 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildChatGroupCreationLogText(PersonalLog log)
         {
-            string text = $"I have created a chat group named {log.Data["group_name"]}";
+            log.Data.TryGetValue("platform", out string platform);
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (string.IsNullOrWhiteSpace(platform))
             {
-                text += $" on {platform}";
+                platform = "chat";
             }
 
-            string discriminator = GetDiscriminator(log.Data);
+            string text = $"Am creat un grup de {platform}";
 
-            if (!string.IsNullOrWhiteSpace(discriminator))
+            if (!platform.Equals("chat"))
             {
-                text += $" ({discriminator})";
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
             }
+
+            text += $" '{log.Data["group_name"]}'";
 
             return text;
         }
 
         public string BuildChatGroupDeletionLogText(PersonalLog log)
         {
-            string text = $"I have deleted the chat group named {log.Data["group_name"]}";
+            log.Data.TryGetValue("platform", out string platform);
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (string.IsNullOrWhiteSpace(platform))
             {
-                text += $" on {platform}";
+                platform = "chat";
             }
 
-            string discriminator = GetDiscriminator(log.Data);
+            string text = $"Am șters grupul de {platform}";
 
-            if (!string.IsNullOrWhiteSpace(discriminator))
+            if (!platform.Equals("chat"))
             {
-                text += $" ({discriminator})";
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
             }
+
+            text += $" '{log.Data["group_name"]}'";
 
             return text;
         }
 
         public string BuildChatGroupJoiningLogText(PersonalLog log)
         {
-            string text = $"I have joined the chat group named {log.Data["group_name"]}";
+            log.Data.TryGetValue("platform", out string platform);
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (string.IsNullOrWhiteSpace(platform))
             {
-                text += $" on {platform}";
+                platform = "chat";
             }
 
-            string discriminator = GetDiscriminator(log.Data);
+            string text = $"Am intrat în grupul de {platform}";
 
-            if (!string.IsNullOrWhiteSpace(discriminator))
+            if (!platform.Equals("chat"))
             {
-                text += $" ({discriminator})";
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
             }
+
+            text += $" '{log.Data["group_name"]}'";
 
             return text;
         }
 
         public string BuildChatGroupLeavingLogText(PersonalLog log)
         {
-            string text = $"I have left the chat group named {log.Data["group_name"]}";
+            log.Data.TryGetValue("platform", out string platform);
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (string.IsNullOrWhiteSpace(platform))
             {
-                text += $" on {platform}";
+                platform = "chat";
             }
 
-            string discriminator = GetDiscriminator(log.Data);
+            string text = $"Am ieșit din grupul de {platform}";
 
-            if (!string.IsNullOrWhiteSpace(discriminator))
+            if (!platform.Equals("chat"))
             {
-                text += $" ({discriminator})";
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
             }
+
+            text += $" '{log.Data["group_name"]}'";
 
             return text;
         }
 
         public string BuildDatingAppMatchLogText(PersonalLog log)
         {
-            string text = $"I have matched with {log.Data["match_name"]} on {log.Data["platform"]}";
+            string text = $"Am făcut match cu {log.Data["match_name"]} pe {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -997,16 +1016,16 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildDeliveryReceivalLogText(PersonalLog log)
         {
-            string text = $"I have received the delivery of {log.Data["package_description"]}";
+            string text = $"Am primit coletul cu {log.Data["package_description"]}";
 
             if (log.Data.TryGetValue("tracking_number", out string trackingNumber))
             {
-                text += $" with the tracking number {trackingNumber}";
+                text += $", cu numărul de urmărire {trackingNumber}";
             }
 
             if (log.Data.TryGetValue("company_name", out string companyName))
             {
-                text += $" via {companyName}";
+                text += $", prin {companyName}";
             }
 
             return text;
@@ -1014,11 +1033,11 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildDentalScalingLogText(PersonalLog log)
         {
-            string text = $"I have undergone a dental scaling procedure";
+            string text = $"Am efectuat un detartraj dentar";
 
             if (log.Data.TryGetValue("clinic_name", out string clinicName))
             {
-                text += $" at {clinicName}";
+                text += $" la {clinicName}";
             }
 
             return text;
@@ -1026,7 +1045,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildEmailExportLogText(PersonalLog log)
         {
-            string text = $"I have exported all of the emails from the {log.Data["platform"]} account";
+            string text = $"Am exportat toate e-mail-urile din contul de {log.Data["platform"]}";
 
             if (log.Data.TryGetValue("account", out string account))
             {
@@ -1038,16 +1057,16 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildEyeCheckupLogText(PersonalLog log)
         {
-            string text = $"I have undergone an eye checkup";
+            string text = $"Am efectuat un control oftalmologic";
 
             if (log.Data.TryGetValue("clinic_name", out string clinicName))
             {
-                text += $" at {clinicName}";
+                text += $" la {clinicName}";
             }
 
             if (log.Data.TryGetValue("optometrist_name", out string optometristName))
             {
-                text += $", by {optometristName}";
+                text += $", de către {optometristName}";
             }
 
             return text;
@@ -1055,30 +1074,27 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildGameAchievementUnlockLogText(PersonalLog log)
         {
-            string achievementAction = "unlocked";
-            string achievementType = "achievement";
-            string game = log.Data["game_name"];
+            string achievementType = "achievement-ul";
+            string gameName = log.Data["game_name"];
             log.Data.TryGetValue("platform", out string platform);
 
-            if (game.Equals("eRepublik"))
+            if (gameName.Equals("eRepublik"))
             {
-                achievementAction = "earned";
-                achievementType = "medal";
+                achievementType = "medalia";
             }
             else if (platform is not null)
             {
                 if (platform.Equals("Xbox") || platform.Equals("PlayStation"))
                 {
-                    achievementAction = "earned";
-                    achievementType = "trophy";
+                    achievementType = "trofeul";
                 }
             }
 
-            string text = $"I have {achievementAction} the {achievementType} '{log.Data["achievement_name"]}' in the game {game}";
+            string text = $"Am obținut {achievementType} '{log.Data["achievement_name"]}' în jocul {gameName}";
 
             if (!string.IsNullOrWhiteSpace(platform))
             {
-                text += $" on {platform}";
+                text += $" pe contul de {platform}";
             }
 
             string discriminator = GetDiscriminator(log.Data);
@@ -1093,11 +1109,11 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildGameConstructionBeginningLogText(PersonalLog log)
         {
-            string text = $"I have begun the construction of {log.Data["construction_name"]} in the game {log.Data["game_name"]}";
+            string text = $"Am început să construiesc {log.Data["construction_name"]} în {log.Data["game_name"]}";
 
             if (log.Data.TryGetValue("platform", out string platform))
             {
-                text += $" on {platform}";
+                text += $" pe {platform}";
             }
 
             string discriminator = GetDiscriminator(log.Data);
@@ -1112,11 +1128,11 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildGameConstructionCompletionLogText(PersonalLog log)
         {
-            string text = $"I have completed the construction of {log.Data["construction_name"]} in the game {log.Data["game_name"]}";
+            string text = $"Am terminat de construit {log.Data["construction_name"]} în {log.Data["game_name"]}";
 
             if (log.Data.TryGetValue("platform", out string platform))
             {
-                text += $" on {platform}";
+                text += $" pe {platform}";
             }
 
             string discriminator = GetDiscriminator(log.Data);
@@ -1130,32 +1146,23 @@ namespace PersonalLogManager.Service.TextBuilding
         }
 
         public string BuildGettingInToBedLogText(PersonalLog log)
-            => $"I have gotten in to bed";
+            => $"M-am pus în pat";
 
         public string BuildGettingOutOfBedLogText(PersonalLog log)
-        {
-            string text = $"I have gotten out of bed";
-
-            if (log.Data.TryGetValue("get_out_time", out string getOutTime))
-            {
-                text += $" at {getOutTime}";
-            }
-
-            return text;
-        }
+            => $"M-am ridicat din pat";
 
         public string BuildHairCuttingLogText(PersonalLog log)
         {
-            string text = $"I have gotten my hair cut";
+            string text = $"Am fost la tuns";
 
             if (log.Data.TryGetValue("salon_name", out string salonName))
             {
-                text += $" at {salonName}";
+                text += $" la {salonName}";
             }
 
             if (log.Data.TryGetValue("hairdresser_name", out string hairdresserName))
             {
-                text += $", by {hairdresserName}";
+                text += $", la {hairdresserName}";
             }
 
             return text;
@@ -1170,7 +1177,7 @@ namespace PersonalLogManager.Service.TextBuilding
                 unit = "mg/dL";
             }
 
-            string text = $"My HDL cholesterol level measured {log.Data["hdl_cholesterol_level"]} {unit}";
+            string text = $"Nivelul de HDL Colesterol a fost măsurat la {log.Data["hdl_cholesterol_level"]} {unit}";
 
             return text;
         }
@@ -1184,22 +1191,17 @@ namespace PersonalLogManager.Service.TextBuilding
                 internshipType = $"{period} {internshipType}";
             }
 
-            string text = $"I have submitted an application";
-
+            string text = $"Am trimis o aplicare de {internshipType} la {log.Data["company_name"]}";
 
             if (log.Data.TryGetValue("contact_person_name", out string contactPersonName))
             {
-                text += $" to {contactPersonName}";
+                text += $" către {contactPersonName}";
             }
-
-            text += $" for an {internshipType} at {log.Data["company_name"]}";
 
             if (log.Data.TryGetValue("position_name", out string positionName))
             {
-                text += $" for the position of {positionName}";
+                text += $", pentru o poziție de {positionName}";
             }
-
-            text = text.Replace("an summer", "a summer");
 
             return text;
         }
@@ -1213,25 +1215,21 @@ namespace PersonalLogManager.Service.TextBuilding
                 unit = "mg/dL";
             }
 
-            string text = $"My LDL cholesterol level measured {log.Data["ldl_cholesterol_level"]} {unit}";
+            string text = $"Nivelul de LDL Colesterol a fost măsurat la {log.Data["ldl_cholesterol_level"]} {unit}";
 
             return text;
         }
 
         public string BuildMealVoucherCardCreditationLogText(PersonalLog log)
-        {
-            string text = $"My meal voucher card was credited with {log.Data["amount"]} {log.Data["currency"]}";
-
-            return text;
-        }
+            => $"Cardul de bonuri de masă a fost creditat cu {log.Data["amount"]} {log.Data["currency"]}";
 
         public string BuildObjectSaleLogText(PersonalLog log)
         {
-            string text = $"I have sold the {log.Data["object_name"]}";
+            string text = $"Am vândut {log.Data["object_name"]}";
 
             if (log.Data.TryGetValue("platform", out string platform))
             {
-                text += $" on {platform}";
+                text += $" pe {platform}";
             }
 
             string discriminator = GetDiscriminator(log.Data);
@@ -1243,7 +1241,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("price_amount", out string priceAmount))
             {
-                text += $" for {priceAmount} {log.Data["price_currency"]}";
+                text += $" cu {priceAmount} {log.Data["price_currency"]}";
             }
 
             return text;
@@ -1251,26 +1249,38 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildOnlineReviewSubmissionLogText(PersonalLog log)
         {
-            string text = $"I have submitted a";
+            string text = $"Am trimis un review cu";
 
             if (log.Data.TryGetValue("stars_count", out string starsCount))
             {
-                text += $" {starsCount}-star";
+                text += $" {starsCount} ste";
+
+                if (starsCount.Equals("1"))
+                {
+                    text += "a";
+                }
+                else
+                {
+                    text += "le";
+                }
             }
 
-            text += $" review on {log.Data["platform"]} for {log.Data["subject_name"]}";
+            text += $" pe {log.Data["platform"]}";
+            string discriminator = GetDiscriminator(log.Data);
 
-            if (log.Data.TryGetValue("account", out string account))
+            if (!string.IsNullOrWhiteSpace(discriminator))
             {
-                text += $" using the {account} account";
+                text += $" ({discriminator})";
             }
+
+            text += $" pentru {log.Data["subject_name"]}";
 
             return text;
         }
 
         public string BuildOnlineStorePurchaseLogText(PersonalLog log)
         {
-            string text = $"I have purchased {log.Data["product_name"]} from {log.Data["platform"]}";
+            string text = $"Am cumpărat {log.Data["product_name"]} pe {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -1280,7 +1290,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
             if (log.Data.TryGetValue("price_amount", out string priceAmount))
             {
-                text += $", for {priceAmount} {log.Data["price_currency"]}";
+                text += $", cu {priceAmount} {log.Data["price_currency"]}";
             }
 
             return text;
@@ -1295,11 +1305,11 @@ namespace PersonalLogManager.Service.TextBuilding
                 unit = "kg";
             }
 
-            string text = $"The weight of my pet {log.Data["pet_name"]} measured {log.Data["pet_weight"]} {unit}";
+            string text = $"Greutatea corporală a lui {log.Data["pet_name"]} a fost măsurată la {log.Data["pet_weight"]} {unit}";
 
             if (log.Data.TryGetValue("scale_name", out string scaleName))
             {
-                text += $" on the scale {scaleName}";
+                text += $", pe cântarul {scaleName}";
             }
 
             return text;
@@ -1307,11 +1317,11 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildShowerTakingLogText(PersonalLog log)
         {
-            string text = $"I have taken a shower";
+            string text = $"Am făcut duș";
 
             if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
             {
-                text += $" for {durationMinutes} minutes";
+                text += $" timp de {durationMinutes} minute";
             }
 
             return text;
@@ -1319,11 +1329,11 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildSwimmingActivityLogText(PersonalLog log)
         {
-            string text = $"I have gone swimming";
+            string text = $"Am fost la înnot";
 
             if (log.Data.TryGetValue("location", out string location))
             {
-                text += $" at {location}";
+                text += $" la {location}";
             }
 
             return text;
@@ -1331,11 +1341,11 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildTeethBrushingLogText(PersonalLog log)
         {
-            string text = $"I have brushed my teeth";
+            string text = $"M-am spălat pe dinți";
 
             if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
             {
-                text += $" for {durationMinutes} minutes";
+                text += $" timp de {durationMinutes} minute";
             }
 
             return text;
@@ -1343,26 +1353,26 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildTollPaymentLogText(PersonalLog log)
         {
-            string text = $"I have paid a toll";
+            string text = $"Am plătit taxa de drum";
 
             if (log.Data.TryGetValue("provider_name", out string providerName))
             {
-                text += $" to {providerName}";
+                text += $" către {providerName}";
             }
 
             if (log.Data.TryGetValue("toll_location", out string tollLocation))
             {
-                text += $" at {tollLocation}";
+                text += $" pentru {tollLocation}";
             }
 
             if (log.Data.TryGetValue("vehicle_registration_number", out string vehicleRegistrationNumber))
             {
-                text += $" for the vehicle with the registration number {vehicleRegistrationNumber}";
+                text += $" pentru vehiculul cu numărul de înmatriculare {vehicleRegistrationNumber}";
             }
 
             if (log.Data.TryGetValue("cost_amount", out string costAmount))
             {
-                text += $", amounting to {costAmount} {log.Data["cost_currency"]}";
+                text += $", în valoare de {costAmount} {log.Data["cost_currency"]}";
             }
 
             return text;
@@ -1377,7 +1387,7 @@ namespace PersonalLogManager.Service.TextBuilding
                 unit = "mg/dL";
             }
 
-            return $"My total bilirubin level measured {log.Data["total_bilirubin_level"]} {unit}";
+            return $"Nivelul bilirubinei totale a fost măsurat la {log.Data["total_bilirubin_level"]} {unit}";
         }
 
         public string BuildTotalCholesterolMeasurementLogText(PersonalLog log)
@@ -1389,7 +1399,7 @@ namespace PersonalLogManager.Service.TextBuilding
                 unit = unitValue;
             }
 
-            return $"My cholesterol level measured {log.Data["total_cholesterol_level"]} {unit}";
+            return $"Nivelul colesterolului total a fost măsurat la {log.Data["total_cholesterol_level"]} {unit}";
         }
 
         public string BuildUtilityBillPaymentLogText(PersonalLog log)
@@ -1400,17 +1410,29 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 utilityType = "utility";
             }
+            else if (utilityType.Equals("electricity"))
+            {
+                utilityType = "curent";
+            }
+            else if (utilityType.Equals("water"))
+            {
+                utilityType = "apă";
+            }
+            else if (utilityType.Equals("gas"))
+            {
+                utilityType = "gaz";
+            }
 
-            string text = $"I have paid my {utilityType} bill to {log.Data["provider_name"]}";
+            string text = $"Am plătit factura de {utilityType} la {log.Data["provider_name"]}";
 
             if (log.Data.TryGetValue("supply_point_number", out string supplyPointNumber))
             {
-                text += $" for the {supplyPointNumber} supply point number";
+                text += $" pentru locuința cu numărul locului de consum {supplyPointNumber}";
             }
 
             if (log.Data.TryGetValue("cost_amount", out string costAmount))
             {
-                text += $", amounting to {costAmount} {log.Data["cost_currency"]}";
+                text += $", în valoare de {costAmount} {log.Data["cost_currency"]}";
             }
 
             return text;
@@ -1424,21 +1446,33 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 utilityType = "utility";
             }
+            else if (utilityType.Equals("electricity"))
+            {
+                utilityType = "curent";
+            }
+            else if (utilityType.Equals("water"))
+            {
+                utilityType = "apă";
+            }
+            else if (utilityType.Equals("gas"))
+            {
+                utilityType = "gaz";
+            }
 
-            string text = $"I have measured the {utilityType} index";
+            string text = $"Am citit indexul contorului de {utilityType}";
 
             if (log.Data.TryGetValue("supply_point_number", out string supplyPointNumber))
             {
-                text += $" for the {supplyPointNumber} supply point number";
+                text += $", pentru locuința cu numărul locului de consum {supplyPointNumber}";
             }
             else if (log.Data.TryGetValue("location", out string location))
             {
-                text += $" at {location}";
+                text += $" din {location}";
             }
 
             if (log.Data.TryGetValue("index_value", out string indexValue))
             {
-                text += $", obtaining a value of {indexValue}";
+                text += $", obținând valoarea {indexValue}";
             }
 
             return text;
@@ -1446,80 +1480,41 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string BuildVideoUploadLogText(PersonalLog log)
         {
-            string text = $"I have uploaded a video titled '{log.Data["video_title"]}' to {log.Data["platform"]}";
+            string text = $"Am publicat un video";
 
-            if (log.Data.TryGetValue("account", out string account))
+            if (log.Data.TryGetValue("video_url", out string videoId))
             {
-                text += $" using the {account} account";
+                text += $" ({videoId})";
+            }
+
+            text += $" cu titlul '{log.Data["video_title"]}' pe {log.Data["platform"]}";
+            string discriminator = GetDiscriminator(log.Data);
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
             }
 
             if (log.Data.TryGetValue("uploaded_file_name", out string uploadedFileName))
             {
-                text += $", from the '{uploadedFileName}' file";
-            }
-
-            if (log.Data.TryGetValue("video_url", out string videoId))
-            {
-                text += $", at {videoId}";
+                text += $", din fișierul '{uploadedFileName}'";
             }
 
             return text;
         }
 
         public string BuildWakingUpLogText(PersonalLog log)
-        {
-            string text = $"I have woken up";
-
-            if (log.Data.TryGetValue("wake_up_time", out string wakeUpTime))
-            {
-                text += $" at {wakeUpTime}";
-            }
-
-            return text;
-        }
+            => "M-am trezit";
 
         public string BuildWorkFromTheOfficeLogText(PersonalLog log)
         {
-            string text = $"I have worked from the office";
+            string text = $"Am lucrat de la birou";
 
             if (log.Data.TryGetValue("office_name", out string officeName))
             {
-                text += $" ({officeName})";
+                text += $", din {officeName}";
             }
 
             return text;
-        }
-
-        public string GetDiscriminator(Dictionary<string, string> data)
-        {
-            data.TryGetValue("discriminator", out string discriminator);
-
-            if (string.IsNullOrWhiteSpace(discriminator))
-            {
-                data.TryGetValue("account", out discriminator);
-            }
-
-            if (string.IsNullOrWhiteSpace(discriminator))
-            {
-                data.TryGetValue("account_id", out discriminator);
-            }
-
-            if (string.IsNullOrWhiteSpace(discriminator))
-            {
-                data.TryGetValue("username", out discriminator);
-            }
-
-            if (string.IsNullOrWhiteSpace(discriminator))
-            {
-                data.TryGetValue("phone_number", out discriminator);
-            }
-
-            if (string.IsNullOrWhiteSpace(discriminator))
-            {
-                data.TryGetValue("email_address", out discriminator);
-            }
-
-            return discriminator;
         }
     }
 }
