@@ -82,7 +82,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountDataExportRequestLogText(PersonalLog log)
         {
-            string text = $"Am solicitate un export al datelor contului de {log.Data["platform"]}";
+            string text = $"Am trimis o solicitare a unui export al datelor contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -90,14 +90,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" ({discriminator})";
             }
 
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $" cu codul de identificare {requestId}";
+            }
+
             if (log.Data.TryGetValue("request_method", out string requestMethod))
             {
-                text += $" prin {requestMethod}";
-
-                if (log.Data.TryGetValue("request_id", out string requestId))
-                {
-                    text += $" ({requestId})";
-                }
+                text += $", prin {requestMethod}";
             }
 
             return text;
@@ -112,6 +112,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (!string.IsNullOrWhiteSpace(discriminator))
             {
                 text += $" ({discriminator})";
+            }
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $" cu codul de identificare {requestId}";
             }
 
             if (log.Data.TryGetValue("request_date", out string requestDate))
@@ -134,9 +139,20 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" ({discriminator})";
             }
 
-            if (log.Data.TryGetValue("request_date", out string requestDate))
+            log.Data.TryGetValue("request_date", out string requestDate);
+            log.Data.TryGetValue("request_id", out string requestId);
+
+            if (!string.IsNullOrWhiteSpace(requestDate) && !string.IsNullOrWhiteSpace(requestId))
+            {
+                text += $", obținut în urma solicitarii cu codul de identificare {requestId} din {requestDate}";
+            }
+            else if (!string.IsNullOrWhiteSpace(requestDate) && string.IsNullOrWhiteSpace(requestId))
             {
                 text += $", obținut în urma solicitarii trimise pe {requestDate}";
+            }
+            else if (string.IsNullOrWhiteSpace(requestDate) && !string.IsNullOrWhiteSpace(requestId))
+            {
+                text += $", obținut în urma solicitarii cu codul de identificare {requestId}";
             }
 
             return text;
@@ -183,12 +199,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountDeletionRequestLogText(PersonalLog log)
         {
-            string text = $"Am solicitat ștergerea contului de {log.Data["platform"]}";
+            string text = $"Am trimis o solicitare de ștergere a contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
             {
                 text += $" ({discriminator})";
+            }
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $" cu codul de identificare {requestId}";
             }
 
             if (log.Data.TryGetValue("request_method", out string requestMethod))
@@ -209,9 +230,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" ({discriminator})";
             }
 
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $" cu codul de identificare {requestId}";
+            }
+
             if (log.Data.TryGetValue("request_date", out string requestDate))
             {
-                text += $", trimisă pe {requestDate},";
+                text += $", trimisă pe {requestDate}";
             }
 
             return text;
@@ -225,6 +251,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (!string.IsNullOrWhiteSpace(discriminator))
             {
                 text += $" ({discriminator})";
+            }
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $" cu codul de identificare {requestId}";
             }
 
             if (log.Data.TryGetValue("request_date", out string requestDate))
@@ -287,7 +318,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountEmailAddressChangeRequestLogText(PersonalLog log)
         {
-            string text = $"Am solicitat schimbarea adresei de e-mail a contului de {log.Data["platform"]}";
+            string text = $"Am trimis o solicitare de schimbare a adresei de e-mail a contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -303,6 +334,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("new_email_address", out string newEmailAddress))
             {
                 text += $" în {newEmailAddress}";
+            }
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $", cu codul de identificare {requestId}";
             }
 
             if (log.Data.TryGetValue("request_method", out string requestMethod))
@@ -334,19 +370,24 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" la {newEmailAddress}";
             }
 
-            if (log.Data.TryGetValue("request_date", out string requestDate))
+            if (log.Data.TryGetValue("request_id", out string requestId))
             {
-                text += $", trimisă pe {requestDate}";
+                text += $", cu codul de identificare {requestId}";
             }
 
-            text += ", a fost îndeplinită";
+            if (log.Data.TryGetValue("request_date", out string requestDate))
+            {
+                text += $", trimisă pe {requestDate},";
+            }
+
+            text += " a fost îndeplinită";
 
             return text;
         }
 
         public string BuildAccountEmailAddressConfirmationLogText(PersonalLog log)
         {
-            string text = $"Am verificat că a fost schimbată adresa de e-mail";
+            string text = $"Am confirmat adresa de e-mail";
 
             if (log.Data.TryGetValue("email_address", out string emailAddress))
             {
@@ -680,7 +721,15 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountRegistrationRequestLogText(PersonalLog log)
         {
-            string text = $"Am solicitat înregistrarea contului de {log.Data["platform"]}";
+            string text = $"Am trimis o solicitare de înregistrare";
+            log.Data.TryGetValue("request_id", out string requestId);
+
+            if (!string.IsNullOrWhiteSpace(requestId))
+            {
+                text += $" cu codul de identificare {requestId}";
+            }
+
+            text += $" a contului de {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -718,6 +767,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 withCount += 1;
             }
 
+            if (log.Data.TryGetValue("personal_name", out string personalName))
+            {
+                if (withCount > 0)
+                {
+                    text += ", și";
+                }
+
+                text += $" cu numele personal {personalName}";
+                withCount += 1;
+            }
+
             return text;;
         }
 
@@ -731,12 +791,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" ({discriminator})";
             }
 
-            if (log.Data.TryGetValue("request_date", out string requestDate))
+            if (log.Data.TryGetValue("request_id", out string requestId))
             {
-                text += $", trimisă pe {requestDate}";
+                text += $" cu codul de identificare {requestId}";
             }
 
-            text += ", a fost îndeplinită";
+            if (log.Data.TryGetValue("request_date", out string requestDate))
+            {
+                text += $", trimisă pe {requestDate},";
+            }
+
+            text += " a fost îndeplinită";
 
             return text;
         }

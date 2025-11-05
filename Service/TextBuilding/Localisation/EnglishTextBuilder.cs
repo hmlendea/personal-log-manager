@@ -134,9 +134,20 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" ({discriminator})";
             }
 
-            if (log.Data.TryGetValue("request_date", out string requestDate))
+            log.Data.TryGetValue("request_date", out string requestDate);
+            log.Data.TryGetValue("request_id", out string requestId);
+
+            if (!string.IsNullOrWhiteSpace(requestDate) && !string.IsNullOrWhiteSpace(requestId))
             {
-                text += $", following the data export request sent on {requestDate}";
+                text += $", obtained following the request with the {requestId} identification code from {requestDate}";
+            }
+            else if (!string.IsNullOrWhiteSpace(requestDate) && string.IsNullOrWhiteSpace(requestId))
+            {
+                text += $", obtained following the request sent on {requestDate}";
+            }
+            else if (string.IsNullOrWhiteSpace(requestDate) && !string.IsNullOrWhiteSpace(requestId))
+            {
+                text += $", obtained following the request with the {requestId} identification code";
             }
 
             return text;
@@ -183,12 +194,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountDeletionRequestLogText(PersonalLog log)
         {
-            string text = $"I have requested the deletion of the {log.Data["platform"]} account";
+            string text = $"I have sent a request for the deletion of the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
             {
                 text += $" ({discriminator})";
+            }
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $" with the {requestId} identification code";
             }
 
             if (log.Data.TryGetValue("request_method", out string requestMethod))
@@ -209,9 +225,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" ({discriminator})";
             }
 
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $" with the {requestId} identification code";
+            }
+
             if (log.Data.TryGetValue("request_date", out string requestDate))
             {
-                text += $", made on {requestDate},";
+                text += $", sent on {requestDate},";
             }
 
             return text;
@@ -227,9 +248,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" ({discriminator})";
             }
 
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $" with the {requestId} identification code";
+            }
+
             if (log.Data.TryGetValue("request_date", out string requestDate))
             {
-                text += $", made on {requestDate},";
+                text += $", sent on {requestDate},";
             }
 
             text += " has been fulfilled";
@@ -289,7 +315,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountEmailAddressChangeRequestLogText(PersonalLog log)
         {
-            string text = $"I have requested to change the e-mail address of the {log.Data["platform"]} account";
+            string text = $"I have sent a request to change the e-mail address of the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -305,6 +331,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("new_email_address", out string newEmailAddress))
             {
                 text += $" to {newEmailAddress}";
+            }
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $", with the {requestId} identification code";
             }
 
             if (log.Data.TryGetValue("request_method", out string requestMethod))
@@ -317,7 +348,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountEmailAddressChangeRequestFulfillmentLogText(PersonalLog log)
         {
-            string text = $"My e-mail address change request for the {log.Data["platform"]} account";
+            string text = $"My request to change the e-mail address of the {log.Data["platform"]} account";
 
             string discriminator = GetDiscriminator(log.Data);
 
@@ -336,9 +367,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" to {newEmailAddress}";
             }
 
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $", with the {requestId} identification code";
+            }
+
             if (log.Data.TryGetValue("request_date", out string requestDate))
             {
-                text += $", made on {requestDate},";
+                text += $", sent on {requestDate},";
             }
 
             text += " has been fulfilled";
@@ -682,7 +718,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountRegistrationRequestLogText(PersonalLog log)
         {
-            string text = $"I have requested the registration of the {log.Data["platform"]} account";
+            string text = $"I have sent a request";
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $" with the {requestId} identification code";
+            }
+
+            text += $" to register the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -720,12 +763,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 withCount += 1;
             }
 
+            if (log.Data.TryGetValue("personal_name", out string personalName))
+            {
+                if (withCount > 0)
+                {
+                    text += ", and";
+                }
+
+                text += $" with the personal name {personalName}";
+                withCount += 1;
+            }
+
             return text;;
         }
 
         public string BuildAccountRegistrationRequestFulfillmentLogText(PersonalLog log)
         {
-            string text = $"My account registration request for the {log.Data["platform"]} account";
+            string text = $"The account registration request for the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
 
             if (!string.IsNullOrWhiteSpace(discriminator))
@@ -733,9 +787,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" ({discriminator})";
             }
 
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $" with the {requestId} identification code";
+            }
+
             if (log.Data.TryGetValue("request_date", out string requestDate))
             {
-                text += $", made on {requestDate},";
+                text += $", sent on {requestDate},";
             }
 
             text += " has been fulfilled";
@@ -1132,16 +1191,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"I have gotten in to bed";
 
         public string BuildGettingOutOfBedLogText(PersonalLog log)
-        {
-            string text = $"I have gotten out of bed";
-
-            if (log.Data.TryGetValue("get_out_time", out string getOutTime))
-            {
-                text += $" at {getOutTime}";
-            }
-
-            return text;
-        }
+            => $"I have gotten out of bed";
 
         public string BuildHairCuttingLogText(PersonalLog log)
         {
@@ -1388,7 +1438,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 unit = unitValue;
             }
 
-            return $"My cholesterol level measured {log.Data["total_cholesterol_level"]} {unit}";
+            return $"My total cholesterol level measured {log.Data["total_cholesterol_level"]} {unit}";
         }
 
         public string BuildUtilityBillPaymentLogText(PersonalLog log)
@@ -1401,10 +1451,20 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
 
             string text = $"I have paid my {utilityType} bill to {log.Data["provider_name"]}";
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
 
             if (log.Data.TryGetValue("supply_point_number", out string supplyPointNumber))
             {
                 text += $" for the {supplyPointNumber} supply point number";
+            }
+            else if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
             }
 
             if (log.Data.TryGetValue("cost_amount", out string costAmount))
@@ -1466,16 +1526,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildWakingUpLogText(PersonalLog log)
-        {
-            string text = $"I have woken up";
-
-            if (log.Data.TryGetValue("wake_up_time", out string wakeUpTime))
-            {
-                text += $" at {wakeUpTime}";
-            }
-
-            return text;
-        }
+            => $"I have woken up";
 
         public string BuildWorkFromTheOfficeLogText(PersonalLog log)
         {
