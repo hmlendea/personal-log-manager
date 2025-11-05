@@ -1086,6 +1086,44 @@ namespace PersonalLogManager.Service.TextBuilding
             return text;
         }
 
+        public string BuildGameConstructionBeginningLogText(PersonalLog log)
+        {
+            string text = $"I have begun the construction of {log.Data["construction_name"]} in the game {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameConstructionCompletionLogText(PersonalLog log)
+        {
+            string text = $"I have completed the construction of {log.Data["construction_name"]} in the game {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
         public string BuildGettingInToBedLogText(PersonalLog log)
             => $"I have gotten in to bed";
 

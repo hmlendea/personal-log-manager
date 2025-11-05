@@ -236,6 +236,14 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildGameAchievementUnlockLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.GameConstructionBeginning))
+            {
+                return personalLogTextBuilder.BuildGameConstructionBeginningLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.GameConstructionCompletion))
+            {
+                return personalLogTextBuilder.BuildGameConstructionCompletionLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.GettingInToBed))
             {
                 return personalLogTextBuilder.BuildGettingInToBedLogText(log);
