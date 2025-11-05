@@ -232,6 +232,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildEyeCheckupLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.GameAchievementUnlock))
+            {
+                return personalLogTextBuilder.BuildGameAchievementUnlockLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.GettingOutOfBed))
             {
                 return personalLogTextBuilder.BuildGettingOutOfBedLogText(log);

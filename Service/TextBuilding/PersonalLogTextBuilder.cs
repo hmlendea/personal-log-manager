@@ -1048,6 +1048,44 @@ namespace PersonalLogManager.Service.TextBuilding
             return text;
         }
 
+        public string BuildGameAchievementUnlockLogText(PersonalLog log)
+        {
+            string achievementAction = "unlocked";
+            string achievementType = "achievement";
+            string game = log.Data["game_name"];
+            log.Data.TryGetValue("platform", out string platform);
+
+            if (game.Equals("eRepublik"))
+            {
+                achievementAction = "earned";
+                achievementType = "medal";
+            }
+            else if (platform is not null)
+            {
+                if (platform.Equals("Xbox") || platform.Equals("PlayStation"))
+                {
+                    achievementAction = "earned";
+                    achievementType = "trophy";
+                }
+            }
+
+            string text = $"I have {achievementAction} the {achievementType} '{log.Data["achievement_name"]}' in the game {game}";
+
+            if (!string.IsNullOrWhiteSpace(platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
         public string BuildGettingOutOfBedLogText(PersonalLog log)
         {
             string text = $"I have gotten out of bed";

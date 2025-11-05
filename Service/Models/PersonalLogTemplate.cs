@@ -56,6 +56,7 @@ namespace PersonalLogManager.Service.Models
         DentalScaling,
         EmailExport,
         EyeCheckup,
+        GameAchievementUnlock,
         GettingOutOfBed,
         HairCutting,
         InternshipApplicationSubmission,
