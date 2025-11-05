@@ -1,8 +1,8 @@
 using PersonalLogManager.Service.Models;
 
-namespace PersonalLogManager.Service
+namespace PersonalLogManager.Service.TextBuilding
 {
-    public interface IPersonalLogTextBuilder
+    public interface IPersonalLogTextBuilderFactory
     {
         string BuildLogText(PersonalLog log);
     }

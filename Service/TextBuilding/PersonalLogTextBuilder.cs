@@ -1,299 +1,11 @@
 using System.Collections.Generic;
 using PersonalLogManager.Service.Models;
 
-namespace PersonalLogManager.Service
+namespace PersonalLogManager.Service.TextBuilding
 {
     public class PersonalLogTextBuilder() : IPersonalLogTextBuilder
     {
-        public string BuildLogText(PersonalLog log)
-        {
-            string prefix = $"{log.Date:yyyy-MM-dd}";
-
-            if (log.Time is not null)
-            {
-                prefix += $": {log.Time:HH\\:mm} {log.TimeZone}";
-            }
-
-            string text = BuildLogTextByTemplate(log);
-
-            return $"{prefix}: {text}";
-        }
-
-        static string BuildLogTextByTemplate(PersonalLog log)
-        {
-            if (log.Template.Equals(PersonalLogTemplate.AccountActivation))
-            {
-                return BuildAccountActivationLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountBanning))
-            {
-                return BuildAccountBanningLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountContactEmailAddressChange))
-            {
-                return BuildAccountContactEmailAddressChangeLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountDataExport))
-            {
-                return BuildAccountDataExportLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountDataExportRequest))
-            {
-                return BuildAccountDataExportRequestLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountDataExportRequestFulfillment))
-            {
-                return BuildAccountDataExportRequestFulfillmentLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountDataExportSave))
-            {
-                return BuildAccountDataExportSaveLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountDataObfuscation))
-            {
-                return BuildAccountDataObfuscationLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountDeactivation))
-            {
-                return BuildAccountDeactivationLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountDeletion))
-            {
-                return BuildAccountDeletionLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountDeletionRequest))
-            {
-                return BuildAccountDeletionRequestLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountDeletionRequestCancellation))
-            {
-                return BuildAccountDeletionRequestCancellationLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountDeletionRequestFulfillment))
-            {
-                return BuildAccountDeletionRequestFulfillmentLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountDeletionValidation))
-            {
-                return BuildAccountDeletionValidationLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountEmailAddressChange))
-            {
-                return BuildAccountEmailAddressChangeLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountEmailAddressChangeRequest))
-            {
-                return BuildAccountEmailAddressChangeRequestLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountEmailAddressChangeRequestFulfillment))
-            {
-                return BuildAccountEmailAddressChangeRequestFulfillmentLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountEmailAddressConfirmation))
-            {
-                return BuildAccountEmailAddressConfirmationLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountFeatureEnablement))
-            {
-                return BuildAccountFeatureEnablementLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountFeatureDisablement))
-            {
-                return BuildAccountFeatureDisablementLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountFriendshipRequestReceival))
-            {
-                return BuildAccountFriendshipRequestReceivalLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountIdentityVerification))
-            {
-                return BuildAccountIdentityVerificationLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountLinking))
-            {
-                return BuildAccountLinkingLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountMessagesErasure))
-            {
-                return BuildAccountMessagesErasureLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountPasswordChange))
-            {
-                return BuildAccountPasswordChangeLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountPersonalNameChange))
-            {
-                return BuildAccountPersonalNameChangeLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountPhoneNumberAddition))
-            {
-                return BuildAccountPhoneNumberAdditionLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountPhoneNumberChange))
-            {
-                return BuildAccountPhoneNumberChangeLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountPhoneNumberRemoval))
-            {
-                return BuildAccountPhoneNumberRemovalLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountProfilePictureChange))
-            {
-                return BuildAccountProfilePictureChangeLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountRecovery))
-            {
-                return BuildAccountRecoveryLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountRecoveryEmailAddressChange))
-            {
-                return BuildAccountRecoveryEmailAddressChangeLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountRegistration))
-            {
-                return BuildAccountRegistrationLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountRegistrationRequest))
-            {
-                return BuildAccountRegistrationRequestLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountRegistrationRequestFulfillment))
-            {
-                return BuildAccountRegistrationRequestFulfillmentLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountSubscriptionPurchase))
-            {
-                return BuildAccountSubscriptionPurchaseLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountUnlinking))
-            {
-                return BuildAccountUnlinkingLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountUsernameChange))
-            {
-                return BuildAccountUsernameChangeLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountVisibilityMadePrivate))
-            {
-                return BuildAccountVisibilityMadePrivateLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.AccountVisibilityMadePublic))
-            {
-                return BuildAccountVisibilityMadePublicLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.BloodDonation))
-            {
-                return BuildBloodDonationLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.BloodGlucoseMeasurement))
-            {
-                return BuildBloodGlucoseMeasurementLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.BodyWaterRateMeasurement))
-            {
-                return BuildBodyWaterRateMeasurementLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.BodyWeightMeasurement))
-            {
-                return BuildBodyWeightMeasurementLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.ChatGroupCreation))
-            {
-                return BuildChatGroupCreationLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.ChatGroupDeletion))
-            {
-                return BuildChatGroupDeletionLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.ChatGroupJoining))
-            {
-                return BuildChatGroupJoiningLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.ChatGroupLeaving))
-            {
-                return BuildChatGroupLeavingLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.DatingAppMatch))
-            {
-                return BuildDatingAppMatchLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.DeliveryReceival))
-            {
-                return BuildDeliveryReceivalLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.DentalScaling))
-            {
-                return BuildDentalScalingLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.EmailExport))
-            {
-                return BuildEmailExportLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.EyeCheckup))
-            {
-                return BuildEyeCheckupLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.GettingOutOfBed))
-            {
-                return BuildGettingOutOfBedLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.HairCutting))
-            {
-                return BuildHairCuttingLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.InternshipApplicationSubmission))
-            {
-                return BuildInternshipApplicationSubmissionLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.MealVoucherCardCreditation))
-            {
-                return BuildMealVoucherCardCreditationLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.ObjectSale))
-            {
-                return BuildObjectSaleLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.OnlineReviewSubmission))
-            {
-                return BuildOnlineReviewSubmissionLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.OnlineStorePurchase))
-            {
-                return BuildOnlineStorePurchaseLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.SwimmingActivity))
-            {
-                return BuildSwimmingActivityLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.TollPayment))
-            {
-                return BuildTollPaymentLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.UtilityBillPayment))
-            {
-                return BuildUtilityBillPaymentLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.UtilityIndexMeasurement))
-            {
-                return BuildUtilityIndexMeasurementLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.VideoUpload))
-            {
-                return BuildVideoUploadLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.WakingUp))
-            {
-                return BuildWakingUpLogText(log);
-            }
-            else if (log.Template.Equals(PersonalLogTemplate.WorkFromTheOffice))
-            {
-                return BuildWorkFromTheOfficeLogText(log);
-            }
-
-            return log.Data["text"];
-        }
-
-        static string BuildAccountActivationLogText(PersonalLog log)
+        public string BuildAccountActivationLogText(PersonalLog log)
         {
             string text = $"I have activated the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -306,7 +18,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountBanningLogText(PersonalLog log)
+        public string BuildAccountBanningLogText(PersonalLog log)
         {
             string text = $"The {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -326,7 +38,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountContactEmailAddressChangeLogText(PersonalLog log)
+        public string BuildAccountContactEmailAddressChangeLogText(PersonalLog log)
         {
             string verb = "changed";
 
@@ -356,7 +68,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountDataExportLogText(PersonalLog log)
+        public string BuildAccountDataExportLogText(PersonalLog log)
         {
             string text = $"I have exported my data related to the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -369,7 +81,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountDataExportRequestLogText(PersonalLog log)
+        public string BuildAccountDataExportRequestLogText(PersonalLog log)
         {
             string text = $"I have requested an export of my data related to the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -392,7 +104,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountDataExportRequestFulfillmentLogText(PersonalLog log)
+        public string BuildAccountDataExportRequestFulfillmentLogText(PersonalLog log)
         {
             string text = $"My data export request for the {log.Data["platform"]} account";
 
@@ -413,7 +125,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountDataExportSaveLogText(PersonalLog log)
+        public string BuildAccountDataExportSaveLogText(PersonalLog log)
         {
             string text = $"I have saved the export of the data related to the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -431,7 +143,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountDataObfuscationLogText(PersonalLog log)
+        public string BuildAccountDataObfuscationLogText(PersonalLog log)
         {
             string text = $"I have obfuscated the data on the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -444,7 +156,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountDeactivationLogText(PersonalLog log)
+        public string BuildAccountDeactivationLogText(PersonalLog log)
         {
             string text = $"I have deactivated the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -457,7 +169,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountDeletionLogText(PersonalLog log)
+        public string BuildAccountDeletionLogText(PersonalLog log)
         {
             string text = $"I have deleted the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -470,7 +182,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountDeletionRequestLogText(PersonalLog log)
+        public string BuildAccountDeletionRequestLogText(PersonalLog log)
         {
             string text = $"I have requested the deletion of the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -488,7 +200,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountDeletionRequestCancellationLogText(PersonalLog log)
+        public string BuildAccountDeletionRequestCancellationLogText(PersonalLog log)
         {
             string text = $"I have cancelled the account deletion request for the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -506,7 +218,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountDeletionRequestFulfillmentLogText(PersonalLog log)
+        public string BuildAccountDeletionRequestFulfillmentLogText(PersonalLog log)
         {
             string text = $"My account deletion request for the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -526,7 +238,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountDeletionValidationLogText(PersonalLog log)
+        public string BuildAccountDeletionValidationLogText(PersonalLog log)
         {
             string text = $"I have validated that the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -546,7 +258,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountEmailAddressChangeLogText(PersonalLog log)
+        public string BuildAccountEmailAddressChangeLogText(PersonalLog log)
         {
             string verb = "changed";
 
@@ -576,7 +288,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountEmailAddressChangeRequestLogText(PersonalLog log)
+        public string BuildAccountEmailAddressChangeRequestLogText(PersonalLog log)
         {
             string text = $"I have requested to change the e-mail address of the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -604,7 +316,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountEmailAddressChangeRequestFulfillmentLogText(PersonalLog log)
+        public string BuildAccountEmailAddressChangeRequestFulfillmentLogText(PersonalLog log)
         {
             string text = $"My e-mail address change request for the {log.Data["platform"]} account";
 
@@ -635,7 +347,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountEmailAddressConfirmationLogText(PersonalLog log)
+        public string BuildAccountEmailAddressConfirmationLogText(PersonalLog log)
         {
             string text = $"I have confirmed the e-mail address";
 
@@ -656,7 +368,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountFeatureEnablementLogText(PersonalLog log)
+        public string BuildAccountFeatureEnablementLogText(PersonalLog log)
         {
             string text = $"I have enabled the {log.Data["feature_name"]} feature for the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -669,7 +381,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountFeatureDisablementLogText(PersonalLog log)
+        public string BuildAccountFeatureDisablementLogText(PersonalLog log)
         {
             string text = $"I have disabled the {log.Data["feature_name"]} feature for the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -682,7 +394,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountFriendshipRequestReceivalLogText(PersonalLog log)
+        public string BuildAccountFriendshipRequestReceivalLogText(PersonalLog log)
         {
             string text = $"I have received a friendship request on the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -700,7 +412,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountIdentityVerificationLogText(PersonalLog log)
+        public string BuildAccountIdentityVerificationLogText(PersonalLog log)
         {
             string text = $"I have verified my identity for the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -713,7 +425,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountLinkingLogText(PersonalLog log)
+        public string BuildAccountLinkingLogText(PersonalLog log)
         {
             string text = $"I have linked the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -744,7 +456,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountMessagesErasureLogText(PersonalLog log)
+        public string BuildAccountMessagesErasureLogText(PersonalLog log)
         {
             string text = $"I have erased all messages from the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -757,7 +469,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountPasswordChangeLogText(PersonalLog log)
+        public string BuildAccountPasswordChangeLogText(PersonalLog log)
         {
             string text = $"I have changed the password of the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -770,7 +482,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountPersonalNameChangeLogText(PersonalLog log)
+        public string BuildAccountPersonalNameChangeLogText(PersonalLog log)
         {
             string text = $"I have changed the personal name for the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -793,7 +505,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountPhoneNumberAdditionLogText(PersonalLog log)
+        public string BuildAccountPhoneNumberAdditionLogText(PersonalLog log)
         {
             string text = $"I have added a phone number to the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -811,7 +523,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountPhoneNumberChangeLogText(PersonalLog log)
+        public string BuildAccountPhoneNumberChangeLogText(PersonalLog log)
         {
             string verb = "changed";
 
@@ -841,7 +553,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountPhoneNumberRemovalLogText(PersonalLog log)
+        public string BuildAccountPhoneNumberRemovalLogText(PersonalLog log)
         {
             string text = $"I have removed a phone number from the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -859,7 +571,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountProfilePictureChangeLogText(PersonalLog log)
+        public string BuildAccountProfilePictureChangeLogText(PersonalLog log)
         {
             string text = $"I have changed the profile picture of the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -872,7 +584,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountRecoveryLogText(PersonalLog log)
+        public string BuildAccountRecoveryLogText(PersonalLog log)
         {
             string text = $"I have recovered the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -885,7 +597,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountRecoveryEmailAddressChangeLogText(PersonalLog log)
+        public string BuildAccountRecoveryEmailAddressChangeLogText(PersonalLog log)
         {
             string verb = "changed";
 
@@ -915,7 +627,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountRegistrationLogText(PersonalLog log)
+        public string BuildAccountRegistrationLogText(PersonalLog log)
         {
             string text = $"I have registered the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -969,7 +681,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountRegistrationRequestLogText(PersonalLog log)
+        public string BuildAccountRegistrationRequestLogText(PersonalLog log)
         {
             string text = $"I have requested the registration of the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -1012,7 +724,7 @@ namespace PersonalLogManager.Service
             return text;;
         }
 
-        static string BuildAccountRegistrationRequestFulfillmentLogText(PersonalLog log)
+        public string BuildAccountRegistrationRequestFulfillmentLogText(PersonalLog log)
         {
             string text = $"My account registration request for the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -1032,7 +744,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountSubscriptionPurchaseLogText(PersonalLog log)
+        public string BuildAccountSubscriptionPurchaseLogText(PersonalLog log)
         {
             string text = $"I have purchased a";
 
@@ -1057,7 +769,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountUnlinkingLogText(PersonalLog log)
+        public string BuildAccountUnlinkingLogText(PersonalLog log)
         {
             string text = $"I have removed the link between the {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -1077,7 +789,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountUsernameChangeLogText(PersonalLog log)
+        public string BuildAccountUsernameChangeLogText(PersonalLog log)
         {
             string verb = "changed";
 
@@ -1107,7 +819,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountVisibilityMadePrivateLogText(PersonalLog log)
+        public string BuildAccountVisibilityMadePrivateLogText(PersonalLog log)
         {
             string text = $"I have made my {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -1122,7 +834,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildAccountVisibilityMadePublicLogText(PersonalLog log)
+        public string BuildAccountVisibilityMadePublicLogText(PersonalLog log)
         {
             string text = $"I have made my {log.Data["platform"]} account";
             string discriminator = GetDiscriminator(log.Data);
@@ -1137,7 +849,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildBloodDonationLogText(PersonalLog log)
+        public string BuildBloodDonationLogText(PersonalLog log)
         {
             string text = $"I have donated blood";
 
@@ -1154,7 +866,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildBloodGlucoseMeasurementLogText(PersonalLog log)
+        public string BuildBloodGlucoseMeasurementLogText(PersonalLog log)
         {
             log.Data.TryGetValue("unit", out string unit);
 
@@ -1168,14 +880,14 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildBodyWaterRateMeasurementLogText(PersonalLog log)
+        public string BuildBodyWaterRateMeasurementLogText(PersonalLog log)
         {
             decimal bodyWaterRate = decimal.Parse(log.Data["body_water_rate"]);
 
             return $"My body water rate measured {bodyWaterRate:F2}%";
         }
 
-        static string BuildBodyWeightMeasurementLogText(PersonalLog log)
+        public string BuildBodyWeightMeasurementLogText(PersonalLog log)
         {
             log.Data.TryGetValue("unit", out string unit);
 
@@ -1186,10 +898,15 @@ namespace PersonalLogManager.Service
 
             string text = $"My body weight measured {log.Data["body_weight"]} {unit}";
 
+            if (log.Data.TryGetValue("scale_name", out string scaleName))
+            {
+                text += $" on the scale {scaleName}";
+            }
+
             return text;
         }
 
-        static string BuildChatGroupCreationLogText(PersonalLog log)
+        public string BuildChatGroupCreationLogText(PersonalLog log)
         {
             string text = $"I have created a chat group named {log.Data["group_name"]}";
 
@@ -1208,7 +925,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildChatGroupDeletionLogText(PersonalLog log)
+        public string BuildChatGroupDeletionLogText(PersonalLog log)
         {
             string text = $"I have deleted the chat group named {log.Data["group_name"]}";
 
@@ -1227,7 +944,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildChatGroupJoiningLogText(PersonalLog log)
+        public string BuildChatGroupJoiningLogText(PersonalLog log)
         {
             string text = $"I have joined the chat group named {log.Data["group_name"]}";
 
@@ -1246,7 +963,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildChatGroupLeavingLogText(PersonalLog log)
+        public string BuildChatGroupLeavingLogText(PersonalLog log)
         {
             string text = $"I have left the chat group named {log.Data["group_name"]}";
 
@@ -1265,7 +982,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildDatingAppMatchLogText(PersonalLog log)
+        public string BuildDatingAppMatchLogText(PersonalLog log)
         {
             string text = $"I have matched with {log.Data["match_name"]} on {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
@@ -1278,7 +995,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildDeliveryReceivalLogText(PersonalLog log)
+        public string BuildDeliveryReceivalLogText(PersonalLog log)
         {
             string text = $"I have received the delivery of {log.Data["package_description"]}";
 
@@ -1295,7 +1012,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildDentalScalingLogText(PersonalLog log)
+        public string BuildDentalScalingLogText(PersonalLog log)
         {
             string text = $"I have undergone a dental scaling procedure";
 
@@ -1307,7 +1024,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildEmailExportLogText(PersonalLog log)
+        public string BuildEmailExportLogText(PersonalLog log)
         {
             string text = $"I have exported all of the emails from the {log.Data["platform"]} account";
 
@@ -1319,7 +1036,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildEyeCheckupLogText(PersonalLog log)
+        public string BuildEyeCheckupLogText(PersonalLog log)
         {
             string text = $"I have undergone an eye checkup";
 
@@ -1336,7 +1053,86 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildGettingOutOfBedLogText(PersonalLog log)
+        public string BuildGameAchievementUnlockLogText(PersonalLog log)
+        {
+            string achievementAction = "unlocked";
+            string achievementType = "achievement";
+            string game = log.Data["game_name"];
+            log.Data.TryGetValue("platform", out string platform);
+
+            if (game.Equals("eRepublik"))
+            {
+                achievementAction = "earned";
+                achievementType = "medal";
+            }
+            else if (platform is not null)
+            {
+                if (platform.Equals("Xbox") || platform.Equals("PlayStation"))
+                {
+                    achievementAction = "earned";
+                    achievementType = "trophy";
+                }
+            }
+
+            string text = $"I have {achievementAction} the {achievementType} '{log.Data["achievement_name"]}' in the game {game}";
+
+            if (!string.IsNullOrWhiteSpace(platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameConstructionBeginningLogText(PersonalLog log)
+        {
+            string text = $"I have begun the construction of {log.Data["construction_name"]} in the game {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameConstructionCompletionLogText(PersonalLog log)
+        {
+            string text = $"I have completed the construction of {log.Data["construction_name"]} in the game {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGettingInToBedLogText(PersonalLog log)
+            => $"I have gotten in to bed";
+
+        public string BuildGettingOutOfBedLogText(PersonalLog log)
         {
             string text = $"I have gotten out of bed";
 
@@ -1348,7 +1144,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildHairCuttingLogText(PersonalLog log)
+        public string BuildHairCuttingLogText(PersonalLog log)
         {
             string text = $"I have gotten my hair cut";
 
@@ -1365,7 +1161,21 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildInternshipApplicationSubmissionLogText(PersonalLog log)
+        public string BuildHdlCholesterolMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "mg/dL";
+            }
+
+            string text = $"My HDL cholesterol level measured {log.Data["hdl_cholesterol_level"]} {unit}";
+
+            return text;
+        }
+
+        public string BuildInternshipApplicationSubmissionLogText(PersonalLog log)
         {
             string internshipType = "internship";
 
@@ -1394,14 +1204,28 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildMealVoucherCardCreditationLogText(PersonalLog log)
+        public string BuildLdlCholesterolMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "mg/dL";
+            }
+
+            string text = $"My LDL cholesterol level measured {log.Data["ldl_cholesterol_level"]} {unit}";
+
+            return text;
+        }
+
+        public string BuildMealVoucherCardCreditationLogText(PersonalLog log)
         {
             string text = $"My meal voucher card was credited with {log.Data["amount"]} {log.Data["currency"]}";
 
             return text;
         }
 
-        static string BuildObjectSaleLogText(PersonalLog log)
+        public string BuildObjectSaleLogText(PersonalLog log)
         {
             string text = $"I have sold the {log.Data["object_name"]}";
 
@@ -1425,7 +1249,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildOnlineReviewSubmissionLogText(PersonalLog log)
+        public string BuildOnlineReviewSubmissionLogText(PersonalLog log)
         {
             string text = $"I have submitted a";
 
@@ -1444,7 +1268,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildOnlineStorePurchaseLogText(PersonalLog log)
+        public string BuildOnlineStorePurchaseLogText(PersonalLog log)
         {
             string text = $"I have purchased {log.Data["product_name"]} from {log.Data["platform"]}";
             string discriminator = GetDiscriminator(log.Data);
@@ -1462,7 +1286,38 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildSwimmingActivityLogText(PersonalLog log)
+        public string BuildPetWeightMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "kg";
+            }
+
+            string text = $"The weight of my pet {log.Data["pet_name"]} measured {log.Data["pet_weight"]} {unit}";
+
+            if (log.Data.TryGetValue("scale_name", out string scaleName))
+            {
+                text += $" on the scale {scaleName}";
+            }
+
+            return text;
+        }
+
+        public string BuildShowerTakingLogText(PersonalLog log)
+        {
+            string text = $"I have taken a shower";
+
+            if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
+            {
+                text += $" for {durationMinutes} minutes";
+            }
+
+            return text;
+        }
+
+        public string BuildSwimmingActivityLogText(PersonalLog log)
         {
             string text = $"I have gone swimming";
 
@@ -1474,7 +1329,19 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildTollPaymentLogText(PersonalLog log)
+        public string BuildTeethBrushingLogText(PersonalLog log)
+        {
+            string text = $"I have brushed my teeth";
+
+            if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
+            {
+                text += $" for {durationMinutes} minutes";
+            }
+
+            return text;
+        }
+
+        public string BuildTollPaymentLogText(PersonalLog log)
         {
             string text = $"I have paid a toll";
 
@@ -1485,7 +1352,12 @@ namespace PersonalLogManager.Service
 
             if (log.Data.TryGetValue("toll_location", out string tollLocation))
             {
-                text += $" for {tollLocation}";
+                text += $" at {tollLocation}";
+            }
+
+            if (log.Data.TryGetValue("vehicle_registration_number", out string vehicleRegistrationNumber))
+            {
+                text += $" for the vehicle with the registration number {vehicleRegistrationNumber}";
             }
 
             if (log.Data.TryGetValue("cost_amount", out string costAmount))
@@ -1496,7 +1368,31 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildUtilityBillPaymentLogText(PersonalLog log)
+        public string BuildTotalBilirubinMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "mg/dL";
+            }
+
+            return $"My total bilirubin level measured {log.Data["total_bilirubin_level"]} {unit}";
+        }
+
+        public string BuildTotalCholesterolMeasurementLogText(PersonalLog log)
+        {
+            string unit = "mg/dL";
+
+            if (log.Data.TryGetValue("unit", out string unitValue))
+            {
+                unit = unitValue;
+            }
+
+            return $"My cholesterol level measured {log.Data["total_cholesterol_level"]} {unit}";
+        }
+
+        public string BuildUtilityBillPaymentLogText(PersonalLog log)
         {
             log.Data.TryGetValue("utility_type", out string utilityType);
 
@@ -1520,7 +1416,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildUtilityIndexMeasurementLogText(PersonalLog log)
+        public string BuildUtilityIndexMeasurementLogText(PersonalLog log)
         {
             log.Data.TryGetValue("utility_type", out string utilityType);
 
@@ -1548,7 +1444,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildVideoUploadLogText(PersonalLog log)
+        public string BuildVideoUploadLogText(PersonalLog log)
         {
             string text = $"I have uploaded a video titled '{log.Data["video_title"]}' to {log.Data["platform"]}";
 
@@ -1570,7 +1466,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildWakingUpLogText(PersonalLog log)
+        public string BuildWakingUpLogText(PersonalLog log)
         {
             string text = $"I have woken up";
 
@@ -1582,7 +1478,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string BuildWorkFromTheOfficeLogText(PersonalLog log)
+        public string BuildWorkFromTheOfficeLogText(PersonalLog log)
         {
             string text = $"I have worked from the office";
 
@@ -1594,7 +1490,7 @@ namespace PersonalLogManager.Service
             return text;
         }
 
-        static string GetDiscriminator(Dictionary<string, string> data)
+        public string GetDiscriminator(Dictionary<string, string> data)
         {
             data.TryGetValue("discriminator", out string discriminator);
 
