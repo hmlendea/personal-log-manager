@@ -74,6 +74,8 @@ namespace PersonalLogManager.Service.Models
         GameConstruction,
         GameConstructionBeginning,
         GameConstructionCompletion,
+        GamePoliticalPartyJoining,
+        GamePoliticalPartyLeaving,
         GameRankUp,
         GameStartedPlaying,
         GameLevelUp,
