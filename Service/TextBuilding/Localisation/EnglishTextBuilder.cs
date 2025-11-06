@@ -1147,7 +1147,6 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
-
         public string BuildDeviceScreentimeMeasurementLogText(PersonalLog log)
         {
             string text = $"The screentime on {log.Data["device_name"]} was measured at";
@@ -1762,6 +1761,80 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             else if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
+            }
+
+            return text;
+        }
+
+        public string BuildSeriesSeasonBeginningLogText(PersonalLog log)
+        {
+            string text = $"I began watching season {log.Data["season_number"]}";
+
+            if (log.Data.TryGetValue("series_name", out string seriesName))
+            {
+                text += $" of '{seriesName}'";
+            }
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
+
+            }
+            else if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            {
+                watchedWith = watchedWith.Replace(" & ", " and ");
+                watchedWith = watchedWith.Replace(" și ", " and ");
+
+                text += $", together with {watchedWith}";
+            }
+
+            return text;
+        }
+
+        public string BuildSeriesSeasonCompletionLogText(PersonalLog log)
+        {
+            string text = $"I completed season {log.Data["season_number"]}";
+
+            if (log.Data.TryGetValue("series_name", out string seriesName))
+            {
+                text += $" of '{seriesName}'";
+            }
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
+
+            }
+            else if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            {
+                watchedWith = watchedWith.Replace(" & ", " and ");
+                watchedWith = watchedWith.Replace(" și ", " and ");
+
+                text += $", together with {watchedWith}";
             }
 
             return text;

@@ -92,6 +92,8 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildPhysiotherapySessionLogText(PersonalLog log);
         string BuildPsychotherapySessionLogText(PersonalLog log);
         string BuildSeriesEpisodeWatchingLogText(PersonalLog log);
+        string BuildSeriesSeasonBeginningLogText(PersonalLog log);
+        string BuildSeriesSeasonCompletionLogText(PersonalLog log);
         string BuildShowerTakingLogText(PersonalLog log);
         string BuildStepCountMeasurementLogText(PersonalLog log);
         string BuildSwimmingActivityLogText(PersonalLog log);

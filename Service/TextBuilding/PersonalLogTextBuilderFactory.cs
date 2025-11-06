@@ -376,6 +376,14 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildSeriesEpisodeWatchingLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.SeriesSeasonBeginning))
+            {
+                return personalLogTextBuilder.BuildSeriesSeasonBeginningLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.SeriesSeasonCompletion))
+            {
+                return personalLogTextBuilder.BuildSeriesSeasonCompletionLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.ShowerTaking))
             {
                 return personalLogTextBuilder.BuildShowerTakingLogText(log);

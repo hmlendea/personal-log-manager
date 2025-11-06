@@ -91,6 +91,8 @@ namespace PersonalLogManager.Service.Models
         PhysiotherapySession,
         PsychotherapySession,
         SeriesEpisodeWatching,
+        SeriesSeasonBeginning,
+        SeriesSeasonCompletion,
         ShowerTaking,
         StepCountMeasurement,
         SwimmingActivity,
