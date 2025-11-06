@@ -1615,6 +1615,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" at {cinemaName}";
             }
 
+            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            {
+                watchedWith = watchedWith.Replace(" & ", " and ");
+                watchedWith = watchedWith.Replace(" și ", " and ");
+
+                text += $", together with {watchedWith}";
+            }
+
             return text;
         }
 
@@ -1761,6 +1769,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             else if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            {
+                watchedWith = watchedWith.Replace(" & ", " and ");
+                watchedWith = watchedWith.Replace(" și ", " and ");
+
+                text += $", together with {watchedWith}";
             }
 
             return text;

@@ -1630,6 +1630,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" at {location}";
             }
 
+            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            {
+                watchedWith = watchedWith.Replace(" & ", " și ");
+                watchedWith = watchedWith.Replace(" and ", " și ");
+
+                text += $", împreună cu {watchedWith}";
+            }
+
             return text;
         }
 
@@ -1788,6 +1796,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             else if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" la {location}";
+            }
+
+            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            {
+                watchedWith = watchedWith.Replace(" & ", " și ");
+                watchedWith = watchedWith.Replace(" and ", " și ");
+
+                text += $", împreună cu {watchedWith}";
             }
 
             return text;
