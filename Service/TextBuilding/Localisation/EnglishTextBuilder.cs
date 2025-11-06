@@ -1130,6 +1130,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildDeviceBatteryHealthLogText(PersonalLog log)
+            => $"The battery health of my {log.Data["device_name"]} was at {log.Data["battery_health_percentage"]}%";
+
+        public string BuildDeviceBatteryLevelLogText(PersonalLog log)
+            => $"The battery level of my {log.Data["device_name"]} was at {log.Data["battery_level_percentage"]}%";
+
         public string BuildDeviceRepairLogText(PersonalLog log)
         {
             string text = $"I have repaired the {log.Data["device_type"]}";

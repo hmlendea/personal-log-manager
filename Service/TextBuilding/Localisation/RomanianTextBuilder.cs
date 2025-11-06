@@ -1158,6 +1158,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildDeviceBatteryHealthLogText(PersonalLog log)
+            => $"Sănătatea bateriei din {log.Data["device_name"]} a fost {log.Data["battery_health_percentage"]}%";
+
+        public string BuildDeviceBatteryLevelLogText(PersonalLog log)
+            => $"Nivelul bateriei din {log.Data["device_name"]} a fost la {log.Data["battery_level_percentage"]}%";
+
         public string BuildDeviceRepairLogText(PersonalLog log)
         {
             string text = $"Am reparat {log.Data["device_type"]}";

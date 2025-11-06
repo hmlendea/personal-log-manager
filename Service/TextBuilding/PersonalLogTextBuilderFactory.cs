@@ -240,6 +240,14 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildDentalScalingLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.DeviceBatteryHealth))
+            {
+                return personalLogTextBuilder.BuildDeviceBatteryHealthLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.DeviceBatteryLevel))
+            {
+                return personalLogTextBuilder.BuildDeviceBatteryLevelLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.DeviceRepair))
             {
                 return personalLogTextBuilder.BuildDeviceRepairLogText(log);
