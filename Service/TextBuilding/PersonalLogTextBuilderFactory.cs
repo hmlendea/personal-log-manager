@@ -380,6 +380,14 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildPsychotherapySessionLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.SeriesBeginning))
+            {
+                return personalLogTextBuilder.BuildSeriesBeginningLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.SeriesCompletion))
+            {
+                return personalLogTextBuilder.BuildSeriesCompletionLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.SeriesEpisodeWatching))
             {
                 return personalLogTextBuilder.BuildSeriesEpisodeWatchingLogText(log);

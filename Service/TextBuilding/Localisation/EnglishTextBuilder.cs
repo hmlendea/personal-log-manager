@@ -1616,7 +1616,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     text += $" at {location}";
                 }
             }
-            else if (log.Data.TryGetValue("cinema_name", out string cinemaName))
+
+            if (log.Data.TryGetValue("cinema_name", out string cinemaName))
             {
                 text += $" at {cinemaName}";
             }
@@ -1744,6 +1745,72 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildSeriesBeginningLogText(PersonalLog log)
+        {
+            string text = $"I began watching the '{log.Data["series_name"]}' series";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
+
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            {
+                watchedWith = watchedWith.Replace(" & ", " and ");
+                watchedWith = watchedWith.Replace(" și ", " and ");
+
+                text += $", together with {watchedWith}";
+            }
+
+            return text;
+        }
+
+        public string BuildSeriesCompletionLogText(PersonalLog log)
+        {
+            string text = $"I completed watching the '{log.Data["series_name"]}' series";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
+
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            {
+                watchedWith = watchedWith.Replace(" & ", " and ");
+                watchedWith = watchedWith.Replace(" și ", " and ");
+
+                text += $", together with {watchedWith}";
+            }
+
+            return text;
+        }
+
         public string BuildSeriesEpisodeWatchingLogText(PersonalLog log)
         {
             string text = $"I have watched the episode {log.Data["episode_number"]}";
@@ -1775,7 +1842,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 }
 
             }
-            else if (log.Data.TryGetValue("location", out string location))
+
+            if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
             }
@@ -1812,7 +1880,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 }
 
             }
-            else if (log.Data.TryGetValue("location", out string location))
+
+            if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
             }
@@ -1849,7 +1918,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 }
 
             }
-            else if (log.Data.TryGetValue("location", out string location))
+
+            if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
             }
