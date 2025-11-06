@@ -296,11 +296,11 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildGameBuildingLevelUpgradeLogText(log);
             }
-            else if (log.Template.Equals(PersonalLogTemplate.GameConstructionBeginning))
+            else if (log.Template.Equals(PersonalLogTemplate.GameConstruction))
             {
                 return personalLogTextBuilder.BuildGameConstructionLogText(log);
             }
-            else if (log.Template.Equals(PersonalLogTemplate.GameConstruction))
+            else if (log.Template.Equals(PersonalLogTemplate.GameConstructionBeginning))
             {
                 return personalLogTextBuilder.BuildGameConstructionBeginningLogText(log);
             }
