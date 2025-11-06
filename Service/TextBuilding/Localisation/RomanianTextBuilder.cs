@@ -2330,6 +2330,43 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildVideoWatchingLogText(PersonalLog log)
+        {
+            string text = $"Am vizionat video-ul '{log.Data["video_title"]}'";
+
+            if (log.Data.TryGetValue("channel_name", out string channelName))
+            {
+                text += $" de pe canalul '{channelName}'";
+            }
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" de pe {platform}";
+
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            {
+                watchedWith = watchedWith.Replace(" & ", " și ");
+                watchedWith = watchedWith.Replace(" and ", " și ");
+
+                text += $", împreună cu {watchedWith}";
+            }
+
+            return text;
+        }
+
         public string BuildWakingUpLogText(PersonalLog log)
             => "M-am trezit";
 

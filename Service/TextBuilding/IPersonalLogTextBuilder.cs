@@ -115,6 +115,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildUtilityBillPaymentLogText(PersonalLog log);
         string BuildUtilityIndexMeasurementLogText(PersonalLog log);
         string BuildVideoUploadLogText(PersonalLog log);
+        string BuildVideoWatchingLogText(PersonalLog log);
         string BuildWakingUpLogText(PersonalLog log);
         string BuildWeddingAttendanceLogText(PersonalLog log);
         string BuildWorkFromTheOfficeLogText(PersonalLog log);

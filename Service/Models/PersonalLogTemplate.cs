@@ -114,6 +114,7 @@ namespace PersonalLogManager.Service.Models
         UtilityBillPayment,
         UtilityIndexMeasurement,
         VideoUpload,
+        VideoWatching,
         WakingUp,
         WeddingAttendance,
         WorkFromTheOffice

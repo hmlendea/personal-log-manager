@@ -456,6 +456,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildVideoUploadLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.VideoWatching))
+            {
+                return personalLogTextBuilder.BuildVideoWatchingLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.WakingUp))
             {
                 return personalLogTextBuilder.BuildWakingUpLogText(log);
