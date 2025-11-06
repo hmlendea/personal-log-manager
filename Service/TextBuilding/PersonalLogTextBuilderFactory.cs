@@ -264,6 +264,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildDirectBilirubinMeasurementLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.EducationalGradeReceival))
+            {
+                return personalLogTextBuilder.BuildEducationalGradeReceivalLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.EmailExport))
             {
                 return personalLogTextBuilder.BuildEmailExportLogText(log);

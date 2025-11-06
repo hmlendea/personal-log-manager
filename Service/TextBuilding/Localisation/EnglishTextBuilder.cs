@@ -1209,6 +1209,37 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return $"My direct bilirubin level measured {log.Data["direct_bilirubin_level"]} {unit}";
         }
 
+        public string BuildEducationalGradeReceivalLogText(PersonalLog log)
+        {
+            string text = $"I have received the grade {log.Data["grade_value"]} in the subject '{log.Data["subject_name"]}'";
+
+            if (log.Data.TryGetValue("course_name", out string courseName))
+            {
+                text += $", in the course {courseName}";
+            }
+
+            if (log.Data.TryGetValue("institution_name", out string institutionName))
+            {
+                text += $", from {institutionName}";
+            }
+
+            if (log.Data.TryGetValue("educational_cycle_year", out string educationalCycleYear))
+            {
+                text += $", in year {educationalCycleYear}";
+            }
+            else if (log.Data.TryGetValue("educational_cycle_grade", out string educationalCycleGrade))
+            {
+                text += $", in grade {educationalCycleGrade}";
+            }
+
+            if (log.Data.TryGetValue("educational_cycle_semester", out string educationalCycleSemester))
+            {
+                text += $", in semester {educationalCycleSemester}";
+            }
+
+            return text;
+        }
+
         public string BuildEmailExportLogText(PersonalLog log)
         {
             string text = $"I have exported all of the emails from the {log.Data["platform"]} account";

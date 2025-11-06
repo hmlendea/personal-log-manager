@@ -63,6 +63,7 @@ namespace PersonalLogManager.Service.Models
         DeviceRepair,
         DeviceScreentimeMeasurement,
         DirectBilirubinMeasurement,
+        EducationalGradeReceival,
         EmailExport,
         EventTicketPurchase,
         EyeCheckup,

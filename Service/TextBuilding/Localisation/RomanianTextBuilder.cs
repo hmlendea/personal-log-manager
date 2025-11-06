@@ -1241,6 +1241,37 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return $"Nivelul de bilirubină directă a fost măsurat la {log.Data["direct_bilirubin_level"]} {unit}";
         }
 
+        public string BuildEducationalGradeReceivalLogText(PersonalLog log)
+        {
+            string text = $"Am primit nota {log.Data["grade_value"]} la materia '{log.Data["subject_name"]}'";
+
+            if (log.Data.TryGetValue("course_name", out string courseName))
+            {
+                text += $", în cadrul cursului {courseName}";
+            }
+
+            if (log.Data.TryGetValue("institution_name", out string institutionName))
+            {
+                text += $", de la {institutionName}";
+            }
+
+            if (log.Data.TryGetValue("educational_cycle_year", out string educationalCycleYear))
+            {
+                text += $", din anul {educationalCycleYear}";
+            }
+            else if (log.Data.TryGetValue("educational_cycle_grade", out string educationalCycleGrade))
+            {
+                text += $", din clasa a {educationalCycleGrade}-a";
+            }
+
+            if (log.Data.TryGetValue("educational_cycle_semester", out string educationalCycleSemester))
+            {
+                text += $", din semestrul {educationalCycleSemester}";
+            }
+
+            return text;
+        }
+
         public string BuildEmailExportLogText(PersonalLog log)
         {
             string text = $"Am exportat toate e-mail-urile din contul de {log.Data["platform"]}";
