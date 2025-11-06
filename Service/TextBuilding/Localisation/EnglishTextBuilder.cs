@@ -1012,6 +1012,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildCertificationObtainmentLogText(PersonalLog log)
+        {
+            string text = $"I have obtained the {log.Data["certification_name"]} certification";
+
+            if (log.Data.TryGetValue("certification_authority", out string certificationAuthority))
+            {
+                text += $" from {certificationAuthority}";
+            }
+
+            return text;
+        }
+
         public string BuildChatGroupCreationLogText(PersonalLog log)
         {
             string text = $"I have created a chat group named {log.Data["group_name"]}";

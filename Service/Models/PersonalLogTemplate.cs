@@ -50,6 +50,7 @@ namespace PersonalLogManager.Service.Models
         BloodPressureMeasurement,
         BodyWaterRateMeasurement,
         BodyWeightMeasurement,
+        CertificationObtainment,
         ChatGroupCreation,
         ChatGroupDeletion,
         ChatGroupJoining,

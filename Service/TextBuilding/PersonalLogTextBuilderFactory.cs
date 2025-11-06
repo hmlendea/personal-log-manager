@@ -212,6 +212,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildBodyWeightMeasurementLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.CertificationObtainment))
+            {
+                return personalLogTextBuilder.BuildCertificationObtainmentLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.ChatGroupCreation))
             {
                 return personalLogTextBuilder.BuildChatGroupCreationLogText(log);
