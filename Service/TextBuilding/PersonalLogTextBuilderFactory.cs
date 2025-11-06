@@ -244,6 +244,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildDeviceRepairLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.DeviceScreentimeMeasurement))
+            {
+                return personalLogTextBuilder.BuildDeviceScreentimeMeasurementLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.DirectBilirubinMeasurement))
             {
                 return personalLogTextBuilder.BuildDirectBilirubinMeasurementLogText(log);

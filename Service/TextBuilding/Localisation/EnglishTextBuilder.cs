@@ -1147,6 +1147,39 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+
+        public string BuildDeviceScreentimeMeasurementLogText(PersonalLog log)
+        {
+            string text = $"The screentime on {log.Data["device_name"]} was measured at";
+
+            if (log.Data.TryGetValue("screentime_hours", out string screentimeHours))
+            {
+                text += $" {screentimeHours} hour";
+
+                if (screentimeHours != "1")
+                {
+                    text += "s";
+                }
+            }
+
+            if (log.Data.TryGetValue("screentime_minutes", out string screentimeMinutes))
+            {
+                if (log.Data.ContainsKey("screentime_hours"))
+                {
+                    text += $" and ";
+                }
+
+                text += $" {screentimeMinutes} minute";
+
+                if (screentimeMinutes != "1")
+                {
+                    text += "s";
+                }
+            }
+
+            return text;
+        }
+
         public string BuildDirectBilirubinMeasurementLogText(PersonalLog log)
         {
             log.Data.TryGetValue("unit", out string unit);

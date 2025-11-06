@@ -1175,6 +1175,42 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildDeviceScreentimeMeasurementLogText(PersonalLog log)
+        {
+            string text = $"Timpul petrecut pe {log.Data["device_name"]} a fost măsurat la";
+
+            if (log.Data.TryGetValue("screentime_hours", out string screentimeHours))
+            {
+                text += $" {screentimeHours} or";
+
+                if (screentimeHours.Equals("1"))
+                {
+                    text += "ă";
+                }
+                else
+                {
+                    text += "e";
+                }
+            }
+
+            if (log.Data.TryGetValue("screentime_minutes", out string screentimeMinutes))
+            {
+                if (log.Data.ContainsKey("screentime_hours"))
+                {
+                    text += $" și ";
+                }
+
+                text += $" {screentimeMinutes} minut";
+
+                if (screentimeMinutes.Equals("1"))
+                {
+                    text += "e";
+                }
+            }
+
+            return text;
+        }
+
         public string BuildDirectBilirubinMeasurementLogText(PersonalLog log)
         {
             log.Data.TryGetValue("unit", out string unit);

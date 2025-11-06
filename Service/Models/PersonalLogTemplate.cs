@@ -58,6 +58,7 @@ namespace PersonalLogManager.Service.Models
         DeliveryReceival,
         DentalScaling,
         DeviceRepair,
+        DeviceScreentimeMeasurement,
         DirectBilirubinMeasurement,
         EmailExport,
         EventTicketPurchase,
