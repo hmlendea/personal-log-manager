@@ -1530,6 +1530,58 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGameOfficeTermBeginningLogText(PersonalLog log)
+        {
+            string text = $"I have begun my term as {log.Data["office_name"]}";
+
+            if (log.Data.TryGetValue("office_location", out string officeLocation))
+            {
+                text += $" in {officeLocation}";
+            }
+
+            text += $" in {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameOfficeTermEndingLogText(PersonalLog log)
+        {
+            string text = $"I have ended my term as {log.Data["office_name"]}";
+
+            if (log.Data.TryGetValue("office_location", out string officeLocation))
+            {
+                text += $" in {officeLocation}";
+            }
+
+            text += $" in {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
         public string BuildGameRankUpLogText(PersonalLog log)
         {
             string text = $"I have ranked up to {log.Data["new_rank"]} in {log.Data["game_name"]}";

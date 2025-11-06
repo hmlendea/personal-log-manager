@@ -1559,6 +1559,58 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGameOfficeTermBeginningLogText(PersonalLog log)
+        {
+            string text = $"Am început un mandat de {log.Data["office_name"]}";
+
+            if (log.Data.TryGetValue("office_location", out string officeLocation))
+            {
+                text += $" în {officeLocation}";
+            }
+
+            text += $" în {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" pe {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameOfficeTermEndingLogText(PersonalLog log)
+        {
+            string text = $"Am încheiat un mandat de {log.Data["office_name"]}";
+
+            if (log.Data.TryGetValue("office_location", out string officeLocation))
+            {
+                text += $" în {officeLocation}";
+            }
+
+            text += $" în {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" pe {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
         public string BuildGameRankUpLogText(PersonalLog log)
         {
             string text = $"Am avansat la rangul {log.Data["new_rank"]} în {log.Data["game_name"]}";
