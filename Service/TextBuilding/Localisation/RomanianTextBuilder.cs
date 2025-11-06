@@ -1805,7 +1805,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.TryGetValue("location", out string location))
             {
-                text += $" at {location}";
+                text += $" la {location}";
             }
 
             if (log.Data.TryGetValue("watched_with", out string watchedWith))
