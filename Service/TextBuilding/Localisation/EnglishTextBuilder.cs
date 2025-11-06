@@ -2122,9 +2122,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have walked {log.Data["step_count"]} steps";
 
+            if (log.Data.TryGetValue("distance_metres", out string distanceMetres))
+            {
+                text += $", over {distanceMetres} de metres";
+            }
+
+            if (log.Data.TryGetValue("calories_burned", out string caloriesBurned))
+            {
+                text += $", burning {caloriesBurned} kilocalories";
+            }
+
             if (log.Data.TryGetValue("device_name", out string deviceName))
             {
-                text += $", as measured by my {deviceName}";
+                text += $", according to the measurements made by my {deviceName}";
             }
 
             return text;

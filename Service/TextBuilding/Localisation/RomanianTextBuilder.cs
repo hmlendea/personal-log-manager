@@ -2147,6 +2147,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am umblat {log.Data["step_count"]} de pași";
 
+            if (log.Data.TryGetValue("distance_metres", out string distanceMetres))
+            {
+                text += $", pe o distanță de {distanceMetres} de metri";
+            }
+
+            if (log.Data.TryGetValue("calories_burned", out string caloriesBurned))
+            {
+                text += $", arzând {caloriesBurned} de kilocalorii";
+            }
+
             if (log.Data.TryGetValue("device_name", out string deviceName))
             {
                 text += $", conform măsurătorilor făcute de {deviceName}";
