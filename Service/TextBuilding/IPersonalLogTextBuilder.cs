@@ -17,6 +17,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildAccountDeletionRequestLogText(PersonalLog log);
         string BuildAccountDeletionRequestCancellationLogText(PersonalLog log);
         string BuildAccountDeletionRequestFulfillmentLogText(PersonalLog log);
+        string BuildAccountDeletionRequestRejectionLogText(PersonalLog log);
         string BuildAccountDeletionValidationLogText(PersonalLog log);
         string BuildAccountEmailAddressChangeLogText(PersonalLog log);
         string BuildAccountEmailAddressChangeRequestLogText(PersonalLog log);
@@ -39,6 +40,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildAccountRegistrationLogText(PersonalLog log);
         string BuildAccountRegistrationRequestLogText(PersonalLog log);
         string BuildAccountRegistrationRequestFulfillmentLogText(PersonalLog log);
+        string BuildAccountSecurityQuestionsChangeLogText(PersonalLog log);
         string BuildAccountSubscriptionPurchaseLogText(PersonalLog log);
         string BuildAccountUnlinkingLogText(PersonalLog log);
         string BuildAccountUsernameChangeLogText(PersonalLog log);
@@ -46,6 +48,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildAccountVisibilityMadePublicLogText(PersonalLog log);
         string BuildBloodDonationLogText(PersonalLog log);
         string BuildBloodGlucoseMeasurementLogText(PersonalLog log);
+        string BuildBloodPressureMeasurementLogText(PersonalLog log);
         string BuildBodyWaterRateMeasurementLogText(PersonalLog log);
         string BuildBodyWeightMeasurementLogText(PersonalLog log);
         string BuildChatGroupCreationLogText(PersonalLog log);
@@ -55,23 +58,45 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildDatingAppMatchLogText(PersonalLog log);
         string BuildDeliveryReceivalLogText(PersonalLog log);
         string BuildDentalScalingLogText(PersonalLog log);
+        string BuildDeviceRepairLogText(PersonalLog log);
+        string BuildDeviceScreentimeMeasurementLogText(PersonalLog log);
+        string BuildDirectBilirubinMeasurementLogText(PersonalLog log);
         string BuildEmailExportLogText(PersonalLog log);
+        string BuildEventTicketPurchaseLogText(PersonalLog log);
         string BuildEyeCheckupLogText(PersonalLog log);
         string BuildGameAchievementUnlockLogText(PersonalLog log);
+        string BuildGameArticlePublishingLogText(PersonalLog log);
+        string BuildGameBuildingBoughtLogText(PersonalLog log);
+        string BuildGameBuildingLevelUpgradeLogText(PersonalLog log);
+        string BuildGameConstructionLogText(PersonalLog log);
         string BuildGameConstructionBeginningLogText(PersonalLog log);
         string BuildGameConstructionCompletionLogText(PersonalLog log);
+        string BuildGameRankUpLogText(PersonalLog log);
+        string BuildGameStartedPlayingLogText(PersonalLog log);
+        string BuildGameLevelUpLogText(PersonalLog log);
         string BuildGettingInToBedLogText(PersonalLog log);
         string BuildGettingOutOfBedLogText(PersonalLog log);
         string BuildHairCuttingLogText(PersonalLog log);
         string BuildHdlCholesterolMeasurementLogText(PersonalLog log);
+        string BuildHeartRateMeasurementLogText(PersonalLog log);
+        string BuildIndirectBilirubinMeasurementLogText(PersonalLog log);
         string BuildInternshipApplicationSubmissionLogText(PersonalLog log);
+        string BuildKinetotherapySessionLogText(PersonalLog log);
         string BuildLdlCholesterolMeasurementLogText(PersonalLog log);
         string BuildMealVoucherCardCreditationLogText(PersonalLog log);
+        string BuildMovieWatchingLogText(PersonalLog log);
         string BuildObjectSaleLogText(PersonalLog log);
         string BuildOnlineReviewSubmissionLogText(PersonalLog log);
         string BuildOnlineStorePurchaseLogText(PersonalLog log);
+        string BuildPetNailsTrimmingLogText(PersonalLog log);
         string BuildPetWeightMeasurementLogText(PersonalLog log);
+        string BuildPhysiotherapySessionLogText(PersonalLog log);
+        string BuildPsychotherapySessionLogText(PersonalLog log);
+        string BuildSeriesEpisodeWatchingLogText(PersonalLog log);
+        string BuildSeriesSeasonBeginningLogText(PersonalLog log);
+        string BuildSeriesSeasonCompletionLogText(PersonalLog log);
         string BuildShowerTakingLogText(PersonalLog log);
+        string BuildStepCountMeasurementLogText(PersonalLog log);
         string BuildSwimmingActivityLogText(PersonalLog log);
         string BuildTeethBrushingLogText(PersonalLog log);
         string BuildTollPaymentLogText(PersonalLog log);
@@ -81,6 +106,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildUtilityIndexMeasurementLogText(PersonalLog log);
         string BuildVideoUploadLogText(PersonalLog log);
         string BuildWakingUpLogText(PersonalLog log);
+        string BuildWeddingAttendanceLogText(PersonalLog log);
         string BuildWorkFromTheOfficeLogText(PersonalLog log);
     }
 }

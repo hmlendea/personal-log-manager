@@ -263,6 +263,31 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildAccountDeletionRequestRejectionLogText(PersonalLog log)
+        {
+            string text = $"My account deletion request for the {log.Data["platform"]} account";
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $" with the {requestId} identification code";
+            }
+
+            if (log.Data.TryGetValue("request_date", out string requestDate))
+            {
+                text += $", sent on {requestDate},";
+            }
+
+            text += " has been rejected";
+
+            return text;
+        }
+
         public string BuildAccountDeletionValidationLogText(PersonalLog log)
         {
             string text = $"I have validated that the {log.Data["platform"]} account";
@@ -802,6 +827,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildAccountSecurityQuestionsChangeLogText(PersonalLog log)
+        {
+            string text = $"I have changed the security questions for the {log.Data["platform"]} account";
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
         public string BuildAccountSubscriptionPurchaseLogText(PersonalLog log)
         {
             string text = $"I have purchased a";
@@ -933,9 +971,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 unit = "mg/dL";
             }
 
-            string text = $"My blood glucose level measured {log.Data["glucose_level"]} {unit}";
+            return $"My blood glucose level measured {log.Data["glucose_level"]} {unit}";
+        }
 
-            return text;
+        public string BuildBloodPressureMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "mmHg";
+            }
+
+            return $"My blood pressure measured {log.Data["systolic_pressure"]}/{log.Data["diastolic_pressure"]} {unit}";
         }
 
         public string BuildBodyWaterRateMeasurementLogText(PersonalLog log)
@@ -1082,6 +1130,67 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildDeviceRepairLogText(PersonalLog log)
+        {
+            string text = $"I have repaired the {log.Data["device_type"]}";
+
+            if (log.Data.TryGetValue("device_name", out string deviceName))
+            {
+                text += $" ({deviceName})";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" in {location}";
+            }
+
+            return text;
+        }
+
+        public string BuildDeviceScreentimeMeasurementLogText(PersonalLog log)
+        {
+            string text = $"The screentime on {log.Data["device_name"]} was measured at";
+
+            if (log.Data.TryGetValue("screentime_hours", out string screentimeHours))
+            {
+                text += $" {screentimeHours} hour";
+
+                if (screentimeHours != "1")
+                {
+                    text += "s";
+                }
+            }
+
+            if (log.Data.TryGetValue("screentime_minutes", out string screentimeMinutes))
+            {
+                if (log.Data.ContainsKey("screentime_hours"))
+                {
+                    text += $" and ";
+                }
+
+                text += $" {screentimeMinutes} minute";
+
+                if (screentimeMinutes != "1")
+                {
+                    text += "s";
+                }
+            }
+
+            return text;
+        }
+
+        public string BuildDirectBilirubinMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "mg/dL";
+            }
+
+            return $"My direct bilirubin level measured {log.Data["direct_bilirubin_level"]} {unit}";
+        }
+
         public string BuildEmailExportLogText(PersonalLog log)
         {
             string text = $"I have exported all of the emails from the {log.Data["platform"]} account";
@@ -1089,6 +1198,30 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("account", out string account))
             {
                 text += $" ({account})";
+            }
+
+            return text;
+        }
+
+        public string BuildEventTicketPurchaseLogText(PersonalLog log)
+        {
+            string text = $"I have purchased a";
+
+            if (log.Data.TryGetValue("ticket_type", out string ticketType))
+            {
+                text += $" {ticketType}";
+            }
+
+            text += $"ticket for '{log.Data["event_name"]}'";
+
+            if (log.Data.TryGetValue("event_date", out string eventDate))
+            {
+                text += $" on {eventDate}";
+            }
+
+            if (log.Data.TryGetValue("event_location", out string eventLocation))
+            {
+                text += $" at {eventLocation}";
             }
 
             return text;
@@ -1149,6 +1282,91 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGameArticlePublishingLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("game_name", out string gameName);
+            string text = $"I have published an article titled '{log.Data["article_title"]}' in the game {gameName}";
+
+            if (gameName?.Equals("eRepublik") == true)
+            {
+                if (log.Data.TryGetValue("newspaper_name", out string newspaperName))
+                {
+                    text += $" in the '{newspaperName}' newspaper";
+                }
+            }
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameBuildingBoughtLogText(PersonalLog log)
+        {
+            string text = $"I have bought {log.Data["building_name"]} in the game {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameBuildingLevelUpgradeLogText(PersonalLog log)
+        {
+            string text = $"I have upgraded {log.Data["building_name"]} to level {log.Data["new_level"]} in the game {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameConstructionLogText(PersonalLog log)
+        {
+            string text = $"I have built {log.Data["construction_name"]} in the game {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
         public string BuildGameConstructionBeginningLogText(PersonalLog log)
         {
             string text = $"I have begun the construction of {log.Data["construction_name"]} in the game {log.Data["game_name"]}";
@@ -1171,6 +1389,63 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildGameConstructionCompletionLogText(PersonalLog log)
         {
             string text = $"I have completed the construction of {log.Data["construction_name"]} in the game {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameRankUpLogText(PersonalLog log)
+        {
+            string text = $"I have ranked up to {log.Data["new_rank"]} in {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameStartedPlayingLogText(PersonalLog log)
+        {
+            string text = $"I have started playing {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameLevelUpLogText(PersonalLog log)
+        {
+            string text = $"I have reached level {log.Data["new_level"]} in {log.Data["game_name"]}";
 
             if (log.Data.TryGetValue("platform", out string platform))
             {
@@ -1224,6 +1499,37 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildHeartRateMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "bpm";
+            }
+
+            string text = $"My heart rate measured {log.Data["heart_rate"]} {unit}";
+
+            if (log.Data.TryGetValue("device_name", out string deviceName))
+            {
+                text += $" on the {deviceName}";
+            }
+
+            return text;
+        }
+
+        public string BuildIndirectBilirubinMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "mg/dL";
+            }
+
+            return $"My indirect bilirubin level measured {log.Data["indirect_bilirubin_level"]} {unit}";
+        }
+
         public string BuildInternshipApplicationSubmissionLogText(PersonalLog log)
         {
             string internshipType = "internship";
@@ -1253,6 +1559,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildKinetotherapySessionLogText(PersonalLog log)
+        {
+            string text = $"I have undergone a kinetotherapy session";
+
+            if (log.Data.TryGetValue("clinic_name", out string clinicName))
+            {
+                text += $" at {clinicName}";
+            }
+
+            return text;
+        }
+
         public string BuildLdlCholesterolMeasurementLogText(PersonalLog log)
         {
             log.Data.TryGetValue("unit", out string unit);
@@ -1262,14 +1580,48 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 unit = "mg/dL";
             }
 
-            string text = $"My LDL cholesterol level measured {log.Data["ldl_cholesterol_level"]} {unit}";
-
-            return text;
+            return $"My LDL cholesterol level measured {log.Data["ldl_cholesterol_level"]} {unit}";
         }
 
         public string BuildMealVoucherCardCreditationLogText(PersonalLog log)
         {
             string text = $"My meal voucher card was credited with {log.Data["amount"]} {log.Data["currency"]}";
+
+            return text;
+        }
+
+        public string BuildMovieWatchingLogText(PersonalLog log)
+        {
+            string text = $"I have watched the movie '{log.Data["movie_name"]}'";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
+
+                if (log.Data.TryGetValue("location", out string location))
+                {
+                    text += $" at {location}";
+                }
+            }
+            else if (log.Data.TryGetValue("cinema_name", out string cinemaName))
+            {
+                text += $" at {cinemaName}";
+            }
+
+            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            {
+                watchedWith = watchedWith.Replace(" & ", " and ");
+                watchedWith = watchedWith.Replace(" și ", " and ");
+
+                text += $", together with {watchedWith}";
+            }
 
             return text;
         }
@@ -1335,6 +1687,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildPetNailsTrimmingLogText(PersonalLog log)
+            => $"I have trimmed the nails of my pet {log.Data["pet_name"]}";
+
         public string BuildPetWeightMeasurementLogText(PersonalLog log)
         {
             log.Data.TryGetValue("unit", out string unit);
@@ -1354,6 +1709,156 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildPhysiotherapySessionLogText(PersonalLog log)
+        {
+            string text = $"I have undergone a physiotherapy session";
+
+            if (log.Data.TryGetValue("clinic_name", out string clinicName))
+            {
+                text += $" at {clinicName}";
+            }
+
+            return text;
+        }
+
+        public string BuildPsychotherapySessionLogText(PersonalLog log)
+        {
+            string text = $"I have undergone a psychotherapy session";
+
+            if (log.Data.TryGetValue("clinic_name", out string clinicName))
+            {
+                text += $" at {clinicName}";
+            }
+
+            if (log.Data.TryGetValue("therapist_name", out string therapistName))
+            {
+                text += $", by {therapistName}";
+            }
+
+            return text;
+        }
+
+        public string BuildSeriesEpisodeWatchingLogText(PersonalLog log)
+        {
+            string text = $"I have watched the episode {log.Data["episode_number"]}";
+
+            if (log.Data.TryGetValue("episode_name", out string episodeName))
+            {
+                text += $" '{episodeName}'";
+            }
+
+            if (log.Data.TryGetValue("season_number", out string seasonNumber))
+            {
+                text += $" of season {seasonNumber}";
+            }
+
+            if (log.Data.TryGetValue("series_name", out string seriesName))
+            {
+                text += $" from the series '{seriesName}'";
+            }
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
+
+            }
+            else if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            {
+                watchedWith = watchedWith.Replace(" & ", " and ");
+                watchedWith = watchedWith.Replace(" și ", " and ");
+
+                text += $", together with {watchedWith}";
+            }
+
+            return text;
+        }
+
+        public string BuildSeriesSeasonBeginningLogText(PersonalLog log)
+        {
+            string text = $"I began watching season {log.Data["season_number"]}";
+
+            if (log.Data.TryGetValue("series_name", out string seriesName))
+            {
+                text += $" of '{seriesName}'";
+            }
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
+
+            }
+            else if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            {
+                watchedWith = watchedWith.Replace(" & ", " and ");
+                watchedWith = watchedWith.Replace(" și ", " and ");
+
+                text += $", together with {watchedWith}";
+            }
+
+            return text;
+        }
+
+        public string BuildSeriesSeasonCompletionLogText(PersonalLog log)
+        {
+            string text = $"I completed season {log.Data["season_number"]}";
+
+            if (log.Data.TryGetValue("series_name", out string seriesName))
+            {
+                text += $" of '{seriesName}'";
+            }
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
+
+            }
+            else if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            {
+                watchedWith = watchedWith.Replace(" & ", " and ");
+                watchedWith = watchedWith.Replace(" și ", " and ");
+
+                text += $", together with {watchedWith}";
+            }
+
+            return text;
+        }
+
         public string BuildShowerTakingLogText(PersonalLog log)
         {
             string text = $"I have taken a shower";
@@ -1361,6 +1866,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
             {
                 text += $" for {durationMinutes} minutes";
+            }
+
+            return text;
+        }
+
+        public string BuildStepCountMeasurementLogText(PersonalLog log)
+        {
+            string text = $"I have walked {log.Data["step_count"]} steps";
+
+            if (log.Data.TryGetValue("device_name", out string deviceName))
+            {
+                text += $", as measured by my {deviceName}";
             }
 
             return text;
@@ -1527,6 +2044,39 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildWakingUpLogText(PersonalLog log)
             => $"I have woken up";
+
+        public string BuildWeddingAttendanceLogText(PersonalLog log)
+        {
+            string text = $"I have attended the wedding of";
+
+            log.Data.TryGetValue("bride_name", out string brideName);
+            log.Data.TryGetValue("groom_name", out string groomName);
+
+            if (!string.IsNullOrWhiteSpace(brideName) && !string.IsNullOrWhiteSpace(groomName))
+            {
+                text += $" {groomName} and {brideName}";
+            }
+            else if (!string.IsNullOrWhiteSpace(brideName))
+            {
+                text += $" {brideName}";
+            }
+            else if (!string.IsNullOrWhiteSpace(groomName))
+            {
+                text += $" {groomName}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" in {location}";
+            }
+
+            if (log.Data.TryGetValue("venue_name", out string venueName))
+            {
+                text += $" at {venueName}";
+            }
+
+            return text;
+        }
 
         public string BuildWorkFromTheOfficeLogText(PersonalLog log)
         {

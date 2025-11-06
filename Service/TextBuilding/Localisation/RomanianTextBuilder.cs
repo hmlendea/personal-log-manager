@@ -268,6 +268,31 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildAccountDeletionRequestRejectionLogText(PersonalLog log)
+        {
+            string text = $"Cererea de ștergere a contului de {log.Data["platform"]}";
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $" cu codul de identificare {requestId}";
+            }
+
+            if (log.Data.TryGetValue("request_date", out string requestDate))
+            {
+                text += $", trimisă pe {requestDate},";
+            }
+
+            text += " a fost respinsă";
+
+            return text;
+        }
+
         public string BuildAccountDeletionValidationLogText(PersonalLog log)
         {
             string text = $"Am verificat că a fost șters contul de {log.Data["platform"]}";
@@ -806,6 +831,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildAccountSecurityQuestionsChangeLogText(PersonalLog log)
+        {
+            string text = $"Am schimbat întrebările de securitate ale contului de {log.Data["platform"]}";
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
         public string BuildAccountSubscriptionPurchaseLogText(PersonalLog log)
         {
             string text = $"Am cumpărat un abonament";
@@ -933,7 +971,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 unit = "mg/dL";
             }
 
-            return $"Nivelul glicemiei a fost măsurat la {log.Data["glucose_level"]} {unit}";
+            return $"Nivelul de glucoză a fost măsurat la {log.Data["glucose_level"]} {unit}";
+        }
+
+        public string BuildBloodPressureMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "mmHg";
+            }
+
+            return $"Tensiunea arterială a fost măsurată la {log.Data["systolic_pressure"]}/{log.Data["diastolic_pressure"]} {unit}";
         }
 
         public string BuildBodyWaterRateMeasurementLogText(PersonalLog log)
@@ -1108,6 +1158,71 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildDeviceRepairLogText(PersonalLog log)
+        {
+            string text = $"Am reparat {log.Data["device_type"]}";
+
+            if (log.Data.TryGetValue("device_name", out string deviceName))
+            {
+                text += $" ({deviceName})";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" din {location}";
+            }
+
+            return text;
+        }
+
+        public string BuildDeviceScreentimeMeasurementLogText(PersonalLog log)
+        {
+            string text = $"Timpul petrecut pe {log.Data["device_name"]} a fost măsurat la";
+
+            if (log.Data.TryGetValue("screentime_hours", out string screentimeHours))
+            {
+                text += $" {screentimeHours} or";
+
+                if (screentimeHours.Equals("1"))
+                {
+                    text += "ă";
+                }
+                else
+                {
+                    text += "e";
+                }
+            }
+
+            if (log.Data.TryGetValue("screentime_minutes", out string screentimeMinutes))
+            {
+                if (log.Data.ContainsKey("screentime_hours"))
+                {
+                    text += $" și ";
+                }
+
+                text += $" {screentimeMinutes} minut";
+
+                if (screentimeMinutes.Equals("1"))
+                {
+                    text += "e";
+                }
+            }
+
+            return text;
+        }
+
+        public string BuildDirectBilirubinMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "mg/dL";
+            }
+
+            return $"Nivelul de bilirubină directă a fost măsurat la {log.Data["direct_bilirubin_level"]} {unit}";
+        }
+
         public string BuildEmailExportLogText(PersonalLog log)
         {
             string text = $"Am exportat toate e-mail-urile din contul de {log.Data["platform"]}";
@@ -1115,6 +1230,30 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("account", out string account))
             {
                 text += $" ({account})";
+            }
+
+            return text;
+        }
+
+        public string BuildEventTicketPurchaseLogText(PersonalLog log)
+        {
+            string text = $"Am cumpărat bilet";
+
+            if (log.Data.TryGetValue("ticket_type", out string ticketType))
+            {
+                text += $" {ticketType}";
+            }
+
+            text += $"pentru '{log.Data["event_name"]}'";
+
+            if (log.Data.TryGetValue("event_date", out string eventDate))
+            {
+                text += $" pe {eventDate}";
+            }
+
+            if (log.Data.TryGetValue("event_location", out string eventLocation))
+            {
+                text += $" la {eventLocation}";
             }
 
             return text;
@@ -1172,6 +1311,91 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGameArticlePublishingLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("game_name", out string gameName);
+            string text = $"Am public un articol intitulat '{log.Data["article_title"]}' în {gameName}";
+
+            if (gameName?.Equals("eRepublik") == true)
+            {
+                if (log.Data.TryGetValue("newspaper_name", out string newspaperName))
+                {
+                    text += $" în ziarul '{newspaperName}'";
+                }
+            }
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" pe {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameBuildingBoughtLogText(PersonalLog log)
+        {
+            string text = $"Am cumpărat clădirea {log.Data["building_name"]} în {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" pe {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameBuildingLevelUpgradeLogText(PersonalLog log)
+        {
+            string text = $"Am ridicat clădirea {log.Data["building_name"]} la nivelul {log.Data["new_level"]} în {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" pe {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameConstructionLogText(PersonalLog log)
+        {
+            string text = $"Am construit {log.Data["construction_name"]} în {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" pe {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
         public string BuildGameConstructionBeginningLogText(PersonalLog log)
         {
             string text = $"Am început să construiesc {log.Data["construction_name"]} în {log.Data["game_name"]}";
@@ -1194,6 +1418,63 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildGameConstructionCompletionLogText(PersonalLog log)
         {
             string text = $"Am terminat de construit {log.Data["construction_name"]} în {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" pe {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameRankUpLogText(PersonalLog log)
+        {
+            string text = $"Am avansat la rangul {log.Data["new_rank"]} în {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" pe {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameStartedPlayingLogText(PersonalLog log)
+        {
+            string text = $"Am început să joc {log.Data["game_name"]}";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" pe {platform}";
+            }
+
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
+        public string BuildGameLevelUpLogText(PersonalLog log)
+        {
+            string text = $"Am avansat la nivelul {log.Data["new_level"]} în {log.Data["game_name"]}";
 
             if (log.Data.TryGetValue("platform", out string platform))
             {
@@ -1242,9 +1523,38 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 unit = "mg/dL";
             }
 
-            string text = $"Nivelul de HDL Colesterol a fost măsurat la {log.Data["hdl_cholesterol_level"]} {unit}";
+            return $"Nivelul de HDL Colesterol a fost măsurat la {log.Data["hdl_cholesterol_level"]} {unit}";
+        }
+
+        public string BuildHeartRateMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "bpm";
+            }
+
+            string text = $"Ritmul cardiac a fost măsurat la {log.Data["heart_rate"]} {unit}";
+
+            if (log.Data.TryGetValue("device_name", out string deviceName))
+            {
+                text += $" folosind {deviceName}";
+            }
 
             return text;
+        }
+
+        public string BuildIndirectBilirubinMeasurementLogText(PersonalLog log)
+        {
+            log.Data.TryGetValue("unit", out string unit);
+
+            if (string.IsNullOrWhiteSpace(unit))
+            {
+                unit = "mg/dL";
+            }
+
+            return $"Nivelul de bilirubină indirectă a fost măsurat la {log.Data["indirect_bilirubin_level"]} {unit}";
         }
 
         public string BuildInternshipApplicationSubmissionLogText(PersonalLog log)
@@ -1271,6 +1581,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildKinetotherapySessionLogText(PersonalLog log)
+        {
+            string text = $"Am avut o ședință de kinetoterapie";
+
+            if (log.Data.TryGetValue("clinic_name", out string clinicName))
+            {
+                text += $" la {clinicName}";
+            }
+
+            return text;
+        }
+
         public string BuildLdlCholesterolMeasurementLogText(PersonalLog log)
         {
             log.Data.TryGetValue("unit", out string unit);
@@ -1287,6 +1609,37 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildMealVoucherCardCreditationLogText(PersonalLog log)
             => $"Cardul de bonuri de masă a fost creditat cu {log.Data["amount"]} {log.Data["currency"]}";
+
+        public string BuildMovieWatchingLogText(PersonalLog log)
+        {
+            string text = $"Am vizionat filmul '{log.Data["movie_name"]}'";
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" pe {platform}";
+
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
+            }
+            else if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            {
+                watchedWith = watchedWith.Replace(" & ", " și ");
+                watchedWith = watchedWith.Replace(" and ", " și ");
+
+                text += $", împreună cu {watchedWith}";
+            }
+
+            return text;
+        }
 
         public string BuildObjectSaleLogText(PersonalLog log)
         {
@@ -1361,6 +1714,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildPetNailsTrimmingLogText(PersonalLog log)
+            => $"I-am tăiat ghearele lui {log.Data["pet_name"]}";
+
         public string BuildPetWeightMeasurementLogText(PersonalLog log)
         {
             log.Data.TryGetValue("unit", out string unit);
@@ -1380,6 +1736,156 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildPhysiotherapySessionLogText(PersonalLog log)
+        {
+            string text = $"Am avut o ședință de fizioterapie";
+
+            if (log.Data.TryGetValue("clinic_name", out string clinicName))
+            {
+                text += $" la {clinicName}";
+            }
+
+            return text;
+        }
+
+        public string BuildPsychotherapySessionLogText(PersonalLog log)
+        {
+            string text = $"Am avut o ședință de psihoterapie";
+
+            if (log.Data.TryGetValue("clinic_name", out string clinicName))
+            {
+                text += $" la {clinicName}";
+            }
+
+            if (log.Data.TryGetValue("therapist_name", out string therapistName))
+            {
+                text += $", cu {therapistName}";
+            }
+
+            return text;
+        }
+
+        public string BuildSeriesEpisodeWatchingLogText(PersonalLog log)
+        {
+            string text = $"Am vizionat episodul #{log.Data["episode_number"]}";
+
+            if (log.Data.TryGetValue("episode_name", out string episodeName))
+            {
+                text += $" '{episodeName}'";
+            }
+
+            if (log.Data.TryGetValue("season_number", out string seasonNumber))
+            {
+                text += $" din sezonul {seasonNumber}";
+            }
+
+            if (log.Data.TryGetValue("series_name", out string seriesName))
+            {
+                text += $" din '{seriesName}'";
+            }
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" pe {platform}";
+
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
+
+            }
+            else if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            {
+                watchedWith = watchedWith.Replace(" & ", " și ");
+                watchedWith = watchedWith.Replace(" and ", " și ");
+
+                text += $", împreună cu {watchedWith}";
+            }
+
+            return text;
+        }
+
+        public string BuildSeriesSeasonBeginningLogText(PersonalLog log)
+        {
+            string text = $"Am început să vizionez sezonul {log.Data["season_number"]}";
+
+            if (log.Data.TryGetValue("series_name", out string seriesName))
+            {
+                text += $" din '{seriesName}'";
+            }
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" pe {platform}";
+
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
+
+            }
+            else if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            {
+                watchedWith = watchedWith.Replace(" & ", " și ");
+                watchedWith = watchedWith.Replace(" and ", " și ");
+
+                text += $", împreună cu {watchedWith}";
+            }
+
+            return text;
+        }
+
+        public string BuildSeriesSeasonCompletionLogText(PersonalLog log)
+        {
+            string text = $"Am terminat sezonul {log.Data["season_number"]}";
+
+            if (log.Data.TryGetValue("series_name", out string seriesName))
+            {
+                text += $" din '{seriesName}'";
+            }
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" pe {platform}";
+
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
+
+            }
+            else if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            {
+                watchedWith = watchedWith.Replace(" & ", " și ");
+                watchedWith = watchedWith.Replace(" and ", " și ");
+
+                text += $", împreună cu {watchedWith}";
+            }
+
+            return text;
+        }
+
         public string BuildShowerTakingLogText(PersonalLog log)
         {
             string text = $"Am făcut duș";
@@ -1387,6 +1893,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
             {
                 text += $" timp de {durationMinutes} minute";
+            }
+
+            return text;
+        }
+
+        public string BuildStepCountMeasurementLogText(PersonalLog log)
+        {
+            string text = $"Am umblat {log.Data["step_count"]} de pași";
+
+            if (log.Data.TryGetValue("device_name", out string deviceName))
+            {
+                text += $", conform măsurătorilor făcute de {deviceName}";
             }
 
             return text;
@@ -1452,7 +1970,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 unit = "mg/dL";
             }
 
-            return $"Nivelul bilirubinei totale a fost măsurat la {log.Data["total_bilirubin_level"]} {unit}";
+            return $"Nivelul de bilirubină totală a fost măsurat la {log.Data["total_bilirubin_level"]} {unit}";
         }
 
         public string BuildTotalCholesterolMeasurementLogText(PersonalLog log)
@@ -1464,7 +1982,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 unit = unitValue;
             }
 
-            return $"Nivelul colesterolului total a fost măsurat la {log.Data["total_cholesterol_level"]} {unit}";
+            return $"Nivelul de colesterol total a fost măsurat la {log.Data["total_cholesterol_level"]} {unit}";
         }
 
         public string BuildUtilityBillPaymentLogText(PersonalLog log)
@@ -1569,6 +2087,39 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildWakingUpLogText(PersonalLog log)
             => "M-am trezit";
+
+        public string BuildWeddingAttendanceLogText(PersonalLog log)
+        {
+            string text = $"Am participat la nunta lui";
+
+            log.Data.TryGetValue("bride_name", out string brideName);
+            log.Data.TryGetValue("groom_name", out string groomName);
+
+            if (!string.IsNullOrWhiteSpace(brideName) && !string.IsNullOrWhiteSpace(groomName))
+            {
+                text += $" {groomName} și {brideName}";
+            }
+            else if (!string.IsNullOrWhiteSpace(brideName))
+            {
+                text += $" {brideName}";
+            }
+            else if (!string.IsNullOrWhiteSpace(groomName))
+            {
+                text += $" {groomName}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" în {location}";
+            }
+
+            if (log.Data.TryGetValue("venue_name", out string venueName))
+            {
+                text += $" la {venueName}";
+            }
+
+            return text;
+        }
 
         public string BuildWorkFromTheOfficeLogText(PersonalLog log)
         {
