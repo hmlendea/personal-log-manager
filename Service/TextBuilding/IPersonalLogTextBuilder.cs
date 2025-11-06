@@ -75,8 +75,8 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildGameConstructionLogText(PersonalLog log);
         string BuildGameConstructionBeginningLogText(PersonalLog log);
         string BuildGameConstructionCompletionLogText(PersonalLog log);
-        string BuildGamePoliticalPartyJoiningLogText(PersonalLog log);
-        string BuildGamePoliticalPartyLeavingLogText(PersonalLog log);
+        string BuildGameGuildJoiningLogText(PersonalLog log);
+        string BuildGameGuildLeavingLogText(PersonalLog log);
         string BuildGameRankUpLogText(PersonalLog log);
         string BuildGameStartedPlayingLogText(PersonalLog log);
         string BuildGameLevelUpLogText(PersonalLog log);

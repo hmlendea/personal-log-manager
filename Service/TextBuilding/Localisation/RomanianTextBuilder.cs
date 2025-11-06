@@ -1483,9 +1483,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
-        public string BuildGamePoliticalPartyJoiningLogText(PersonalLog log)
+        public string BuildGameGuildJoiningLogText(PersonalLog log)
         {
-            string text = $"Am intrat în partidul '{log.Data["party_name"]}' în {log.Data["game_name"]}";
+            log.Data.TryGetValue("guild_type", out string guildType);
+
+            if (string.IsNullOrWhiteSpace(guildType))
+            {
+                guildType = "ghilda";
+            }
+            else if (guildType.Equals("clan"))
+            {
+                guildType = "clanul";
+            }
+            else if (guildType.Equals("military unit"))
+            {
+                guildType = "unitatea militară";
+            }
+            else if (guildType.Equals("political party"))
+            {
+                guildType = "partidul";
+            }
+
+            string text = $"Am intrat în {guildType} '{log.Data["party_name"]}' în {log.Data["game_name"]}";
 
             if (log.Data.TryGetValue("platform", out string platform))
             {
@@ -1502,9 +1521,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
-        public string BuildGamePoliticalPartyLeavingLogText(PersonalLog log)
+        public string BuildGameGuildLeavingLogText(PersonalLog log)
         {
-            string text = $"Am ieșit din partidul '{log.Data["party_name"]}' în {log.Data["game_name"]}";
+            log.Data.TryGetValue("guild_type", out string guildType);
+
+            if (string.IsNullOrWhiteSpace(guildType))
+            {
+                guildType = "ghilda";
+            }
+            else if (guildType.Equals("Clan"))
+            {
+                guildType = "clanul";
+            }
+            else if (guildType.Equals("MilitaryUnit"))
+            {
+                guildType = "unitatea militară";
+            }
+            else if (guildType.Equals("PolititicalParty"))
+            {
+                guildType = "partidul";
+            }
+
+            string text = $"Am ieșit din {guildType} '{log.Data["party_name"]}' în {log.Data["game_name"]}";
 
             if (log.Data.TryGetValue("platform", out string platform))
             {

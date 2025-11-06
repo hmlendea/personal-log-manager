@@ -308,13 +308,13 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildGameConstructionCompletionLogText(log);
             }
-            else if (log.Template.Equals(PersonalLogTemplate.GamePoliticalPartyJoining))
+            else if (log.Template.Equals(PersonalLogTemplate.GameGuildJoining))
             {
-                return personalLogTextBuilder.BuildGamePoliticalPartyJoiningLogText(log);
+                return personalLogTextBuilder.BuildGameGuildJoiningLogText(log);
             }
-            else if (log.Template.Equals(PersonalLogTemplate.GamePoliticalPartyLeaving))
+            else if (log.Template.Equals(PersonalLogTemplate.GameGuildLeaving))
             {
-                return personalLogTextBuilder.BuildGamePoliticalPartyLeavingLogText(log);
+                return personalLogTextBuilder.BuildGameGuildLeavingLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.GameRankUp))
             {

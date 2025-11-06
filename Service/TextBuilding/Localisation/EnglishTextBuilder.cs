@@ -1454,9 +1454,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
-        public string BuildGamePoliticalPartyJoiningLogText(PersonalLog log)
+        public string BuildGameGuildJoiningLogText(PersonalLog log)
         {
-            string text = $"I have joined the '{log.Data["party_name"]}' political party in the game {log.Data["game_name"]}";
+            log.Data.TryGetValue("guild_type", out string guildType);
+
+            if (string.IsNullOrWhiteSpace(guildType))
+            {
+                guildType = "guild";
+            }
+            else if (guildType.Equals("Clan"))
+            {
+                guildType = "clan";
+            }
+            else if (guildType.Equals("MilitaryUnit"))
+            {
+                guildType = "military unit";
+            }
+            else if (guildType.Equals("PolititicalParty"))
+            {
+                guildType = "political party";
+            }
+
+            string text = $"I have joined the '{log.Data["party_name"]}' {guildType} in the game {log.Data["game_name"]}";
 
             if (log.Data.TryGetValue("platform", out string platform))
             {
@@ -1473,9 +1492,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
-        public string BuildGamePoliticalPartyLeavingLogText(PersonalLog log)
+        public string BuildGameGuildLeavingLogText(PersonalLog log)
         {
-            string text = $"I have left the '{log.Data["party_name"]}' political party in the game {log.Data["game_name"]}";
+            log.Data.TryGetValue("guild_type", out string guildType);
+
+            if (string.IsNullOrWhiteSpace(guildType))
+            {
+                guildType = "guild";
+            }
+            else if (guildType.Equals("Clan"))
+            {
+                guildType = "clan";
+            }
+            else if (guildType.Equals("MilitaryUnit"))
+            {
+                guildType = "military unit";
+            }
+            else if (guildType.Equals("PolititicalParty"))
+            {
+                guildType = "political party";
+            }
+
+            string text = $"I have left the '{log.Data["party_name"]}' {guildType} in the game {log.Data["game_name"]}";
 
             if (log.Data.TryGetValue("platform", out string platform))
             {
