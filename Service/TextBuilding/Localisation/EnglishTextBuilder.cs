@@ -1149,7 +1149,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildDeviceScreentimeMeasurementLogText(PersonalLog log)
         {
-            string text = $"The screentime on {log.Data["device_name"]} was measured at";
+            string text = $"Today's screentime on {log.Data["device_name"]} was measured at";
 
             if (log.Data.TryGetValue("screentime_hours", out string screentimeHours))
             {

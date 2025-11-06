@@ -1177,7 +1177,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildDeviceScreentimeMeasurementLogText(PersonalLog log)
         {
-            string text = $"Timpul petrecut pe {log.Data["device_name"]} a fost măsurat la";
+            string text = $"Timpul petrecut astăzi pe {log.Data["device_name"]} a fost măsurat la";
 
             if (log.Data.TryGetValue("screentime_hours", out string screentimeHours))
             {
