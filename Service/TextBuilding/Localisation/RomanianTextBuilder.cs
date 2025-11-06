@@ -1767,7 +1767,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildSeriesEpisodeWatchingLogText(PersonalLog log)
         {
-            string text = $"Am vizionat episodul #{log.Data["episode_number"]}";
+            string text = $"Am vizionat episodul {log.Data["episode_number"]}";
 
             if (log.Data.TryGetValue("episode_name", out string episodeName))
             {

@@ -1754,7 +1754,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.TryGetValue("series_name", out string seriesName))
             {
-                text += $" from the series '{seriesName}'";
+                text += $" of '{seriesName}'";
             }
 
             if (log.Data.TryGetValue("platform", out string platform))
