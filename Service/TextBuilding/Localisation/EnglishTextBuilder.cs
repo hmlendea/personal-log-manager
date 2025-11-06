@@ -1165,12 +1165,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 if (log.Data.ContainsKey("screentime_hours"))
                 {
-                    text += $" and ";
+                    text += $" and";
                 }
 
                 text += $" {screentimeMinutes} minute";
 
-                if (screentimeMinutes != "1")
+                if (!screentimeMinutes.Equals("1"))
                 {
                     text += "s";
                 }

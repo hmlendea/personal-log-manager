@@ -1197,12 +1197,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 if (log.Data.ContainsKey("screentime_hours"))
                 {
-                    text += $" și ";
+                    text += $" și";
                 }
 
                 text += $" {screentimeMinutes} minut";
 
-                if (screentimeMinutes.Equals("1"))
+                if (!screentimeMinutes.Equals("1"))
                 {
                     text += "e";
                 }
