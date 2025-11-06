@@ -1714,6 +1714,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildPetNailsTrimmingLogText(PersonalLog log)
+            => $"I-am tăiat ghearele lui {log.Data["pet_name"]}";
+
         public string BuildPetWeightMeasurementLogText(PersonalLog log)
         {
             log.Data.TryGetValue("unit", out string unit);

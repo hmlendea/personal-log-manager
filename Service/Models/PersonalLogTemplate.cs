@@ -87,6 +87,7 @@ namespace PersonalLogManager.Service.Models
         ObjectSale,
         OnlineReviewSubmission,
         OnlineStorePurchase,
+        PetNailsTrimming,
         PetWeightMeasurement,
         PhysiotherapySession,
         PsychotherapySession,
