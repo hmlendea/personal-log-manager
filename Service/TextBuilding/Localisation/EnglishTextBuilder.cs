@@ -2177,7 +2177,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "InternetAndTV", "internet și cablu TV" },
                     { "Water", "water" }
                 },
-                "utilitate"
+                "utilități"
             );
 
             string text = $"I have paid my {utilityType} bill to {log.Data["provider_name"]}";
