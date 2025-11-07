@@ -276,6 +276,14 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildEmailExportLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.EmailAliasCreation))
+            {
+                return personalLogTextBuilder.BuildEmailAliasCreationLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.EmailAliasDeletion))
+            {
+                return personalLogTextBuilder.BuildEmailAliasDeletionLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.EventTicketPurchase))
             {
                 return personalLogTextBuilder.BuildEventTicketPurchaseLogText(log);

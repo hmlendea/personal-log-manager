@@ -1405,6 +1405,30 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildEmailAliasCreationLogText(PersonalLog log)
+        {
+            string text = $"Am creat un aliasul de e-mail '{log.Data["email_alias"]}' în {log.Data["platform"]}";
+
+            if (log.Data.TryGetValue("account", out string account))
+            {
+                text += $" ({account})";
+            }
+
+            return text;
+        }
+
+        public string BuildEmailAliasDeletionLogText(PersonalLog log)
+        {
+            string text = $"Am șters aliasul de e-mail '{log.Data["email_alias"]}' din {log.Data["platform"]}";
+
+            if (log.Data.TryGetValue("account", out string account))
+            {
+                text += $" ({account})";
+            }
+
+            return text;
+        }
+
         public string BuildEventTicketPurchaseLogText(PersonalLog log)
         {
             string text = $"Am cumpărat bilet";

@@ -68,6 +68,8 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildDirectBilirubinMeasurementLogText(PersonalLog log);
         string BuildEducationalGradeReceivalLogText(PersonalLog log);
         string BuildEmailExportLogText(PersonalLog log);
+        string BuildEmailAliasCreationLogText(PersonalLog log);
+        string BuildEmailAliasDeletionLogText(PersonalLog log);
         string BuildEventTicketPurchaseLogText(PersonalLog log);
         string BuildEyeCheckupLogText(PersonalLog log);
         string BuildGameAchievementUnlockLogText(PersonalLog log);

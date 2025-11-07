@@ -66,6 +66,8 @@ namespace PersonalLogManager.Service.Models
         DeviceScreentimeMeasurement,
         DirectBilirubinMeasurement,
         EducationalGradeReceival,
+        EmailAliasCreation,
+        EmailAliasDeletion,
         EmailExport,
         EventTicketPurchase,
         EyeCheckup,

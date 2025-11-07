@@ -1355,6 +1355,30 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildEmailAliasCreationLogText(PersonalLog log)
+        {
+            string text = $"I have created the '{log.Data["email_alias"]}' e-mail alias on {log.Data["platform"]}";
+
+            if (log.Data.TryGetValue("account", out string account))
+            {
+                text += $" ({account})";
+            }
+
+            return text;
+        }
+
+        public string BuildEmailAliasDeletionLogText(PersonalLog log)
+        {
+            string text = $"I have deleted the '{log.Data["email_alias"]}' e-mail alias from {log.Data["platform"]}";
+
+            if (log.Data.TryGetValue("account", out string account))
+            {
+                text += $" ({account})";
+            }
+
+            return text;
+        }
+
         public string BuildEventTicketPurchaseLogText(PersonalLog log)
         {
             string text = $"I have purchased a";
