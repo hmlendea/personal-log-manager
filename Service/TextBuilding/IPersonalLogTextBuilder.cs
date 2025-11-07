@@ -121,5 +121,6 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildWakingUpLogText(PersonalLog log);
         string BuildWeddingAttendanceLogText(PersonalLog log);
         string BuildWorkFromTheOfficeLogText(PersonalLog log);
+        string BuildWorkMandatoryCourseCompletionLogText(PersonalLog log);
     }
 }

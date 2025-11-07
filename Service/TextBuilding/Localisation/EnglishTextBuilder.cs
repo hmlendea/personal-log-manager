@@ -799,7 +799,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 withCount += 1;
             }
 
-            return text;;
+            return text; ;
         }
 
         public string BuildAccountRegistrationRequestFulfillmentLogText(PersonalLog log)
@@ -2341,6 +2341,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("office_name", out string officeName))
             {
                 text += $" ({officeName})";
+            }
+
+            return text;
+        }
+
+        public string BuildWorkMandatoryCourseCompletionLogText(PersonalLog log)
+        {
+            string text = $"I have completed the mandatory work course '{log.Data["course_name"]}'";
+
+            if (log.Data.TryGetValue("employer_name", out string employerName))
+            {
+                text += $" at {employerName}";
             }
 
             return text;

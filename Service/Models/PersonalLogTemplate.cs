@@ -119,6 +119,7 @@ namespace PersonalLogManager.Service.Models
         VideoWatching,
         WakingUp,
         WeddingAttendance,
-        WorkFromTheOffice
+        WorkFromTheOffice,
+        WorkMandatoryCourseCompletion
     }
 }
