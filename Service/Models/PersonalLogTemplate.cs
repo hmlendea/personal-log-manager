@@ -57,6 +57,7 @@ namespace PersonalLogManager.Service.Models
         ChatGroupLeaving,
         DatingAppMatch,
         DeliveryReceival,
+        DentalAppointment,
         DentalScaling,
         DeviceBatteryHealth,
         DeviceBatteryLevel,

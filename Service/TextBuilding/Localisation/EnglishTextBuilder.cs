@@ -1106,6 +1106,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildDentalAppointmentLogText(PersonalLog log)
+        {
+            string text = $"I have attended a dental appointment";
+
+            if (log.Data.TryGetValue("clinic_name", out string clinicName))
+            {
+                text += $" at {clinicName}";
+            }
+
+            if (log.Data.TryGetValue("dentist_name", out string dentistName))
+            {
+                text += $", by {dentistName}";
+            }
+
+            return text;
+        }
+
         public string BuildDentalScalingLogText(PersonalLog log)
         {
             string text = $"I have undergone a dental scaling procedure";
