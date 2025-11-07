@@ -1533,7 +1533,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "guild"
             );
 
-            string text = $"I have joined the '{log.Data["party_name"]}' {guildType} in the game {log.Data["game_name"]}";
+            string text = $"I have joined the '{log.Data["guild_name"]}' {guildType} in the game {log.Data["game_name"]}";
 
             if (log.Data.TryGetValue("platform", out string platform))
             {

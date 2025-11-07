@@ -1576,7 +1576,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "ghilda"
             );
 
-            string text = $"Am intrat în {guildType} '{log.Data["party_name"]}' în {log.Data["game_name"]}";
+            string text = $"Am intrat în {guildType} '{log.Data["guild_name"]}' în {log.Data["game_name"]}";
 
             if (log.Data.TryGetValue("platform", out string platform))
             {
