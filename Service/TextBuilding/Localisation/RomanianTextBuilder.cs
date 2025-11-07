@@ -1699,6 +1699,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" în {officeLocation}";
             }
 
+            if (log.Data.TryGetValue("faction_name", out string factionName))
+            {
+                text += $" din partea {factionName},";
+            }
+
             text += $" în {log.Data["game_name"]}";
 
             if (log.Data.TryGetValue("platform", out string platform))
@@ -1723,6 +1728,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("office_location", out string officeLocation))
             {
                 text += $" în {officeLocation}";
+            }
+
+            if (log.Data.TryGetValue("faction_name", out string factionName))
+            {
+                text += $" din partea {factionName},";
             }
 
             text += $" în {log.Data["game_name"]}";
