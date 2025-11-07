@@ -396,6 +396,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildOnlineStorePurchaseLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.PetNailsTrimming))
+            {
+                return personalLogTextBuilder.BuildPetNailsTrimmingLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.PetWeightMeasurement))
             {
                 return personalLogTextBuilder.BuildPetWeightMeasurementLogText(log);

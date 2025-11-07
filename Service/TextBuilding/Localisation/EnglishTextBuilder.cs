@@ -1865,11 +1865,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" at {cinemaName}";
             }
 
-            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
             {
-                watchedWith = watchedWith.Replace(" & ", " and ");
-                watchedWith = watchedWith.Replace(" și ", " and ");
-
                 text += $", together with {watchedWith}";
             }
 
@@ -1938,7 +1936,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildPetNailsTrimmingLogText(PersonalLog log)
-            => $"I have trimmed the nails of my pet {log.Data["pet_name"]}";
+            => $"I have trimmed the nails of {GetLocalisedValue(log.Data, "pet_name", "en")}";
 
         public string BuildPetWeightMeasurementLogText(PersonalLog log)
         {
@@ -2004,11 +2002,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" at {location}";
             }
 
-            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
             {
-                watchedWith = watchedWith.Replace(" & ", " and ");
-                watchedWith = watchedWith.Replace(" și ", " and ");
-
                 text += $", together with {watchedWith}";
             }
 
@@ -2037,11 +2033,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" at {location}";
             }
 
-            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
             {
-                watchedWith = watchedWith.Replace(" & ", " and ");
-                watchedWith = watchedWith.Replace(" și ", " and ");
-
                 text += $", together with {watchedWith}";
             }
 
@@ -2085,11 +2079,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" at {location}";
             }
 
-            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
             {
-                watchedWith = watchedWith.Replace(" & ", " and ");
-                watchedWith = watchedWith.Replace(" și ", " and ");
-
                 text += $", together with {watchedWith}";
             }
 
@@ -2133,11 +2125,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" at {location}";
             }
 
-            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
             {
-                watchedWith = watchedWith.Replace(" & ", " and ");
-                watchedWith = watchedWith.Replace(" și ", " and ");
-
                 text += $", together with {watchedWith}";
             }
 
@@ -2181,11 +2171,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" at {location}";
             }
 
-            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
             {
-                watchedWith = watchedWith.Replace(" & ", " and ");
-                watchedWith = watchedWith.Replace(" și ", " and ");
-
                 text += $", together with {watchedWith}";
             }
 
@@ -2219,11 +2207,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" at {location}";
             }
 
-            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
             {
-                watchedWith = watchedWith.Replace(" & ", " and ");
-                watchedWith = watchedWith.Replace(" și ", " and ");
-
                 text += $", together with {watchedWith}";
             }
 
@@ -2257,11 +2243,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" at {location}";
             }
 
-            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
             {
-                watchedWith = watchedWith.Replace(" & ", " and ");
-                watchedWith = watchedWith.Replace(" și ", " and ");
-
                 text += $", together with {watchedWith}";
             }
 
@@ -2368,7 +2352,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 {
                     { "Electricity", "electricity" },
                     { "Gas", "gas" },
-                    { "InternetAndTV", "internet și cablu TV" },
+                    { "InternetAndTV", "internet and TV" },
                     { "Water", "water" }
                 },
                 "utilități"
@@ -2481,11 +2465,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" at {location}";
             }
 
-            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
             {
-                watchedWith = watchedWith.Replace(" & ", " and ");
-                watchedWith = watchedWith.Replace(" și ", " and ");
-
                 text += $", together with {watchedWith}";
             }
 
