@@ -1136,10 +1136,48 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildDeviceBatteryHealthLogText(PersonalLog log)
-            => $"The battery health of my {log.Data["device_name"]} was at {log.Data["battery_health_percentage"]}%";
+        {
+            string deviceType = GetMappedDataValue(
+                log.Data,
+                "device_type",
+                new()
+                {
+                    { "DesktopComputer", "desktop computer" },
+                    { "FitnessTracker", "fitness tracker" },
+                    { "Headphones", "headphones" },
+                    { "Laptop", "laptop" },
+                    { "Phone", "phone" },
+                    { "Scale", "scale" },
+                    { "Scooter", "scooter" },
+                    { "Tablet", "tablet" },
+                    { "VacuumCleaner", "vacuum cleaner" },
+                    { "Watch", "watch" },
+                });
+
+            return $"The battery health of my {log.Data["device_name"]} {deviceType} was at {log.Data["battery_health_percentage"]}%";
+        }
 
         public string BuildDeviceBatteryLevelLogText(PersonalLog log)
-            => $"The battery level of my {log.Data["device_name"]} was at {log.Data["battery_level_percentage"]}%";
+        {
+            string deviceType = GetMappedDataValue(
+                log.Data,
+                "device_type",
+                new()
+                {
+                    { "DesktopComputer", "desktop computer" },
+                    { "FitnessTracker", "fitness tracker" },
+                    { "Headphones", "headphones" },
+                    { "Laptop", "laptop" },
+                    { "Phone", "phone" },
+                    { "Scale", "scale" },
+                    { "Scooter", "scooter" },
+                    { "Tablet", "tablet" },
+                    { "VacuumCleaner", "vacuum cleaner" },
+                    { "Watch", "watch" },
+                });
+
+            return $"The battery level of my {log.Data["device_name"]} {deviceType} was at {log.Data["battery_level_percentage"]}%";
+        }
 
         public string BuildDeviceBreakingLogText(PersonalLog log)
         {
