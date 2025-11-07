@@ -1199,6 +1199,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             text += $" stricat {deviceType} {log.Data["device_name"]}";
 
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" din {location}";
+            }
+
             if (log.Data.TryGetValue("device_owner_name", out string deviceOwnerName))
             {
                 if (deviceType.EndsWith('e'))
@@ -1217,26 +1222,55 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" lui {deviceOwnerName}";
             }
 
-            if (log.Data.TryGetValue("location", out string location))
-            {
-                text += $" din {location}";
-            }
-
             return text;
         }
 
         public string BuildDeviceRepairLogText(PersonalLog log)
         {
-            string text = $"Am reparat {log.Data["device_type"]}";
+            string deviceType = GetMappedDataValue(
+                log.Data,
+                "device_type",
+                new()
+                {
+                    { "DesktopComputer", "calculatorul" },
+                    { "FitnessTracker", "brățara de fitness" },
+                    { "Headphones", "căștile" },
+                    { "Laptop", "laptop-ul" },
+                    { "Phone", "telefonul" },
+                    { "Scale", "cântarul" },
+                    { "Scooter", "trotineta" },
+                    { "Tablet", "tableta" },
+                    { "VacuumCleaner", "aspiratorul" },
+                    { "Watch", "ceasul" },
+                },
+                log.Data["device_type"]
+            );
 
-            if (log.Data.TryGetValue("device_name", out string deviceName))
-            {
-                text += $" ({deviceName})";
-            }
+            string text = $"Am";
+
+            text += $" reparat {deviceType} {log.Data["device_name"]}";
 
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" din {location}";
+            }
+
+            if (log.Data.TryGetValue("device_owner_name", out string deviceOwnerName))
+            {
+                if (deviceType.EndsWith('e'))
+                {
+                    text += " ale";
+                }
+                else if (deviceType.EndsWith('a'))
+                {
+                    text += " a";
+                }
+                else
+                {
+                    text += " al";
+                }
+
+                text += $" lui {deviceOwnerName}";
             }
 
             return text;

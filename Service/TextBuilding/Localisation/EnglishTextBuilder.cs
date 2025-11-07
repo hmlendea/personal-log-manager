@@ -1189,19 +1189,42 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += " has";
             }
 
-            text += " broken";
-
-            return text;
+            return text + " broken";
         }
 
         public string BuildDeviceRepairLogText(PersonalLog log)
         {
-            string text = $"I have repaired the {log.Data["device_type"]}";
+            string text = "I have repaired";
 
-            if (log.Data.TryGetValue("device_name", out string deviceName))
+            if (log.Data.TryGetValue("device_owner_name", out string deviceOwnerName))
             {
-                text += $" ({deviceName})";
+                text += $" {deviceOwnerName}'s";
             }
+            else
+            {
+                text += " my";
+            }
+
+            text += $" {log.Data["device_name"]}";
+
+            string deviceType = GetMappedDataValue(
+                log.Data,
+                "device_type",
+                new()
+                {
+                    { "DesktopComputer", "desktop computer" },
+                    { "FitnessTracker", "fitness tracker" },
+                    { "Headphones", "headphones" },
+                    { "Laptop", "laptop" },
+                    { "Phone", "phone" },
+                    { "Scale", "scale" },
+                    { "Scooter", "scooter" },
+                    { "Tablet", "tablet" },
+                    { "VacuumCleaner", "vacuum cleaner" },
+                    { "Watch", "watch" },
+                });
+
+            text += $" {deviceType}";
 
             if (log.Data.TryGetValue("location", out string location))
             {
