@@ -103,6 +103,8 @@ namespace PersonalLogManager.Service.Models
         PsychotherapySession,
         SeriesBeginning,
         SeriesCompletion,
+        SeriesEpisodeBeginning,
+        SeriesEpisodeCompletion,
         SeriesEpisodeWatching,
         SeriesSeasonBeginning,
         SeriesSeasonCompletion,

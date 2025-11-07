@@ -104,6 +104,8 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildPsychotherapySessionLogText(PersonalLog log);
         string BuildSeriesBeginningLogText(PersonalLog log);
         string BuildSeriesCompletionLogText(PersonalLog log);
+        string BuildSeriesEpisodeBeginningLogText(PersonalLog log);
+        string BuildSeriesEpisodeCompletionLogText(PersonalLog log);
         string BuildSeriesEpisodeWatchingLogText(PersonalLog log);
         string BuildSeriesSeasonBeginningLogText(PersonalLog log);
         string BuildSeriesSeasonCompletionLogText(PersonalLog log);

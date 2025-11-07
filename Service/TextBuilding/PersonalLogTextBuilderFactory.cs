@@ -412,6 +412,14 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildSeriesCompletionLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.SeriesEpisodeBeginning))
+            {
+                return personalLogTextBuilder.BuildSeriesEpisodeBeginningLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.SeriesEpisodeCompletion))
+            {
+                return personalLogTextBuilder.BuildSeriesEpisodeCompletionLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.SeriesEpisodeWatching))
             {
                 return personalLogTextBuilder.BuildSeriesEpisodeWatchingLogText(log);
@@ -479,6 +487,10 @@ namespace PersonalLogManager.Service.TextBuilding
             else if (log.Template.Equals(PersonalLogTemplate.WorkFromTheOffice))
             {
                 return personalLogTextBuilder.BuildWorkFromTheOfficeLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.WorkMandatoryCourseCompletion))
+            {
+                return personalLogTextBuilder.BuildWorkMandatoryCourseCompletionLogText(log);
             }
 
             return log.Data["text"];

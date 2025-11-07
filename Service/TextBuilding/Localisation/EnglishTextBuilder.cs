@@ -1950,9 +1950,105 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildSeriesEpisodeBeginningLogText(PersonalLog log)
+        {
+            string text = $"I have begun watching episode {log.Data["episode_number"]}";
+
+            if (log.Data.TryGetValue("episode_name", out string episodeName))
+            {
+                text += $" '{episodeName}'";
+            }
+
+            if (log.Data.TryGetValue("season_number", out string seasonNumber))
+            {
+                text += $" of season {seasonNumber}";
+            }
+
+            if (log.Data.TryGetValue("series_name", out string seriesName))
+            {
+                text += $" of '{seriesName}'";
+            }
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
+
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            {
+                watchedWith = watchedWith.Replace(" & ", " and ");
+                watchedWith = watchedWith.Replace(" și ", " and ");
+
+                text += $", together with {watchedWith}";
+            }
+
+            return text;
+        }
+
+        public string BuildSeriesEpisodeCompletionLogText(PersonalLog log)
+        {
+            string text = $"I have finished watching episode {log.Data["episode_number"]}";
+
+            if (log.Data.TryGetValue("episode_name", out string episodeName))
+            {
+                text += $" '{episodeName}'";
+            }
+
+            if (log.Data.TryGetValue("season_number", out string seasonNumber))
+            {
+                text += $" of season {seasonNumber}";
+            }
+
+            if (log.Data.TryGetValue("series_name", out string seriesName))
+            {
+                text += $" of '{seriesName}'";
+            }
+
+            if (log.Data.TryGetValue("platform", out string platform))
+            {
+                text += $" on {platform}";
+
+                string discriminator = GetDiscriminator(log.Data);
+
+                if (!string.IsNullOrWhiteSpace(discriminator))
+                {
+                    text += $" ({discriminator})";
+                }
+
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            {
+                watchedWith = watchedWith.Replace(" & ", " and ");
+                watchedWith = watchedWith.Replace(" și ", " and ");
+
+                text += $", together with {watchedWith}";
+            }
+
+            return text;
+        }
+
         public string BuildSeriesEpisodeWatchingLogText(PersonalLog log)
         {
-            string text = $"I have watched the episode {log.Data["episode_number"]}";
+            string text = $"I have watched episode {log.Data["episode_number"]}";
 
             if (log.Data.TryGetValue("episode_name", out string episodeName))
             {
