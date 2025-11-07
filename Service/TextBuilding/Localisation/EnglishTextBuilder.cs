@@ -1141,6 +1141,59 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildDeviceBatteryLevelLogText(PersonalLog log)
             => $"The battery level of my {log.Data["device_name"]} was at {log.Data["battery_level_percentage"]}%";
 
+        public string BuildDeviceBreakingLogText(PersonalLog log)
+        {
+            string text;
+
+            if (log.Data.TryGetValue("device_owner_name", out string deviceOwnerName))
+            {
+                text = $"{deviceOwnerName}'s";
+            }
+            else
+            {
+                text = "My";
+            }
+
+            text += $" {log.Data["device_name"]}";
+
+            string deviceType = GetMappedDataValue(
+                log.Data,
+                "device_type",
+                new()
+                {
+                    { "DesktopComputer", "desktop computer" },
+                    { "FitnessTracker", "fitness tracker" },
+                    { "Headphones", "headphones" },
+                    { "Laptop", "laptop" },
+                    { "Phone", "phone" },
+                    { "Scale", "scale" },
+                    { "Scooter", "scooter" },
+                    { "Tablet", "tablet" },
+                    { "VacuumCleaner", "vacuum cleaner" },
+                    { "Watch", "watch" },
+                });
+
+            text += $" {deviceType}";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" in {location}";
+            }
+
+            if (deviceType.EndsWith('s'))
+            {
+                text += " have";
+            }
+            else
+            {
+                text += " has";
+            }
+
+            text += " broken";
+
+            return text;
+        }
+
         public string BuildDeviceRepairLogText(PersonalLog log)
         {
             string text = $"I have repaired the {log.Data["device_type"]}";

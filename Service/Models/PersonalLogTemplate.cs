@@ -61,6 +61,7 @@ namespace PersonalLogManager.Service.Models
         DentalScaling,
         DeviceBatteryHealth,
         DeviceBatteryLevel,
+        DeviceBreaking,
         DeviceRepair,
         DeviceScreentimeMeasurement,
         DirectBilirubinMeasurement,

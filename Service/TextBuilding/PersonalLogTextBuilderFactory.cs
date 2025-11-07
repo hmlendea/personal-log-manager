@@ -252,6 +252,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildDeviceBatteryLevelLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.DeviceBreaking))
+            {
+                return personalLogTextBuilder.BuildDeviceBreakingLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.DeviceRepair))
             {
                 return personalLogTextBuilder.BuildDeviceRepairLogText(log);
