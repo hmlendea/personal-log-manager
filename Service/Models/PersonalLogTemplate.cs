@@ -83,6 +83,7 @@ namespace PersonalLogManager.Service.Models
         GameLevelUp,
         GettingInToBed,
         GettingOutOfBed,
+        GitContributionsMeasurement,
         HairCutting,
         HdlCholesterolMeasurement,
         HeartRateMeasurement,

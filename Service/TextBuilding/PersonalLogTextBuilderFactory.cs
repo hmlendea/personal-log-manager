@@ -336,6 +336,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildGettingOutOfBedLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.GitContributionsMeasurement))
+            {
+                return personalLogTextBuilder.BuildGitContributionsMeasurementLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.HairCutting))
             {
                 return personalLogTextBuilder.BuildHairCuttingLogText(log);

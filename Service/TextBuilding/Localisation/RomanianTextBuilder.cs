@@ -1675,6 +1675,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildGettingOutOfBedLogText(PersonalLog log)
             => $"M-am ridicat din pat";
 
+        public string BuildGitContributionsMeasurementLogText(PersonalLog log)
+        {
+            string text = $"Am avut {log.Data["contributions_count"]} de contribuții pe {log.Data["platform"]}";
+            string discriminator = GetDiscriminator(log.Data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
         public string BuildHairCuttingLogText(PersonalLog log)
         {
             string text = $"Am fost la tuns";
