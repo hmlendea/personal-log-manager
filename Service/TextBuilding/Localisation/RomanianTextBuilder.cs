@@ -1199,9 +1199,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             text += $" stricat {deviceType} {log.Data["device_name"]}";
 
-            if (log.Data.TryGetValue("location", out string location))
+            if (log.Data.TryGetValue("device_location", out string deviceLocation))
             {
-                text += $" din {location}";
+                text += $" din {deviceLocation}";
             }
 
             if (log.Data.TryGetValue("device_owner_name", out string deviceOwnerName))
@@ -1250,9 +1250,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             text += $" reparat {deviceType} {log.Data["device_name"]}";
 
-            if (log.Data.TryGetValue("location", out string location))
+            if (log.Data.TryGetValue("device_location", out string deviceLocation))
             {
-                text += $" din {location}";
+                text += $" din {deviceLocation}";
             }
 
             if (log.Data.TryGetValue("device_owner_name", out string deviceOwnerName))
@@ -1271,6 +1271,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 }
 
                 text += $" lui {deviceOwnerName}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
             }
 
             return text;

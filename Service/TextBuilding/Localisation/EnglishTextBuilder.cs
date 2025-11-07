@@ -1175,9 +1175,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             text += $" {deviceType}";
 
-            if (log.Data.TryGetValue("location", out string location))
+            if (log.Data.TryGetValue("device_location", out string deviceLocation))
             {
-                text += $" in {location}";
+                text += $" in {deviceLocation}";
             }
 
             if (deviceType.EndsWith('s'))
@@ -1226,9 +1226,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             text += $" {deviceType}";
 
+            if (log.Data.TryGetValue("device_location", out string deviceLocation))
+            {
+                text += $" in {deviceLocation}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
-                text += $" in {location}";
+                text += $" at {location}";
             }
 
             return text;
