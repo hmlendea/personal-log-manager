@@ -26,7 +26,7 @@ namespace PersonalLogManager
         {
             // Ensure the log stores exist
             var dataStoreSettings = app.ApplicationServices.GetRequiredService<DataStoreSettings>();
-            CreateStoreIfMissing(dataStoreSettings.TextLogStorePath);
+            CreateStoreIfMissing(dataStoreSettings.LogStorePath);
 
             if (env.IsDevelopment())
             {
