@@ -212,6 +212,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildBodyWeightMeasurementLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.CertificationObtainment))
+            {
+                return personalLogTextBuilder.BuildCertificationObtainmentLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.ChatGroupCreation))
             {
                 return personalLogTextBuilder.BuildChatGroupCreationLogText(log);
@@ -240,6 +244,18 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildDentalScalingLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.DeviceBatteryHealth))
+            {
+                return personalLogTextBuilder.BuildDeviceBatteryHealthLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.DeviceBatteryLevel))
+            {
+                return personalLogTextBuilder.BuildDeviceBatteryLevelLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.DeviceBreaking))
+            {
+                return personalLogTextBuilder.BuildDeviceBreakingLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.DeviceRepair))
             {
                 return personalLogTextBuilder.BuildDeviceRepairLogText(log);
@@ -251,6 +267,10 @@ namespace PersonalLogManager.Service.TextBuilding
             else if (log.Template.Equals(PersonalLogTemplate.DirectBilirubinMeasurement))
             {
                 return personalLogTextBuilder.BuildDirectBilirubinMeasurementLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.EducationalGradeReceival))
+            {
+                return personalLogTextBuilder.BuildEducationalGradeReceivalLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.EmailExport))
             {
@@ -280,17 +300,25 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildGameBuildingLevelUpgradeLogText(log);
             }
-            else if (log.Template.Equals(PersonalLogTemplate.GameConstructionBeginning))
+            else if (log.Template.Equals(PersonalLogTemplate.GameConstruction))
             {
                 return personalLogTextBuilder.BuildGameConstructionLogText(log);
             }
-            else if (log.Template.Equals(PersonalLogTemplate.GameConstruction))
+            else if (log.Template.Equals(PersonalLogTemplate.GameConstructionBeginning))
             {
                 return personalLogTextBuilder.BuildGameConstructionBeginningLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.GameConstructionCompletion))
             {
                 return personalLogTextBuilder.BuildGameConstructionCompletionLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.GameGuildJoining))
+            {
+                return personalLogTextBuilder.BuildGameGuildJoiningLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.GameGuildLeaving))
+            {
+                return personalLogTextBuilder.BuildGameGuildLeavingLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.GameRankUp))
             {
@@ -311,6 +339,10 @@ namespace PersonalLogManager.Service.TextBuilding
             else if (log.Template.Equals(PersonalLogTemplate.GettingOutOfBed))
             {
                 return personalLogTextBuilder.BuildGettingOutOfBedLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.GitContributionsMeasurement))
+            {
+                return personalLogTextBuilder.BuildGitContributionsMeasurementLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.HairCutting))
             {
@@ -344,6 +376,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildMealVoucherCardCreditationLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.MicronationLegalActIssuance))
+            {
+                return personalLogTextBuilder.BuildMicronationLegalActIssuanceLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.MovieWatching))
             {
                 return personalLogTextBuilder.BuildMovieWatchingLogText(log);
@@ -371,6 +407,22 @@ namespace PersonalLogManager.Service.TextBuilding
             else if (log.Template.Equals(PersonalLogTemplate.PsychotherapySession))
             {
                 return personalLogTextBuilder.BuildPsychotherapySessionLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.SeriesBeginning))
+            {
+                return personalLogTextBuilder.BuildSeriesBeginningLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.SeriesCompletion))
+            {
+                return personalLogTextBuilder.BuildSeriesCompletionLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.SeriesEpisodeBeginning))
+            {
+                return personalLogTextBuilder.BuildSeriesEpisodeBeginningLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.SeriesEpisodeCompletion))
+            {
+                return personalLogTextBuilder.BuildSeriesEpisodeCompletionLogText(log);
             }
             else if (log.Template.Equals(PersonalLogTemplate.SeriesEpisodeWatching))
             {
@@ -424,6 +476,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildVideoUploadLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.VideoWatching))
+            {
+                return personalLogTextBuilder.BuildVideoWatchingLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.WakingUp))
             {
                 return personalLogTextBuilder.BuildWakingUpLogText(log);
@@ -435,6 +491,10 @@ namespace PersonalLogManager.Service.TextBuilding
             else if (log.Template.Equals(PersonalLogTemplate.WorkFromTheOffice))
             {
                 return personalLogTextBuilder.BuildWorkFromTheOfficeLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.WorkMandatoryCourseCompletion))
+            {
+                return personalLogTextBuilder.BuildWorkMandatoryCourseCompletionLogText(log);
             }
 
             return log.Data["text"];

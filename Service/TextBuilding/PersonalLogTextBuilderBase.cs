@@ -35,5 +35,59 @@ namespace PersonalLogManager.Service.TextBuilding
 
             return discriminator;
         }
+
+        public string GetDataValue(Dictionary<string, string> data, string key)
+            => GetDataValue(data, key, null);
+
+        public string GetDataValue(Dictionary<string, string> data, string key, string defaultValue)
+        {
+            data.TryGetValue(key, out string value);
+
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return defaultValue;
+            }
+
+            return value;
+        }
+
+        public string GetMappedDataValue(Dictionary<string, string> data, string key, Dictionary<string, string> mappings)
+        {
+            string mapKey = GetDataValue(data, key);
+
+            if (string.IsNullOrWhiteSpace(mapKey))
+            {
+                return null;
+            }
+
+            return GetMappedDataValue(data, key, mappings, mapKey);
+        }
+
+        public string GetMappedDataValue(Dictionary<string, string> data, string key, Dictionary<string, string> mappings, string defaultValue)
+        {
+            string mapKey = GetDataValue(data, key);
+
+            if (string.IsNullOrWhiteSpace(mapKey))
+            {
+                return defaultValue;
+            }
+
+            string mappedValue = defaultValue;
+
+            foreach (string expectedMapKey in mappings.Keys)
+            {
+                string normalisedMapKey = mapKey
+                    .Replace(" ", string.Empty)
+                    .Replace("&", "And");
+
+                if (normalisedMapKey.Equals(expectedMapKey, System.StringComparison.InvariantCultureIgnoreCase))
+                {
+                    mappedValue = mappings[expectedMapKey];
+                    break;
+                }
+            }
+
+            return mappedValue;
+        }
     }
 }
