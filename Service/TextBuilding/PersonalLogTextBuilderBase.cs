@@ -37,12 +37,15 @@ namespace PersonalLogManager.Service.TextBuilding
         }
 
         public string GetDataValue(Dictionary<string, string> data, string key)
+            => GetDataValue(data, key, null);
+
+        public string GetDataValue(Dictionary<string, string> data, string key, string defaultValue)
         {
             data.TryGetValue(key, out string value);
 
             if (string.IsNullOrWhiteSpace(value))
             {
-                return null;
+                return defaultValue;
             }
 
             return value;
@@ -50,7 +53,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string GetMappedDataValue(Dictionary<string, string> data, string key, Dictionary<string, string> mappings)
         {
-            data.TryGetValue(key, out string mapKey);
+            string mapKey = GetDataValue(data, key);
 
             if (string.IsNullOrWhiteSpace(mapKey))
             {
@@ -62,7 +65,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string GetMappedDataValue(Dictionary<string, string> data, string key, Dictionary<string, string> mappings, string defaultValue)
         {
-            data.TryGetValue(key, out string mapKey);
+            string mapKey = GetDataValue(data, key);
 
             if (string.IsNullOrWhiteSpace(mapKey))
             {
@@ -73,7 +76,11 @@ namespace PersonalLogManager.Service.TextBuilding
 
             foreach (string expectedMapKey in mappings.Keys)
             {
-                if (mapKey.Equals(expectedMapKey))
+                string normalisedMapKey = mapKey
+                    .Replace(" ", string.Empty)
+                    .Replace("&", "And");
+
+                if (normalisedMapKey.Equals(expectedMapKey, System.StringComparison.InvariantCultureIgnoreCase))
                 {
                     mappedValue = mappings[expectedMapKey];
                     break;

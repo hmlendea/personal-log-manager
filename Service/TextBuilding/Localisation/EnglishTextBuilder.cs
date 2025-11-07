@@ -963,28 +963,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildBloodGlucoseMeasurementLogText(PersonalLog log)
-        {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "mg/dL";
-            }
-
-            return $"My blood glucose level measured {log.Data["glucose_level"]} {unit}";
-        }
+            => $"My blood glucose level measured {log.Data["glucose_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildBloodPressureMeasurementLogText(PersonalLog log)
-        {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "mmHg";
-            }
-
-            return $"My blood pressure measured {log.Data["systolic_pressure"]}/{log.Data["diastolic_pressure"]} {unit}";
-        }
+            => $"My blood pressure measured {log.Data["systolic_pressure"]}/{log.Data["diastolic_pressure"]} {GetDataValue(log.Data, "unit", "mmHg")}";
 
         public string BuildBodyWaterRateMeasurementLogText(PersonalLog log)
         {
@@ -995,13 +977,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildBodyWeightMeasurementLogText(PersonalLog log)
         {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "kg";
-            }
-
+            string unit = GetDataValue(log.Data, "unit", "kg");
             string text = $"My body weight measured {log.Data["body_weight"]} {unit}";
 
             if (log.Data.TryGetValue("scale_name", out string scaleName))
@@ -1198,16 +1174,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildDirectBilirubinMeasurementLogText(PersonalLog log)
-        {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "mg/dL";
-            }
-
-            return $"My direct bilirubin level measured {log.Data["direct_bilirubin_level"]} {unit}";
-        }
+            => $"My direct bilirubin level measured {log.Data["direct_bilirubin_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildEducationalGradeReceivalLogText(PersonalLog log)
         {
@@ -1456,24 +1423,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildGameGuildJoiningLogText(PersonalLog log)
         {
-            log.Data.TryGetValue("guild_type", out string guildType);
-
-            if (string.IsNullOrWhiteSpace(guildType))
-            {
-                guildType = "guild";
-            }
-            else if (guildType.Equals("Clan"))
-            {
-                guildType = "clan";
-            }
-            else if (guildType.Equals("MilitaryUnit"))
-            {
-                guildType = "military unit";
-            }
-            else if (guildType.Equals("PolititicalParty"))
-            {
-                guildType = "political party";
-            }
+            string guildType = GetMappedDataValue(
+                log.Data,
+                "guild_type",
+                new System.Collections.Generic.Dictionary<string, string>
+                {
+                    { "Clan", "clan" },
+                    { "MilitaryUnit", "military unit" },
+                    { "PolititicalParty", "political party" }
+                },
+                "guild"
+            );
 
             string text = $"I have joined the '{log.Data["party_name"]}' {guildType} in the game {log.Data["game_name"]}";
 
@@ -1494,24 +1454,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildGameGuildLeavingLogText(PersonalLog log)
         {
-            log.Data.TryGetValue("guild_type", out string guildType);
-
-            if (string.IsNullOrWhiteSpace(guildType))
-            {
-                guildType = "guild";
-            }
-            else if (guildType.Equals("Clan"))
-            {
-                guildType = "clan";
-            }
-            else if (guildType.Equals("MilitaryUnit"))
-            {
-                guildType = "military unit";
-            }
-            else if (guildType.Equals("PolititicalParty"))
-            {
-                guildType = "political party";
-            }
+            string guildType = GetMappedDataValue(
+                log.Data,
+                "guild_type",
+                new System.Collections.Generic.Dictionary<string, string>
+                {
+                    { "Clan", "clan" },
+                    { "MilitaryUnit", "military unit" },
+                    { "PolititicalParty", "political party" }
+                },
+                "guild"
+            );
 
             string text = $"I have left the '{log.Data["party_name"]}' {guildType} in the game {log.Data["game_name"]}";
 
@@ -1676,28 +1629,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildHdlCholesterolMeasurementLogText(PersonalLog log)
-        {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "mg/dL";
-            }
-
-            string text = $"My HDL cholesterol level measured {log.Data["hdl_cholesterol_level"]} {unit}";
-
-            return text;
-        }
+            => $"My HDL cholesterol level measured {log.Data["hdl_cholesterol_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildHeartRateMeasurementLogText(PersonalLog log)
         {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "bpm";
-            }
-
+            string unit = GetDataValue(log.Data, "unit", "bpm");
             string text = $"My heart rate measured {log.Data["heart_rate"]} {unit}";
 
             if (log.Data.TryGetValue("device_name", out string deviceName))
@@ -1709,16 +1645,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildIndirectBilirubinMeasurementLogText(PersonalLog log)
-        {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "mg/dL";
-            }
-
-            return $"My indirect bilirubin level measured {log.Data["indirect_bilirubin_level"]} {unit}";
-        }
+            => $"My indirect bilirubin level measured {log.Data["indirect_bilirubin_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildInternshipApplicationSubmissionLogText(PersonalLog log)
         {
@@ -1762,16 +1689,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildLdlCholesterolMeasurementLogText(PersonalLog log)
-        {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "mg/dL";
-            }
-
-            return $"My LDL cholesterol level measured {log.Data["ldl_cholesterol_level"]} {unit}";
-        }
+            => $"My LDL cholesterol level measured {log.Data["ldl_cholesterol_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildMealVoucherCardCreditationLogText(PersonalLog log)
         {
@@ -1926,13 +1844,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildPetWeightMeasurementLogText(PersonalLog log)
         {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "kg";
-            }
-
+            string unit = GetDataValue(log.Data, "unit", "kg");
             string text = $"The weight of my pet {log.Data["pet_name"]} measured {log.Data["pet_weight"]} {unit}";
 
             if (log.Data.TryGetValue("scale_name", out string scaleName))
@@ -2248,37 +2160,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildTotalBilirubinMeasurementLogText(PersonalLog log)
-        {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "mg/dL";
-            }
-
-            return $"My total bilirubin level measured {log.Data["total_bilirubin_level"]} {unit}";
-        }
+            => $"My total bilirubin level measured {log.Data["total_bilirubin_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildTotalCholesterolMeasurementLogText(PersonalLog log)
-        {
-            string unit = "mg/dL";
-
-            if (log.Data.TryGetValue("unit", out string unitValue))
-            {
-                unit = unitValue;
-            }
-
-            return $"My total cholesterol level measured {log.Data["total_cholesterol_level"]} {unit}";
-        }
+            => $"My total cholesterol level measured {log.Data["total_cholesterol_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildUtilityBillPaymentLogText(PersonalLog log)
         {
-            log.Data.TryGetValue("utility_type", out string utilityType);
-
-            if (string.IsNullOrWhiteSpace(utilityType))
-            {
-                utilityType = "utility";
-            }
+            string utilityType = GetMappedDataValue(
+                log.Data,
+                "utility_type",
+                new System.Collections.Generic.Dictionary<string, string>
+                {
+                    { "Electricity", "electricity" },
+                    { "Gas", "gas" },
+                    { "InternetAndTV", "internet și cablu TV" },
+                    { "Water", "water" }
+                },
+                "utilitate"
+            );
 
             string text = $"I have paid my {utilityType} bill to {log.Data["provider_name"]}";
             string discriminator = GetDiscriminator(log.Data);
@@ -2307,12 +2207,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildUtilityIndexMeasurementLogText(PersonalLog log)
         {
-            log.Data.TryGetValue("utility_type", out string utilityType);
-
-            if (string.IsNullOrWhiteSpace(utilityType))
-            {
-                utilityType = "utility";
-            }
+            string utilityType = GetMappedDataValue(
+                log.Data,
+                "utility_type",
+                new System.Collections.Generic.Dictionary<string, string>
+                {
+                    { "Electricity", "electricity" },
+                    { "Gas", "gas" },
+                    { "InternetAndTV", "internet and TV" },
+                    { "Water", "water" }
+                },
+                "utilitate"
+            );
 
             string text = $"I have measured the {utilityType} index";
 

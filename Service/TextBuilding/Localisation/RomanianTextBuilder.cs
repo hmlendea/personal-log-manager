@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using PersonalLogManager.Service.Models;
 
 namespace PersonalLogManager.Service.TextBuilding.Localisation
@@ -748,7 +747,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildAccountRegistrationRequestLogText(PersonalLog log)
         {
             string text = $"Am trimis o solicitare de înregistrare";
-            log.Data.TryGetValue("request_id", out string requestId);
+            string requestId = GetDataValue(log.Data, "request_id");
 
             if (!string.IsNullOrWhiteSpace(requestId))
             {
@@ -964,28 +963,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildBloodGlucoseMeasurementLogText(PersonalLog log)
-        {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "mg/dL";
-            }
-
-            return $"Nivelul de glucoză a fost măsurat la {log.Data["glucose_level"]} {unit}";
-        }
+            => $"Nivelul de glucoză a fost măsurat la {log.Data["glucose_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildBloodPressureMeasurementLogText(PersonalLog log)
-        {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "mmHg";
-            }
-
-            return $"Tensiunea arterială a fost măsurată la {log.Data["systolic_pressure"]}/{log.Data["diastolic_pressure"]} {unit}";
-        }
+            => $"Tensiunea arterială a fost măsurată la {log.Data["systolic_pressure"]}/{log.Data["diastolic_pressure"]} {GetDataValue(log.Data, "unit", "mmHg")}";
 
         public string BuildBodyWaterRateMeasurementLogText(PersonalLog log)
         {
@@ -996,13 +977,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildBodyWeightMeasurementLogText(PersonalLog log)
         {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "kg";
-            }
-
+            string unit = GetDataValue(log.Data, "unit", "kg");
             string text = $"Greutatea corporală a fost măsurată la {log.Data["body_weight"]} {unit}";
 
             if (log.Data.TryGetValue("scale_name", out string scaleName))
@@ -1231,16 +1206,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildDirectBilirubinMeasurementLogText(PersonalLog log)
-        {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "mg/dL";
-            }
-
-            return $"Nivelul de bilirubină directă a fost măsurat la {log.Data["direct_bilirubin_level"]} {unit}";
-        }
+            => $"Nivelul de bilirubină directă a fost măsurat la {log.Data["direct_bilirubin_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildEducationalGradeReceivalLogText(PersonalLog log)
         {
@@ -1486,24 +1452,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildGameGuildJoiningLogText(PersonalLog log)
         {
-            log.Data.TryGetValue("guild_type", out string guildType);
-
-            if (string.IsNullOrWhiteSpace(guildType))
-            {
-                guildType = "ghilda";
-            }
-            else if (guildType.Equals("clan"))
-            {
-                guildType = "clanul";
-            }
-            else if (guildType.Equals("military unit"))
-            {
-                guildType = "unitatea militară";
-            }
-            else if (guildType.Equals("political party"))
-            {
-                guildType = "partidul";
-            }
+            string guildType = GetMappedDataValue(
+                log.Data,
+                "guild_type",
+                new System.Collections.Generic.Dictionary<string, string>
+                {
+                    { "Clan", "clanul" },
+                    { "MilitaryUnit", "unitatea militară" },
+                    { "PolititicalParty", "partidul politic" }
+                },
+                "ghilda"
+            );
 
             string text = $"Am intrat în {guildType} '{log.Data["party_name"]}' în {log.Data["game_name"]}";
 
@@ -1524,24 +1483,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildGameGuildLeavingLogText(PersonalLog log)
         {
-            log.Data.TryGetValue("guild_type", out string guildType);
-
-            if (string.IsNullOrWhiteSpace(guildType))
-            {
-                guildType = "ghilda";
-            }
-            else if (guildType.Equals("Clan"))
-            {
-                guildType = "clanul";
-            }
-            else if (guildType.Equals("MilitaryUnit"))
-            {
-                guildType = "unitatea militară";
-            }
-            else if (guildType.Equals("PolititicalParty"))
-            {
-                guildType = "partidul";
-            }
+            string guildType = GetMappedDataValue(
+                log.Data,
+                "guild_type",
+                new System.Collections.Generic.Dictionary<string, string>
+                {
+                    { "Clan", "clanul" },
+                    { "MilitaryUnit", "unitatea militară" },
+                    { "PolititicalParty", "partidul politic" }
+                },
+                "ghilda"
+            );
 
             string text = $"Am ieșit din {guildType} '{log.Data["party_name"]}' în {log.Data["game_name"]}";
 
@@ -1706,26 +1658,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildHdlCholesterolMeasurementLogText(PersonalLog log)
-        {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "mg/dL";
-            }
-
-            return $"Nivelul de HDL Colesterol a fost măsurat la {log.Data["hdl_cholesterol_level"]} {unit}";
-        }
+            => $"Nivelul de HDL Colesterol a fost măsurat la {log.Data["hdl_cholesterol_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildHeartRateMeasurementLogText(PersonalLog log)
         {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "bpm";
-            }
-
+            string unit = GetDataValue(log.Data, "unit", "bpm");
             string text = $"Ritmul cardiac a fost măsurat la {log.Data["heart_rate"]} {unit}";
 
             if (log.Data.TryGetValue("device_name", out string deviceName))
@@ -1737,16 +1674,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildIndirectBilirubinMeasurementLogText(PersonalLog log)
-        {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "mg/dL";
-            }
-
-            return $"Nivelul de bilirubină indirectă a fost măsurat la {log.Data["indirect_bilirubin_level"]} {unit}";
-        }
+            => $"Nivelul de bilirubină indirectă a fost măsurat la {log.Data["indirect_bilirubin_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildInternshipApplicationSubmissionLogText(PersonalLog log)
         {
@@ -1785,18 +1713,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildLdlCholesterolMeasurementLogText(PersonalLog log)
-        {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "mg/dL";
-            }
-
-            string text = $"Nivelul de LDL Colesterol a fost măsurat la {log.Data["ldl_cholesterol_level"]} {unit}";
-
-            return text;
-        }
+            => $"Nivelul de LDL Colesterol a fost măsurat la {log.Data["ldl_cholesterol_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildMealVoucherCardCreditationLogText(PersonalLog log)
             => $"Cardul de bonuri de masă a fost creditat cu {log.Data["amount"]} {log.Data["currency"]}";
@@ -1958,13 +1875,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildPetWeightMeasurementLogText(PersonalLog log)
         {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "kg";
-            }
-
+            string unit = GetDataValue(log.Data, "unit", "kg");
             string text = $"Greutatea corporală a lui {log.Data["pet_name"]} a fost măsurată la {log.Data["pet_weight"]} {unit}";
 
             if (log.Data.TryGetValue("scale_name", out string scaleName))
@@ -2278,16 +2189,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildTotalBilirubinMeasurementLogText(PersonalLog log)
-        {
-            log.Data.TryGetValue("unit", out string unit);
-
-            if (string.IsNullOrWhiteSpace(unit))
-            {
-                unit = "mg/dL";
-            }
-
-            return $"Nivelul de bilirubină totală a fost măsurat la {log.Data["total_bilirubin_level"]} {unit}";
-        }
+            => $"Nivelul de bilirubină totală a fost măsurat la {log.Data["total_bilirubin_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildTotalCholesterolMeasurementLogText(PersonalLog log)
         {
@@ -2303,24 +2205,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildUtilityBillPaymentLogText(PersonalLog log)
         {
-            log.Data.TryGetValue("utility_type", out string utilityType);
-
-            if (string.IsNullOrWhiteSpace(utilityType))
-            {
-                utilityType = "utility";
-            }
-            else if (utilityType.Equals("electricity"))
-            {
-                utilityType = "curent";
-            }
-            else if (utilityType.Equals("water"))
-            {
-                utilityType = "apă";
-            }
-            else if (utilityType.Equals("gas"))
-            {
-                utilityType = "gaz";
-            }
+            string utilityType = GetMappedDataValue(
+                log.Data,
+                "utility_type",
+                new System.Collections.Generic.Dictionary<string, string>
+                {
+                    { "Electricity", "curent" },
+                    { "Gas", "gaz" },
+                    { "InternetAndTV", "internet și cablu TV" },
+                    { "Water", "apă" }
+                },
+                "utilitate"
+            );
 
             string text = $"Am plătit factura de {utilityType} la {log.Data["provider_name"]}";
 
@@ -2343,24 +2239,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildUtilityIndexMeasurementLogText(PersonalLog log)
         {
-            log.Data.TryGetValue("utility_type", out string utilityType);
-
-            if (string.IsNullOrWhiteSpace(utilityType))
-            {
-                utilityType = "utility";
-            }
-            else if (utilityType.Equals("electricity"))
-            {
-                utilityType = "curent";
-            }
-            else if (utilityType.Equals("water"))
-            {
-                utilityType = "apă";
-            }
-            else if (utilityType.Equals("gas"))
-            {
-                utilityType = "gaz";
-            }
+            string utilityType = GetMappedDataValue(
+                log.Data,
+                "utility_type",
+                new System.Collections.Generic.Dictionary<string, string>
+                {
+                    { "Electricity", "curent" },
+                    { "Gas", "gaz" },
+                    { "InternetAndTV", "internet și cablu TV" },
+                    { "Water", "apă" }
+                },
+                "utilitate"
+            );
 
             string text = $"Am citit indexul contorului de {utilityType}";
 
@@ -2449,8 +2339,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am participat la nunta lui";
 
-            log.Data.TryGetValue("bride_name", out string brideName);
-            log.Data.TryGetValue("groom_name", out string groomName);
+            string brideName = GetDataValue(log.Data, "bride_name");
+            string groomName = GetDataValue(log.Data, "groom_name");
 
             if (!string.IsNullOrWhiteSpace(brideName) && !string.IsNullOrWhiteSpace(groomName))
             {
