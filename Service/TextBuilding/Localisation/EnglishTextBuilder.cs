@@ -1566,7 +1566,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 {
                     { "Clan", "clan" },
                     { "MilitaryUnit", "military unit" },
-                    { "PolititicalParty", "political party" }
+                    { "PoliticalParty", "political party" }
                 },
                 "guild"
             );

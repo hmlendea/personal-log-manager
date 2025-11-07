@@ -1613,7 +1613,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 {
                     { "Clan", "clanul" },
                     { "MilitaryUnit", "unitatea militară" },
-                    { "PolititicalParty", "partidul politic" }
+                    { "PoliticalParty", "partidul politic" }
                 },
                 "ghilda"
             );
