@@ -97,6 +97,8 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildMealVoucherCardCreditationLogText(PersonalLog log);
         string BuildMicronationLegalActIssuanceLogText(PersonalLog log);
         string BuildMicronationSettlementFoundingLogText(PersonalLog log);
+        string BuildMicronationSettlementRankDowngradeLogText(PersonalLog log);
+        string BuildMicronationSettlementRankUpgradeLogText(PersonalLog log);
         string BuildMovieWatchingLogText(PersonalLog log);
         string BuildObjectSaleLogText(PersonalLog log);
         string BuildOnlineReviewSubmissionLogText(PersonalLog log);

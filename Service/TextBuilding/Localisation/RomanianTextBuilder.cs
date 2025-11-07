@@ -1959,6 +1959,62 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildMicronationSettlementRankDowngradeLogText(PersonalLog log)
+        {
+            string oldRank = GetMappedDataValue(
+                log.Data,
+                "old_rank",
+                new()
+                {
+                    { "Castle", "cetatea" },
+                    { "City", "orașul" },
+                    { "Town", "orășelul" },
+                    { "Village", "satul" }
+                },
+                "așezarea");
+
+            string newRank = GetMappedDataValue(
+                log.Data,
+                "old_rank",
+                new()
+                {
+                    { "Castle", "cetate" },
+                    { "City", "oraș" },
+                    { "Town", "orășel" },
+                    { "Village", "sat" }
+                });
+
+            return $"Am retrogradat {oldRank} {log.Data["settlement_name"]} din micronațiunea {log.Data["micronation_name"]} la rangul de {newRank}";
+        }
+
+        public string BuildMicronationSettlementRankUpgradeLogText(PersonalLog log)
+        {
+            string oldRank = GetMappedDataValue(
+                log.Data,
+                "old_rank",
+                new()
+                {
+                    { "Castle", "cetatea" },
+                    { "City", "orașul" },
+                    { "Town", "orășelul" },
+                    { "Village", "satul" }
+                },
+                "așezarea");
+
+            string newRank = GetMappedDataValue(
+                log.Data,
+                "old_rank",
+                new()
+                {
+                    { "Castle", "cetate" },
+                    { "City", "oraș" },
+                    { "Town", "orășel" },
+                    { "Village", "sat" }
+                });
+
+            return $"Am promovat {oldRank} {log.Data["settlement_name"]} din micronațiunea {log.Data["micronation_name"]} la rangul de {newRank}";
+        }
+
         public string BuildMovieWatchingLogText(PersonalLog log)
         {
             string text = $"Am vizionat filmul '{log.Data["movie_name"]}'";

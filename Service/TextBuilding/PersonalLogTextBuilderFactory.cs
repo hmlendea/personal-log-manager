@@ -384,6 +384,14 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildMicronationSettlementFoundingLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.MicronationSettlementRankDowngrade))
+            {
+                return personalLogTextBuilder.BuildMicronationSettlementRankDowngradeLogText(log);
+            }
+            else if (log.Template.Equals(PersonalLogTemplate.MicronationSettlementRankUpgrade))
+            {
+                return personalLogTextBuilder.BuildMicronationSettlementRankUpgradeLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.MovieWatching))
             {
                 return personalLogTextBuilder.BuildMovieWatchingLogText(log);

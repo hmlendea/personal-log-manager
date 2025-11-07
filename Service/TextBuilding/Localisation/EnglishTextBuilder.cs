@@ -1917,6 +1917,62 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildMicronationSettlementRankDowngradeLogText(PersonalLog log)
+        {
+            string oldRank = GetMappedDataValue(
+                log.Data,
+                "old_rank",
+                new()
+                {
+                    { "Castle", "castle" },
+                    { "City", "city" },
+                    { "Town", "town" },
+                    { "Village", "village" }
+                },
+                "settlement");
+
+            string newRank = GetMappedDataValue(
+                log.Data,
+                "old_rank",
+                new()
+                {
+                    { "Castle", "castle" },
+                    { "City", "city" },
+                    { "Town", "town" },
+                    { "Village", "village" }
+                });
+
+            return $"I have downgraded the {oldRank} {log.Data["settlement_name"]} in the micronation of {log.Data["micronation_name"]} to the rank of {newRank}";
+        }
+
+        public string BuildMicronationSettlementRankUpgradeLogText(PersonalLog log)
+        {
+            string oldRank = GetMappedDataValue(
+                log.Data,
+                "old_rank",
+                new()
+                {
+                    { "Castle", "castle" },
+                    { "City", "city" },
+                    { "Town", "town" },
+                    { "Village", "village" }
+                },
+                "settlement");
+
+            string newRank = GetMappedDataValue(
+                log.Data,
+                "old_rank",
+                new()
+                {
+                    { "Castle", "castle" },
+                    { "City", "city" },
+                    { "Town", "town" },
+                    { "Village", "village" }
+                });
+
+            return $"I have upgraded the {oldRank} {log.Data["settlement_name"]} in the micronation of {log.Data["micronation_name"]} to the rank of {newRank}";
+        }
+
         public string BuildMovieWatchingLogText(PersonalLog log)
         {
             string text = $"I have watched the movie '{log.Data["movie_name"]}'";

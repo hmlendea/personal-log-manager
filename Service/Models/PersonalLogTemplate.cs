@@ -96,6 +96,8 @@ namespace PersonalLogManager.Service.Models
         MealVoucherCardCreditation,
         MicronationLegalActIssuance,
         MicronationSettlementFounding,
+        MicronationSettlementRankDowngrade,
+        MicronationSettlementRankUpgrade,
         MovieWatching,
         ObjectSale,
         OnlineReviewSubmission,
