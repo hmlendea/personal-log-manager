@@ -92,6 +92,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildKinetotherapySessionLogText(PersonalLog log);
         string BuildLdlCholesterolMeasurementLogText(PersonalLog log);
         string BuildMealVoucherCardCreditationLogText(PersonalLog log);
+        string BuildMicronationLegalActIssuanceLogText(PersonalLog log);
         string BuildMovieWatchingLogText(PersonalLog log);
         string BuildObjectSaleLogText(PersonalLog log);
         string BuildOnlineReviewSubmissionLogText(PersonalLog log);

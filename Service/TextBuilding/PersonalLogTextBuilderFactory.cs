@@ -368,6 +368,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildMealVoucherCardCreditationLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.MicronationLegalActIssuance))
+            {
+                return personalLogTextBuilder.BuildMicronationLegalActIssuanceLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.MovieWatching))
             {
                 return personalLogTextBuilder.BuildMovieWatchingLogText(log);

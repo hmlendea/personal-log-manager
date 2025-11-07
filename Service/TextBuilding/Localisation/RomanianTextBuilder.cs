@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using PersonalLogManager.Service.Models;
 
 namespace PersonalLogManager.Service.TextBuilding.Localisation
@@ -803,7 +804,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 withCount += 1;
             }
 
-            return text;;
+            return text; ;
         }
 
         public string BuildAccountRegistrationRequestFulfillmentLogText(PersonalLog log)
@@ -1786,6 +1787,53 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildMealVoucherCardCreditationLogText(PersonalLog log)
             => $"Cardul de bonuri de masă a fost creditat cu {log.Data["amount"]} {log.Data["currency"]}";
+
+        public string BuildMicronationLegalActIssuanceLogText(PersonalLog log)
+        {
+            string legalActTypeWord = GetMappedDataValue(
+                log.Data,
+                "legal_act_type",
+                new()
+                {
+                    { "NucalDecree", "decretul nucal" },
+                    { "PalatinalDecree", "decretul palatinal" },
+                    { "PrefecturalDecree", "decretul prefectural" },
+                    { "VoivodalDecree", "decretul voievodal" }
+                },
+                "actul legal");
+
+            string text = $"Am emis {legalActTypeWord} '{log.Data["legal_act_name"]}'";
+
+            if (log.Data.ContainsKey("administrative_unit_type"))
+            {
+                string administrativeUnitTypeWord = GetMappedDataValue(
+                    log.Data,
+                    "administrative_unit_type",
+                    new()
+                    {
+                        { "Castle", "cetatea" },
+                        { "City", "orașul" },
+                        { "Town", "orășelul" },
+                        { "Village", "satul" },
+                        { "Land", "ținutul" },
+                        { "County", "județul" },
+                        { "District", "districtul" },
+                        { "Zhupanate", "jupânatul" },
+                        { "Voivodeship", "voievodatul" },
+                        { "Prefecture", "prefectura" }
+                    });
+
+                text += $" în {administrativeUnitTypeWord} {log.Data["administrative_unit_name"]} din";
+            }
+            else
+            {
+                text += " în";
+            }
+
+            text += $" micronațiunea {log.Data["micronation_name"]}";
+
+            return text;
+        }
 
         public string BuildMovieWatchingLogText(PersonalLog log)
         {

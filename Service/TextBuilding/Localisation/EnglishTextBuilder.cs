@@ -1767,6 +1767,49 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildMicronationLegalActIssuanceLogText(PersonalLog log)
+        {
+            string legalActTypeWord = GetMappedDataValue(
+                log.Data,
+                "legal_act_type",
+                new()
+                {
+                    { "NucalDecree", "nucal decree" },
+                    { "PalatinalDecree", "palatinal decree" },
+                    { "PrefecturalDecree", "prefectural decree" },
+                    { "VoivodalDecree", "voivodal decree" }
+                },
+                "legal act");
+
+            string text = $"I have issued the {legalActTypeWord} '{log.Data["legal_act_name"]}'";
+
+            if (log.Data.ContainsKey("administrative_unit_type"))
+            {
+                string administrativeUnitTypeWord = GetMappedDataValue(
+                    log.Data,
+                    "administrative_unit_type",
+                    new()
+                    {
+                        { "Castle", "castle" },
+                        { "City", "city" },
+                        { "Town", "town" },
+                        { "Village", "village" },
+                        { "Land", "land" },
+                        { "County", "county" },
+                        { "District", "district" },
+                        { "Zhupanate", "zhupanate" },
+                        { "Voivodeship", "voivodeship" },
+                        { "Prefecture", "prefecture" }
+                    });
+
+                text += $" in the {administrativeUnitTypeWord} of {log.Data["administrative_unit_name"]},";
+            }
+
+            text += $" in the micronation of {log.Data["micronation_name"]}";
+
+            return text;
+        }
+
         public string BuildMovieWatchingLogText(PersonalLog log)
         {
             string text = $"I have watched the movie '{log.Data["movie_name"]}'";

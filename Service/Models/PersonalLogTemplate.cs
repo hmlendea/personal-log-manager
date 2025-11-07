@@ -91,6 +91,7 @@ namespace PersonalLogManager.Service.Models
         KinetotherapySession,
         LdlCholesterolMeasurement,
         MealVoucherCardCreditation,
+        MicronationLegalActIssuance,
         MovieWatching,
         ObjectSale,
         OnlineReviewSubmission,
