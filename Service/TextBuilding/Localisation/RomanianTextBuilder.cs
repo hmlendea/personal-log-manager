@@ -1898,11 +1898,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" la {location}";
             }
 
-            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "ro");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
             {
-                watchedWith = watchedWith.Replace(" & ", " și ");
-                watchedWith = watchedWith.Replace(" and ", " și ");
-
                 text += $", împreună cu {watchedWith}";
             }
 
@@ -1983,7 +1981,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildPetNailsTrimmingLogText(PersonalLog log)
-            => $"I-am tăiat ghearele lui {log.Data["pet_name"]}";
+            => $"I-am tăiat ghearele lui {GetLocalisedValue(log.Data, "pet_name", "ro")}";
 
         public string BuildPetWeightMeasurementLogText(PersonalLog log)
         {
@@ -2048,11 +2046,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" la {location}";
             }
 
-            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "ro");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
             {
-                watchedWith = watchedWith.Replace(" & ", " și ");
-                watchedWith = watchedWith.Replace(" and ", " și ");
-
                 text += $", împreună cu {watchedWith}";
             }
 
@@ -2080,11 +2076,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" la {location}";
             }
 
-            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "ro");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
             {
-                watchedWith = watchedWith.Replace(" & ", " și ");
-                watchedWith = watchedWith.Replace(" and ", " și ");
-
                 text += $", împreună cu {watchedWith}";
             }
 
@@ -2128,11 +2122,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" la {location}";
             }
 
-            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "ro");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
             {
-                watchedWith = watchedWith.Replace(" & ", " și ");
-                watchedWith = watchedWith.Replace(" and ", " și ");
-
                 text += $", împreună cu {watchedWith}";
             }
 
@@ -2176,11 +2168,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" la {location}";
             }
 
-            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "ro");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
             {
-                watchedWith = watchedWith.Replace(" & ", " și ");
-                watchedWith = watchedWith.Replace(" and ", " și ");
-
                 text += $", împreună cu {watchedWith}";
             }
 
@@ -2224,11 +2214,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" la {location}";
             }
 
-            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "ro");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
             {
-                watchedWith = watchedWith.Replace(" & ", " și ");
-                watchedWith = watchedWith.Replace(" and ", " și ");
-
                 text += $", împreună cu {watchedWith}";
             }
 
@@ -2262,11 +2250,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" la {location}";
             }
 
-            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "ro");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
             {
-                watchedWith = watchedWith.Replace(" & ", " și ");
-                watchedWith = watchedWith.Replace(" and ", " și ");
-
                 text += $", împreună cu {watchedWith}";
             }
 
@@ -2300,11 +2286,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" la {location}";
             }
 
-            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "ro");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
             {
-                watchedWith = watchedWith.Replace(" & ", " și ");
-                watchedWith = watchedWith.Replace(" and ", " și ");
-
                 text += $", împreună cu {watchedWith}";
             }
 
@@ -2529,11 +2513,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" la {location}";
             }
 
-            if (log.Data.TryGetValue("watched_with", out string watchedWith))
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "ro");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
             {
-                watchedWith = watchedWith.Replace(" & ", " și ");
-                watchedWith = watchedWith.Replace(" and ", " și ");
-
                 text += $", împreună cu {watchedWith}";
             }
 

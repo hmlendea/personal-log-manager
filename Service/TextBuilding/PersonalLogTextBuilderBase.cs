@@ -51,6 +51,32 @@ namespace PersonalLogManager.Service.TextBuilding
             return value;
         }
 
+        public string GetLocalisedValue(Dictionary<string, string> data, string key, string localisation)
+            => GetLocalisedValue(data, key, localisation, null);
+
+        public string GetLocalisedValue(Dictionary<string, string> data, string key, string localisation, string defaultValue)
+        {
+            string value = GetDataValue(data, key);
+
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return defaultValue;
+            }
+
+            if (localisation.Equals("ro-RO") ||
+                localisation.Equals("ro-MD") ||
+                localisation.Equals("ro"))
+            {
+                return value
+                    .Replace(" and ", " și ")
+                    .Replace("&", "și");
+            }
+
+            return value
+                .Replace(" și ", " and ")
+                .Replace("&", "and");
+        }
+
         public string GetMappedDataValue(Dictionary<string, string> data, string key, Dictionary<string, string> mappings)
         {
             string mapKey = GetDataValue(data, key);
