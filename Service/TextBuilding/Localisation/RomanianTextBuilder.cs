@@ -1164,10 +1164,52 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildDeviceBatteryHealthLogText(PersonalLog log)
-            => $"Sănătatea bateriei din {log.Data["device_name"]} a fost {log.Data["battery_health_percentage"]}%";
+        {
+            string deviceType = GetMappedDataValue(
+                log.Data,
+                "device_type",
+                new()
+                {
+                    { "DesktopComputer", "calculatorul" },
+                    { "FitnessTracker", "brățara de fitness" },
+                    { "Headphones", "căștile" },
+                    { "Laptop", "laptop-ul" },
+                    { "Phone", "telefonul" },
+                    { "Scale", "cântarul" },
+                    { "Scooter", "trotineta" },
+                    { "Tablet", "tableta" },
+                    { "VacuumCleaner", "aspiratorul" },
+                    { "Watch", "ceasul" },
+                },
+                log.Data["device_type"]
+            );
+
+            return $"Sănătatea bateriei din {deviceType} {log.Data["device_name"]} a fost {log.Data["battery_health_percentage"]}%";
+        }
 
         public string BuildDeviceBatteryLevelLogText(PersonalLog log)
-            => $"Nivelul bateriei din {log.Data["device_name"]} a fost la {log.Data["battery_level_percentage"]}%";
+        {
+            string deviceType = GetMappedDataValue(
+                log.Data,
+                "device_type",
+                new()
+                {
+                    { "DesktopComputer", "calculatorul" },
+                    { "FitnessTracker", "brățara de fitness" },
+                    { "Headphones", "căștile" },
+                    { "Laptop", "laptop-ul" },
+                    { "Phone", "telefonul" },
+                    { "Scale", "cântarul" },
+                    { "Scooter", "trotineta" },
+                    { "Tablet", "tableta" },
+                    { "VacuumCleaner", "aspiratorul" },
+                    { "Watch", "ceasul" },
+                },
+                log.Data["device_type"]
+            );
+
+            return $"Nivelul bateriei din {deviceType} {log.Data["device_name"]} a fost la {log.Data["battery_level_percentage"]}%";
+        }
 
         public string BuildDeviceBreakingLogText(PersonalLog log)
         {
@@ -1576,7 +1618,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "ghilda"
             );
 
-            string text = $"Am intrat în {guildType} '{log.Data["party_name"]}' în {log.Data["game_name"]}";
+            string text = $"Am intrat în {guildType} '{log.Data["guild_name"]}' în {log.Data["game_name"]}";
 
             if (log.Data.TryGetValue("platform", out string platform))
             {
