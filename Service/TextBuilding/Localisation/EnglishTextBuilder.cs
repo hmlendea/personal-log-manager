@@ -1877,6 +1877,46 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildMicronationSettlementFoundingLogText(PersonalLog log)
+        {
+            string settlementType = GetMappedDataValue(
+                log.Data,
+                "settlement_type",
+                new()
+                {
+                    { "Castle", "castle" },
+                    { "City", "city" },
+                    { "Town", "town" },
+                    { "Village", "village" }
+                },
+                "settlement");
+
+            string text = $"I have founded the {settlementType} of {log.Data["settlement_name"]}";
+
+            string administrativeUnitName = GetDataValue(log.Data, "administrative_unit_name");
+            if (!string.IsNullOrWhiteSpace(administrativeUnitName))
+            {
+                string administrativeUnitType = GetMappedDataValue(
+                    log.Data,
+                    "administrative_unit_type",
+                    new()
+                    {
+                        { "Land", "land" },
+                        { "County", "county" },
+                        { "District", "district" },
+                        { "Zhupanate", "zhupanate" },
+                        { "Voivodeship", "voievodeship" },
+                        { "Prefecture", "prefecture" }
+                    });
+
+                text += $" in the {administrativeUnitType} {administrativeUnitName},";
+            }
+
+            text += $" in the micronation of {log.Data["micronation_name"]}";
+
+            return text;
+        }
+
         public string BuildMovieWatchingLogText(PersonalLog log)
         {
             string text = $"I have watched the movie '{log.Data["movie_name"]}'";

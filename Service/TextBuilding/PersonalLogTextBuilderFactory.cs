@@ -380,6 +380,10 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 return personalLogTextBuilder.BuildMicronationLegalActIssuanceLogText(log);
             }
+            else if (log.Template.Equals(PersonalLogTemplate.MicronationSettlementFounding))
+            {
+                return personalLogTextBuilder.BuildMicronationSettlementFoundingLogText(log);
+            }
             else if (log.Template.Equals(PersonalLogTemplate.MovieWatching))
             {
                 return personalLogTextBuilder.BuildMovieWatchingLogText(log);

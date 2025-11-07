@@ -1919,6 +1919,46 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildMicronationSettlementFoundingLogText(PersonalLog log)
+        {
+            string settlementType = GetMappedDataValue(
+                log.Data,
+                "settlement_type",
+                new()
+                {
+                    { "Castle", "cetatea" },
+                    { "City", "orașul" },
+                    { "Town", "orășelul" },
+                    { "Village", "satul" }
+                },
+                "așezarea");
+
+            string text = $"Am fondat {settlementType} {log.Data["settlement_name"]}";
+
+            string administrativeUnitName = GetDataValue(log.Data, "administrative_unit_name");
+            if (!string.IsNullOrWhiteSpace(administrativeUnitName))
+            {
+                string administrativeUnitType = GetMappedDataValue(
+                    log.Data,
+                    "administrative_unit_type",
+                    new()
+                    {
+                        { "Land", "ținutul" },
+                        { "County", "județul" },
+                        { "District", "districtul" },
+                        { "Zhupanate", "jupânatul" },
+                        { "Voivodeship", "voievodatul" },
+                        { "Prefecture", "prefectura" }
+                    });
+
+                text += $" în {administrativeUnitType} {administrativeUnitName},";
+            }
+
+            text += $" în micronațiunea {log.Data["micronation_name"]}";
+
+            return text;
+        }
+
         public string BuildMovieWatchingLogText(PersonalLog log)
         {
             string text = $"Am vizionat filmul '{log.Data["movie_name"]}'";

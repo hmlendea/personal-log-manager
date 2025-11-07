@@ -95,6 +95,7 @@ namespace PersonalLogManager.Service.Models
         LdlCholesterolMeasurement,
         MealVoucherCardCreditation,
         MicronationLegalActIssuance,
+        MicronationSettlementFounding,
         MovieWatching,
         ObjectSale,
         OnlineReviewSubmission,
