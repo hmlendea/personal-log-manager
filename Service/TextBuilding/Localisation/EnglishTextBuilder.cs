@@ -1814,6 +1814,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGoingToSleepLogText(PersonalLog log)
+            => $"I have gone to sleep";
+
         public string BuildHairCuttingLogText(PersonalLog log)
         {
             string text = $"I have gotten my hair cut";
@@ -2506,6 +2509,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
             {
                 text += $" for {durationMinutes} minutes";
+            }
+
+            return text;
+        }
+
+        public string BuildTheatricalPlayAttendanceLogText(PersonalLog log)
+        {
+            string text = $"I have attended the '{log.Data["play_name"]}' theatrical play";
+
+            if (log.Data.TryGetValue("theatre_name", out string theatreName))
+            {
+                text += $" at {theatreName}";
+            }
+
+            if (log.Data.TryGetValue("location_city", out string locationCity))
+            {
+                text += $" in {locationCity}";
+            }
+
+            if (log.Data.TryGetValue("together_with", out string togetherWih))
+            {
+                text += $", together with {togetherWih}";
             }
 
             return text;

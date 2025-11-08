@@ -1860,6 +1860,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGoingToSleepLogText(PersonalLog log)
+            => $"M-am culcat";
+
         public string BuildHairCuttingLogText(PersonalLog log)
         {
             string text = $"Am fost la tuns";
@@ -2552,6 +2555,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
             {
                 text += $" timp de {durationMinutes} minute";
+            }
+
+            return text;
+        }
+
+        public string BuildTheatricalPlayAttendanceLogText(PersonalLog log)
+        {
+            string text = $"Am fost la piesa de teatru '{log.Data["play_name"]}'";
+
+            if (log.Data.TryGetValue("theatre_name", out string theatreName))
+            {
+                text += $" la {theatreName}";
+            }
+
+            if (log.Data.TryGetValue("location_city", out string locationCity))
+            {
+                text += $" din {locationCity}";
+            }
+
+            if (log.Data.TryGetValue("together_with", out string togetherWih))
+            {
+                text += $", împreună cu {togetherWih}";
             }
 
             return text;
