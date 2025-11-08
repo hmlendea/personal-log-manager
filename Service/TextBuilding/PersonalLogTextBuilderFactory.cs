@@ -23,9 +23,10 @@ namespace PersonalLogManager.Service.TextBuilding
 
         static string BuildLogTextByTemplate(PersonalLog log, string localisation)
         {
-            var personalLogTextBuilder = GetTextBuilder(localisation);
+            IPersonalLogTextBuilder personalLogTextBuilder = GetTextBuilder(localisation);
 
-            return personalLogTextBuilder.GetType()
+            return personalLogTextBuilder
+                .GetType()
                 .GetMethod(
                     $"Build{log.Template}LogText",
                     BindingFlags.Public | BindingFlags.Instance)
