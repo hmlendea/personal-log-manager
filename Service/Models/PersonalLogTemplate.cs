@@ -89,6 +89,8 @@ namespace PersonalLogManager.Service.Models
         GettingOutOfBed,
         GiftReceival,
         GitContributionsMeasurement,
+        GitRelease,
+        GitRepositoryCreation,
         GoingToSleep,
         GraduationCeremonyAttendance,
         GraduationCeremonyParticipation,

@@ -1850,6 +1850,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGitReleaseLogText(PersonalLog log)
+            => $"I have released version {log.Data["release_version"]} of the `{log.Data["repository_name"]}` repository on {GetPlatform(log.Data)}";
+
+        public string BuildGitRepositoryCreationLogText(PersonalLog log)
+            => $"I have created the `{log.Data["repository_name"]}` repository on {GetPlatform(log.Data)}";
+
         public string BuildGoingToSleepLogText(PersonalLog log)
             => $"I have gone to sleep";
 

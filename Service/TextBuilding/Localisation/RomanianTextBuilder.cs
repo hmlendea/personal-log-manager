@@ -1894,6 +1894,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGitReleaseLogText(PersonalLog log)
+            => $"Am lansat versiunea '{log.Data["release_version"]}' pentru repozitory-ul '{log.Data["repository_name"]}' pe {GetPlatform(log.Data)}";
+
+        public string BuildGitRepositoryCreationLogText(PersonalLog log)
+            => $"Am creat repozitory-ul '{log.Data["repository_name"]}' pe {GetPlatform(log.Data)}";
+
         public string BuildGoingToSleepLogText(PersonalLog log)
             => $"M-am culcat";
 
