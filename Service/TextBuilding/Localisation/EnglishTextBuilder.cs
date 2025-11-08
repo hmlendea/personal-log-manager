@@ -2148,6 +2148,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildTextLogText(PersonalLog log)
+            => GetDataValue(log.Data, "text");
+
         public string BuildTeethBrushingLogText(PersonalLog log)
         {
             string text = $"I have brushed my teeth";
