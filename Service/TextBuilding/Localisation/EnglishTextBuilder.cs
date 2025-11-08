@@ -1801,6 +1801,42 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildGettingOutOfBedLogText(PersonalLog log)
             => $"I have gotten out of bed";
 
+        public string BuildGiftReceivalLogText(PersonalLog log)
+        {
+            string text = $"I have received a";
+            string giftOccasion = GetMappedDataValue(
+                log.Data,
+                "gift_occasion",
+                new()
+                {
+                    { "Birthday", "birthday" },
+                    { "Christmas", "Christmas" },
+                    { "Easter", "Easter" },
+                    { "NameDay", "name day" },
+                    { "RelationshipAnniversary", "relationship anniversary" },
+                    { "ValentinesDay", "Valentine's Day" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(giftOccasion))
+            {
+                text += $" {giftOccasion}";
+            }
+
+            text += " gift";
+
+            if (log.Data.TryGetValue("giver_name", out string giverName))
+            {
+                text += $" from {giverName}";
+            }
+
+            if (log.Data.TryGetValue("gift_content", out string giftContent))
+            {
+                text += $": {giftContent}";
+            }
+
+            return text;
+        }
+
         public string BuildGitContributionsMeasurementLogText(PersonalLog log)
         {
             string text = $"I have made {log.Data["contributions_count"]} contributions on {log.Data["platform"]}";
@@ -1819,7 +1855,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildGraduationCeremonyAttendanceLogText(PersonalLog log)
         {
-            string text = $"I have attended {GetLocalisedValue(log.Data, "graduate_name", "ro")}'s graduation ceremony";
+            string text = $"I have attended {GetLocalisedValue(log.Data, "graduate_name", "en")}'s graduation ceremony";
 
             if (log.Data.TryGetValue("location", out string location))
             {
@@ -2634,6 +2670,64 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildTotalCholesterolMeasurementLogText(PersonalLog log)
             => $"My total cholesterol level measured {log.Data["total_cholesterol_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
+
+        public string BuildTreePlantingLogText(PersonalLog log)
+        {
+            string text = $"I have planted";
+
+            string treesCount = GetDataValue(log.Data, "trees_count", "1");
+
+            if (treesCount.Equals("1"))
+            {
+                text += " a";
+            }
+            else
+            {
+                text += $" {treesCount}";
+            }
+
+            string treeSpecies = GetMappedDataValue(
+                log.Data,
+                "tree_species",
+                new System.Collections.Generic.Dictionary<string, string>
+                {
+                    { "Oak", "oak" },
+                    { "Pine", "pine" },
+                    { "Maple", "maple" },
+                    { "Birch", "birch" },
+                    { "Cherry", "cherry" },
+                    { "Apple", "apple" },
+                    { "Walnut", "walnut" },
+                    { "Willow", "willow" }
+                });
+
+            if (string.IsNullOrWhiteSpace(treeSpecies))
+            {
+                text += " tree";
+            }
+            else
+            {
+                text += $" {treeSpecies}";
+            }
+
+            if (!treesCount.Equals("1"))
+            {
+                text += "s";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" in {location}";
+            }
+
+            string togetherWith = GetLocalisedValue(log.Data, "together_with", "en");
+            if (!string.IsNullOrWhiteSpace(togetherWith))
+            {
+                text += $", together with {togetherWith}"; ;
+            }
+
+            return text;
+        }
 
         public string BuildUtilityBillPaymentLogText(PersonalLog log)
         {

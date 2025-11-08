@@ -1847,6 +1847,40 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildGettingOutOfBedLogText(PersonalLog log)
             => $"M-am ridicat din pat";
 
+        public string BuildGiftReceivalLogText(PersonalLog log)
+        {
+            string text = $"Am primit un cadou";
+            string giftOccasion = GetMappedDataValue(
+                log.Data,
+                "gift_occasion",
+                new()
+                {
+                    { "Birthday", "ziua mea de naștere" },
+                    { "Christmas", "Crăciun" },
+                    { "Easter", "Paște" },
+                    { "NameDay", "onomastică" },
+                    { "RelationshipAnniversary", "aniversare a relației" },
+                    { "ValentinesDay", "Ziua Îndrăgostiților" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(giftOccasion))
+            {
+                text += $" de {giftOccasion}";
+            }
+
+            if (log.Data.TryGetValue("giver_name", out string giverName))
+            {
+                text += $" de la {giverName}";
+            }
+
+            if (log.Data.TryGetValue("gift_content", out string giftContent))
+            {
+                text += $": {giftContent}";
+            }
+
+            return text;
+        }
+
         public string BuildGitContributionsMeasurementLogText(PersonalLog log)
         {
             string text = $"Am avut {log.Data["contributions_count"]} de contribuții pe {log.Data["platform"]}";
@@ -2688,6 +2722,70 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
 
             return $"Nivelul de colesterol total a fost măsurat la {log.Data["total_cholesterol_level"]} {unit}";
+        }
+
+        public string BuildTreePlantingLogText(PersonalLog log)
+        {
+            string text = $"Am plantat";
+
+            string treesCount = GetDataValue(log.Data, "trees_count", "1");
+            string treeSpecies;
+
+            if (treesCount.Equals("1"))
+            {
+                text += " un";
+
+                treeSpecies = GetMappedDataValue(
+                    log.Data,
+                    "tree_species",
+                    new System.Collections.Generic.Dictionary<string, string>
+                    {
+                        { "Oak", "stejar" },
+                        { "Pine", "brad" },
+                        { "Maple", "arțar" },
+                        { "Birch", "mesteacăn" },
+                        { "Cherry", "cireș" },
+                        { "Apple", "măr" },
+                        { "Walnut", "nuc" },
+                        { "Willow", "salcie" }
+                    },
+                    "copac");
+            }
+            else
+            {
+                text += $" {treesCount}";
+
+                treeSpecies = GetMappedDataValue(
+                    log.Data,
+                    "tree_species",
+                    new System.Collections.Generic.Dictionary<string, string>
+                    {
+                        { "Oak", "stejari" },
+                        { "Pine", "brazi" },
+                        { "Maple", "arțari" },
+                        { "Birch", "mesteacăni" },
+                        { "Cherry", "cireși" },
+                        { "Apple", "meri" },
+                        { "Walnut", "nuci" },
+                        { "Willow", "salcii" }
+                    },
+                    "copaci");
+            }
+
+            text += $" {treeSpecies}";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" în {location}";
+            }
+
+            string togetherWith = GetLocalisedValue(log.Data, "together_with", "ro");
+            if (!string.IsNullOrWhiteSpace(togetherWith))
+            {
+                text += $", împreună cu {togetherWith}";;
+            }
+
+            return text;
         }
 
         public string BuildUtilityBillPaymentLogText(PersonalLog log)
