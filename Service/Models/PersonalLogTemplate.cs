@@ -80,6 +80,7 @@ namespace PersonalLogManager.Service.Models
         GameConstructionCompletion,
         GameGuildJoining,
         GameGuildLeaving,
+        GameModPublishing,
         GameOfficeTermBeginning,
         GameOfficeTermEnding,
         GameRankUp,

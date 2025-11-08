@@ -1722,6 +1722,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGameModPublishingLogText(PersonalLog log)
+            => $"Am publicat mod-ul '{log.Data["mod_name"]}' pentru jocul {log.Data["game_name"]} pe {GetPlatform(log.Data)}";
+
         public string BuildGameOfficeTermBeginningLogText(PersonalLog log)
         {
             string text = $"Am început un mandat de {log.Data["office_name"]}";

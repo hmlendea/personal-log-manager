@@ -1676,6 +1676,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGameModPublishingLogText(PersonalLog log)
+            => $"I have published the mod '{log.Data["mod_name"]}' for the game {log.Data["game_name"]} on {GetPlatform(log.Data)}";
+
         public string BuildGameOfficeTermBeginningLogText(PersonalLog log)
         {
             string text = $"I have begun my term as {log.Data["office_name"]}";
