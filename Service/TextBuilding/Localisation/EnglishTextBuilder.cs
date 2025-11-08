@@ -1817,6 +1817,72 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildGoingToSleepLogText(PersonalLog log)
             => $"I have gone to sleep";
 
+        public string BuildGraduationCeremonyAttendanceLogText(PersonalLog log)
+        {
+            string text = $"I have attended {GetLocalisedValue(log.Data, "graduate_name", "ro")}'s graduation ceremony";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            string degreeLevel = GetMappedDataValue(
+                log.Data,
+                "degree_level",
+                new()
+                {
+                    { "Bachelor", "bachelor" },
+                    { "Master", "master" },
+                    { "Doctorate", "doctorate" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(degreeLevel))
+            {
+                text += $", for obtaining their {degreeLevel} degree";
+
+                if (log.Data.TryGetValue("institution_name", out string institutionName))
+                {
+                    text += $" at {institutionName}";
+
+                }
+            }
+
+            return text;
+        }
+
+        public string BuildGraduationCeremonyParticipationLogText(PersonalLog log)
+        {
+            string text = $"I have participated in my graduation ceremony";
+
+            string degreeLevel = GetMappedDataValue(
+                log.Data,
+                "degree_level",
+                new()
+                {
+                    { "Bachelor", "bachelor" },
+                    { "Master", "master" },
+                    { "Doctorate", "doctorate" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(degreeLevel))
+            {
+                text += $", for obtaining my {degreeLevel} degree";
+
+                if (log.Data.TryGetValue("institution_name", out string institutionName))
+                {
+                    text += $" at {institutionName}";
+
+                }
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", at {location}";
+            }
+
+            return text;
+        }
+
         public string BuildHairCuttingLogText(PersonalLog log)
         {
             string text = $"I have gotten my hair cut";

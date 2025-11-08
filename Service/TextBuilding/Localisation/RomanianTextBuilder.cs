@@ -1863,6 +1863,72 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildGoingToSleepLogText(PersonalLog log)
             => $"M-am culcat";
 
+        public string BuildGraduationCeremonyAttendanceLogText(PersonalLog log)
+        {
+            string text = $"Am participat la ceremonia de absolvire a lui {GetLocalisedValue(log.Data, "graduate_name", "ro")}";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            string degreeLevel = GetMappedDataValue(
+                log.Data,
+                "degree_level",
+                new()
+                {
+                    { "Bachelor", "licență" },
+                    { "Master", "masterat" },
+                    { "Doctorate", "doctorat" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(degreeLevel))
+            {
+                text += $", pentru finalizarea nivelului {degreeLevel}";
+
+                if (log.Data.TryGetValue("institution_name", out string institutionName))
+                {
+                    text += $" la {institutionName}";
+
+                }
+            }
+
+            return text;
+        }
+
+        public string BuildGraduationCeremonyParticipationLogText(PersonalLog log)
+        {
+            string text = $"Am participat la ceremonia mea de absolvire";
+
+            string degreeLevel = GetMappedDataValue(
+                log.Data,
+                "degree_level",
+                new()
+                {
+                    { "Bachelor", "licență" },
+                    { "Master", "masterat" },
+                    { "Doctorate", "doctorat" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(degreeLevel))
+            {
+                text += $" a nivelului {degreeLevel}";
+
+                if (log.Data.TryGetValue("institution_name", out string institutionName))
+                {
+                    text += $" la {institutionName}";
+
+                }
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", la {location}";
+            }
+
+            return text;
+        }
+
         public string BuildHairCuttingLogText(PersonalLog log)
         {
             string text = $"Am fost la tuns";

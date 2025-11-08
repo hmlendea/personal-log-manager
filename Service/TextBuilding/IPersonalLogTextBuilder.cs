@@ -90,6 +90,8 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildGettingOutOfBedLogText(PersonalLog log);
         string BuildGitContributionsMeasurementLogText(PersonalLog log);
         string BuildGoingToSleepLogText(PersonalLog log);
+        string BuildGraduationCeremonyAttendanceLogText(PersonalLog log);
+        string BuildGraduationCeremonyParticipationLogText(PersonalLog log);
         string BuildHairCuttingLogText(PersonalLog log);
         string BuildHdlCholesterolMeasurementLogText(PersonalLog log);
         string BuildHeartRateMeasurementLogText(PersonalLog log);

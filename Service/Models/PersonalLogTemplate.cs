@@ -89,6 +89,8 @@ namespace PersonalLogManager.Service.Models
         GettingOutOfBed,
         GitContributionsMeasurement,
         GoingToSleep,
+        GraduationCeremonyAttendance,
+        GraduationCeremonyParticipation,
         HairCutting,
         HdlCholesterolMeasurement,
         HeartRateMeasurement,
