@@ -5,29 +5,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
     public class EnglishTextBuilder() : PersonalLogTextBuilderBase, IPersonalLogTextBuilder
     {
         public string BuildAccountActivationLogText(PersonalLog log)
-        {
-            string text = $"I have activated the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
-            return text;
-        }
+            => $"I have activated the {GetPlatform(log.Data)} account";
 
         public string BuildAccountBanningLogText(PersonalLog log)
         {
-            string text = $"The {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
-            text += " has been banned";
+            string text = $"The {GetPlatform(log.Data)} account has been banned";
 
             if (log.Data.TryGetValue("ban_reason", out string banReason))
             {
@@ -46,13 +28,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 verb = "set";
             }
 
-            string text = $"I have {verb} the contact e-mail address of the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
+            string text = $"I have {verb} the contact e-mail address of the {GetPlatform(log.Data)} account";
 
             if (log.Data.TryGetValue("old_contact_email_address", out string oldContactEmailAddress))
             {
@@ -68,31 +44,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildAccountDataExportLogText(PersonalLog log)
-        {
-            string text = $"I have exported my data related to the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
-            return text;
-        }
+            => $"I have exported my data related to the {GetPlatform(log.Data)} account";
 
         public string BuildAccountDataExportRequestLogText(PersonalLog log)
         {
-            string text = $"I have requested an export of my data related to the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
+            string text = $"I have requested an export of my data related to the {GetPlatform(log.Data)} account";
+            string requestMethod = GetMappedDataValue(
+                log.Data,
+                "request_method",
+                new()
+                {
+                    { "AccountSettings", "account settings" },
+                    { "ContactForm", "the contact form" },
+                    { "EMail", "e-mail" },
+                    { "SupportTicket", "support ticket" }
+                });
 
-            if (!string.IsNullOrWhiteSpace(discriminator))
+            if (!string.IsNullOrWhiteSpace(requestMethod))
             {
-                text += $" ({discriminator})";
-            }
-
-            if (log.Data.TryGetValue("request_method", out string requestMethod))
-            {
-                text += $" via {requestMethod}";
+                text += $", via {requestMethod}";
 
                 if (log.Data.TryGetValue("request_id", out string requestId))
                 {
@@ -105,14 +75,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountDataExportRequestFulfillmentLogText(PersonalLog log)
         {
-            string text = $"My data export request for the {log.Data["platform"]} account";
-
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
+            string text = $"My data export request for the {GetPlatform(log.Data)} account";
 
             if (log.Data.TryGetValue("request_date", out string requestDate))
             {
@@ -126,16 +89,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountDataExportSaveLogText(PersonalLog log)
         {
-            string text = $"I have saved the export of the data related to the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
+            string text = $"I have saved the export of the data related to the {GetPlatform(log.Data)} account";
 
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
-            log.Data.TryGetValue("request_date", out string requestDate);
-            log.Data.TryGetValue("request_id", out string requestId);
+            string requestDate = GetDataValue(log.Data, "request_date");
+            string requestId = GetDataValue(log.Data, "request_id");;
 
             if (!string.IsNullOrWhiteSpace(requestDate) && !string.IsNullOrWhiteSpace(requestId))
             {
@@ -154,62 +111,37 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildAccountDataObfuscationLogText(PersonalLog log)
-        {
-            string text = $"I have obfuscated the data on the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
-            return text;
-        }
+            => $"I have obfuscated the data on the {GetPlatform(log.Data)} account";
 
         public string BuildAccountDeactivationLogText(PersonalLog log)
-        {
-            string text = $"I have deactivated the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
-            return text;
-        }
+            => $"I have deactivated the {GetPlatform(log.Data)} account";
 
         public string BuildAccountDeletionLogText(PersonalLog log)
-        {
-            string text = $"I have deleted the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
-            return text;
-        }
+            => $"I have deleted the {GetPlatform(log.Data)} account";
 
         public string BuildAccountDeletionRequestLogText(PersonalLog log)
         {
-            string text = $"I have sent a request for the deletion of the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
+            string text = $"I have sent a request for the deletion of the {GetPlatform(log.Data)} account";
 
             if (log.Data.TryGetValue("request_id", out string requestId))
             {
                 text += $" with the {requestId} identification code";
             }
 
-            if (log.Data.TryGetValue("request_method", out string requestMethod))
+            string requestMethod = GetMappedDataValue(
+                log.Data,
+                "request_method",
+                new()
+                {
+                    { "AccountSettings", "account settings" },
+                    { "ContactForm", "the contact form" },
+                    { "EMail", "e-mail" },
+                    { "SupportTicket", "support ticket" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(requestMethod))
             {
-                text += $" via {requestMethod}";
+                text += $", via {requestMethod}";
             }
 
             return text;
@@ -217,13 +149,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountDeletionRequestCancellationLogText(PersonalLog log)
         {
-            string text = $"I have cancelled the account deletion request for the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
+            string text = $"I have cancelled the account deletion request for the {GetPlatform(log.Data)} account";
 
             if (log.Data.TryGetValue("request_id", out string requestId))
             {
@@ -240,13 +166,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountDeletionRequestFulfillmentLogText(PersonalLog log)
         {
-            string text = $"My account deletion request for the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
+            string text = $"My account deletion request for the {GetPlatform(log.Data)} account";
 
             if (log.Data.TryGetValue("request_id", out string requestId))
             {
@@ -265,13 +185,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountDeletionRequestRejectionLogText(PersonalLog log)
         {
-            string text = $"My account deletion request for the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
+            string text = $"My account deletion request for the {GetPlatform(log.Data)} account";
 
             if (log.Data.TryGetValue("request_id", out string requestId))
             {
@@ -290,15 +204,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountDeletionValidationLogText(PersonalLog log)
         {
-            string text = $"I have validated that the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
-            text += " has been deleted";
+            string text = $"I have validated that the {GetPlatform(log.Data)} account has been deleted";
 
             if (log.Data.TryGetValue("request_date", out string requestDate))
             {
@@ -317,13 +223,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 verb = "set";
             }
 
-            string text = $"I have {verb} the e-mail address of the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
+            string text = $"I have {verb} the e-mail address of the {GetPlatform(log.Data)} account";
 
             if (log.Data.TryGetValue("old_email_address", out string oldEmailAddress))
             {
@@ -340,13 +240,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountEmailAddressChangeRequestLogText(PersonalLog log)
         {
-            string text = $"I have sent a request to change the e-mail address of the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
+            string text = $"I have sent a request to change the e-mail address of the {GetPlatform(log.Data)} account";
 
             if (log.Data.TryGetValue("old_email_address", out string oldEmailAddress))
             {
@@ -363,7 +257,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $", with the {requestId} identification code";
             }
 
-            if (log.Data.TryGetValue("request_method", out string requestMethod))
+            string requestMethod = GetMappedDataValue(
+                log.Data,
+                "request_method",
+                new()
+                {
+                    { "AccountSettings", "account settings" },
+                    { "ContactForm", "the contact form" },
+                    { "EMail", "e-mail" },
+                    { "SupportTicket", "support ticket" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(requestMethod))
             {
                 text += $", via {requestMethod}";
             }
@@ -373,14 +278,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountEmailAddressChangeRequestFulfillmentLogText(PersonalLog log)
         {
-            string text = $"My request to change the e-mail address of the {log.Data["platform"]} account";
-
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
+            string text = $"My request to change the e-mail address of the {GetPlatform(log.Data)} account";
 
             if (log.Data.TryGetValue("old_email_address", out string oldEmailAddress))
             {
@@ -416,53 +314,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" ({emailAddress})";
             }
 
-            text += $" for the {log.Data["platform"]} account";
-
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
-            return text;
+            return text + $" for the {GetPlatform(log.Data)} account";
         }
 
         public string BuildAccountFeatureEnablementLogText(PersonalLog log)
-        {
-            string text = $"I have enabled the {log.Data["feature_name"]} feature for the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
-            return text;
-        }
+            => $"I have enabled the {log.Data["feature_name"]} feature for the {GetPlatform(log.Data)} account";
 
         public string BuildAccountFeatureDisablementLogText(PersonalLog log)
-        {
-            string text = $"I have disabled the {log.Data["feature_name"]} feature for the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
-            return text;
-        }
+            => $"I have disabled the {log.Data["feature_name"]} feature for the {GetPlatform(log.Data)} account";
 
         public string BuildAccountFriendshipRequestReceivalLogText(PersonalLog log)
         {
-            string text = $"I have received a friendship request on the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
+            string text = $"I have received a friendship request on the {GetPlatform(log.Data)} account";
 
             if (log.Data.TryGetValue("from_account", out string fromAccount))
             {
@@ -473,39 +336,21 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildAccountIdentityVerificationLogText(PersonalLog log)
-        {
-            string text = $"I have verified my identity for the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
-            return text;
-        }
+            => $"I have verified my identity for the {GetPlatform(log.Data)} account";
 
         public string BuildAccountLinkingLogText(PersonalLog log)
         {
-            string text = $"I have linked the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
-            text += $" with";
+            string text = $"I have linked the {GetPlatform(log.Data)} account with";
 
             if (log.Data.TryGetValue("platform_linked", out string platformLinked))
             {
                 if (log.Data.TryGetValue("account_linked", out string accountLinked))
                 {
-                    text += $" the {log.Data["platform_linked"]} account ({log.Data["account_linked"]})";
+                    text += $" the {platformLinked} account ({accountLinked})";
                 }
                 else
                 {
-                    text += $" {log.Data["platform_linked"]}";
+                    text += $" {platformLinked}";
                 }
             }
             else
@@ -517,40 +362,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildAccountMessagesErasureLogText(PersonalLog log)
-        {
-            string text = $"I have erased all messages from the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
-            return text;
-        }
+            => $"I have erased all messages from the {GetPlatform(log.Data)} account";
 
         public string BuildAccountPasswordChangeLogText(PersonalLog log)
-        {
-            string text = $"I have changed the password of the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
-            return text;
-        }
+            => $"I have changed the password of the {GetPlatform(log.Data)} account";
 
         public string BuildAccountPersonalNameChangeLogText(PersonalLog log)
         {
-            string text = $"I have changed the personal name for the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
+            string text = $"I have changed the personal name for the {GetPlatform(log.Data)} account";
 
             if (log.Data.TryGetValue("old_personal_name", out string oldPersonalName))
             {
@@ -567,13 +386,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountPhoneNumberAdditionLogText(PersonalLog log)
         {
-            string text = $"I have added a phone number to the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
+            string text = $"I have added a phone number to the {GetPlatform(log.Data)} account";
 
             if (log.Data.TryGetValue("phone_number", out string newPhoneNumber))
             {
@@ -592,13 +405,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 verb = "set";
             }
 
-            string text = $"I have {verb} the phone number for the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
+            string text = $"I have {verb} the phone number for the {GetPlatform(log.Data)} account";
 
             if (log.Data.TryGetValue("old_phone_number", out string oldPhoneNumber))
             {
@@ -615,13 +422,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountPhoneNumberRemovalLogText(PersonalLog log)
         {
-            string text = $"I have removed a phone number from the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
+            string text = $"I have removed a phone number from the {GetPlatform(log.Data)} account";
 
             if (log.Data.TryGetValue("phone_number", out string newPhoneNumber))
             {
@@ -632,30 +433,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildAccountProfilePictureChangeLogText(PersonalLog log)
-        {
-            string text = $"I have changed the profile picture of the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
-            return text;
-        }
+            => $"I have changed the profile picture of the {GetPlatform(log.Data)} account";
 
         public string BuildAccountRecoveryLogText(PersonalLog log)
-        {
-            string text = $"I have recovered the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
-            return text;
-        }
+            => $"I have recovered the {GetPlatform(log.Data)} account";
 
         public string BuildAccountRecoveryEmailAddressChangeLogText(PersonalLog log)
         {
@@ -666,13 +447,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 verb = "set";
             }
 
-            string text = $"I have {verb} the recovery e-mail address of the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
+            string text = $"I have {verb} the recovery e-mail address of the {GetPlatform(log.Data)} account";
 
             if (log.Data.TryGetValue("old_recovery_email_address", out string oldEmailAddress))
             {
@@ -689,14 +464,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountRegistrationLogText(PersonalLog log)
         {
-            string text = $"I have registered the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
+            string text = $"I have registered the {GetPlatform(log.Data)} account";
             int withCount = 0;
 
             if (log.Data.TryGetValue("username", out string username))
@@ -750,14 +518,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" with the {requestId} identification code";
             }
 
-            text += $" to register the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
+            text += $" to register the {GetPlatform(log.Data)} account";
             int withCount = 0;
 
             if (log.Data.TryGetValue("username", out string username))
@@ -804,13 +565,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountRegistrationRequestFulfillmentLogText(PersonalLog log)
         {
-            string text = $"The account registration request for the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
+            string text = $"The account registration request for the {GetPlatform(log.Data)} account";
 
             if (log.Data.TryGetValue("request_id", out string requestId))
             {
@@ -828,17 +583,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildAccountSecurityQuestionsChangeLogText(PersonalLog log)
-        {
-            string text = $"I have changed the security questions for the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
-            return text;
-        }
+            => $"I have changed the security questions for the {GetPlatform(log.Data)} account";
 
         public string BuildAccountSubscriptionPurchaseLogText(PersonalLog log)
         {
@@ -849,13 +594,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" {subscriptionType}";
             }
 
-            text += $" subscription for the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
+            text += $" subscription for the {GetPlatform(log.Data)} account";
 
             if (log.Data.TryGetValue("price_amount", out string priceAmount))
             {
@@ -867,13 +606,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountUnlinkingLogText(PersonalLog log)
         {
-            string text = $"I have removed the link between the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
+            string text = $"I have removed the link between the {GetPlatform(log.Data)} account";
 
             text += $" and the {log.Data["platform_unlinked"]} account";
 
@@ -894,13 +627,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 verb = "set";
             }
 
-            string text = $"I have {verb} the username of the {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
+            string text = $"I have {verb} the username of the {GetPlatform(log.Data)} account";
 
             if (log.Data.TryGetValue("old_username", out string oldUsername))
             {
@@ -916,34 +643,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildAccountVisibilityMadePrivateLogText(PersonalLog log)
-        {
-            string text = $"I have made my {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
-            text += " private";
-
-            return text;
-        }
+            => $"I have made my {GetPlatform(log.Data)} account private";
 
         public string BuildAccountVisibilityMadePublicLogText(PersonalLog log)
-        {
-            string text = $"I have made my {log.Data["platform"]} account";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
-            text += " public";
-
-            return text;
-        }
+            => $"I have made my {GetPlatform(log.Data)} account public";
 
         public string BuildBloodDonationLogText(PersonalLog log)
         {
@@ -1077,17 +780,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildDatingAppMatchLogText(PersonalLog log)
-        {
-            string text = $"I have matched with {log.Data["match_name"]} on {log.Data["platform"]}";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
-
-            return text;
-        }
+            => $"I have matched with {log.Data["match_name"]} on {GetPlatform(log.Data)}";
 
         public string BuildDeliveryReceivalLogText(PersonalLog log)
         {
@@ -1344,16 +1037,13 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildEmailExportLogText(PersonalLog log)
-        {
-            string text = $"I have exported all of the emails from the {log.Data["platform"]} account";
+            => $"I have exported all of my emails on {GetPlatform(log.Data)}";
 
-            if (log.Data.TryGetValue("account", out string account))
-            {
-                text += $" ({account})";
-            }
+        public string BuildEmailAliasCreationLogText(PersonalLog log)
+            => $"I have created the '{log.Data["email_alias"]}' e-mail alias on {GetPlatform(log.Data)}";
 
-            return text;
-        }
+        public string BuildEmailAliasDeletionLogText(PersonalLog log)
+            => $"I have deleted the '{log.Data["email_alias"]}' e-mail alias from {GetPlatform(log.Data)}";
 
         public string BuildEventTicketPurchaseLogText(PersonalLog log)
         {
@@ -1619,6 +1309,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGameModPublishingLogText(PersonalLog log)
+            => $"I have published the mod '{log.Data["mod_name"]}' for the game {log.Data["game_name"]} on {GetPlatform(log.Data)}";
+
         public string BuildGameOfficeTermBeginningLogText(PersonalLog log)
         {
             string text = $"I have begun my term as {log.Data["office_name"]}";
@@ -1626,6 +1319,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("office_location", out string officeLocation))
             {
                 text += $" in {officeLocation}";
+            }
+
+            if (log.Data.TryGetValue("faction_name", out string factionName))
+            {
+                text += $" as part of {factionName},";
             }
 
             text += $" in {log.Data["game_name"]}";
@@ -1652,6 +1350,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("office_location", out string officeLocation))
             {
                 text += $" in {officeLocation}";
+            }
+
+            if (log.Data.TryGetValue("faction_name", out string factionName))
+            {
+                text += $" as part of {factionName},";
             }
 
             text += $" in {log.Data["game_name"]}";
@@ -1734,14 +1437,115 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildGettingOutOfBedLogText(PersonalLog log)
             => $"I have gotten out of bed";
 
-        public string BuildGitContributionsMeasurementLogText(PersonalLog log)
+        public string BuildGiftReceivalLogText(PersonalLog log)
         {
-            string text = $"I have made {log.Data["contributions_count"]} contributions on {log.Data["platform"]}";
-            string discriminator = GetDiscriminator(log.Data);
+            string text = $"I have received a";
+            string giftOccasion = GetMappedDataValue(
+                log.Data,
+                "gift_occasion",
+                new()
+                {
+                    { "Birthday", "birthday" },
+                    { "Christmas", "Christmas" },
+                    { "Easter", "Easter" },
+                    { "NameDay", "name day" },
+                    { "RelationshipAnniversary", "relationship anniversary" },
+                    { "ValentinesDay", "Valentine's Day" }
+                });
 
-            if (!string.IsNullOrWhiteSpace(discriminator))
+            if (!string.IsNullOrWhiteSpace(giftOccasion))
             {
-                text += $" ({discriminator})";
+                text += $" {giftOccasion}";
+            }
+
+            text += " gift";
+
+            if (log.Data.TryGetValue("giver_name", out string giverName))
+            {
+                text += $" from {giverName}";
+            }
+
+            if (log.Data.TryGetValue("gift_content", out string giftContent))
+            {
+                text += $": {giftContent}";
+            }
+
+            return text;
+        }
+
+        public string BuildGitContributionsMeasurementLogText(PersonalLog log)
+            => $"I have made {log.Data["contributions_count"]} contributions on {GetPlatform(log.Data)}";
+
+        public string BuildGitReleaseLogText(PersonalLog log)
+            => $"I have released version {log.Data["release_version"]} of the `{log.Data["repository_name"]}` repository on {GetPlatform(log.Data)}";
+
+        public string BuildGitRepositoryCreationLogText(PersonalLog log)
+            => $"I have created the `{log.Data["repository_name"]}` repository on {GetPlatform(log.Data)}";
+
+        public string BuildGoingToSleepLogText(PersonalLog log)
+            => $"I have gone to sleep";
+
+        public string BuildGraduationCeremonyAttendanceLogText(PersonalLog log)
+        {
+            string text = $"I have attended {GetLocalisedValue(log.Data, "graduate_name", "en")}'s graduation ceremony";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            string degreeLevel = GetMappedDataValue(
+                log.Data,
+                "degree_level",
+                new()
+                {
+                    { "Bachelor", "bachelor" },
+                    { "Master", "master" },
+                    { "Doctorate", "doctorate" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(degreeLevel))
+            {
+                text += $", for obtaining their {degreeLevel} degree";
+
+                if (log.Data.TryGetValue("institution_name", out string institutionName))
+                {
+                    text += $" at {institutionName}";
+
+                }
+            }
+
+            return text;
+        }
+
+        public string BuildGraduationCeremonyParticipationLogText(PersonalLog log)
+        {
+            string text = $"I have participated in my graduation ceremony";
+
+            string degreeLevel = GetMappedDataValue(
+                log.Data,
+                "degree_level",
+                new()
+                {
+                    { "Bachelor", "bachelor" },
+                    { "Master", "master" },
+                    { "Doctorate", "doctorate" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(degreeLevel))
+            {
+                text += $", for obtaining my {degreeLevel} degree";
+
+                if (log.Data.TryGetValue("institution_name", out string institutionName))
+                {
+                    text += $" at {institutionName}";
+
+                }
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", at {location}";
             }
 
             return text;
@@ -1877,30 +1681,114 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildMicronationSettlementFoundingLogText(PersonalLog log)
+        {
+            string settlementType = GetMappedDataValue(
+                log.Data,
+                "settlement_type",
+                new()
+                {
+                    { "Castle", "castle" },
+                    { "City", "city" },
+                    { "Town", "town" },
+                    { "Village", "village" }
+                },
+                "settlement");
+
+            string text = $"I have founded the {settlementType} of {log.Data["settlement_name"]}";
+
+            string administrativeUnitName = GetDataValue(log.Data, "administrative_unit_name");
+            if (!string.IsNullOrWhiteSpace(administrativeUnitName))
+            {
+                string administrativeUnitType = GetMappedDataValue(
+                    log.Data,
+                    "administrative_unit_type",
+                    new()
+                    {
+                        { "Land", "land" },
+                        { "County", "county" },
+                        { "District", "district" },
+                        { "Zhupanate", "zhupanate" },
+                        { "Voivodeship", "voievodeship" },
+                        { "Prefecture", "prefecture" }
+                    });
+
+                text += $" in the {administrativeUnitType} {administrativeUnitName},";
+            }
+
+            text += $" in the micronation of {log.Data["micronation_name"]}";
+
+            return text;
+        }
+
+        public string BuildMicronationSettlementRankDowngradeLogText(PersonalLog log)
+        {
+            string oldRank = GetMappedDataValue(
+                log.Data,
+                "old_rank",
+                new()
+                {
+                    { "Castle", "castle" },
+                    { "City", "city" },
+                    { "Town", "town" },
+                    { "Village", "village" }
+                },
+                "settlement");
+
+            string newRank = GetMappedDataValue(
+                log.Data,
+                "old_rank",
+                new()
+                {
+                    { "Castle", "castle" },
+                    { "City", "city" },
+                    { "Town", "town" },
+                    { "Village", "village" }
+                });
+
+            return $"I have downgraded the {oldRank} {log.Data["settlement_name"]} in the micronation of {log.Data["micronation_name"]} to the rank of {newRank}";
+        }
+
+        public string BuildMicronationSettlementRankUpgradeLogText(PersonalLog log)
+        {
+            string oldRank = GetMappedDataValue(
+                log.Data,
+                "old_rank",
+                new()
+                {
+                    { "Castle", "castle" },
+                    { "City", "city" },
+                    { "Town", "town" },
+                    { "Village", "village" }
+                },
+                "settlement");
+
+            string newRank = GetMappedDataValue(
+                log.Data,
+                "old_rank",
+                new()
+                {
+                    { "Castle", "castle" },
+                    { "City", "city" },
+                    { "Town", "town" },
+                    { "Village", "village" }
+                });
+
+            return $"I have upgraded the {oldRank} {log.Data["settlement_name"]} in the micronation of {log.Data["micronation_name"]} to the rank of {newRank}";
+        }
+
         public string BuildMovieWatchingLogText(PersonalLog log)
         {
             string text = $"I have watched the movie '{log.Data["movie_name"]}'";
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" on {platform}";
-
-                string discriminator = GetDiscriminator(log.Data);
-
-                if (!string.IsNullOrWhiteSpace(discriminator))
-                {
-                    text += $" ({discriminator})";
-                }
-
-                if (log.Data.TryGetValue("location", out string location))
-                {
-                    text += $" at {location}";
-                }
+                text += $" on {GetPlatform(log.Data)}";
             }
 
-            if (log.Data.TryGetValue("cinema_name", out string cinemaName))
+            if (log.Data.TryGetValue("location", out string location))
             {
-                text += $" at {cinemaName}";
+                text += $" at {location}";
             }
 
             string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
@@ -1916,16 +1804,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have sold the {log.Data["object_name"]}";
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" on {platform}";
-            }
-
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
+                text += $" on {GetPlatform(log.Data)}";
             }
 
             if (log.Data.TryGetValue("price_amount", out string priceAmount))
@@ -1945,25 +1826,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" {starsCount}-star";
             }
 
-            text += $" review on {log.Data["platform"]} for {log.Data["subject_name"]}";
-
-            if (log.Data.TryGetValue("account", out string account))
-            {
-                text += $" using the {account} account";
-            }
-
-            return text;
+            return text + $" review on {GetPlatform(log.Data)} for {log.Data["subject_name"]}";
         }
 
         public string BuildOnlineStorePurchaseLogText(PersonalLog log)
         {
-            string text = $"I have purchased {log.Data["product_name"]} from {log.Data["platform"]}";
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
-            }
+            string text = $"I have purchased {log.Data["product_name"]} from {GetPlatform(log.Data)}";
 
             if (log.Data.TryGetValue("price_amount", out string priceAmount))
             {
@@ -2022,17 +1890,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I began watching the '{log.Data["series_name"]}' series";
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" on {platform}";
-
-                string discriminator = GetDiscriminator(log.Data);
-
-                if (!string.IsNullOrWhiteSpace(discriminator))
-                {
-                    text += $" ({discriminator})";
-                }
-
+                text += $" on {GetPlatform(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -2053,17 +1913,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I completed watching the '{log.Data["series_name"]}' series";
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" on {platform}";
-
-                string discriminator = GetDiscriminator(log.Data);
-
-                if (!string.IsNullOrWhiteSpace(discriminator))
-                {
-                    text += $" ({discriminator})";
-                }
-
+                text += $" on {GetPlatform(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -2099,17 +1951,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" of '{seriesName}'";
             }
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" on {platform}";
-
-                string discriminator = GetDiscriminator(log.Data);
-
-                if (!string.IsNullOrWhiteSpace(discriminator))
-                {
-                    text += $" ({discriminator})";
-                }
-
+                text += $" on {GetPlatform(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -2145,17 +1989,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" of '{seriesName}'";
             }
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" on {platform}";
-
-                string discriminator = GetDiscriminator(log.Data);
-
-                if (!string.IsNullOrWhiteSpace(discriminator))
-                {
-                    text += $" ({discriminator})";
-                }
-
+                text += $" on {GetPlatform(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -2191,17 +2027,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" of '{seriesName}'";
             }
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" on {platform}";
-
-                string discriminator = GetDiscriminator(log.Data);
-
-                if (!string.IsNullOrWhiteSpace(discriminator))
-                {
-                    text += $" ({discriminator})";
-                }
-
+                text += $" on {GetPlatform(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -2227,17 +2055,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" of '{seriesName}'";
             }
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" on {platform}";
-
-                string discriminator = GetDiscriminator(log.Data);
-
-                if (!string.IsNullOrWhiteSpace(discriminator))
-                {
-                    text += $" ({discriminator})";
-                }
-
+                text += $" on {GetPlatform(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -2263,17 +2083,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" of '{seriesName}'";
             }
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" on {platform}";
-
-                string discriminator = GetDiscriminator(log.Data);
-
-                if (!string.IsNullOrWhiteSpace(discriminator))
-                {
-                    text += $" ({discriminator})";
-                }
-
+                text += $" on {GetPlatform(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -2348,6 +2160,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildTheatricalPlayAttendanceLogText(PersonalLog log)
+        {
+            string text = $"I have attended the '{log.Data["play_name"]}' theatrical play";
+
+            if (log.Data.TryGetValue("theatre_name", out string theatreName))
+            {
+                text += $" at {theatreName}";
+            }
+
+            if (log.Data.TryGetValue("location_city", out string locationCity))
+            {
+                text += $" in {locationCity}";
+            }
+
+            if (log.Data.TryGetValue("together_with", out string togetherWih))
+            {
+                text += $", together with {togetherWih}";
+            }
+
+            return text;
+        }
+
         public string BuildTollPaymentLogText(PersonalLog log)
         {
             string text = $"I have paid a toll";
@@ -2380,6 +2214,64 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildTotalCholesterolMeasurementLogText(PersonalLog log)
             => $"My total cholesterol level measured {log.Data["total_cholesterol_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
+
+        public string BuildTreePlantingLogText(PersonalLog log)
+        {
+            string text = $"I have planted";
+
+            string treesCount = GetDataValue(log.Data, "trees_count", "1");
+
+            if (treesCount.Equals("1"))
+            {
+                text += " a";
+            }
+            else
+            {
+                text += $" {treesCount}";
+            }
+
+            string treeSpecies = GetMappedDataValue(
+                log.Data,
+                "tree_species",
+                new System.Collections.Generic.Dictionary<string, string>
+                {
+                    { "Oak", "oak" },
+                    { "Pine", "pine" },
+                    { "Maple", "maple" },
+                    { "Birch", "birch" },
+                    { "Cherry", "cherry" },
+                    { "Apple", "apple" },
+                    { "Walnut", "walnut" },
+                    { "Willow", "willow" }
+                });
+
+            if (string.IsNullOrWhiteSpace(treeSpecies))
+            {
+                text += " tree";
+            }
+            else
+            {
+                text += $" {treeSpecies}";
+            }
+
+            if (!treesCount.Equals("1"))
+            {
+                text += "s";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" in {location}";
+            }
+
+            string togetherWith = GetLocalisedValue(log.Data, "together_with", "en");
+            if (!string.IsNullOrWhiteSpace(togetherWith))
+            {
+                text += $", together with {togetherWith}"; ;
+            }
+
+            return text;
+        }
 
         public string BuildUtilityBillPaymentLogText(PersonalLog log)
         {
@@ -2457,12 +2349,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildVideoUploadLogText(PersonalLog log)
         {
-            string text = $"I have uploaded a video titled '{log.Data["video_title"]}' to {log.Data["platform"]}";
-
-            if (log.Data.TryGetValue("account", out string account))
-            {
-                text += $" using the {account} account";
-            }
+            string text = $"I have uploaded a video titled '{log.Data["video_title"]}' to {GetPlatform(log.Data)}";
 
             if (log.Data.TryGetValue("uploaded_file_name", out string uploadedFileName))
             {
@@ -2486,16 +2373,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" from the '{channelName}' channel";
             }
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" on {platform}";
-
-                string discriminator = GetDiscriminator(log.Data);
-
-                if (!string.IsNullOrWhiteSpace(discriminator))
-                {
-                    text += $" ({discriminator})";
-                }
+                text += $" on {GetPlatform(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))

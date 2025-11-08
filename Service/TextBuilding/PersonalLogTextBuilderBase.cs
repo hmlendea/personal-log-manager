@@ -4,6 +4,26 @@ namespace PersonalLogManager.Service.TextBuilding
 {
     public abstract class PersonalLogTextBuilderBase
     {
+        public string GetPlatform(Dictionary<string, string> data)
+        {
+            data.TryGetValue("platform", out string platform);
+
+            if (string.IsNullOrWhiteSpace(platform))
+            {
+                return null;
+            }
+
+            string text = platform;
+            string discriminator = GetDiscriminator(data);
+
+            if (!string.IsNullOrWhiteSpace(discriminator))
+            {
+                text += $" ({discriminator})";
+            }
+
+            return text;
+        }
+
         public string GetDiscriminator(Dictionary<string, string> data)
         {
             data.TryGetValue("discriminator", out string discriminator);
@@ -104,6 +124,8 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 string normalisedMapKey = mapKey
                     .Replace(" ", string.Empty)
+                    .Replace("-", string.Empty)
+                    .Replace("_", string.Empty)
                     .Replace("&", "And");
 
                 if (normalisedMapKey.Equals(expectedMapKey, System.StringComparison.InvariantCultureIgnoreCase))
