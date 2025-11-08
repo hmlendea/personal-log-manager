@@ -104,6 +104,8 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 string normalisedMapKey = mapKey
                     .Replace(" ", string.Empty)
+                    .Replace("-", string.Empty)
+                    .Replace("_", string.Empty)
                     .Replace("&", "And");
 
                 if (normalisedMapKey.Equals(expectedMapKey, System.StringComparison.InvariantCultureIgnoreCase))

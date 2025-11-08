@@ -21,7 +21,7 @@ namespace PersonalLogManager.Service.TextBuilding
             return $"{prefix}: {text}";
         }
 
-        string BuildLogTextByTemplate(PersonalLog log, string localisation)
+        static string BuildLogTextByTemplate(PersonalLog log, string localisation)
         {
             var personalLogTextBuilder = GetTextBuilder(localisation);
 

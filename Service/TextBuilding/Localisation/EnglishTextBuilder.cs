@@ -90,9 +90,20 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" ({discriminator})";
             }
 
-            if (log.Data.TryGetValue("request_method", out string requestMethod))
+            string requestMethod = GetMappedDataValue(
+                log.Data,
+                "request_method",
+                new()
+                {
+                    { "AccountSettings", "account settings" },
+                    { "ContactForm", "the contact form" },
+                    { "EMail", "e-mail" },
+                    { "SupportTicket", "support ticket" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(requestMethod))
             {
-                text += $" via {requestMethod}";
+                text += $", via {requestMethod}";
 
                 if (log.Data.TryGetValue("request_id", out string requestId))
                 {
@@ -207,9 +218,20 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" with the {requestId} identification code";
             }
 
-            if (log.Data.TryGetValue("request_method", out string requestMethod))
+            string requestMethod = GetMappedDataValue(
+                log.Data,
+                "request_method",
+                new()
+                {
+                    { "AccountSettings", "account settings" },
+                    { "ContactForm", "the contact form" },
+                    { "EMail", "e-mail" },
+                    { "SupportTicket", "support ticket" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(requestMethod))
             {
-                text += $" via {requestMethod}";
+                text += $", via {requestMethod}";
             }
 
             return text;
@@ -363,7 +385,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $", with the {requestId} identification code";
             }
 
-            if (log.Data.TryGetValue("request_method", out string requestMethod))
+            string requestMethod = GetMappedDataValue(
+                log.Data,
+                "request_method",
+                new()
+                {
+                    { "AccountSettings", "account settings" },
+                    { "ContactForm", "the contact form" },
+                    { "EMail", "e-mail" },
+                    { "SupportTicket", "support ticket" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(requestMethod))
             {
                 text += $", via {requestMethod}";
             }

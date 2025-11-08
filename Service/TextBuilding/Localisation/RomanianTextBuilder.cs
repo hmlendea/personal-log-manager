@@ -95,7 +95,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" cu codul de identificare {requestId}";
             }
 
-            if (log.Data.TryGetValue("request_method", out string requestMethod))
+            string requestMethod = GetMappedDataValue(
+                log.Data,
+                "request_method",
+                new()
+                {
+                    { "AccountSettings", "pagina de setări a contului" },
+                    { "ContactForm", "formularul de contact" },
+                    { "EMail", "e-mail" },
+                    { "SupportTicket", "un tichet de suport" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(requestMethod))
             {
                 text += $", prin {requestMethod}";
             }
@@ -212,9 +223,20 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" cu codul de identificare {requestId}";
             }
 
-            if (log.Data.TryGetValue("request_method", out string requestMethod))
+            string requestMethod = GetMappedDataValue(
+                log.Data,
+                "request_method",
+                new()
+                {
+                    { "AccountSettings", "pagina de setări a contului" },
+                    { "ContactForm", "formularul de contact" },
+                    { "EMail", "e-mail" },
+                    { "SupportTicket", "un tichet de suport" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(requestMethod))
             {
-                text += $" prin {requestMethod}";
+                text += $", prin {requestMethod}";
             }
 
             return text;
@@ -366,7 +388,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $", cu codul de identificare {requestId}";
             }
 
-            if (log.Data.TryGetValue("request_method", out string requestMethod))
+            string requestMethod = GetMappedDataValue(
+                log.Data,
+                "request_method",
+                new()
+                {
+                    { "AccountSettings", "pagina de setări a contului" },
+                    { "ContactForm", "formularul de contact" },
+                    { "EMail", "e-mail" },
+                    { "SupportTicket", "un tichet de suport" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(requestMethod))
             {
                 text += $", prin {requestMethod}";
             }
@@ -1181,8 +1214,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "VacuumCleaner", "aspiratorul" },
                     { "Watch", "ceasul" },
                 },
-                log.Data["device_type"]
-            );
+                "dispozitivul");
 
             return $"Sănătatea bateriei din {deviceType} {log.Data["device_name"]} a fost {log.Data["battery_health_percentage"]}%";
         }
