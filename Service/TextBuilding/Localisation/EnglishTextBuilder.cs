@@ -1841,6 +1841,31 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildPetMedicationAdministrationLogText(PersonalLog log)
+        {
+            string medicationType = GetMappedDataValue(
+                log.Data,
+                "medication_type",
+                new()
+                {
+                    { "Antibiotic", "antibiotic" },
+                    { "Antiparasitic", "antiparasitic" },
+                    { "Vaccine", "vaccine" },
+                    { "Painkiller", "painkiller" },
+                    { "Supplement", "supplement" }
+                },
+                "medication");
+
+            string text = $"I have administered the following {medicationType}";
+
+            if (IsDataValuePlural(log.Data, "medication_name"))
+            {
+                text += $"s";
+            }
+
+            return $"{text} to {GetDataValue(log.Data, "pet_name")}: {GetLocalisedValue(log.Data, "medication_name", "en")}";
+        }
+
         public string BuildPetNailsTrimmingLogText(PersonalLog log)
             => $"I have trimmed the nails of {GetLocalisedValue(log.Data, "pet_name", "en")}";
 

@@ -1886,6 +1886,49 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildPetMedicationAdministrationLogText(PersonalLog log)
+        {
+            string medicationType;
+            string text = $"I-am administrat";
+
+            if (IsDataValuePlural(log.Data, "medication_name"))
+            {
+                medicationType = GetMappedDataValue(
+                log.Data,
+                "medication_type",
+                new()
+                {
+                    { "Antibiotic", "antibiotice" },
+                    { "Antiparasitic", "antiparazitice" },
+                    { "Vaccine", "vaccinuri" },
+                    { "Painkiller", "antinevralgice" },
+                    { "Supplement", "suplimente" }
+                },
+                "medicații");
+
+                text += $" următoarele {medicationType}";
+            }
+            else
+            {
+                medicationType = GetMappedDataValue(
+                log.Data,
+                "medication_type",
+                new()
+                {
+                    { "Antibiotic", "antibiotice" },
+                    { "Antiparasitic", "antiparazitice" },
+                    { "Vaccine", "vaccinuri" },
+                    { "Painkiller", "antinevralgice" },
+                    { "Supplement", "suplimente" }
+                },
+                "medicații");
+
+                text += $" următoarele {medicationType}";
+            }
+
+            return $"{text} lui {GetDataValue(log.Data, "pet_name")}: {GetLocalisedValue(log.Data, "medication_name", "ro")}";
+        }
+
         public string BuildPetNailsTrimmingLogText(PersonalLog log)
             => $"I-am tăiat ghearele lui {GetLocalisedValue(log.Data, "pet_name", "ro")}";
 
