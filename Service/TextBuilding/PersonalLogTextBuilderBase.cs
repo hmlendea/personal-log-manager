@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace PersonalLogManager.Service.TextBuilding
@@ -69,6 +70,15 @@ namespace PersonalLogManager.Service.TextBuilding
             }
 
             return value;
+        }
+
+        public string GetDecimalValue(Dictionary<string, string> data, string key)
+        {
+            string value = GetDataValue(data, key);
+
+            ArgumentException.ThrowIfNullOrWhiteSpace(value, key);
+
+            return $"{decimal.Parse(value):F2}".Replace(".00", string.Empty);
         }
 
         public string GetLocalisedValue(Dictionary<string, string> data, string key, string localisation)

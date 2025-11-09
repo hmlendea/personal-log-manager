@@ -659,6 +659,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildAccountVisibilityMadePublicLogText(PersonalLog log)
             => $"Am făcut public contul de {GetPlatform(log.Data)}";
 
+        public string BuildAlkalinePhosphataseMeasurementLogText(PersonalLog log)
+            => $"Nivelul de fosfatază alcalină a fost măsurat la {GetDecimalValue(log.Data, "alkaline_phosphatase_level")} {GetDataValue(log.Data, "unit", "U/L")}";
+
         public string BuildBloodDonationLogText(PersonalLog log)
         {
             string text = $"Am donat sânge";
@@ -683,11 +686,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"Tensiunea arterială a fost măsurată la {log.Data["systolic_pressure"]}/{log.Data["diastolic_pressure"]} {GetDataValue(log.Data, "unit", "mmHg")}";
 
         public string BuildBodyWaterRateMeasurementLogText(PersonalLog log)
-        {
-            decimal bodyWaterRate = decimal.Parse(log.Data["body_water_rate"]);
-
-            return $"Nivelul de hidratare corporală a fost măsurat la {bodyWaterRate:F2}%";
-        }
+            => $"Nivelul de hidratare corporală a fost măsurat la {GetDecimalValue(log.Data, "body_water_rate")}%";
 
         public string BuildBodyWeightMeasurementLogText(PersonalLog log)
         {

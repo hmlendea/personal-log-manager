@@ -648,6 +648,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildAccountVisibilityMadePublicLogText(PersonalLog log)
             => $"I have made my {GetPlatform(log.Data)} account public";
 
+        public string BuildAlkalinePhosphataseMeasurementLogText(PersonalLog log)
+            => $"My alkaline phosphatase level measured {GetDecimalValue(log.Data, "alkaline_phosphatase_level")} {GetDataValue(log.Data, "unit", "U/L")}";
+
         public string BuildBloodDonationLogText(PersonalLog log)
         {
             string text = $"I have donated blood";
@@ -672,11 +675,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"My blood pressure measured {log.Data["systolic_pressure"]}/{log.Data["diastolic_pressure"]} {GetDataValue(log.Data, "unit", "mmHg")}";
 
         public string BuildBodyWaterRateMeasurementLogText(PersonalLog log)
-        {
-            decimal bodyWaterRate = decimal.Parse(log.Data["body_water_rate"]);
-
-            return $"My body water rate measured {bodyWaterRate:F2}%";
-        }
+            => $"My body water rate measured {GetDecimalValue(log.Data, "body_water_rate"}%";
 
         public string BuildBodyWeightMeasurementLogText(PersonalLog log)
         {
