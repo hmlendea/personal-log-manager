@@ -970,6 +970,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildDeviceChargingLogText(PersonalLog log)
+        {
+            string deviceType = GetMappedDataValue(
+                log.Data,
+                "device_type",
+                new()
+                {
+                    { "FitnessTracker", "brățara de fitness" },
+                    { "Headphones", "căștile" },
+                    { "Laptop", "laptop-ul" },
+                    { "Phone", "telefonul" },
+                    { "Scooter", "trotineta" },
+                    { "Tablet", "tableta" },
+                    { "VacuumCleaner", "aspiratorul" },
+                    { "Watch", "ceasul" },
+                },
+                log.Data["device_type"]
+            );
+
+            return $"Am pus la încărcat {deviceType} {log.Data["device_name"]}";
+        }
+
         public string BuildDeviceRepairLogText(PersonalLog log)
         {
             string deviceType = GetMappedDataValue(

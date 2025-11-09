@@ -63,6 +63,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildDeviceBatteryHealthLogText(PersonalLog log);
         string BuildDeviceBatteryLevelLogText(PersonalLog log);
         string BuildDeviceBreakingLogText(PersonalLog log);
+        string BuildDeviceChargingLogText(PersonalLog log);
         string BuildDeviceRepairLogText(PersonalLog log);
         string BuildDeviceScreentimeMeasurementLogText(PersonalLog log);
         string BuildDirectBilirubinMeasurementLogText(PersonalLog log);

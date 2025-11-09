@@ -923,6 +923,26 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text + " broken";
         }
 
+        public string BuildDeviceChargingLogText(PersonalLog log)
+        {
+            string deviceType = GetMappedDataValue(
+                log.Data,
+                "device_type",
+                new()
+                {
+                    { "FitnessTracker", "fitness tracker" },
+                    { "Headphones", "headphones" },
+                    { "Laptop", "laptop" },
+                    { "Phone", "phone" },
+                    { "Scooter", "scooter" },
+                    { "Tablet", "tablet" },
+                    { "VacuumCleaner", "vacuum cleaner" },
+                    { "Watch", "watch" },
+                });
+
+            return $"I have charged my {log.Data["device_name"]} {deviceType}";
+        }
+
         public string BuildDeviceRepairLogText(PersonalLog log)
         {
             string text = "I have repaired";
