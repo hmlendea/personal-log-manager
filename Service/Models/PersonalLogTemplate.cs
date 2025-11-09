@@ -111,6 +111,7 @@ namespace PersonalLogManager.Service.Models
         ObjectSale,
         OnlineReviewSubmission,
         OnlineStorePurchase,
+        PetLitterCleaning,
         PetMedicationAdministration,
         PetNailsTrimming,
         PetWeightMeasurement,

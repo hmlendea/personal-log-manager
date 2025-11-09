@@ -1886,6 +1886,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildPetLitterCleaningLogText(PersonalLog log)
+        {
+            string petType = GetMappedDataValue(
+                log.Data,
+                "pet_type",
+                new()
+                {
+                    { "Cat", "pisici" },
+                    { "Rabbit", "iepuri" },
+                    { "Ferret", "dihori" },
+                    { "GuineaPig", "porcușori de Guineea" }
+                },
+                "pet");
+
+            return $"Am curățat litiera de {petType}";
+        }
+
         public string BuildPetMedicationAdministrationLogText(PersonalLog log)
         {
             string medicationType;
