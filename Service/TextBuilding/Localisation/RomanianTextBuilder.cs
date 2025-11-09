@@ -1692,6 +1692,49 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildMealVoucherCardCreditationLogText(PersonalLog log)
             => $"Cardul de bonuri de masă a fost creditat cu {log.Data["amount"]} {log.Data["currency"]}";
 
+        public string BuildMedicationIntakeLogText(PersonalLog log)
+        {
+            string medicationType;
+            string text = $"Am luat";
+
+            if (IsDataValuePlural(log.Data, "medication_name"))
+            {
+                medicationType = GetMappedDataValue(
+                log.Data,
+                "medication_type",
+                new()
+                {
+                    { "Antibiotic", "antibiotice" },
+                    { "Antiparasitic", "antiparazitice" },
+                    { "Vaccine", "vaccinuri" },
+                    { "Painkiller", "antinevralgice" },
+                    { "Supplement", "suplimente" }
+                },
+                "medicamente");
+
+                text += $" următoarele {medicationType}";
+            }
+            else
+            {
+                medicationType = GetMappedDataValue(
+                log.Data,
+                "medication_type",
+                new()
+                {
+                    { "Antibiotic", "antibiotice" },
+                    { "Antiparasitic", "antiparazitice" },
+                    { "Vaccine", "vaccinuri" },
+                    { "Painkiller", "antinevralgice" },
+                    { "Supplement", "suplimente" }
+                },
+                "medicament");
+
+                text += $" următorul {medicationType}";
+            }
+
+            return $"{text}: {GetLocalisedValue(log.Data, "medication_name", "ro")}";
+        }
+
         public string BuildMicronationLegalActIssuanceLogText(PersonalLog log)
         {
             string legalActTypeWord = GetMappedDataValue(

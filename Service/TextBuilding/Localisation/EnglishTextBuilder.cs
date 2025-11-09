@@ -1652,10 +1652,31 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"My LDL cholesterol level measured {log.Data["ldl_cholesterol_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildMealVoucherCardCreditationLogText(PersonalLog log)
-        {
-            string text = $"My meal voucher card was credited with {log.Data["amount"]} {log.Data["currency"]}";
+            => $"My meal voucher card was credited with {log.Data["amount"]} {log.Data["currency"]}";
 
-            return text;
+        public string BuildMedicationIntakeLogText(PersonalLog log)
+        {
+            string medicationType = GetMappedDataValue(
+                log.Data,
+                "medication_type",
+                new()
+                {
+                    { "Antibiotic", "antibiotic" },
+                    { "Antiparasitic", "antiparasitic" },
+                    { "Vaccine", "vaccine" },
+                    { "Painkiller", "painkiller" },
+                    { "Supplement", "supplement" }
+                },
+                "medication");
+
+            string text = $"I have taken the following {medicationType}";
+
+            if (IsDataValuePlural(log.Data, "medication_name"))
+            {
+                text += $"s";
+            }
+
+            return $"{text}: {GetLocalisedValue(log.Data, "medication_name", "en")}";
         }
 
         public string BuildMicronationLegalActIssuanceLogText(PersonalLog log)
