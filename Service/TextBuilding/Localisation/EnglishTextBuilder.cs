@@ -675,7 +675,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"My blood pressure measured {log.Data["systolic_pressure"]}/{log.Data["diastolic_pressure"]} {GetDataValue(log.Data, "unit", "mmHg")}";
 
         public string BuildBodyWaterRateMeasurementLogText(PersonalLog log)
-            => $"My body water rate measured {GetDecimalValue(log.Data, "body_water_rate"}%";
+            => $"My body water rate measured {GetDecimalValue(log.Data, "body_water_rate")}%";
 
         public string BuildBodyWeightMeasurementLogText(PersonalLog log)
         {
@@ -689,6 +689,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             return text;
         }
+
+        public string BuildCalciumLevelMeasurementLogText(PersonalLog log)
+            => $"My calcium level measured {GetDecimalValue(log.Data, "calcium_level")} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildCertificationObtainmentLogText(PersonalLog log)
         {
@@ -1649,6 +1652,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildLdlCholesterolMeasurementLogText(PersonalLog log)
             => $"My LDL cholesterol level measured {log.Data["ldl_cholesterol_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
+
+        public string BuildMagnesiumLevelMeasurementLogText(PersonalLog log)
+            => $"My magnesium level measured {GetDecimalValue(log.Data, "magnesium_level")} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildMealVoucherCardCreditationLogText(PersonalLog log)
             => $"My meal voucher card was credited with {log.Data["amount"]} {log.Data["currency"]}";

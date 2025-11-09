@@ -701,6 +701,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildCalciumLevelMeasurementLogText(PersonalLog log)
+            => $"Nivelul de calciu a fost măsurat la {GetDecimalValue(log.Data, "calcium_level")} {GetDataValue(log.Data, "unit", "mg/dL")}";
+
         public string BuildCertificationObtainmentLogText(PersonalLog log)
         {
             string text = $"Am obținut certificarea {log.Data["certification_name"]}";
@@ -1687,6 +1690,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildLdlCholesterolMeasurementLogText(PersonalLog log)
             => $"Nivelul de LDL Colesterol a fost măsurat la {log.Data["ldl_cholesterol_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
+
+        public string BuildMagnesiumLevelMeasurementLogText(PersonalLog log)
+            => $"Nivelul de magneziu a fost măsurat la {log.Data["magnesium_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildMealVoucherCardCreditationLogText(PersonalLog log)
             => $"Cardul de bonuri de masă a fost creditat cu {log.Data["amount"]} {log.Data["currency"]}";
