@@ -1951,6 +1951,27 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildPetAdoptionLogText(PersonalLog log)
+        {
+            string petTypeWord = GetMappedDataValue(
+                log.Data,
+                "pet_type",
+                new()
+                {
+                    { "Cat", "pisica mea" },
+                    { "Dog", "câinele meu" },
+                    { "Rabbit", "iepurele meu" },
+                    { "Ferret", "dihorul meu" },
+                    { "GuineaPig", "porcușorul meu de Guineea" }
+                },
+                "pet");
+
+            return $"Am adoptat {petTypeWord}, {GetLocalisedValue(log.Data, "pet_name", "ro")}";
+        }
+
+        public string BuildPetBathingLogText(PersonalLog log)
+            => $"I-am făcut baie lui {GetLocalisedValue(log.Data, "pet_name", "ro")}";
+
         public string BuildPetLitterCleaningLogText(PersonalLog log)
         {
             string petType = GetMappedDataValue(
