@@ -1112,13 +1112,13 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 text += $", la";
 
-                if (log.Data.TryGetValue("institution_faculty", out string institutionFaculty))
+                if (log.Data.TryGetValue("institution_department", out string institutionDepartment))
                 {
-                    text += $" {institutionFaculty}";
+                    text += $" {institutionDepartment}";
 
-                    if (log.Data.TryGetValue("institution_faculty_specialisation", out string institutionFacultySpecialisation))
+                    if (log.Data.TryGetValue("institution_department_specialisation", out string institutionDepartmentSpecialisation))
                     {
-                        text += $", specializarea {institutionFacultySpecialisation},";
+                        text += $", specializarea {institutionDepartmentSpecialisation},";
                     }
 
                     text += $" de la";
