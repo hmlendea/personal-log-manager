@@ -648,6 +648,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildAccountVisibilityMadePublicLogText(PersonalLog log)
             => $"I have made my {GetPlatform(log.Data)} account public";
 
+        public string BuildAlkalinePhosphataseMeasurementLogText(PersonalLog log)
+            => $"My alkaline phosphatase level measured {GetDecimalValue(log.Data, "alkaline_phosphatase_level")} {GetDataValue(log.Data, "unit", "U/L")}";
+
         public string BuildBloodDonationLogText(PersonalLog log)
         {
             string text = $"I have donated blood";
@@ -672,11 +675,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"My blood pressure measured {log.Data["systolic_pressure"]}/{log.Data["diastolic_pressure"]} {GetDataValue(log.Data, "unit", "mmHg")}";
 
         public string BuildBodyWaterRateMeasurementLogText(PersonalLog log)
-        {
-            decimal bodyWaterRate = decimal.Parse(log.Data["body_water_rate"]);
-
-            return $"My body water rate measured {bodyWaterRate:F2}%";
-        }
+            => $"My body water rate measured {GetDecimalValue(log.Data, "body_water_rate")}%";
 
         public string BuildBodyWeightMeasurementLogText(PersonalLog log)
         {
@@ -690,6 +689,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             return text;
         }
+
+        public string BuildCalciumLevelMeasurementLogText(PersonalLog log)
+            => $"My calcium level measured {GetDecimalValue(log.Data, "calcium_level")} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildCertificationObtainmentLogText(PersonalLog log)
         {
@@ -921,6 +923,26 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
 
             return text + " broken";
+        }
+
+        public string BuildDeviceChargingLogText(PersonalLog log)
+        {
+            string deviceType = GetMappedDataValue(
+                log.Data,
+                "device_type",
+                new()
+                {
+                    { "FitnessTracker", "fitness tracker" },
+                    { "Headphones", "headphones" },
+                    { "Laptop", "laptop" },
+                    { "Phone", "phone" },
+                    { "Scooter", "scooter" },
+                    { "Tablet", "tablet" },
+                    { "VacuumCleaner", "vacuum cleaner" },
+                    { "Watch", "watch" },
+                });
+
+            return $"I have charged my {log.Data["device_name"]} {deviceType}";
         }
 
         public string BuildDeviceRepairLogText(PersonalLog log)
@@ -1631,9 +1653,115 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildLdlCholesterolMeasurementLogText(PersonalLog log)
             => $"My LDL cholesterol level measured {log.Data["ldl_cholesterol_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
+        public string BuildMagnesiumLevelMeasurementLogText(PersonalLog log)
+            => $"My magnesium level measured {GetDecimalValue(log.Data, "magnesium_level")} {GetDataValue(log.Data, "unit", "mg/dL")}";
+
         public string BuildMealVoucherCardCreditationLogText(PersonalLog log)
+            => $"My meal voucher card was credited with {log.Data["amount"]} {log.Data["currency"]}";
+
+        public string BuildMedicationIntakeLogText(PersonalLog log)
         {
-            string text = $"My meal voucher card was credited with {log.Data["amount"]} {log.Data["currency"]}";
+            string medicationType = GetMappedDataValue(
+                log.Data,
+                "medication_type",
+                new()
+                {
+                    { "Antibiotic", "antibiotic" },
+                    { "Antiparasitic", "antiparasitic" },
+                    { "Vaccine", "vaccine" },
+                    { "Painkiller", "painkiller" },
+                    { "Supplement", "supplement" }
+                },
+                "medication");
+
+            string text = $"I have taken the following {medicationType}";
+
+            if (IsDataValuePlural(log.Data, "medication_name"))
+            {
+                text += $"s";
+            }
+
+            return $"{text}: {GetLocalisedValue(log.Data, "medication_name", "en")}";
+        }
+
+        public string BuildMicronationExternalRelationsRequestSendingLogText(PersonalLog log)
+        {
+            string relationTypeWord = GetMappedDataValue(
+                log.Data,
+                "relation_type",
+                new()
+                {
+                    { "Alliance", "an alliance" },
+                    { "DiplomaticRelations", "diplomatic relations" },
+                    { "NonAggressionPact", "a non-agression pact" },
+                    { "TradeAgreement", "a trade agreement" }
+                },
+                "diplomatic relations");
+
+            return $"{log.Data["source_micronation_name"]} sent {relationTypeWord} request to {log.Data["target_micronation_name"]} din partea micronațiunii ";
+        }
+
+        public string BuildMicronationExternalRelationsRequestReceivalLogText(PersonalLog log)
+        {
+            string relationTypeWord = GetMappedDataValue(
+                log.Data,
+                "relation_type",
+                new()
+                {
+                    { "Alliance", "an alliance" },
+                    { "DiplomaticRelations", "diplomatic relations" },
+                    { "NonAggressionPact", "a non-agression pact" },
+                    { "TradeAgreement", "a trade agreement" }
+                },
+                "diplomatic relations");
+
+            return $"{log.Data["target_micronation_name"]} has received {relationTypeWord} request from {log.Data["source_micronation_name"]}";
+        }
+
+        public string BuildMicronationExternalRelationsRequestRejectionLogText(PersonalLog log)
+        {
+            string relationTypeWord = GetMappedDataValue(
+                log.Data,
+                "relation_type",
+                new()
+                {
+                    { "Alliance", "an alliance" },
+                    { "DiplomaticRelations", "diplomatic relations" },
+                    { "NonAggressionPact", "a non-agression pact" },
+                    { "TradeAgreement", "a trade agreement" }
+                },
+                "diplomatic relations");
+
+            string text = $"{log.Data["source_micronation_name"]}'s request for {relationTypeWord} with {log.Data["target_micronation_name"]}";
+
+            if (log.Data.TryGetValue("request_date", out string requestDate))
+            {
+                text += $", sent on {requestDate},";
+            }
+
+            return $"{text} has been rejected";
+        }
+
+        public string BuildMicronationExternalRelationsEstablishmentLogText(PersonalLog log)
+        {
+            string relationshipTypeWord = GetMappedDataValue(
+                log.Data,
+                "relation_type",
+                new()
+                {
+                    { "Alliance", "an alliance" },
+                    { "DiplomaticRelations", "diplomatic relations" },
+                    { "NonAggressionPact", "a non-agression pact" },
+                    { "TradeAgreement", "a trade agreement" }
+                },
+                "diplomatic relations");
+
+            string text = $"{log.Data["source_micronation_name"]} has established {relationshipTypeWord} with {log.Data["target_micronation_name"]}";
+
+            if (log.Data.TryGetValue("request_date", out string requestDate))
+            {
+                text += $", following the request sent on {requestDate}";
+            }
 
             return text;
         }
@@ -1839,6 +1967,69 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
 
             return text;
+        }
+
+        public string BuildPetAdoptionLogText(PersonalLog log)
+        {
+            string petType = GetMappedDataValue(
+                log.Data,
+                "pet_type",
+                new()
+                {
+                    { "Cat", "cat" },
+                    { "Dog", "dog" },
+                    { "Rabbit", "rabbit" },
+                    { "Ferret", "ferret" },
+                    { "GuineaPig", "guinea pig" }
+                },
+                "pet");
+
+            return $"I have adopted my {petType} {GetLocalisedValue(log.Data, "pet_name", "en")}";
+        }
+
+        public string BuildPetBathingLogText(PersonalLog log)
+            => $"I have bathed {GetLocalisedValue(log.Data, "pet_name", "en")}";
+
+        public string BuildPetLitterCleaningLogText(PersonalLog log)
+        {
+            string petType = GetMappedDataValue(
+                log.Data,
+                "pet_type",
+                new()
+                {
+                    { "Cat", "cat" },
+                    { "Rabbit", "rabbit" },
+                    { "Ferret", "ferret" },
+                    { "GuineaPig", "guinea pig" }
+                },
+                "pet");
+
+            return $"I have cleaned the {petType} litter";
+        }
+
+        public string BuildPetMedicationAdministrationLogText(PersonalLog log)
+        {
+            string medicationType = GetMappedDataValue(
+                log.Data,
+                "medication_type",
+                new()
+                {
+                    { "Antibiotic", "antibiotic" },
+                    { "Antiparasitic", "antiparasitic" },
+                    { "Vaccine", "vaccine" },
+                    { "Painkiller", "painkiller" },
+                    { "Supplement", "supplement" }
+                },
+                "medication");
+
+            string text = $"I have administered the following {medicationType}";
+
+            if (IsDataValuePlural(log.Data, "medication_name"))
+            {
+                text += $"s";
+            }
+
+            return $"{text} to {GetDataValue(log.Data, "pet_name")}: {GetLocalisedValue(log.Data, "medication_name", "en")}";
         }
 
         public string BuildPetNailsTrimmingLogText(PersonalLog log)
@@ -2102,6 +2293,29 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildShavingLogText(PersonalLog log)
+        {
+            string hairType = GetMappedDataValue(
+                log.Data,
+                "hair_type",
+                new()
+                {
+                    { "Beard", "beard" },
+                    { "ChestHair", "chest hair" },
+                    { "FaceHair", "facial hair" },
+                    { "FootHair", "foot hair" },
+                    { "GenitalHair", "pubic hair" },
+                    { "HeadHair", "head" },
+                    { "Mustache", "mustache" },
+                    { "Sideburns", "sideburns" },
+                    { "UnderarmHair", "underarm hair" },
+                    { "Unibrow", "unibrow" }
+                },
+                "facial hair");
+
+            return $"I have shaved my {hairType}";
+        }
+
         public string BuildShowerTakingLogText(PersonalLog log)
         {
             string text = $"I have taken a shower";
@@ -2303,7 +2517,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 text += $" for the {supplyPointNumber} supply point number";
             }
-            else if (log.Data.TryGetValue("location", out string location))
+
+            if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
             }
@@ -2337,7 +2552,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 text += $" for the {supplyPointNumber} supply point number";
             }
-            else if (log.Data.TryGetValue("location", out string location))
+
+            if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
             }
@@ -2397,6 +2613,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildWakingUpLogText(PersonalLog log)
             => $"I have woken up";
+
+        public string BuildWaterDrinkingLogText(PersonalLog log)
+            => $"I have drunk water";
 
         public string BuildWeddingAttendanceLogText(PersonalLog log)
         {

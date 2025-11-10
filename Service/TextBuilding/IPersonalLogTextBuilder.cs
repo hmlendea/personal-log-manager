@@ -46,11 +46,13 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildAccountUsernameChangeLogText(PersonalLog log);
         string BuildAccountVisibilityMadePrivateLogText(PersonalLog log);
         string BuildAccountVisibilityMadePublicLogText(PersonalLog log);
+        string BuildAlkalinePhosphataseMeasurementLogText(PersonalLog log);
         string BuildBloodDonationLogText(PersonalLog log);
         string BuildBloodGlucoseMeasurementLogText(PersonalLog log);
         string BuildBloodPressureMeasurementLogText(PersonalLog log);
         string BuildBodyWaterRateMeasurementLogText(PersonalLog log);
         string BuildBodyWeightMeasurementLogText(PersonalLog log);
+        string BuildCalciumLevelMeasurementLogText(PersonalLog log);
         string BuildCertificationObtainmentLogText(PersonalLog log);
         string BuildChatGroupCreationLogText(PersonalLog log);
         string BuildChatGroupDeletionLogText(PersonalLog log);
@@ -63,6 +65,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildDeviceBatteryHealthLogText(PersonalLog log);
         string BuildDeviceBatteryLevelLogText(PersonalLog log);
         string BuildDeviceBreakingLogText(PersonalLog log);
+        string BuildDeviceChargingLogText(PersonalLog log);
         string BuildDeviceRepairLogText(PersonalLog log);
         string BuildDeviceScreentimeMeasurementLogText(PersonalLog log);
         string BuildDirectBilirubinMeasurementLogText(PersonalLog log);
@@ -103,7 +106,13 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildInternshipApplicationSubmissionLogText(PersonalLog log);
         string BuildKinetotherapySessionLogText(PersonalLog log);
         string BuildLdlCholesterolMeasurementLogText(PersonalLog log);
+        string BuildMagnesiumLevelMeasurementLogText(PersonalLog log);
         string BuildMealVoucherCardCreditationLogText(PersonalLog log);
+        string BuildMedicationIntakeLogText(PersonalLog log);
+        string BuildMicronationExternalRelationsRequestReceivalLogText(PersonalLog log);
+        string BuildMicronationExternalRelationsRequestRejectionLogText(PersonalLog log);
+        string BuildMicronationExternalRelationsRequestSendingLogText(PersonalLog log);
+        string BuildMicronationExternalRelationsEstablishmentLogText(PersonalLog log);
         string BuildMicronationLegalActIssuanceLogText(PersonalLog log);
         string BuildMicronationSettlementFoundingLogText(PersonalLog log);
         string BuildMicronationSettlementRankDowngradeLogText(PersonalLog log);
@@ -112,6 +121,10 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildObjectSaleLogText(PersonalLog log);
         string BuildOnlineReviewSubmissionLogText(PersonalLog log);
         string BuildOnlineStorePurchaseLogText(PersonalLog log);
+        string BuildPetAdoptionLogText(PersonalLog log);
+        string BuildPetBathingLogText(PersonalLog log);
+        string BuildPetLitterCleaningLogText(PersonalLog log);
+        string BuildPetMedicationAdministrationLogText(PersonalLog log);
         string BuildPetNailsTrimmingLogText(PersonalLog log);
         string BuildPetWeightMeasurementLogText(PersonalLog log);
         string BuildPhysiotherapySessionLogText(PersonalLog log);
@@ -123,6 +136,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildSeriesEpisodeWatchingLogText(PersonalLog log);
         string BuildSeriesSeasonBeginningLogText(PersonalLog log);
         string BuildSeriesSeasonCompletionLogText(PersonalLog log);
+        string BuildShavingLogText(PersonalLog log);
         string BuildShowerTakingLogText(PersonalLog log);
         string BuildStepCountMeasurementLogText(PersonalLog log);
         string BuildSwimmingActivityLogText(PersonalLog log);
@@ -138,6 +152,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildVideoUploadLogText(PersonalLog log);
         string BuildVideoWatchingLogText(PersonalLog log);
         string BuildWakingUpLogText(PersonalLog log);
+        string BuildWaterDrinkingLogText(PersonalLog log);
         string BuildWeddingAttendanceLogText(PersonalLog log);
         string BuildWorkFromTheOfficeLogText(PersonalLog log);
         string BuildWorkMandatoryCourseCompletionLogText(PersonalLog log);

@@ -659,6 +659,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildAccountVisibilityMadePublicLogText(PersonalLog log)
             => $"Am făcut public contul de {GetPlatform(log.Data)}";
 
+        public string BuildAlkalinePhosphataseMeasurementLogText(PersonalLog log)
+            => $"Nivelul de fosfatază alcalină a fost măsurat la {GetDecimalValue(log.Data, "alkaline_phosphatase_level")} {GetDataValue(log.Data, "unit", "U/L")}";
+
         public string BuildBloodDonationLogText(PersonalLog log)
         {
             string text = $"Am donat sânge";
@@ -683,11 +686,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"Tensiunea arterială a fost măsurată la {log.Data["systolic_pressure"]}/{log.Data["diastolic_pressure"]} {GetDataValue(log.Data, "unit", "mmHg")}";
 
         public string BuildBodyWaterRateMeasurementLogText(PersonalLog log)
-        {
-            decimal bodyWaterRate = decimal.Parse(log.Data["body_water_rate"]);
-
-            return $"Nivelul de hidratare corporală a fost măsurat la {bodyWaterRate:F2}%";
-        }
+            => $"Nivelul de hidratare corporală a fost măsurat la {GetDecimalValue(log.Data, "body_water_rate")}%";
 
         public string BuildBodyWeightMeasurementLogText(PersonalLog log)
         {
@@ -701,6 +700,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             return text;
         }
+
+        public string BuildCalciumLevelMeasurementLogText(PersonalLog log)
+            => $"Nivelul de calciu a fost măsurat la {GetDecimalValue(log.Data, "calcium_level")} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildCertificationObtainmentLogText(PersonalLog log)
         {
@@ -968,6 +970,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
 
             return text;
+        }
+
+        public string BuildDeviceChargingLogText(PersonalLog log)
+        {
+            string deviceType = GetMappedDataValue(
+                log.Data,
+                "device_type",
+                new()
+                {
+                    { "FitnessTracker", "brățara de fitness" },
+                    { "Headphones", "căștile" },
+                    { "Laptop", "laptop-ul" },
+                    { "Phone", "telefonul" },
+                    { "Scooter", "trotineta" },
+                    { "Tablet", "tableta" },
+                    { "VacuumCleaner", "aspiratorul" },
+                    { "Watch", "ceasul" },
+                },
+                log.Data["device_type"]
+            );
+
+            return $"Am pus la încărcat {deviceType} {log.Data["device_name"]}";
         }
 
         public string BuildDeviceRepairLogText(PersonalLog log)
@@ -1667,8 +1691,136 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildLdlCholesterolMeasurementLogText(PersonalLog log)
             => $"Nivelul de LDL Colesterol a fost măsurat la {log.Data["ldl_cholesterol_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
+        public string BuildMagnesiumLevelMeasurementLogText(PersonalLog log)
+            => $"Nivelul de magneziu a fost măsurat la {log.Data["magnesium_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
+
         public string BuildMealVoucherCardCreditationLogText(PersonalLog log)
             => $"Cardul de bonuri de masă a fost creditat cu {log.Data["amount"]} {log.Data["currency"]}";
+
+        public string BuildMedicationIntakeLogText(PersonalLog log)
+        {
+            string medicationType;
+            string text = $"Am luat";
+
+            if (IsDataValuePlural(log.Data, "medication_name"))
+            {
+                medicationType = GetMappedDataValue(
+                log.Data,
+                "medication_type",
+                new()
+                {
+                    { "Antibiotic", "antibiotice" },
+                    { "Antiparasitic", "antiparazitice" },
+                    { "Vaccine", "vaccinuri" },
+                    { "Painkiller", "antinevralgice" },
+                    { "Supplement", "suplimente" }
+                },
+                "medicamente");
+
+                text += $" următoarele {medicationType}";
+            }
+            else
+            {
+                medicationType = GetMappedDataValue(
+                log.Data,
+                "medication_type",
+                new()
+                {
+                    { "Antibiotic", "antibiotice" },
+                    { "Antiparasitic", "antiparazitice" },
+                    { "Vaccine", "vaccinuri" },
+                    { "Painkiller", "antinevralgice" },
+                    { "Supplement", "suplimente" }
+                },
+                "medicament");
+
+                text += $" următorul {medicationType}";
+            }
+
+            return $"{text}: {GetLocalisedValue(log.Data, "medication_name", "ro")}";
+        }
+
+        public string BuildMicronationExternalRelationsRequestSendingLogText(PersonalLog log)
+        {
+            string relationTypeWord = GetMappedDataValue(
+                log.Data,
+                "relation_type",
+                new()
+                {
+                    { "Alliance", "alianță" },
+                    { "DiplomaticRelations", "relații diplomatice" },
+                    { "NonAggressionPact", "pact de neagresiune" },
+                    { "TradeAgreement", "acord comercial" }
+                },
+                "relație externă");
+
+            return $"Am trimis o solicitare de {relationTypeWord} către micronațiunea {log.Data["target_micronation_name"]} din partea micronațiunii {log.Data["source_micronation_name"]}";
+        }
+
+        public string BuildMicronationExternalRelationsRequestReceivalLogText(PersonalLog log)
+        {
+            string relationTypeWord = GetMappedDataValue(
+                log.Data,
+                "relation_type",
+                new()
+                {
+                    { "Alliance", "alianță" },
+                    { "DiplomaticRelations", "relații diplomatice" },
+                    { "NonAggressionPact", "pact de neagresiune" },
+                    { "TradeAgreement", "acord comercial" }
+                },
+                "relație externă");
+
+            return $"Am primit o solicitare de {relationTypeWord} din partea micronațiunii {log.Data["source_micronation_name"]} către micronațiunea {log.Data["target_micronation_name"]}";
+        }
+
+        public string BuildMicronationExternalRelationsRequestRejectionLogText(PersonalLog log)
+        {
+            string relationTypeWord = GetMappedDataValue(
+                log.Data,
+                "relation_type",
+                new()
+                {
+                    { "Alliance", "alianță" },
+                    { "DiplomaticRelations", "relații diplomatice" },
+                    { "NonAggressionPact", "pact de neagresiune" },
+                    { "TradeAgreement", "acord comercial" }
+                },
+                "relație externă");
+
+            string text = $"Solicitarea de {relationTypeWord} din partea micronațiunii {log.Data["source_micronation_name"]} către {log.Data["target_micronation_name"]}";
+
+            if (log.Data.TryGetValue("request_date", out string requestDate))
+            {
+                text += $", trimisă la {requestDate},";
+            }
+
+            return $"{text} a fost respinsă";
+        }
+
+        public string BuildMicronationExternalRelationsEstablishmentLogText(PersonalLog log)
+        {
+            string relationshipTypeWord = GetMappedDataValue(
+                log.Data,
+                "relation_type",
+                new()
+                {
+                    { "Alliance", "o alianța" },
+                    { "DiplomaticRelations", "relații diplomatice" },
+                    { "NonAggressionPact", "un pact de neagresiune" },
+                    { "TradeAgreement", "un acord comercial" }
+                },
+                "relație externă");
+
+            string text = $"Am stabilit o {relationshipTypeWord} între micronațiunile {log.Data["source_micronation_name"]} și {log.Data["target_micronation_name"]}";
+
+            if (log.Data.TryGetValue("request_date", out string requestDate))
+            {
+                text += $", în urma solicitării din {requestDate}";
+            }
+
+            return text;
+        }
 
         public string BuildMicronationLegalActIssuanceLogText(PersonalLog log)
         {
@@ -1884,6 +2036,87 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
 
             return text;
+        }
+
+        public string BuildPetAdoptionLogText(PersonalLog log)
+        {
+            string petTypeWord = GetMappedDataValue(
+                log.Data,
+                "pet_type",
+                new()
+                {
+                    { "Cat", "pisica mea" },
+                    { "Dog", "câinele meu" },
+                    { "Rabbit", "iepurele meu" },
+                    { "Ferret", "dihorul meu" },
+                    { "GuineaPig", "porcușorul meu de Guineea" }
+                },
+                "pet");
+
+            return $"Am adoptat {petTypeWord}, {GetLocalisedValue(log.Data, "pet_name", "ro")}";
+        }
+
+        public string BuildPetBathingLogText(PersonalLog log)
+            => $"I-am făcut baie lui {GetLocalisedValue(log.Data, "pet_name", "ro")}";
+
+        public string BuildPetLitterCleaningLogText(PersonalLog log)
+        {
+            string petType = GetMappedDataValue(
+                log.Data,
+                "pet_type",
+                new()
+                {
+                    { "Cat", "pisici" },
+                    { "Rabbit", "iepuri" },
+                    { "Ferret", "dihori" },
+                    { "GuineaPig", "porcușori de Guineea" }
+                },
+                "pet");
+
+            return $"Am curățat litiera de {petType}";
+        }
+
+        public string BuildPetMedicationAdministrationLogText(PersonalLog log)
+        {
+            string medicationType;
+            string text = $"I-am administrat";
+
+            if (IsDataValuePlural(log.Data, "medication_name"))
+            {
+                medicationType = GetMappedDataValue(
+                log.Data,
+                "medication_type",
+                new()
+                {
+                    { "Antibiotic", "antibiotice" },
+                    { "Antiparasitic", "antiparazitice" },
+                    { "Vaccine", "vaccinuri" },
+                    { "Painkiller", "antinevralgice" },
+                    { "Supplement", "suplimente" }
+                },
+                "medicații");
+
+                text += $" următoarele {medicationType}";
+            }
+            else
+            {
+                medicationType = GetMappedDataValue(
+                log.Data,
+                "medication_type",
+                new()
+                {
+                    { "Antibiotic", "antibiotice" },
+                    { "Antiparasitic", "antiparazitice" },
+                    { "Vaccine", "vaccinuri" },
+                    { "Painkiller", "antinevralgice" },
+                    { "Supplement", "suplimente" }
+                },
+                "medicații");
+
+                text += $" următoarele {medicationType}";
+            }
+
+            return $"{text} lui {GetDataValue(log.Data, "pet_name")}: {GetLocalisedValue(log.Data, "medication_name", "ro")}";
         }
 
         public string BuildPetNailsTrimmingLogText(PersonalLog log)
@@ -2147,6 +2380,29 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildShavingLogText(PersonalLog log)
+        {
+            string hairType = GetMappedDataValue(
+                log.Data,
+                "hair_type",
+                new()
+                {
+                    { "Beard", "barba" },
+                    { "ChestHair", "părul de pe piept" },
+                    { "FaceHair", "părul facial" },
+                    { "FootHair", "părul de pe labele picioarelor" },
+                    { "GenitalHair", "părul pubian" },
+                    { "HeadHair", "părul de pe cap" },
+                    { "Mustache", "mustața" },
+                    { "Sideburns", "părul de pe tâmple" },
+                    { "UnderarmHair", "părul de la subraț" },
+                    { "Unibrow", "monosprânceana" }
+                },
+                "părul facial");
+
+            return $"Mi-am ras {hairType}";
+        }
+
         public string BuildShowerTakingLogText(PersonalLog log)
         {
             string text = $"Am făcut duș";
@@ -2357,9 +2613,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 text += $" pentru locuința cu numărul locului de consum {supplyPointNumber}";
             }
-            else if (log.Data.TryGetValue("location", out string location))
+
+            if (log.Data.TryGetValue("location", out string location))
             {
-                text += $" din {location}";
+                text += $" de la {location}";
             }
 
             if (log.Data.TryGetValue("cost_amount", out string costAmount))
@@ -2391,9 +2648,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 text += $", pentru locuința cu numărul locului de consum {supplyPointNumber}";
             }
-            else if (log.Data.TryGetValue("location", out string location))
+
+            if (log.Data.TryGetValue("location", out string location))
             {
-                text += $" din {location}";
+                text += $" de la {location}";
             }
 
             if (log.Data.TryGetValue("index_value", out string indexValue))
@@ -2453,6 +2711,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildWakingUpLogText(PersonalLog log)
             => "M-am trezit";
+
+        public string BuildWaterDrinkingLogText(PersonalLog log)
+            => $"Am băut apă";
 
         public string BuildWeddingAttendanceLogText(PersonalLog log)
         {

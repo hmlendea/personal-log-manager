@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace PersonalLogManager.Service.TextBuilding
@@ -71,6 +72,15 @@ namespace PersonalLogManager.Service.TextBuilding
             return value;
         }
 
+        public string GetDecimalValue(Dictionary<string, string> data, string key)
+        {
+            string value = GetDataValue(data, key);
+
+            ArgumentException.ThrowIfNullOrWhiteSpace(value, key);
+
+            return $"{decimal.Parse(value):F2}".Replace(".00", string.Empty);
+        }
+
         public string GetLocalisedValue(Dictionary<string, string> data, string key, string localisation)
             => GetLocalisedValue(data, key, localisation, null);
 
@@ -95,6 +105,34 @@ namespace PersonalLogManager.Service.TextBuilding
             return value
                 .Replace(" și ", " and ")
                 .Replace("&", "and");
+        }
+
+        public bool IsDataValuePlural(Dictionary<string, string> data, string key)
+            => IsDataValuePlural(data, key, null);
+
+        public bool IsDataValuePlural(Dictionary<string, string> data, string key, string defaultValue)
+        {
+            string value = GetDataValue(data, key);
+
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                value = defaultValue;
+            }
+
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return false;
+            }
+
+            if (value.Contains(" & ", System.StringComparison.InvariantCultureIgnoreCase) ||
+                value.Contains(", ", System.StringComparison.InvariantCultureIgnoreCase) ||
+                value.Contains(" and ", System.StringComparison.InvariantCultureIgnoreCase) ||
+                value.Contains(" și ", System.StringComparison.InvariantCultureIgnoreCase))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public string GetMappedDataValue(Dictionary<string, string> data, string key, Dictionary<string, string> mappings)
