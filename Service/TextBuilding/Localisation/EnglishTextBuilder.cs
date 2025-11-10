@@ -1684,6 +1684,88 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return $"{text}: {GetLocalisedValue(log.Data, "medication_name", "en")}";
         }
 
+        public string BuildMicronationExternalRelationsRequestSendingLogText(PersonalLog log)
+        {
+            string relationTypeWord = GetMappedDataValue(
+                log.Data,
+                "relation_type",
+                new()
+                {
+                    { "Alliance", "an alliance" },
+                    { "DiplomaticRelations", "diplomatic relations" },
+                    { "NonAggressionPact", "a non-agression pact" },
+                    { "TradeAgreement", "a trade agreement" }
+                },
+                "diplomatic relations");
+
+            return $"{log.Data["source_micronation_name"]} sent {relationTypeWord} request to {log.Data["target_micronation_name"]} din partea micronațiunii ";
+        }
+
+        public string BuildMicronationExternalRelationsRequestReceivalLogText(PersonalLog log)
+        {
+            string relationTypeWord = GetMappedDataValue(
+                log.Data,
+                "relation_type",
+                new()
+                {
+                    { "Alliance", "an alliance" },
+                    { "DiplomaticRelations", "diplomatic relations" },
+                    { "NonAggressionPact", "a non-agression pact" },
+                    { "TradeAgreement", "a trade agreement" }
+                },
+                "diplomatic relations");
+
+            return $"{log.Data["target_micronation_name"]} has received {relationTypeWord} request from {log.Data["source_micronation_name"]}";
+        }
+
+        public string BuildMicronationExternalRelationsRequestRejectionLogText(PersonalLog log)
+        {
+            string relationTypeWord = GetMappedDataValue(
+                log.Data,
+                "relation_type",
+                new()
+                {
+                    { "Alliance", "an alliance" },
+                    { "DiplomaticRelations", "diplomatic relations" },
+                    { "NonAggressionPact", "a non-agression pact" },
+                    { "TradeAgreement", "a trade agreement" }
+                },
+                "diplomatic relations");
+
+            string text = $"{log.Data["source_micronation_name"]}'s request for {relationTypeWord} with {log.Data["target_micronation_name"]}";
+
+            if (log.Data.TryGetValue("request_date", out string requestDate))
+            {
+                text += $", sent on {requestDate},";
+            }
+
+            return $"{text} has been rejected";
+        }
+
+        public string BuildMicronationExternalRelationsEstablishmentLogText(PersonalLog log)
+        {
+            string relationshipTypeWord = GetMappedDataValue(
+                log.Data,
+                "relation_type",
+                new()
+                {
+                    { "Alliance", "an alliance" },
+                    { "DiplomaticRelations", "diplomatic relations" },
+                    { "NonAggressionPact", "a non-agression pact" },
+                    { "TradeAgreement", "a trade agreement" }
+                },
+                "diplomatic relations");
+
+            string text = $"{log.Data["source_micronation_name"]} has established {relationshipTypeWord} with {log.Data["target_micronation_name"]}";
+
+            if (log.Data.TryGetValue("request_date", out string requestDate))
+            {
+                text += $", following the request sent on {requestDate}";
+            }
+
+            return text;
+        }
+
         public string BuildMicronationLegalActIssuanceLogText(PersonalLog log)
         {
             string legalActTypeWord = GetMappedDataValue(
@@ -2531,6 +2613,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildWakingUpLogText(PersonalLog log)
             => $"I have woken up";
+
+        public string BuildWaterDrinkingLogText(PersonalLog log)
+            => $"I have drunk water";
 
         public string BuildWeddingAttendanceLogText(PersonalLog log)
         {

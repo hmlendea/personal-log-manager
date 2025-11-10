@@ -108,6 +108,10 @@ namespace PersonalLogManager.Service.Models
         MagnesiumLevelMeasurement,
         MealVoucherCardCreditation,
         MedicationIntake,
+        MicronationExternalRelationsRequestReceival,
+        MicronationExternalRelationsRequestRejection,
+        MicronationExternalRelationsRequestSending,
+        MicronationExternalRelationsEstablishment,
         MicronationLegalActIssuance,
         MicronationSettlementFounding,
         MicronationSettlementRankDowngrade,
@@ -146,6 +150,7 @@ namespace PersonalLogManager.Service.Models
         VideoUpload,
         VideoWatching,
         WakingUp,
+        WaterDrinking,
         WeddingAttendance,
         WorkFromTheOffice,
         WorkMandatoryCourseCompletion

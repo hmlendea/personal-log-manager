@@ -1740,6 +1740,88 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return $"{text}: {GetLocalisedValue(log.Data, "medication_name", "ro")}";
         }
 
+        public string BuildMicronationExternalRelationsRequestSendingLogText(PersonalLog log)
+        {
+            string relationTypeWord = GetMappedDataValue(
+                log.Data,
+                "relation_type",
+                new()
+                {
+                    { "Alliance", "alianță" },
+                    { "DiplomaticRelations", "relații diplomatice" },
+                    { "NonAggressionPact", "pact de neagresiune" },
+                    { "TradeAgreement", "acord comercial" }
+                },
+                "relație externă");
+
+            return $"Am trimis o solicitare de {relationTypeWord} către micronațiunea {log.Data["target_micronation_name"]} din partea micronațiunii {log.Data["source_micronation_name"]}";
+        }
+
+        public string BuildMicronationExternalRelationsRequestReceivalLogText(PersonalLog log)
+        {
+            string relationTypeWord = GetMappedDataValue(
+                log.Data,
+                "relation_type",
+                new()
+                {
+                    { "Alliance", "alianță" },
+                    { "DiplomaticRelations", "relații diplomatice" },
+                    { "NonAggressionPact", "pact de neagresiune" },
+                    { "TradeAgreement", "acord comercial" }
+                },
+                "relație externă");
+
+            return $"Am primit o solicitare de {relationTypeWord} din partea micronațiunii {log.Data["source_micronation_name"]} către micronațiunea {log.Data["target_micronation_name"]}";
+        }
+
+        public string BuildMicronationExternalRelationsRequestRejectionLogText(PersonalLog log)
+        {
+            string relationTypeWord = GetMappedDataValue(
+                log.Data,
+                "relation_type",
+                new()
+                {
+                    { "Alliance", "alianță" },
+                    { "DiplomaticRelations", "relații diplomatice" },
+                    { "NonAggressionPact", "pact de neagresiune" },
+                    { "TradeAgreement", "acord comercial" }
+                },
+                "relație externă");
+
+            string text = $"Solicitarea de {relationTypeWord} din partea micronațiunii {log.Data["source_micronation_name"]} către {log.Data["target_micronation_name"]}";
+
+            if (log.Data.TryGetValue("request_date", out string requestDate))
+            {
+                text += $", trimisă la {requestDate},";
+            }
+
+            return $"{text} a fost respinsă";
+        }
+
+        public string BuildMicronationExternalRelationsEstablishmentLogText(PersonalLog log)
+        {
+            string relationshipTypeWord = GetMappedDataValue(
+                log.Data,
+                "relation_type",
+                new()
+                {
+                    { "Alliance", "o alianța" },
+                    { "DiplomaticRelations", "relații diplomatice" },
+                    { "NonAggressionPact", "un pact de neagresiune" },
+                    { "TradeAgreement", "un acord comercial" }
+                },
+                "relație externă");
+
+            string text = $"Am stabilit o {relationshipTypeWord} între micronațiunile {log.Data["source_micronation_name"]} și {log.Data["target_micronation_name"]}";
+
+            if (log.Data.TryGetValue("request_date", out string requestDate))
+            {
+                text += $", în urma solicitării din {requestDate}";
+            }
+
+            return text;
+        }
+
         public string BuildMicronationLegalActIssuanceLogText(PersonalLog log)
         {
             string legalActTypeWord = GetMappedDataValue(
@@ -2629,6 +2711,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildWakingUpLogText(PersonalLog log)
             => "M-am trezit";
+
+        public string BuildWaterDrinkingLogText(PersonalLog log)
+            => $"Am băut apă";
 
         public string BuildWeddingAttendanceLogText(PersonalLog log)
         {

@@ -109,6 +109,10 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildMagnesiumLevelMeasurementLogText(PersonalLog log);
         string BuildMealVoucherCardCreditationLogText(PersonalLog log);
         string BuildMedicationIntakeLogText(PersonalLog log);
+        string BuildMicronationExternalRelationsRequestReceivalLogText(PersonalLog log);
+        string BuildMicronationExternalRelationsRequestRejectionLogText(PersonalLog log);
+        string BuildMicronationExternalRelationsRequestSendingLogText(PersonalLog log);
+        string BuildMicronationExternalRelationsEstablishmentLogText(PersonalLog log);
         string BuildMicronationLegalActIssuanceLogText(PersonalLog log);
         string BuildMicronationSettlementFoundingLogText(PersonalLog log);
         string BuildMicronationSettlementRankDowngradeLogText(PersonalLog log);
@@ -148,6 +152,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildVideoUploadLogText(PersonalLog log);
         string BuildVideoWatchingLogText(PersonalLog log);
         string BuildWakingUpLogText(PersonalLog log);
+        string BuildWaterDrinkingLogText(PersonalLog log);
         string BuildWeddingAttendanceLogText(PersonalLog log);
         string BuildWorkFromTheOfficeLogText(PersonalLog log);
         string BuildWorkMandatoryCourseCompletionLogText(PersonalLog log);
