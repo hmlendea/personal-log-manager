@@ -1098,6 +1098,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am primit nota {log.Data["grade_value"]} la materia '{log.Data["subject_name"]}'";
 
+            if (log.Data.TryGetValue("subject_code", out string subjectCode))
+            {
+                text += $" ({subjectCode})";
+            }
+
             if (log.Data.TryGetValue("course_name", out string courseName))
             {
                 text += $", în cadrul cursului {courseName}";
@@ -1105,7 +1110,21 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.TryGetValue("institution_name", out string institutionName))
             {
-                text += $", de la {institutionName}";
+                text += $", la";
+
+                if (log.Data.TryGetValue("institution_faculty", out string institutionFaculty))
+                {
+                    text += $" {institutionFaculty}";
+
+                    if (log.Data.TryGetValue("institution_faculty_specialisation", out string institutionFacultySpecialisation))
+                    {
+                        text += $", specializarea {institutionFacultySpecialisation},";
+                    }
+
+                    text += $" de la";
+                }
+
+                text += $" {institutionName}";
             }
 
             if (log.Data.TryGetValue("educational_cycle_year", out string educationalCycleYear))

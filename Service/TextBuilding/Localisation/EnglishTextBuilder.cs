@@ -1036,6 +1036,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have received the grade {log.Data["grade_value"]} in the subject '{log.Data["subject_name"]}'";
 
+            if (log.Data.TryGetValue("subject_code", out string subjectCode))
+            {
+                text += $" ({subjectCode})";
+            }
+
             if (log.Data.TryGetValue("course_name", out string courseName))
             {
                 text += $", in the course {courseName}";
@@ -1043,7 +1048,21 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.TryGetValue("institution_name", out string institutionName))
             {
-                text += $", from {institutionName}";
+                text += $", at";
+
+                if (log.Data.TryGetValue("institution_faculty", out string institutionFaculty))
+                {
+                    text += $" {institutionFaculty}";
+
+                    if (log.Data.TryGetValue("institution_faculty_specialisation", out string institutionFacultySpecialisation))
+                    {
+                        text += $", {institutionFacultySpecialisation} specialisation,";
+                    }
+
+                    text += $" at";
+                }
+
+                text += $" {institutionName}";
             }
 
             if (log.Data.TryGetValue("educational_cycle_year", out string educationalCycleYear))
