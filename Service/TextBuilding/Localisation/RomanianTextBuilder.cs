@@ -1103,6 +1103,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 {
                     { "AverageGrade", "media" },
                     { "Grade", "nota" },
+                    { "TestGrade", "nota la test" },
                     { "ThesisGrade", "nota la teză" },
                     { "Qualifier", "calificativul" }
                 },

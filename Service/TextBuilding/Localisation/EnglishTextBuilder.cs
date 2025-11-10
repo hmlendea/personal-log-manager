@@ -1041,6 +1041,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 {
                     { "AverageGrade", "grade average" },
                     { "Grade", "grade" },
+                    { "TestGrade", "test grade" },
                     { "ThesisGrade", "thesis grade" },
                     { "Qualifier", "qualifier" }
                 },
