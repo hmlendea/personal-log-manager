@@ -1039,7 +1039,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "grade_type",
                 new()
                 {
-                    { "Average", "grade average" },
+                    { "AverageGrade", "grade average" },
                     { "Grade", "grade" },
                     { "Qualifier", "qualifier" }
                 },

@@ -1101,7 +1101,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "grade_type",
                 new()
                 {
-                    { "Average", "media" },
+                    { "AverageGrade", "media" },
                     { "Grade", "nota" },
                     { "Qualifier", "calificativul" }
                 },
