@@ -886,6 +886,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Tablet", "tableta" },
                     { "VacuumCleaner", "aspiratorul" },
                     { "Watch", "ceasul" },
+                    { "WaterFlosser", "irigatorul bucal" },
                 },
                 "dispozitivul");
 
@@ -909,6 +910,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Tablet", "tableta" },
                     { "VacuumCleaner", "aspiratorul" },
                     { "Watch", "ceasul" },
+                    { "WaterFlosser", "irigatorul bucal" },
                 },
                 log.Data["device_type"]
             );
@@ -933,6 +935,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Tablet", "tableta" },
                     { "VacuumCleaner", "aspiratorul" },
                     { "Watch", "ceasul" },
+                    { "WaterFlosser", "irigatorul bucal" },
                 },
                 log.Data["device_type"]
             );
@@ -987,6 +990,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Tablet", "tableta" },
                     { "VacuumCleaner", "aspiratorul" },
                     { "Watch", "ceasul" },
+                    { "WaterFlosser", "irigatorul bucal" },
                 },
                 log.Data["device_type"]
             );
@@ -1011,6 +1015,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Tablet", "tableta" },
                     { "VacuumCleaner", "aspiratorul" },
                     { "Watch", "ceasul" },
+                    { "WaterFlosser", "irigatorul bucal" },
                 },
                 log.Data["device_type"]
             );

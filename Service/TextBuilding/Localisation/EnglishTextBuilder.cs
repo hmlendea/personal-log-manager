@@ -847,6 +847,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Tablet", "tablet" },
                     { "VacuumCleaner", "vacuum cleaner" },
                     { "Watch", "watch" },
+                    { "WaterFlosser", "water flosser" },
                 });
 
             return $"The battery health of my {log.Data["device_name"]} {deviceType} was at {log.Data["battery_health_percentage"]}%";
@@ -869,6 +870,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Tablet", "tablet" },
                     { "VacuumCleaner", "vacuum cleaner" },
                     { "Watch", "watch" },
+                    { "WaterFlosser", "water flosser" },
                 });
 
             return $"The battery level of my {log.Data["device_name"]} {deviceType} was at {log.Data["battery_level_percentage"]}%";
@@ -904,6 +906,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Tablet", "tablet" },
                     { "VacuumCleaner", "vacuum cleaner" },
                     { "Watch", "watch" },
+                    { "WaterFlosser", "water flosser" },
                 });
 
             text += $" {deviceType}";
@@ -940,6 +943,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Tablet", "tablet" },
                     { "VacuumCleaner", "vacuum cleaner" },
                     { "Watch", "watch" },
+                    { "WaterFlosser", "water flosser" },
                 });
 
             return $"I have charged my {log.Data["device_name"]} {deviceType}";
@@ -975,6 +979,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Tablet", "tablet" },
                     { "VacuumCleaner", "vacuum cleaner" },
                     { "Watch", "watch" },
+                    { "WaterFlosser", "water flosser" },
                 });
 
             text += $" {deviceType}";
