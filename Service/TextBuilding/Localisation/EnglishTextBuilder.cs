@@ -2412,7 +2412,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 text += $" for the {supplyPointNumber} supply point number";
             }
-            else if (log.Data.TryGetValue("location", out string location))
+
+            if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
             }
@@ -2446,7 +2447,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 text += $" for the {supplyPointNumber} supply point number";
             }
-            else if (log.Data.TryGetValue("location", out string location))
+
+            if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
             }

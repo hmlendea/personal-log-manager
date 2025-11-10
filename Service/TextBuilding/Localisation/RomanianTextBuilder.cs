@@ -2508,9 +2508,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 text += $" pentru locuința cu numărul locului de consum {supplyPointNumber}";
             }
-            else if (log.Data.TryGetValue("location", out string location))
+
+            if (log.Data.TryGetValue("location", out string location))
             {
-                text += $" din {location}";
+                text += $" de la {location}";
             }
 
             if (log.Data.TryGetValue("cost_amount", out string costAmount))
@@ -2542,9 +2543,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 text += $", pentru locuința cu numărul locului de consum {supplyPointNumber}";
             }
-            else if (log.Data.TryGetValue("location", out string location))
+
+            if (log.Data.TryGetValue("location", out string location))
             {
-                text += $" din {location}";
+                text += $" de la {location}";
             }
 
             if (log.Data.TryGetValue("index_value", out string indexValue))
