@@ -2099,7 +2099,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Painkiller", "antinevralgice" },
                     { "Supplement", "suplimente" }
                 },
-                "medicații");
+                "medicamente");
 
                 text += $" următoarele {medicationType}";
             }
@@ -2110,15 +2110,15 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "medication_type",
                 new()
                 {
-                    { "Antibiotic", "antibiotice" },
-                    { "Antiparasitic", "antiparazitice" },
-                    { "Vaccine", "vaccinuri" },
-                    { "Painkiller", "antinevralgice" },
-                    { "Supplement", "suplimente" }
+                    { "Antibiotic", "antibiotic" },
+                    { "Antiparasitic", "antiparazitic" },
+                    { "Vaccine", "vaccin" },
+                    { "Painkiller", "antinevralgic" },
+                    { "Supplement", "supliment" }
                 },
-                "medicații");
+                "medicament");
 
-                text += $" următoarele {medicationType}";
+                text += $" următorul {medicationType}";
             }
 
             return $"{text} lui {GetDataValue(log.Data, "pet_name")}: {GetLocalisedValue(log.Data, "medication_name", "ro")}";

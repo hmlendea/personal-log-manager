@@ -124,10 +124,10 @@ namespace PersonalLogManager.Service.TextBuilding
                 return false;
             }
 
-            if (value.Contains(" & ", System.StringComparison.InvariantCultureIgnoreCase) ||
-                value.Contains(", ", System.StringComparison.InvariantCultureIgnoreCase) ||
-                value.Contains(" and ", System.StringComparison.InvariantCultureIgnoreCase) ||
-                value.Contains(" și ", System.StringComparison.InvariantCultureIgnoreCase))
+            if (value.Contains(" & ", StringComparison.InvariantCultureIgnoreCase) ||
+                value.Contains(", ", StringComparison.InvariantCultureIgnoreCase) ||
+                value.Contains(" and ", StringComparison.InvariantCultureIgnoreCase) ||
+                value.Contains(" și ", StringComparison.InvariantCultureIgnoreCase))
             {
                 return true;
             }
@@ -166,7 +166,7 @@ namespace PersonalLogManager.Service.TextBuilding
                     .Replace("_", string.Empty)
                     .Replace("&", "And");
 
-                if (normalisedMapKey.Equals(expectedMapKey, System.StringComparison.InvariantCultureIgnoreCase))
+                if (normalisedMapKey.Equals(expectedMapKey, StringComparison.InvariantCultureIgnoreCase))
                 {
                     mappedValue = mappings[expectedMapKey];
                     break;
