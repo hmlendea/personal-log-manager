@@ -2298,6 +2298,29 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildShavingLogText(PersonalLog log)
+        {
+            string hairType = GetMappedDataValue(
+                log.Data,
+                "hair_type",
+                new()
+                {
+                    { "Beard", "barba" },
+                    { "ChestHair", "părul de pe piept" },
+                    { "FaceHair", "părul facial" },
+                    { "FootHair", "părul de pe labele picioarelor" },
+                    { "GenitalHair", "părul pubian" },
+                    { "HeadHair", "părul de pe cap" },
+                    { "Mustache", "mustața" },
+                    { "Sideburns", "părul de pe tâmple" },
+                    { "UnderarmHair", "părul de la subraț" },
+                    { "Unibrow", "monosprânceana" }
+                },
+                "părul facial");
+
+            return $"Mi-am ras {hairType}";
+        }
+
         public string BuildShowerTakingLogText(PersonalLog log)
         {
             string text = $"Am făcut duș";

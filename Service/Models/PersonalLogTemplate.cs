@@ -131,6 +131,7 @@ namespace PersonalLogManager.Service.Models
         SeriesEpisodeWatching,
         SeriesSeasonBeginning,
         SeriesSeasonCompletion,
+        Shaving,
         ShowerTaking,
         StepCountMeasurement,
         SwimmingActivity,

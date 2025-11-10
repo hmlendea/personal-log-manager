@@ -2211,6 +2211,29 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildShavingLogText(PersonalLog log)
+        {
+            string hairType = GetMappedDataValue(
+                log.Data,
+                "hair_type",
+                new()
+                {
+                    { "Beard", "beard" },
+                    { "ChestHair", "chest hair" },
+                    { "FaceHair", "facial hair" },
+                    { "FootHair", "foot hair" },
+                    { "GenitalHair", "pubic hair" },
+                    { "HeadHair", "head" },
+                    { "Mustache", "mustache" },
+                    { "Sideburns", "sideburns" },
+                    { "UnderarmHair", "underarm hair" },
+                    { "Unibrow", "unibrow" }
+                },
+                "facial hair");
+
+            return $"I have shaved my {hairType}";
+        }
+
         public string BuildShowerTakingLogText(PersonalLog log)
         {
             string text = $"I have taken a shower";
