@@ -1096,7 +1096,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildEducationalGradeReceivalLogText(PersonalLog log)
         {
-            string text = $"Am primit nota {log.Data["grade_value"]} la materia '{log.Data["subject_name"]}'";
+            string gradeType = GetMappedDataValue(
+                log.Data,
+                "grade_type",
+                new()
+                {
+                    { "Average", "media" },
+                    { "Grade", "nota" },
+                    { "Qualifier", "calificativul" }
+                },
+                "nota");
+
+            string text = $"Am obținut {gradeType} {log.Data["grade_value"]} la materia '{log.Data["subject_name"]}'";
 
             if (log.Data.TryGetValue("subject_code", out string subjectCode))
             {
@@ -1112,9 +1123,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 text += $", la";
 
-                if (log.Data.TryGetValue("institution_department", out string institutionDepartment))
+                if (log.Data.TryGetValue("institution_department_name", out string institutionDepartmentName))
                 {
-                    text += $" {institutionDepartment}";
+                    text += $" {institutionDepartmentName}";
 
                     if (log.Data.TryGetValue("institution_department_specialisation", out string institutionDepartmentSpecialisation))
                     {

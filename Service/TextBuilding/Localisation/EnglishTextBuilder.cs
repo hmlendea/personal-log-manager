@@ -1034,7 +1034,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildEducationalGradeReceivalLogText(PersonalLog log)
         {
-            string text = $"I have received the grade {log.Data["grade_value"]} in the subject '{log.Data["subject_name"]}'";
+            string gradeType = GetMappedDataValue(
+                log.Data,
+                "grade_type",
+                new()
+                {
+                    { "Average", "grade average" },
+                    { "Grade", "grade" },
+                    { "Qualifier", "qualifier" }
+                },
+                "grade");
+
+            string text = $"I have obtained the {gradeType} {log.Data["grade_value"]} in the subject '{log.Data["subject_name"]}'";
 
             if (log.Data.TryGetValue("subject_code", out string subjectCode))
             {
