@@ -711,7 +711,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 {
                     { "Book", "cartea" },
                     { "ComicBook", "benzile desenate" },
-                    { "Audiobook", "carte audio" },
+                    { "Audiobook", "cartea audio" },
                 },
                 "cartea");
 
@@ -732,8 +732,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 new()
                 {
                     { "Book", "cartea" },
-                    { "EBook", "cartea electronică" },
-                    { "Audiobook", "carte audio" },
+                    { "ComicBook", "benzile desenate" },
+                    { "Audiobook", "cartea audio" },
                 },
                 "cartea");
 
@@ -743,6 +743,50 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
 
             return $"Am terminat de {verb} {bookType} '{log.Data["book_title"]}'";
+        }
+
+        public string BuildBookResumingLogText(PersonalLog log)
+        {
+            string verb = "citesc";
+            string bookType = GetMappedDataValue(
+                log.Data,
+                "book_type",
+                new()
+                {
+                    { "Book", "cartea" },
+                    { "ComicBook", "benzile desenate" },
+                    { "Audiobook", "cartea audio" },
+                },
+                "cartea");
+
+            if (bookType.Equals("cartea audio"))
+            {
+                verb = "ascult";
+            }
+
+            return $"Am reluat să {verb} {bookType} '{log.Data["book_title"]}'";
+        }
+
+        public string BuildBookStoppingLogText(PersonalLog log)
+        {
+            string verb = "citi";
+            string bookType = GetMappedDataValue(
+                log.Data,
+                "book_type",
+                new()
+                {
+                    { "Book", "cartea" },
+                    { "ComicBook", "benzile desenate" },
+                    { "Audiobook", "cartea audio" },
+                },
+                "cartea");
+
+            if (bookType.Equals("cartea audio"))
+            {
+                verb = "asculta";
+            }
+
+            return $"M-am oprit din a {verb} {bookType} '{log.Data["book_title"]}'";
         }
 
         public string BuildCalciumLevelMeasurementLogText(PersonalLog log)
