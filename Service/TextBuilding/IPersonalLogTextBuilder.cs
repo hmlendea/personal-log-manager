@@ -37,6 +37,8 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildAccountProfilePictureChangeLogText(PersonalLog log);
         string BuildAccountRecoveryLogText(PersonalLog log);
         string BuildAccountRecoveryEmailAddressChangeLogText(PersonalLog log);
+        string BuildAccountRecoveryRequestLogText(PersonalLog log);
+        string BuildAccountRecoveryRequestFulfillmentLogText(PersonalLog log);
         string BuildAccountRegistrationLogText(PersonalLog log);
         string BuildAccountRegistrationRequestLogText(PersonalLog log);
         string BuildAccountRegistrationRequestFulfillmentLogText(PersonalLog log);
@@ -44,6 +46,8 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildAccountSubscriptionPurchaseLogText(PersonalLog log);
         string BuildAccountUnlinkingLogText(PersonalLog log);
         string BuildAccountUsernameChangeLogText(PersonalLog log);
+        string BuildAccountUsernameChangeRequestLogText(PersonalLog log);
+        string BuildAccountUsernameChangeRequestFulfillmentLogText(PersonalLog log);
         string BuildAccountVisibilityMadePrivateLogText(PersonalLog log);
         string BuildAccountVisibilityMadePublicLogText(PersonalLog log);
         string BuildAlkalinePhosphataseMeasurementLogText(PersonalLog log);
@@ -52,6 +56,10 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildBloodPressureMeasurementLogText(PersonalLog log);
         string BuildBodyWaterRateMeasurementLogText(PersonalLog log);
         string BuildBodyWeightMeasurementLogText(PersonalLog log);
+        string BuildBookBeginningLogText(PersonalLog log);
+        string BuildBookCompletionLogText(PersonalLog log);
+        string BuildBookResumingLogText(PersonalLog log);
+        string BuildBookStoppingLogText(PersonalLog log);
         string BuildCalciumLevelMeasurementLogText(PersonalLog log);
         string BuildCertificationObtainmentLogText(PersonalLog log);
         string BuildChatGroupCreationLogText(PersonalLog log);
@@ -97,6 +105,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildGitReleaseLogText(PersonalLog log);
         string BuildGitRepositoryCreationLogText(PersonalLog log);
         string BuildGoingToSleepLogText(PersonalLog log);
+        string BuildGoingToTheToiletLogText(PersonalLog log);
         string BuildGraduationCeremonyAttendanceLogText(PersonalLog log);
         string BuildGraduationCeremonyParticipationLogText(PersonalLog log);
         string BuildHairCuttingLogText(PersonalLog log);
@@ -124,11 +133,14 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildPetAdoptionLogText(PersonalLog log);
         string BuildPetBathingLogText(PersonalLog log);
         string BuildPetLitterCleaningLogText(PersonalLog log);
+        string BuildPetLitterEmptyingLogText(PersonalLog log);
+        string BuildPetLitterRefillLogText(PersonalLog log);
         string BuildPetMedicationAdministrationLogText(PersonalLog log);
         string BuildPetNailsTrimmingLogText(PersonalLog log);
         string BuildPetWeightMeasurementLogText(PersonalLog log);
         string BuildPhysiotherapySessionLogText(PersonalLog log);
         string BuildPsychotherapySessionLogText(PersonalLog log);
+        string BuildSaunaSessionLogText(PersonalLog log);
         string BuildSeriesBeginningLogText(PersonalLog log);
         string BuildSeriesCompletionLogText(PersonalLog log);
         string BuildSeriesEpisodeBeginningLogText(PersonalLog log);

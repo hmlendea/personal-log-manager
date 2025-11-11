@@ -462,6 +462,51 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildAccountRecoveryRequestLogText(PersonalLog log)
+        {
+            string text = $"I have sent a recovery request for the {GetPlatform(log.Data)} account";
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $" with the {requestId} identification code";
+            }
+
+            string requestMethod = GetMappedDataValue(
+                log.Data,
+                "request_method",
+                new()
+                {
+                    { "AccountSettings", "account settings" },
+                    { "ContactForm", "the contact form" },
+                    { "EMail", "e-mail" },
+                    { "SupportTicket", "support ticket" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(requestMethod))
+            {
+                text += $", via {requestMethod}";
+            }
+
+            return text;
+        }
+
+        public string BuildAccountRecoveryRequestFulfillmentLogText(PersonalLog log)
+        {
+            string text = $"My account recovery request for the {GetPlatform(log.Data)} account";
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $" with the {requestId} identification code";
+            }
+
+            if (log.Data.TryGetValue("request_date", out string requestDate))
+            {
+                text += $", sent on {requestDate},";
+            }
+
+            return $"{text} has been fulfilled";
+        }
+
         public string BuildAccountRegistrationLogText(PersonalLog log)
         {
             string text = $"I have registered the {GetPlatform(log.Data)} account";
@@ -642,6 +687,71 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildAccountUsernameChangeRequestLogText(PersonalLog log)
+        {
+            string text = $"I have sent a request to change the username of the {GetPlatform(log.Data)} account";
+
+            if (log.Data.TryGetValue("old_username", out string oldUsername))
+            {
+                text += $" from {oldUsername}";
+            }
+
+            if (log.Data.TryGetValue("new_username", out string newUsername))
+            {
+                text += $" to {newUsername}";
+            }
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $", with the {requestId} identification code";
+            }
+
+            string requestMethod = GetMappedDataValue(
+                log.Data,
+                "request_method",
+                new()
+                {
+                    { "AccountSettings", "account settings" },
+                    { "ContactForm", "the contact form" },
+                    { "EMail", "e-mail" },
+                    { "SupportTicket", "support ticket" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(requestMethod))
+            {
+                text += $", via {requestMethod}";
+            }
+
+            return text;
+        }
+
+        public string BuildAccountUsernameChangeRequestFulfillmentLogText(PersonalLog log)
+        {
+            string text = $"My request to change the username of the {GetPlatform(log.Data)} account";
+
+            if (log.Data.TryGetValue("old_username", out string oldUsername))
+            {
+                text += $" from {oldUsername}";
+            }
+
+            if (log.Data.TryGetValue("new_username", out string newUsername))
+            {
+                text += $" to {newUsername}";
+            }
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $", with the {requestId} identification code";
+            }
+
+            if (log.Data.TryGetValue("request_date", out string requestDate))
+            {
+                text += $", sent on {requestDate},";
+            }
+
+            return $"{text} has been fulfilled";
+        }
+
         public string BuildAccountVisibilityMadePrivateLogText(PersonalLog log)
             => $"I have made my {GetPlatform(log.Data)} account private";
 
@@ -688,6 +798,94 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
 
             return text;
+        }
+
+        public string BuildBookBeginningLogText(PersonalLog log)
+        {
+            string verb = "reading";
+            string bookType = GetMappedDataValue(
+                log.Data,
+                "book_type",
+                new()
+                {
+                    { "Book", "book" },
+                    { "ComicBook", "comic book" },
+                    { "Audiobook", "audiobook" },
+                },
+                "book");
+
+            if (bookType.Equals("audiobook"))
+            {
+                verb = "listening to";
+            }
+
+            return $"I have started {verb} the {bookType} '{log.Data["book_title"]}'";
+        }
+
+        public string BuildBookCompletionLogText(PersonalLog log)
+        {
+            string verb = "reading";
+            string bookType = GetMappedDataValue(
+                log.Data,
+                "book_type",
+                new()
+                {
+                    { "Book", "book" },
+                    { "ComicBook", "comic book" },
+                    { "Audiobook", "audiobook" },
+                },
+                "book");
+
+            if (bookType.Equals("audiobook"))
+            {
+                verb = "listening to";
+            }
+
+            return $"I have finished {verb} the {bookType} '{log.Data["book_title"]}'";
+        }
+
+        public string BuildBookResumingLogText(PersonalLog log)
+        {
+            string verb = "reading";
+            string bookType = GetMappedDataValue(
+                log.Data,
+                "book_type",
+                new()
+                {
+                    { "Book", "book" },
+                    { "ComicBook", "comic book" },
+                    { "Audiobook", "audiobook" },
+                },
+                "book");
+
+            if (bookType.Equals("audiobook"))
+            {
+                verb = "listening to";
+            }
+
+            return $"I have resumed {verb} the {bookType} '{log.Data["book_title"]}'";
+        }
+
+        public string BuildBookStoppingLogText(PersonalLog log)
+        {
+            string verb = "reading";
+            string bookType = GetMappedDataValue(
+                log.Data,
+                "book_type",
+                new()
+                {
+                    { "Book", "book" },
+                    { "ComicBook", "comic book" },
+                    { "Audiobook", "audiobook" },
+                },
+                "book");
+
+            if (bookType.Equals("audiobook"))
+            {
+                verb = "listening to";
+            }
+
+            return $"I have stopped {verb} the {bookType} '{log.Data["book_title"]}'";
         }
 
         public string BuildCalciumLevelMeasurementLogText(PersonalLog log)
@@ -847,6 +1045,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Tablet", "tablet" },
                     { "VacuumCleaner", "vacuum cleaner" },
                     { "Watch", "watch" },
+                    { "WaterFlosser", "water flosser" },
                 });
 
             return $"The battery health of my {log.Data["device_name"]} {deviceType} was at {log.Data["battery_health_percentage"]}%";
@@ -869,6 +1068,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Tablet", "tablet" },
                     { "VacuumCleaner", "vacuum cleaner" },
                     { "Watch", "watch" },
+                    { "WaterFlosser", "water flosser" },
                 });
 
             return $"The battery level of my {log.Data["device_name"]} {deviceType} was at {log.Data["battery_level_percentage"]}%";
@@ -904,6 +1104,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Tablet", "tablet" },
                     { "VacuumCleaner", "vacuum cleaner" },
                     { "Watch", "watch" },
+                    { "WaterFlosser", "water flosser" },
                 });
 
             text += $" {deviceType}";
@@ -940,6 +1141,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Tablet", "tablet" },
                     { "VacuumCleaner", "vacuum cleaner" },
                     { "Watch", "watch" },
+                    { "WaterFlosser", "water flosser" },
                 });
 
             return $"I have charged my {log.Data["device_name"]} {deviceType}";
@@ -975,6 +1177,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Tablet", "tablet" },
                     { "VacuumCleaner", "vacuum cleaner" },
                     { "Watch", "watch" },
+                    { "WaterFlosser", "water flosser" },
                 });
 
             text += $" {deviceType}";
@@ -1029,7 +1232,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildEducationalGradeReceivalLogText(PersonalLog log)
         {
-            string text = $"I have received the grade {log.Data["grade_value"]} in the subject '{log.Data["subject_name"]}'";
+            string gradeType = GetMappedDataValue(
+                log.Data,
+                "grade_type",
+                new()
+                {
+                    { "AverageGrade", "grade average" },
+                    { "Grade", "grade" },
+                    { "TestGrade", "test grade" },
+                    { "ThesisGrade", "thesis grade" },
+                    { "Qualifier", "qualifier" }
+                },
+                "grade");
+
+            string text = $"I have obtained the {gradeType} {log.Data["grade_value"]} in the subject '{log.Data["subject_name"]}'";
+
+            if (log.Data.TryGetValue("subject_code", out string subjectCode))
+            {
+                text += $" ({subjectCode})";
+            }
 
             if (log.Data.TryGetValue("course_name", out string courseName))
             {
@@ -1038,7 +1259,21 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.TryGetValue("institution_name", out string institutionName))
             {
-                text += $", from {institutionName}";
+                text += $", at";
+
+                if (log.Data.TryGetValue("institution_department", out string institutionDepartment))
+                {
+                    text += $" {institutionDepartment}";
+
+                    if (log.Data.TryGetValue("institution_department_specialisation", out string institutionDepartmentSpecialisation))
+                    {
+                        text += $", {institutionDepartmentSpecialisation} specialisation,";
+                    }
+
+                    text += $" at";
+                }
+
+                text += $" {institutionName}";
             }
 
             if (log.Data.TryGetValue("educational_cycle_year", out string educationalCycleYear))
@@ -1506,6 +1741,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildGoingToSleepLogText(PersonalLog log)
             => $"I have gone to sleep";
+
+        public string BuildGoingToTheToiletLogText(PersonalLog log)
+            => $"I have gone to the toilet";
 
         public string BuildGraduationCeremonyAttendanceLogText(PersonalLog log)
         {
@@ -2007,6 +2245,40 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return $"I have cleaned the {petType} litter";
         }
 
+        public string BuildPetLitterEmptyingLogText(PersonalLog log)
+        {
+            string petType = GetMappedDataValue(
+                log.Data,
+                "pet_type",
+                new()
+                {
+                    { "Cat", "cat" },
+                    { "Rabbit", "rabbit" },
+                    { "Ferret", "ferret" },
+                    { "GuineaPig", "guinea pig" }
+                },
+                "pet");
+
+            return $"I have emptied the {petType} litter";
+        }
+
+        public string BuildPetLitterRefillLogText(PersonalLog log)
+        {
+            string petType = GetMappedDataValue(
+                log.Data,
+                "pet_type",
+                new()
+                {
+                    { "Cat", "cat" },
+                    { "Rabbit", "rabbit" },
+                    { "Ferret", "ferret" },
+                    { "GuineaPig", "guinea pig" }
+                },
+                "pet");
+
+            return $"I have refilled the {petType} litter";
+        }
+
         public string BuildPetMedicationAdministrationLogText(PersonalLog log)
         {
             string medicationType = GetMappedDataValue(
@@ -2072,6 +2344,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("therapist_name", out string therapistName))
             {
                 text += $", by {therapistName}";
+            }
+
+            return text;
+        }
+
+        public string BuildSaunaSessionLogText(PersonalLog log)
+        {
+            string text = $"I have been to the sauna";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
+            {
+                text += $", for {durationMinutes} minute";
+
+                if (durationMinutes != "1")
+                {
+                    text += "s";
+                }
             }
 
             return text;
