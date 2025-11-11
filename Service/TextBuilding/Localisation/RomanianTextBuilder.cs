@@ -2201,6 +2201,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildSaunaSessionLogText(PersonalLog log)
+        {
+            string text = $"Am fost la saună";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
+            {
+                text += $", pentru {durationMinutes} minut";
+
+                if (durationMinutes != "1")
+                {
+                    text += "e";
+                }
+            }
+
+            return text;
+        }
+
         public string BuildSeriesBeginningLogText(PersonalLog log)
         {
             string text = $"Am început să vizionez serialul '{log.Data["series_name"]}'";

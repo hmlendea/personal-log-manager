@@ -2114,6 +2114,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildSaunaSessionLogText(PersonalLog log)
+        {
+            string text = $"I have been to the sauna";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
+            {
+                text += $", for {durationMinutes} minute";
+
+                if (durationMinutes != "1")
+                {
+                    text += "s";
+                }
+            }
+
+            return text;
+        }
+
         public string BuildSeriesBeginningLogText(PersonalLog log)
         {
             string text = $"I began watching the '{log.Data["series_name"]}' series";

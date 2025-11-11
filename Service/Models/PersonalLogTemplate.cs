@@ -128,6 +128,7 @@ namespace PersonalLogManager.Service.Models
         PetWeightMeasurement,
         PhysiotherapySession,
         PsychotherapySession,
+        SaunaSession,
         SeriesBeginning,
         SeriesCompletion,
         SeriesEpisodeBeginning,
