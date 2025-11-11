@@ -690,6 +690,50 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildBookBeginningLogText(PersonalLog log)
+        {
+            string verb = "reading";
+            string bookType = GetMappedDataValue(
+                log.Data,
+                "book_type",
+                new()
+                {
+                    { "Book", "book" },
+                    { "ComicBook", "comic book" },
+                    { "Audiobook", "audiobook" },
+                },
+                "book");
+
+            if (bookType.Equals("audiobook"))
+            {
+                verb = "listening to";
+            }
+
+            return $"I have started {verb} the {bookType} '{log.Data["book_title"]}'";
+        }
+
+        public string BuildBookCompletionLogText(PersonalLog log)
+        {
+            string verb = "reading";
+            string bookType = GetMappedDataValue(
+                log.Data,
+                "book_type",
+                new()
+                {
+                    { "Book", "book" },
+                    { "ComicBook", "comic book" },
+                    { "Audiobook", "audiobook" },
+                },
+                "book");
+
+            if (bookType.Equals("audiobook"))
+            {
+                verb = "listening to";
+            }
+
+            return $"I have finished {verb} the {bookType} '{log.Data["book_title"]}'";
+        }
+
         public string BuildCalciumLevelMeasurementLogText(PersonalLog log)
             => $"My calcium level measured {GetDecimalValue(log.Data, "calcium_level")} {GetDataValue(log.Data, "unit", "mg/dL")}";
 

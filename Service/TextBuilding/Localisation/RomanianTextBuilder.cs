@@ -701,6 +701,50 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildBookBeginningLogText(PersonalLog log)
+        {
+            string verb = "citesc";
+            string bookType = GetMappedDataValue(
+                log.Data,
+                "book_type",
+                new()
+                {
+                    { "Book", "cartea" },
+                    { "ComicBook", "benzile desenate" },
+                    { "Audiobook", "carte audio" },
+                },
+                "cartea");
+
+            if (bookType.Equals("cartea audio"))
+            {
+                verb = "ascult";
+            }
+
+            return $"Am început să {verb} {bookType} '{log.Data["book_title"]}'";
+        }
+
+        public string BuildBookCompletionLogText(PersonalLog log)
+        {
+            string verb = "citit";
+            string bookType = GetMappedDataValue(
+                log.Data,
+                "book_type",
+                new()
+                {
+                    { "Book", "cartea" },
+                    { "EBook", "cartea electronică" },
+                    { "Audiobook", "carte audio" },
+                },
+                "cartea");
+
+            if (bookType.Equals("cartea audio"))
+            {
+                verb = "ascultat";
+            }
+
+            return $"Am terminat de {verb} {bookType} '{log.Data["book_title"]}'";
+        }
+
         public string BuildCalciumLevelMeasurementLogText(PersonalLog log)
             => $"Nivelul de calciu a fost măsurat la {GetDecimalValue(log.Data, "calcium_level")} {GetDataValue(log.Data, "unit", "mg/dL")}";
 

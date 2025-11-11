@@ -51,6 +51,8 @@ namespace PersonalLogManager.Service.Models
         BloodPressureMeasurement,
         BodyWaterRateMeasurement,
         BodyWeightMeasurement,
+        BookBeginning,
+        BookCompletion,
         CalciumLevelMeasurement,
         CertificationObtainment,
         ChatGroupCreation,
