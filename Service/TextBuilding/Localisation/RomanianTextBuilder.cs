@@ -653,6 +653,71 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildAccountUsernameChangeRequestLogText(PersonalLog log)
+        {
+            string text = $"Am trimis o solicitare de schimbare a numelui de utilizator al contului de {GetPlatform(log.Data)}";
+
+            if (log.Data.TryGetValue("old_username", out string oldUsername))
+            {
+                text += $" de la {oldUsername}";
+            }
+
+            if (log.Data.TryGetValue("new_username", out string newUsername))
+            {
+                text += $" la {newUsername}";
+            }
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $", cu codul de identificare {requestId}";
+            }
+
+            string requestMethod = GetMappedDataValue(
+                log.Data,
+                "request_method",
+                new()
+                {
+                    { "AccountSettings", "pagina de setări a contului" },
+                    { "ContactForm", "formularul de contact" },
+                    { "EMail", "e-mail" },
+                    { "SupportTicket", "un tichet de suport" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(requestMethod))
+            {
+                text += $", prin {requestMethod}";
+            }
+
+            return text;
+        }
+
+        public string BuildAccountUsernameChangeRequestFulfillmentLogText(PersonalLog log)
+        {
+            string text = $"Solicitarea de schimbare a numelui de utilizator al contului de {GetPlatform(log.Data)}";
+
+            if (log.Data.TryGetValue("old_username", out string oldUsername))
+            {
+                text += $" de la {oldUsername}";
+            }
+
+            if (log.Data.TryGetValue("new_username", out string newUsername))
+            {
+                text += $" la {newUsername}";
+            }
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $", cu codul de identificare {requestId}";
+            }
+
+            if (log.Data.TryGetValue("request_date", out string requestDate))
+            {
+                text += $", trimisă pe {requestDate},";
+            }
+
+            return $"{text} a fost îndeplinită";
+        }
+
         public string BuildAccountVisibilityMadePrivateLogText(PersonalLog log)
             => $"Am făcut privat contul de {GetPlatform(log.Data)}";
 

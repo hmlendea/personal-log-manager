@@ -44,6 +44,8 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildAccountSubscriptionPurchaseLogText(PersonalLog log);
         string BuildAccountUnlinkingLogText(PersonalLog log);
         string BuildAccountUsernameChangeLogText(PersonalLog log);
+        string BuildAccountUsernameChangeRequestLogText(PersonalLog log);
+        string BuildAccountUsernameChangeRequestFulfillmentLogText(PersonalLog log);
         string BuildAccountVisibilityMadePrivateLogText(PersonalLog log);
         string BuildAccountVisibilityMadePublicLogText(PersonalLog log);
         string BuildAlkalinePhosphataseMeasurementLogText(PersonalLog log);

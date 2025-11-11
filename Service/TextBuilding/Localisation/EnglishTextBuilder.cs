@@ -642,6 +642,71 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildAccountUsernameChangeRequestLogText(PersonalLog log)
+        {
+            string text = $"I have sent a request to change the username of the {GetPlatform(log.Data)} account";
+
+            if (log.Data.TryGetValue("old_username", out string oldUsername))
+            {
+                text += $" from {oldUsername}";
+            }
+
+            if (log.Data.TryGetValue("new_username", out string newUsername))
+            {
+                text += $" to {newUsername}";
+            }
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $", with the {requestId} identification code";
+            }
+
+            string requestMethod = GetMappedDataValue(
+                log.Data,
+                "request_method",
+                new()
+                {
+                    { "AccountSettings", "account settings" },
+                    { "ContactForm", "the contact form" },
+                    { "EMail", "e-mail" },
+                    { "SupportTicket", "support ticket" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(requestMethod))
+            {
+                text += $", via {requestMethod}";
+            }
+
+            return text;
+        }
+
+        public string BuildAccountUsernameChangeRequestFulfillmentLogText(PersonalLog log)
+        {
+            string text = $"My request to change the username of the {GetPlatform(log.Data)} account";
+
+            if (log.Data.TryGetValue("old_username", out string oldUsername))
+            {
+                text += $" from {oldUsername}";
+            }
+
+            if (log.Data.TryGetValue("new_username", out string newUsername))
+            {
+                text += $" to {newUsername}";
+            }
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $", with the {requestId} identification code";
+            }
+
+            if (log.Data.TryGetValue("request_date", out string requestDate))
+            {
+                text += $", sent on {requestDate},";
+            }
+
+            return $"{text} has been fulfilled";
+        }
+
         public string BuildAccountVisibilityMadePrivateLogText(PersonalLog log)
             => $"I have made my {GetPlatform(log.Data)} account private";
 
@@ -732,6 +797,50 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
 
             return $"I have finished {verb} the {bookType} '{log.Data["book_title"]}'";
+        }
+
+        public string BuildBookResumingLogText(PersonalLog log)
+        {
+            string verb = "reading";
+            string bookType = GetMappedDataValue(
+                log.Data,
+                "book_type",
+                new()
+                {
+                    { "Book", "book" },
+                    { "ComicBook", "comic book" },
+                    { "Audiobook", "audiobook" },
+                },
+                "book");
+
+            if (bookType.Equals("audiobook"))
+            {
+                verb = "listening to";
+            }
+
+            return $"I have resumed {verb} the {bookType} '{log.Data["book_title"]}'";
+        }
+
+        public string BuildBookStoppingLogText(PersonalLog log)
+        {
+            string verb = "reading";
+            string bookType = GetMappedDataValue(
+                log.Data,
+                "book_type",
+                new()
+                {
+                    { "Book", "book" },
+                    { "ComicBook", "comic book" },
+                    { "Audiobook", "audiobook" },
+                },
+                "book");
+
+            if (bookType.Equals("audiobook"))
+            {
+                verb = "listening to";
+            }
+
+            return $"I have stopped {verb} the {bookType} '{log.Data["book_title"]}'";
         }
 
         public string BuildCalciumLevelMeasurementLogText(PersonalLog log)

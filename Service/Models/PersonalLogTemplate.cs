@@ -43,6 +43,8 @@ namespace PersonalLogManager.Service.Models
         AccountSubscriptionPurchase,
         AccountUnlinking,
         AccountUsernameChange,
+        AccountUsernameChangeRequest,
+        AccountUsernameChangeRequestFulfillment,
         AccountVisibilityMadePrivate,
         AccountVisibilityMadePublic,
         AlkalinePhosphataseMeasurement,
