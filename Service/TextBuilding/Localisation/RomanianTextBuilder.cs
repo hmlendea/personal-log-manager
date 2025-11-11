@@ -830,7 +830,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 verb = "ascult";
             }
 
-            return $"Am început să {verb} {bookType} '{log.Data["book_title"]}'";
+            string text = $"Am început să {verb} {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" din seria '{bookSeriesName}'";
+            }
+
+            return text;
         }
 
         public string BuildBookCompletionLogText(PersonalLog log)
@@ -852,7 +859,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 verb = "ascultat";
             }
 
-            return $"Am terminat de {verb} {bookType} '{log.Data["book_title"]}'";
+            string text = $"Am terminat de {verb} {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" din seria '{bookSeriesName}'";
+            }
+
+            return text;
         }
 
         public string BuildBookResumingLogText(PersonalLog log)
@@ -874,7 +888,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 verb = "ascult";
             }
 
-            return $"Am reluat să {verb} {bookType} '{log.Data["book_title"]}'";
+            string text = $"Am reluat să {verb} {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" din seria '{bookSeriesName}'";
+            }
+
+            return text;
         }
 
         public string BuildBookStoppingLogText(PersonalLog log)
@@ -896,7 +917,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 verb = "asculta";
             }
 
-            return $"M-am oprit din a {verb} {bookType} '{log.Data["book_title"]}'";
+            string text = $"M-am oprit din a {verb} {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" din seria '{bookSeriesName}'";
+            }
+
+            return text;
         }
 
         public string BuildCalciumLevelMeasurementLogText(PersonalLog log)

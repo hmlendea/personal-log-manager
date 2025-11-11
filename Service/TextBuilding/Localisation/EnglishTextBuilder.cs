@@ -819,7 +819,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 verb = "listening to";
             }
 
-            return $"I have started {verb} the {bookType} '{log.Data["book_title"]}'";
+            string text = $"I have started {verb} the {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" of the '{bookSeriesName}' series";
+            }
+
+            return text;
         }
 
         public string BuildBookCompletionLogText(PersonalLog log)
@@ -841,7 +848,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 verb = "listening to";
             }
 
-            return $"I have finished {verb} the {bookType} '{log.Data["book_title"]}'";
+            string text = $"I have finished {verb} the {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" of the '{bookSeriesName}' series";
+            }
+
+            return text;
         }
 
         public string BuildBookResumingLogText(PersonalLog log)
@@ -863,7 +877,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 verb = "listening to";
             }
 
-            return $"I have resumed {verb} the {bookType} '{log.Data["book_title"]}'";
+            string text = $"I have resumed {verb} the {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" of the '{bookSeriesName}' series";
+            }
+
+            return text;
         }
 
         public string BuildBookStoppingLogText(PersonalLog log)
@@ -885,7 +906,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 verb = "listening to";
             }
 
-            return $"I have stopped {verb} the {bookType} '{log.Data["book_title"]}'";
+            string text = $"I have stopped {verb} the {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" of the '{bookSeriesName}' series";
+            }
+
+            return text;
         }
 
         public string BuildCalciumLevelMeasurementLogText(PersonalLog log)
