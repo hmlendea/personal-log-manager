@@ -470,6 +470,51 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildAccountRecoveryRequestLogText(PersonalLog log)
+        {
+            string text = $"Am trimis o solicitare de recuperare a contului de {GetPlatform(log.Data)}";
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $" cu codul de identificare {requestId}";
+            }
+
+            string requestMethod = GetMappedDataValue(
+                log.Data,
+                "request_method",
+                new()
+                {
+                    { "AccountSettings", "pagina de setări a contului" },
+                    { "ContactForm", "formularul de contact" },
+                    { "EMail", "e-mail" },
+                    { "SupportTicket", "un tichet de suport" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(requestMethod))
+            {
+                text += $", prin {requestMethod}";
+            }
+
+            return text;
+        }
+
+        public string BuildAccountRecoveryRequestFulfillmentLogText(PersonalLog log)
+        {
+            string text = $"Solicitarea de recuperare a contului de {GetPlatform(log.Data)}";
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $" cu codul de identificare {requestId}";
+            }
+
+            if (log.Data.TryGetValue("request_date", out string requestDate))
+            {
+                text += $", trimisă pe {requestDate},";
+            }
+
+            return $"{text} a fost îndeplinită";
+        }
+
         public string BuildAccountRegistrationLogText(PersonalLog log)
         {
             string text = $"Am înregistrat contul de {GetPlatform(log.Data)}";
@@ -1739,6 +1784,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildGoingToSleepLogText(PersonalLog log)
             => $"M-am culcat";
+
+        public string BuildGoingToTheToiletLogText(PersonalLog log)
+            => $"Am mers la toaletă";
 
         public string BuildGraduationCeremonyAttendanceLogText(PersonalLog log)
         {

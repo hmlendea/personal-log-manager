@@ -462,6 +462,51 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildAccountRecoveryRequestLogText(PersonalLog log)
+        {
+            string text = $"I have sent a recovery request for the {GetPlatform(log.Data)} account";
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $" with the {requestId} identification code";
+            }
+
+            string requestMethod = GetMappedDataValue(
+                log.Data,
+                "request_method",
+                new()
+                {
+                    { "AccountSettings", "account settings" },
+                    { "ContactForm", "the contact form" },
+                    { "EMail", "e-mail" },
+                    { "SupportTicket", "support ticket" }
+                });
+
+            if (!string.IsNullOrWhiteSpace(requestMethod))
+            {
+                text += $", via {requestMethod}";
+            }
+
+            return text;
+        }
+
+        public string BuildAccountRecoveryRequestFulfillmentLogText(PersonalLog log)
+        {
+            string text = $"My account recovery request for the {GetPlatform(log.Data)} account";
+
+            if (log.Data.TryGetValue("request_id", out string requestId))
+            {
+                text += $" with the {requestId} identification code";
+            }
+
+            if (log.Data.TryGetValue("request_date", out string requestDate))
+            {
+                text += $", sent on {requestDate},";
+            }
+
+            return $"{text} has been fulfilled";
+        }
+
         public string BuildAccountRegistrationLogText(PersonalLog log)
         {
             string text = $"I have registered the {GetPlatform(log.Data)} account";
@@ -1696,6 +1741,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildGoingToSleepLogText(PersonalLog log)
             => $"I have gone to sleep";
+
+        public string BuildGoingToTheToiletLogText(PersonalLog log)
+            => $"I have gone to the toilet";
 
         public string BuildGraduationCeremonyAttendanceLogText(PersonalLog log)
         {

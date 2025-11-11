@@ -37,6 +37,8 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildAccountProfilePictureChangeLogText(PersonalLog log);
         string BuildAccountRecoveryLogText(PersonalLog log);
         string BuildAccountRecoveryEmailAddressChangeLogText(PersonalLog log);
+        string BuildAccountRecoveryRequestLogText(PersonalLog log);
+        string BuildAccountRecoveryRequestFulfillmentLogText(PersonalLog log);
         string BuildAccountRegistrationLogText(PersonalLog log);
         string BuildAccountRegistrationRequestLogText(PersonalLog log);
         string BuildAccountRegistrationRequestFulfillmentLogText(PersonalLog log);
@@ -103,6 +105,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildGitReleaseLogText(PersonalLog log);
         string BuildGitRepositoryCreationLogText(PersonalLog log);
         string BuildGoingToSleepLogText(PersonalLog log);
+        string BuildGoingToTheToiletLogText(PersonalLog log);
         string BuildGraduationCeremonyAttendanceLogText(PersonalLog log);
         string BuildGraduationCeremonyParticipationLogText(PersonalLog log);
         string BuildHairCuttingLogText(PersonalLog log);
