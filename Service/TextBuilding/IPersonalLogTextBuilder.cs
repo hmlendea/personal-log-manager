@@ -130,6 +130,8 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildPetAdoptionLogText(PersonalLog log);
         string BuildPetBathingLogText(PersonalLog log);
         string BuildPetLitterCleaningLogText(PersonalLog log);
+        string BuildPetLitterEmptyingLogText(PersonalLog log);
+        string BuildPetLitterRefillLogText(PersonalLog log);
         string BuildPetMedicationAdministrationLogText(PersonalLog log);
         string BuildPetNailsTrimmingLogText(PersonalLog log);
         string BuildPetWeightMeasurementLogText(PersonalLog log);

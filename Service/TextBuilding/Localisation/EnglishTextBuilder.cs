@@ -2197,6 +2197,40 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return $"I have cleaned the {petType} litter";
         }
 
+        public string BuildPetLitterEmptyingLogText(PersonalLog log)
+        {
+            string petType = GetMappedDataValue(
+                log.Data,
+                "pet_type",
+                new()
+                {
+                    { "Cat", "cat" },
+                    { "Rabbit", "rabbit" },
+                    { "Ferret", "ferret" },
+                    { "GuineaPig", "guinea pig" }
+                },
+                "pet");
+
+            return $"I have emptied the {petType} litter";
+        }
+
+        public string BuildPetLitterRefillLogText(PersonalLog log)
+        {
+            string petType = GetMappedDataValue(
+                log.Data,
+                "pet_type",
+                new()
+                {
+                    { "Cat", "cat" },
+                    { "Rabbit", "rabbit" },
+                    { "Ferret", "ferret" },
+                    { "GuineaPig", "guinea pig" }
+                },
+                "pet");
+
+            return $"I have refilled the {petType} litter";
+        }
+
         public string BuildPetMedicationAdministrationLogText(PersonalLog log)
         {
             string medicationType = GetMappedDataValue(

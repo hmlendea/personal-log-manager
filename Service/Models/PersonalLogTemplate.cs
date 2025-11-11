@@ -129,6 +129,8 @@ namespace PersonalLogManager.Service.Models
         PetAdoption,
         PetBathing,
         PetLitterCleaning,
+        PetLitterEmptying,
+        PetLitterRefill,
         PetMedicationAdministration,
         PetNailsTrimming,
         PetWeightMeasurement,

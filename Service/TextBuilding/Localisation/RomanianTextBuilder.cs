@@ -1916,11 +1916,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "medication_type",
                 new()
                 {
-                    { "Antibiotic", "antibiotice" },
-                    { "Antiparasitic", "antiparazitice" },
-                    { "Vaccine", "vaccinuri" },
-                    { "Painkiller", "antinevralgice" },
-                    { "Supplement", "suplimente" }
+                    { "Antibiotic", "antibiotic" },
+                    { "Antiparasitic", "antiparazitic" },
+                    { "Vaccine", "vaccin" },
+                    { "Painkiller", "antinevralgic" },
+                    { "Supplement", "supliment" }
                 },
                 "medicament");
 
@@ -2264,6 +2264,40 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "pet");
 
             return $"Am curățat litiera de {petType}";
+        }
+
+        public string BuildPetLitterEmptyingLogText(PersonalLog log)
+        {
+            string petType = GetMappedDataValue(
+                log.Data,
+                "pet_type",
+                new()
+                {
+                    { "Cat", "pisici" },
+                    { "Rabbit", "iepuri" },
+                    { "Ferret", "dihori" },
+                    { "GuineaPig", "porcușori de Guineea" }
+                },
+                "pet");
+
+            return $"Am golit litiera de {petType}";
+        }
+
+        public string BuildPetLitterRefillLogText(PersonalLog log)
+        {
+            string petType = GetMappedDataValue(
+                log.Data,
+                "pet_type",
+                new()
+                {
+                    { "Cat", "pisici" },
+                    { "Rabbit", "iepuri" },
+                    { "Ferret", "dihori" },
+                    { "GuineaPig", "porcușori de Guineea" }
+                },
+                "pet");
+
+            return $"Am reumplut litiera de {petType}";
         }
 
         public string BuildPetMedicationAdministrationLogText(PersonalLog log)
