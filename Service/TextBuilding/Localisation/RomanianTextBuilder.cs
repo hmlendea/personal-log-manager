@@ -2780,7 +2780,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
             {
-                text += $" timp de {durationMinutes} minute";
+                text += $" timp de {durationMinutes} minut";
+
+                if (durationMinutes != "1")
+                {
+                    text += "e";
+                }
             }
 
             return text;
@@ -3088,7 +3093,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.TryGetValue("employer_name", out string employerName))
             {
-                text += $" la {employerName}";
+                text += $" de la {employerName}";
             }
 
             return text;
