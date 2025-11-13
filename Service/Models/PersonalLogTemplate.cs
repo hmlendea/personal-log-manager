@@ -128,6 +128,7 @@ namespace PersonalLogManager.Service.Models
         MicronationSettlementRankDowngrade,
         MicronationSettlementRankUpgrade,
         MovieWatching,
+        NailCutting,
         ObjectSale,
         OnlineReviewSubmission,
         OnlineStorePurchase,

@@ -2258,6 +2258,21 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildNailCuttingLogText(PersonalLog log)
+        {
+            string nailsType = GetMappedDataValue(
+                log.Data,
+                "nails_type",
+                new()
+                {
+                    { "FingerNails", "finger nails" },
+                    { "ToeNails", "toe nails" }
+                },
+                "nails");
+
+            return $"I have cut my {nailsType}";
+        }
+
         public string BuildObjectSaleLogText(PersonalLog log)
         {
             string text = $"I have sold the {log.Data["object_name"]}";

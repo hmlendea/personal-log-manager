@@ -2319,6 +2319,21 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildNailCuttingLogText(PersonalLog log)
+        {
+            string nailsType = GetMappedDataValue(
+                log.Data,
+                "nails_type",
+                new()
+                {
+                    { "Fingernails", "unghiile de la mâini" },
+                    { "Toenails", "unghiile de la picioare" }
+                },
+                "unghiile");
+
+            return $"Mi-am tăiat {nailsType}";
+        }
+
         public string BuildObjectSaleLogText(PersonalLog log)
         {
             string text = $"Am vândut {log.Data["object_name"]}";

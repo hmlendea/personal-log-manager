@@ -129,6 +129,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildMicronationSettlementRankDowngradeLogText(PersonalLog log);
         string BuildMicronationSettlementRankUpgradeLogText(PersonalLog log);
         string BuildMovieWatchingLogText(PersonalLog log);
+        string BuildNailCuttingLogText(PersonalLog log);
         string BuildObjectSaleLogText(PersonalLog log);
         string BuildOnlineReviewSubmissionLogText(PersonalLog log);
         string BuildOnlineStorePurchaseLogText(PersonalLog log);
