@@ -2040,6 +2040,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 {
                     { "Antibiotic", "antibiotice" },
                     { "Antiparasitic", "antiparazitice" },
+                    { "Anxiolytic", "anxiolitice" },
                     { "Vaccine", "vaccinuri" },
                     { "Painkiller", "antinevralgice" },
                     { "Supplement", "suplimente" }
@@ -2057,6 +2058,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 {
                     { "Antibiotic", "antibiotic" },
                     { "Antiparasitic", "antiparazitic" },
+                    { "Anxiolytic", "anxiolitic" },
                     { "Vaccine", "vaccin" },
                     { "Painkiller", "antinevralgic" },
                     { "Supplement", "supliment" }
@@ -2453,6 +2455,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 {
                     { "Antibiotic", "antibiotice" },
                     { "Antiparasitic", "antiparazitice" },
+                    { "Anxiolytic", "anxiolitice" },
                     { "Vaccine", "vaccinuri" },
                     { "Painkiller", "antinevralgice" },
                     { "Supplement", "suplimente" }
@@ -2470,6 +2473,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 {
                     { "Antibiotic", "antibiotic" },
                     { "Antiparasitic", "antiparazitic" },
+                    { "Anxiolytic", "anxiolitic" },
                     { "Vaccine", "vaccin" },
                     { "Painkiller", "antinevralgic" },
                     { "Supplement", "supliment" }

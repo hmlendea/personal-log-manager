@@ -1997,6 +1997,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 {
                     { "Antibiotic", "antibiotic" },
                     { "Antiparasitic", "antiparasitic" },
+                    { "Anxiolytic", "anxiolytic" },
                     { "Vaccine", "vaccine" },
                     { "Painkiller", "painkiller" },
                     { "Supplement", "supplement" }
@@ -2379,6 +2380,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 {
                     { "Antibiotic", "antibiotic" },
                     { "Antiparasitic", "antiparasitic" },
+                    { "Anxiolytic", "anxiolytic" },
                     { "Vaccine", "vaccine" },
                     { "Painkiller", "painkiller" },
                     { "Supplement", "supplement" }
