@@ -772,6 +772,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildAlkalinePhosphataseMeasurementLogText(PersonalLog log)
             => $"Nivelul de fosfatază alcalină a fost măsurat la {GetDecimalValue(log.Data, "alkaline_phosphatase_level")} {GetDataValue(log.Data, "unit", "U/L")}";
 
+        public string BuildBedMakingLogText(PersonalLog log)
+            => "Am făcut patul";
+
         public string BuildBloodDonationLogText(PersonalLog log)
         {
             string text = $"Am donat sânge";
@@ -830,7 +833,72 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 verb = "ascult";
             }
 
-            return $"Am început să {verb} {bookType} '{log.Data["book_title"]}'";
+            string text = $"Am început să {verb} {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" din seria '{bookSeriesName}'";
+            }
+
+            return text;
+        }
+
+        public string BuildBookChapterBeginningLogText(PersonalLog log)
+        {
+            string verb = "citesc";
+            string bookType = GetMappedDataValue(
+                log.Data,
+                "book_type",
+                new()
+                {
+                    { "Book", "cartea" },
+                    { "ComicBook", "benzile desenate" },
+                    { "Audiobook", "cartea audio" },
+                },
+                "cartea");
+
+            if (bookType.Equals("cartea audio"))
+            {
+                verb = "ascult";
+            }
+
+            string text = $"Am început să {verb} capitolul {log.Data["chapter_number"]} din {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" din seria '{bookSeriesName}'";
+            }
+
+            return text;
+        }
+
+        public string BuildBookChapterCompletionLogText(PersonalLog log)
+        {
+            string verb = "citit";
+            string bookType = GetMappedDataValue(
+                log.Data,
+                "book_type",
+                new()
+                {
+                    { "Book", "cartea" },
+                    { "ComicBook", "benzile desenate" },
+                    { "Audiobook", "cartea audio" },
+                },
+                "cartea");
+
+            if (bookType.Equals("cartea audio"))
+            {
+                verb = "ascultat";
+            }
+
+            string text = $"Am terminat de {verb} capitolul {log.Data["chapter_number"]} din {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" din seria '{bookSeriesName}'";
+            }
+
+            return text;
         }
 
         public string BuildBookCompletionLogText(PersonalLog log)
@@ -852,7 +920,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 verb = "ascultat";
             }
 
-            return $"Am terminat de {verb} {bookType} '{log.Data["book_title"]}'";
+            string text = $"Am terminat de {verb} {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" din seria '{bookSeriesName}'";
+            }
+
+            return text;
         }
 
         public string BuildBookResumingLogText(PersonalLog log)
@@ -874,7 +949,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 verb = "ascult";
             }
 
-            return $"Am reluat să {verb} {bookType} '{log.Data["book_title"]}'";
+            string text = $"Am reluat să {verb} {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" din seria '{bookSeriesName}'";
+            }
+
+            return text;
         }
 
         public string BuildBookStoppingLogText(PersonalLog log)
@@ -896,7 +978,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 verb = "asculta";
             }
 
-            return $"M-am oprit din a {verb} {bookType} '{log.Data["book_title"]}'";
+            string text = $"M-am oprit din a {verb} {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" din seria '{bookSeriesName}'";
+            }
+
+            return text;
         }
 
         public string BuildCalciumLevelMeasurementLogText(PersonalLog log)
@@ -1074,6 +1163,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "device_type",
                 new()
                 {
+                    { "Console", "consola" },
                     { "DesktopComputer", "calculatorul" },
                     { "FitnessTracker", "brățara de fitness" },
                     { "Headphones", "căștile" },
@@ -1098,6 +1188,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "device_type",
                 new()
                 {
+                    { "Console", "consola" },
                     { "DesktopComputer", "calculatorul" },
                     { "FitnessTracker", "brățara de fitness" },
                     { "Headphones", "căștile" },
@@ -1123,6 +1214,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "device_type",
                 new()
                 {
+                    { "Console", "consola" },
                     { "DesktopComputer", "calculatorul" },
                     { "FitnessTracker", "brățara de fitness" },
                     { "Headphones", "căștile" },
@@ -1180,6 +1272,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "device_type",
                 new()
                 {
+                    { "Console", "consola" },
                     { "FitnessTracker", "brățara de fitness" },
                     { "Headphones", "căștile" },
                     { "Laptop", "laptop-ul" },
@@ -1203,6 +1296,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "device_type",
                 new()
                 {
+                    { "Console", "consola" },
                     { "DesktopComputer", "calculatorul" },
                     { "FitnessTracker", "brățara de fitness" },
                     { "Headphones", "căștile" },
@@ -1733,6 +1827,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGarbageDisposalLogText(PersonalLog log)
+        {
+            string text = $"Am aruncat deșeurile";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" din {location}";
+            }
+
+            return text;
+        }
+
         public string BuildGettingInToBedLogText(PersonalLog log)
             => $"M-am pus în pat";
 
@@ -1949,6 +2055,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 {
                     { "Antibiotic", "antibiotice" },
                     { "Antiparasitic", "antiparazitice" },
+                    { "Anxiolytic", "anxiolitice" },
                     { "Vaccine", "vaccinuri" },
                     { "Painkiller", "antinevralgice" },
                     { "Supplement", "suplimente" }
@@ -1966,6 +2073,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 {
                     { "Antibiotic", "antibiotic" },
                     { "Antiparasitic", "antiparazitic" },
+                    { "Anxiolytic", "anxiolitic" },
                     { "Vaccine", "vaccin" },
                     { "Painkiller", "antinevralgic" },
                     { "Supplement", "supliment" }
@@ -2226,6 +2334,21 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildNailCuttingLogText(PersonalLog log)
+        {
+            string nailsType = GetMappedDataValue(
+                log.Data,
+                "nails_type",
+                new()
+                {
+                    { "Fingernails", "unghiile de la mâini" },
+                    { "Toenails", "unghiile de la picioare" }
+                },
+                "unghiile");
+
+            return $"Mi-am tăiat {nailsType}";
+        }
+
         public string BuildObjectSaleLogText(PersonalLog log)
         {
             string text = $"Am vândut {log.Data["object_name"]}";
@@ -2362,6 +2485,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 {
                     { "Antibiotic", "antibiotice" },
                     { "Antiparasitic", "antiparazitice" },
+                    { "Anxiolytic", "anxiolitice" },
                     { "Vaccine", "vaccinuri" },
                     { "Painkiller", "antinevralgice" },
                     { "Supplement", "suplimente" }
@@ -2379,6 +2503,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 {
                     { "Antibiotic", "antibiotic" },
                     { "Antiparasitic", "antiparazitic" },
+                    { "Anxiolytic", "anxiolitic" },
                     { "Vaccine", "vaccin" },
                     { "Painkiller", "antinevralgic" },
                     { "Supplement", "supliment" }
@@ -2752,7 +2877,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
             {
-                text += $" timp de {durationMinutes} minute";
+                text += $" timp de {durationMinutes} minut";
+
+                if (durationMinutes != "1")
+                {
+                    text += "e";
+                }
             }
 
             return text;
@@ -3060,7 +3190,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.TryGetValue("employer_name", out string employerName))
             {
-                text += $" la {employerName}";
+                text += $" de la {employerName}";
             }
 
             return text;

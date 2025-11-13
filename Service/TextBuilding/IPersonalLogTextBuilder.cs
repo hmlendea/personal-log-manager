@@ -51,12 +51,15 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildAccountVisibilityMadePrivateLogText(PersonalLog log);
         string BuildAccountVisibilityMadePublicLogText(PersonalLog log);
         string BuildAlkalinePhosphataseMeasurementLogText(PersonalLog log);
+        string BuildBedMakingLogText(PersonalLog log);
         string BuildBloodDonationLogText(PersonalLog log);
         string BuildBloodGlucoseMeasurementLogText(PersonalLog log);
         string BuildBloodPressureMeasurementLogText(PersonalLog log);
         string BuildBodyWaterRateMeasurementLogText(PersonalLog log);
         string BuildBodyWeightMeasurementLogText(PersonalLog log);
         string BuildBookBeginningLogText(PersonalLog log);
+        string BuildBookChapterBeginningLogText(PersonalLog log);
+        string BuildBookChapterCompletionLogText(PersonalLog log);
         string BuildBookCompletionLogText(PersonalLog log);
         string BuildBookResumingLogText(PersonalLog log);
         string BuildBookStoppingLogText(PersonalLog log);
@@ -98,6 +101,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildGameRankUpLogText(PersonalLog log);
         string BuildGameStartedPlayingLogText(PersonalLog log);
         string BuildGameLevelUpLogText(PersonalLog log);
+        string BuildGarbageDisposalLogText(PersonalLog log);
         string BuildGettingInToBedLogText(PersonalLog log);
         string BuildGettingOutOfBedLogText(PersonalLog log);
         string BuildGiftReceivalLogText(PersonalLog log);
@@ -127,6 +131,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildMicronationSettlementRankDowngradeLogText(PersonalLog log);
         string BuildMicronationSettlementRankUpgradeLogText(PersonalLog log);
         string BuildMovieWatchingLogText(PersonalLog log);
+        string BuildNailCuttingLogText(PersonalLog log);
         string BuildObjectSaleLogText(PersonalLog log);
         string BuildOnlineReviewSubmissionLogText(PersonalLog log);
         string BuildOnlineStorePurchaseLogText(PersonalLog log);

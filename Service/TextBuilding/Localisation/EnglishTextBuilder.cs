@@ -761,6 +761,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildAlkalinePhosphataseMeasurementLogText(PersonalLog log)
             => $"My alkaline phosphatase level measured {GetDecimalValue(log.Data, "alkaline_phosphatase_level")} {GetDataValue(log.Data, "unit", "U/L")}";
 
+        public string BuildBedMakingLogText(PersonalLog log)
+            => "I have made the bed";
+
         public string BuildBloodDonationLogText(PersonalLog log)
         {
             string text = $"I have donated blood";
@@ -819,7 +822,72 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 verb = "listening to";
             }
 
-            return $"I have started {verb} the {bookType} '{log.Data["book_title"]}'";
+            string text = $"I have started {verb} the {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" of the '{bookSeriesName}' series";
+            }
+
+            return text;
+        }
+
+        public string BuildBookChapterBeginningLogText(PersonalLog log)
+        {
+            string verb = "reading";
+            string bookType = GetMappedDataValue(
+                log.Data,
+                "book_type",
+                new()
+                {
+                    { "Book", "book" },
+                    { "ComicBook", "comic book" },
+                    { "Audiobook", "audiobook" },
+                },
+                "book");
+
+            if (bookType.Equals("audiobook"))
+            {
+                verb = "listening to";
+            }
+
+            string text = $"I have started {verb} chapter {log.Data["chapter_number"]} of the {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" of the '{bookSeriesName}' series";
+            }
+
+            return text;
+        }
+
+        public string BuildBookChapterCompletionLogText(PersonalLog log)
+        {
+            string verb = "reading";
+            string bookType = GetMappedDataValue(
+                log.Data,
+                "book_type",
+                new()
+                {
+                    { "Book", "book" },
+                    { "ComicBook", "comic book" },
+                    { "Audiobook", "audiobook" },
+                },
+                "book");
+
+            if (bookType.Equals("audiobook"))
+            {
+                verb = "listening to";
+            }
+
+            string text = $"I have finished {verb} chapter {log.Data["chapter_number"]} of the {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" of the '{bookSeriesName}' series";
+            }
+
+            return text;
         }
 
         public string BuildBookCompletionLogText(PersonalLog log)
@@ -841,7 +909,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 verb = "listening to";
             }
 
-            return $"I have finished {verb} the {bookType} '{log.Data["book_title"]}'";
+            string text = $"I have finished {verb} the {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" of the '{bookSeriesName}' series";
+            }
+
+            return text;
         }
 
         public string BuildBookResumingLogText(PersonalLog log)
@@ -863,7 +938,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 verb = "listening to";
             }
 
-            return $"I have resumed {verb} the {bookType} '{log.Data["book_title"]}'";
+            string text = $"I have resumed {verb} the {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" of the '{bookSeriesName}' series";
+            }
+
+            return text;
         }
 
         public string BuildBookStoppingLogText(PersonalLog log)
@@ -885,7 +967,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 verb = "listening to";
             }
 
-            return $"I have stopped {verb} the {bookType} '{log.Data["book_title"]}'";
+            string text = $"I have stopped {verb} the {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" of the '{bookSeriesName}' series";
+            }
+
+            return text;
         }
 
         public string BuildCalciumLevelMeasurementLogText(PersonalLog log)
@@ -1035,6 +1124,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "device_type",
                 new()
                 {
+                    { "Console", "console" },
                     { "DesktopComputer", "desktop computer" },
                     { "FitnessTracker", "fitness tracker" },
                     { "Headphones", "headphones" },
@@ -1058,6 +1148,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "device_type",
                 new()
                 {
+                    { "Console", "console" },
                     { "DesktopComputer", "desktop computer" },
                     { "FitnessTracker", "fitness tracker" },
                     { "Headphones", "headphones" },
@@ -1094,6 +1185,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "device_type",
                 new()
                 {
+                    { "Console", "console" },
                     { "DesktopComputer", "desktop computer" },
                     { "FitnessTracker", "fitness tracker" },
                     { "Headphones", "headphones" },
@@ -1133,6 +1225,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "device_type",
                 new()
                 {
+                    { "Console", "console" },
                     { "FitnessTracker", "fitness tracker" },
                     { "Headphones", "headphones" },
                     { "Laptop", "laptop" },
@@ -1167,6 +1260,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "device_type",
                 new()
                 {
+                    { "Console", "console" },
                     { "DesktopComputer", "desktop computer" },
                     { "FitnessTracker", "fitness tracker" },
                     { "Headphones", "headphones" },
@@ -1688,6 +1782,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGarbageDisposalLogText(PersonalLog log)
+        {
+            string text = $"I have taken out the garbage";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            return text;
+        }
+
         public string BuildGettingInToBedLogText(PersonalLog log)
             => $"I have gotten in to bed";
 
@@ -1906,6 +2012,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 {
                     { "Antibiotic", "antibiotic" },
                     { "Antiparasitic", "antiparasitic" },
+                    { "Anxiolytic", "anxiolytic" },
                     { "Vaccine", "vaccine" },
                     { "Painkiller", "painkiller" },
                     { "Supplement", "supplement" }
@@ -2166,6 +2273,21 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildNailCuttingLogText(PersonalLog log)
+        {
+            string nailsType = GetMappedDataValue(
+                log.Data,
+                "nails_type",
+                new()
+                {
+                    { "FingerNails", "finger nails" },
+                    { "ToeNails", "toe nails" }
+                },
+                "nails");
+
+            return $"I have cut my {nailsType}";
+        }
+
         public string BuildObjectSaleLogText(PersonalLog log)
         {
             string text = $"I have sold the {log.Data["object_name"]}";
@@ -2288,6 +2410,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 {
                     { "Antibiotic", "antibiotic" },
                     { "Antiparasitic", "antiparasitic" },
+                    { "Anxiolytic", "anxiolytic" },
                     { "Vaccine", "vaccine" },
                     { "Painkiller", "painkiller" },
                     { "Supplement", "supplement" }
