@@ -772,6 +772,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildAlkalinePhosphataseMeasurementLogText(PersonalLog log)
             => $"Nivelul de fosfatază alcalină a fost măsurat la {GetDecimalValue(log.Data, "alkaline_phosphatase_level")} {GetDataValue(log.Data, "unit", "U/L")}";
 
+        public string BuildBedMakingLogText(PersonalLog log)
+            => "Am făcut patul";
+
         public string BuildBloodDonationLogText(PersonalLog log)
         {
             string text = $"Am donat sânge";

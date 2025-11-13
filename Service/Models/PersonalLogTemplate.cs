@@ -50,6 +50,7 @@ namespace PersonalLogManager.Service.Models
         AccountVisibilityMadePrivate,
         AccountVisibilityMadePublic,
         AlkalinePhosphataseMeasurement,
+        BedMaking,
         BloodDonation,
         BloodGlucoseMeasurement,
         BloodPressureMeasurement,

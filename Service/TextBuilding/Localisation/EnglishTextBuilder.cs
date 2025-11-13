@@ -761,6 +761,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildAlkalinePhosphataseMeasurementLogText(PersonalLog log)
             => $"My alkaline phosphatase level measured {GetDecimalValue(log.Data, "alkaline_phosphatase_level")} {GetDataValue(log.Data, "unit", "U/L")}";
 
+        public string BuildBedMakingLogText(PersonalLog log)
+            => "I have made the bed";
+
         public string BuildBloodDonationLogText(PersonalLog log)
         {
             string text = $"I have donated blood";
