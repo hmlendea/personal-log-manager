@@ -1063,6 +1063,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "device_type",
                 new()
                 {
+                    { "Console", "console" },
                     { "DesktopComputer", "desktop computer" },
                     { "FitnessTracker", "fitness tracker" },
                     { "Headphones", "headphones" },
@@ -1086,6 +1087,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "device_type",
                 new()
                 {
+                    { "Console", "console" },
                     { "DesktopComputer", "desktop computer" },
                     { "FitnessTracker", "fitness tracker" },
                     { "Headphones", "headphones" },
@@ -1122,6 +1124,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "device_type",
                 new()
                 {
+                    { "Console", "console" },
                     { "DesktopComputer", "desktop computer" },
                     { "FitnessTracker", "fitness tracker" },
                     { "Headphones", "headphones" },
@@ -1195,6 +1198,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "device_type",
                 new()
                 {
+                    { "Console", "console" },
                     { "DesktopComputer", "desktop computer" },
                     { "FitnessTracker", "fitness tracker" },
                     { "Headphones", "headphones" },

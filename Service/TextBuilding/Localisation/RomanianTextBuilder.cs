@@ -1102,6 +1102,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "device_type",
                 new()
                 {
+                    { "Console", "consola" },
                     { "DesktopComputer", "calculatorul" },
                     { "FitnessTracker", "brățara de fitness" },
                     { "Headphones", "căștile" },
@@ -1126,6 +1127,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "device_type",
                 new()
                 {
+                    { "Console", "consola" },
                     { "DesktopComputer", "calculatorul" },
                     { "FitnessTracker", "brățara de fitness" },
                     { "Headphones", "căștile" },
@@ -1151,6 +1153,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "device_type",
                 new()
                 {
+                    { "Console", "consola" },
                     { "DesktopComputer", "calculatorul" },
                     { "FitnessTracker", "brățara de fitness" },
                     { "Headphones", "căștile" },
@@ -1208,6 +1211,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "device_type",
                 new()
                 {
+                    { "Console", "consola" },
                     { "FitnessTracker", "brățara de fitness" },
                     { "Headphones", "căștile" },
                     { "Laptop", "laptop-ul" },
@@ -1231,6 +1235,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "device_type",
                 new()
                 {
+                    { "Console", "consola" },
                     { "DesktopComputer", "calculatorul" },
                     { "FitnessTracker", "brățara de fitness" },
                     { "Headphones", "căștile" },
