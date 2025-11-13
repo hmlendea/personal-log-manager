@@ -829,6 +829,64 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildBookChapterBeginningLogText(PersonalLog log)
+        {
+            string verb = "reading";
+            string bookType = GetMappedDataValue(
+                log.Data,
+                "book_type",
+                new()
+                {
+                    { "Book", "book" },
+                    { "ComicBook", "comic book" },
+                    { "Audiobook", "audiobook" },
+                },
+                "book");
+
+            if (bookType.Equals("audiobook"))
+            {
+                verb = "listening to";
+            }
+
+            string text = $"I have started {verb} chapter {log.Data["chapter_number"]} of the {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" of the '{bookSeriesName}' series";
+            }
+
+            return text;
+        }
+
+        public string BuildBookChapterCompletionLogText(PersonalLog log)
+        {
+            string verb = "reading";
+            string bookType = GetMappedDataValue(
+                log.Data,
+                "book_type",
+                new()
+                {
+                    { "Book", "book" },
+                    { "ComicBook", "comic book" },
+                    { "Audiobook", "audiobook" },
+                },
+                "book");
+
+            if (bookType.Equals("audiobook"))
+            {
+                verb = "listening to";
+            }
+
+            string text = $"I have finished {verb} chapter {log.Data["chapter_number"]} of the {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" of the '{bookSeriesName}' series";
+            }
+
+            return text;
+        }
+
         public string BuildBookCompletionLogText(PersonalLog log)
         {
             string verb = "reading";
@@ -1164,6 +1222,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "device_type",
                 new()
                 {
+                    { "Console", "console" },
                     { "FitnessTracker", "fitness tracker" },
                     { "Headphones", "headphones" },
                     { "Laptop", "laptop" },

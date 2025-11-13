@@ -56,6 +56,8 @@ namespace PersonalLogManager.Service.Models
         BodyWaterRateMeasurement,
         BodyWeightMeasurement,
         BookBeginning,
+        BookChapterBeginning,
+        BookChapterCompletion,
         BookCompletion,
         BookResuming,
         BookStopping,

@@ -57,6 +57,8 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildBodyWaterRateMeasurementLogText(PersonalLog log);
         string BuildBodyWeightMeasurementLogText(PersonalLog log);
         string BuildBookBeginningLogText(PersonalLog log);
+        string BuildBookChapterBeginningLogText(PersonalLog log);
+        string BuildBookChapterCompletionLogText(PersonalLog log);
         string BuildBookCompletionLogText(PersonalLog log);
         string BuildBookResumingLogText(PersonalLog log);
         string BuildBookStoppingLogText(PersonalLog log);

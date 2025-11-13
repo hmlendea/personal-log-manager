@@ -840,6 +840,64 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildBookChapterBeginningLogText(PersonalLog log)
+        {
+            string verb = "citesc";
+            string bookType = GetMappedDataValue(
+                log.Data,
+                "book_type",
+                new()
+                {
+                    { "Book", "cartea" },
+                    { "ComicBook", "benzile desenate" },
+                    { "Audiobook", "cartea audio" },
+                },
+                "cartea");
+
+            if (bookType.Equals("cartea audio"))
+            {
+                verb = "ascult";
+            }
+
+            string text = $"Am început să {verb} capitolul {log.Data["chapter_number"]} din {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" din seria '{bookSeriesName}'";
+            }
+
+            return text;
+        }
+
+        public string BuildBookChapterCompletionLogText(PersonalLog log)
+        {
+            string verb = "citit";
+            string bookType = GetMappedDataValue(
+                log.Data,
+                "book_type",
+                new()
+                {
+                    { "Book", "cartea" },
+                    { "ComicBook", "benzile desenate" },
+                    { "Audiobook", "cartea audio" },
+                },
+                "cartea");
+
+            if (bookType.Equals("cartea audio"))
+            {
+                verb = "ascultat";
+            }
+
+            string text = $"Am terminat de {verb} capitolul {log.Data["chapter_number"]} din {bookType} '{log.Data["book_title"]}'";
+
+            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            {
+                text += $" din seria '{bookSeriesName}'";
+            }
+
+            return text;
+        }
+
         public string BuildBookCompletionLogText(PersonalLog log)
         {
             string verb = "citit";
