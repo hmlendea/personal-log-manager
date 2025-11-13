@@ -99,6 +99,7 @@ namespace PersonalLogManager.Service.Models
         GameRankUp,
         GameStartedPlaying,
         GameLevelUp,
+        GarbageDisposal,
         GettingInToBed,
         GettingOutOfBed,
         GiftReceival,

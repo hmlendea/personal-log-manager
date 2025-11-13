@@ -1779,6 +1779,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGarbageDisposalLogText(PersonalLog log)
+        {
+            string text = $"I have taken out the garbage";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            return text;
+        }
+
         public string BuildGettingInToBedLogText(PersonalLog log)
             => $"I have gotten in to bed";
 

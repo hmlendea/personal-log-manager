@@ -100,6 +100,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildGameRankUpLogText(PersonalLog log);
         string BuildGameStartedPlayingLogText(PersonalLog log);
         string BuildGameLevelUpLogText(PersonalLog log);
+        string BuildGarbageDisposalLogText(PersonalLog log);
         string BuildGettingInToBedLogText(PersonalLog log);
         string BuildGettingOutOfBedLogText(PersonalLog log);
         string BuildGiftReceivalLogText(PersonalLog log);

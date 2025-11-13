@@ -1824,6 +1824,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGarbageDisposalLogText(PersonalLog log)
+        {
+            string text = $"Am aruncat deșeurile";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" din {location}";
+            }
+
+            return text;
+        }
+
         public string BuildGettingInToBedLogText(PersonalLog log)
             => $"M-am pus în pat";
 
