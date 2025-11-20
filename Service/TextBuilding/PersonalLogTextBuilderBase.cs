@@ -178,5 +178,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
             return mappedValue;
         }
+
+        protected abstract string GetDeviceType(Dictionary<string, string> data);
     }
 }

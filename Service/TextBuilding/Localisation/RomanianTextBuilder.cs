@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using PersonalLogManager.Service.Models;
 
 namespace PersonalLogManager.Service.TextBuilding.Localisation
@@ -1157,82 +1158,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildDeviceBatteryHealthLogText(PersonalLog log)
-        {
-            string deviceType = GetMappedDataValue(
-                log.Data,
-                "device_type",
-                new()
-                {
-                    { "Console", "consola" },
-                    { "DesktopComputer", "calculatorul" },
-                    { "FitnessTracker", "brățara de fitness" },
-                    { "Headphones", "căștile" },
-                    { "Laptop", "laptop-ul" },
-                    { "Phone", "telefonul" },
-                    { "Scale", "cântarul" },
-                    { "Scooter", "trotineta" },
-                    { "Tablet", "tableta" },
-                    { "Toothbrush", "periuța de dinți" },
-                    { "VacuumCleaner", "aspiratorul" },
-                    { "Watch", "ceasul" },
-                    { "WaterFlosser", "irigatorul bucal" },
-                },
-                "dispozitivul");
-
-            return $"Sănătatea bateriei din {deviceType} {log.Data["device_name"]} a fost {log.Data["battery_health_percentage"]}%";
-        }
+            => $"Sănătatea bateriei din {GetDeviceType(log.Data)} {log.Data["device_name"]} a fost {log.Data["battery_health_percentage"]}%";
 
         public string BuildDeviceBatteryLevelLogText(PersonalLog log)
-        {
-            string deviceType = GetMappedDataValue(
-                log.Data,
-                "device_type",
-                new()
-                {
-                    { "Console", "consola" },
-                    { "DesktopComputer", "calculatorul" },
-                    { "FitnessTracker", "brățara de fitness" },
-                    { "Headphones", "căștile" },
-                    { "Laptop", "laptop-ul" },
-                    { "Phone", "telefonul" },
-                    { "Scale", "cântarul" },
-                    { "Scooter", "trotineta" },
-                    { "Tablet", "tableta" },
-                    { "Toothbrush", "periuța de dinți" },
-                    { "VacuumCleaner", "aspiratorul" },
-                    { "Watch", "ceasul" },
-                    { "WaterFlosser", "irigatorul bucal" },
-                },
-                log.Data["device_type"]
-            );
-
-            return $"Nivelul bateriei din {deviceType} {log.Data["device_name"]} a fost la {log.Data["battery_level_percentage"]}%";
-        }
+            => $"Nivelul bateriei din {GetDeviceType(log.Data)} {log.Data["device_name"]} a fost la {log.Data["battery_level_percentage"]}%";
 
         public string BuildDeviceBreakingLogText(PersonalLog log)
         {
-            string deviceType = GetMappedDataValue(
-                log.Data,
-                "device_type",
-                new()
-                {
-                    { "Console", "consola" },
-                    { "DesktopComputer", "calculatorul" },
-                    { "FitnessTracker", "brățara de fitness" },
-                    { "Headphones", "căștile" },
-                    { "Laptop", "laptop-ul" },
-                    { "Phone", "telefonul" },
-                    { "Scale", "cântarul" },
-                    { "Scooter", "trotineta" },
-                    { "Tablet", "tableta" },
-                    { "Toothbrush", "periuța de dinți" },
-                    { "VacuumCleaner", "aspiratorul" },
-                    { "Watch", "ceasul" },
-                    { "WaterFlosser", "irigatorul bucal" },
-                },
-                log.Data["device_type"]
-            );
-
+            string deviceType = GetDeviceType(log.Data);
             string text = $"S-a";
 
             if (deviceType.EndsWith('e'))
@@ -1269,54 +1202,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildDeviceChargingLogText(PersonalLog log)
-        {
-            string deviceType = GetMappedDataValue(
-                log.Data,
-                "device_type",
-                new()
-                {
-                    { "Console", "consola" },
-                    { "FitnessTracker", "brățara de fitness" },
-                    { "Headphones", "căștile" },
-                    { "Laptop", "laptop-ul" },
-                    { "Phone", "telefonul" },
-                    { "Scooter", "trotineta" },
-                    { "Tablet", "tableta" },
-                    { "Toothbrush", "periuța de dinți" },
-                    { "VacuumCleaner", "aspiratorul" },
-                    { "Watch", "ceasul" },
-                    { "WaterFlosser", "irigatorul bucal" },
-                },
-                log.Data["device_type"]
-            );
-
-            return $"Am pus la încărcat {deviceType} {log.Data["device_name"]}";
-        }
+            => $"Am pus la încărcat {GetDeviceType(log.Data)} {log.Data["device_name"]}";
 
         public string BuildDeviceRepairLogText(PersonalLog log)
         {
-            string deviceType = GetMappedDataValue(
-                log.Data,
-                "device_type",
-                new()
-                {
-                    { "Console", "consola" },
-                    { "DesktopComputer", "calculatorul" },
-                    { "FitnessTracker", "brățara de fitness" },
-                    { "Headphones", "căștile" },
-                    { "Laptop", "laptop-ul" },
-                    { "Phone", "telefonul" },
-                    { "Scale", "cântarul" },
-                    { "Scooter", "trotineta" },
-                    { "Tablet", "tableta" },
-                    { "Toothbrush", "periuța de dinți" },
-                    { "VacuumCleaner", "aspiratorul" },
-                    { "Watch", "ceasul" },
-                    { "WaterFlosser", "irigatorul bucal" },
-                },
-                log.Data["device_type"]
-            );
-
+            string deviceType = GetDeviceType(log.Data);
             string text = $"Am";
 
             text += $" reparat {deviceType} {log.Data["device_name"]}";
@@ -2339,7 +2229,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
-        public string BuildSeriesEpisodeCompletionLogText(PersonalLog log)
+        public string BuildMovieCompletionLogText(PersonalLog log)
         {
             string text = $"Am terminat de vizionat filmul {log.Data["movie_name"]}";
 
@@ -3183,7 +3073,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 text += $" cu numărul de înmatriculare '{vehicleRegistrationNumber}'";
             }
-            
+
             return $"{text} a fost măsurată la {GetDataValue(log.Data, "distance")} {GetDataValue(log.Data, "unit", "km")}";
         }
 
@@ -3299,5 +3189,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildWorkTimesheetSubmissionLogText(PersonalLog log)
             => $"Am trimis pontajul pentru {GetDataValue(log.Data, "employer_name")}";
+
+        protected override string GetDeviceType(Dictionary<string, string> data)
+            => GetMappedDataValue(data, "device_type", new()
+                {
+                    { "Console", "consola" },
+                    { "FitnessTracker", "brățara de fitness" },
+                    { "Headphones", "căștile" },
+                    { "Laptop", "laptop-ul" },
+                    { "Phone", "telefonul" },
+                    { "Scooter", "trotineta" },
+                    { "Tablet", "tableta" },
+                    { "Toothbrush", "periuța de dinți" },
+                    { "VacuumCleaner", "aspiratorul" },
+                    { "Watch", "ceasul" },
+                    { "WaterFlosser", "irigatorul bucal" },
+                },
+                data["device_type"].ToLower()
+            );
     }
 }
