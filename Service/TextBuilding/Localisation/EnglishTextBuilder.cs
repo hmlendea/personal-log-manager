@@ -2255,6 +2255,52 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return $"I have upgraded the {oldRank} {log.Data["settlement_name"]} in the micronation of {log.Data["micronation_name"]} to the rank of {newRank}";
         }
 
+        public string BuildMovieBeginningLogText(PersonalLog log)
+        {
+            string text = $"I have begun watching the movie {log.Data["episode_number"]}";
+
+            if (log.Data.ContainsKey("platform"))
+            {
+                text += $" on {GetPlatform(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", at {location}";
+            }
+
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
+            {
+                text += $", together with {watchedWith}";
+            }
+
+            return text;
+        }
+
+        public string BuildMovieCompletionLogText(PersonalLog log)
+        {
+            string text = $"I have finished watching the movie {log.Data["episode_number"]}";
+
+            if (log.Data.ContainsKey("platform"))
+            {
+                text += $" on {GetPlatform(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", at {location}";
+            }
+
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
+            {
+                text += $", together with {watchedWith}";
+            }
+
+            return text;
+        }
+
         public string BuildMovieWatchingLogText(PersonalLog log)
         {
             string text = $"I have watched the movie '{log.Data["movie_name"]}'";
@@ -2266,7 +2312,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.TryGetValue("location", out string location))
             {
-                text += $" at {location}";
+                text += $", at {location}";
             }
 
             string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");

@@ -129,6 +129,8 @@ namespace PersonalLogManager.Service.Models
         MicronationSettlementFounding,
         MicronationSettlementRankDowngrade,
         MicronationSettlementRankUpgrade,
+        MovieBeginning,
+        MovieCompletion,
         MovieWatching,
         NailCutting,
         ObjectSale,
