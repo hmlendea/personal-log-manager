@@ -3095,5 +3095,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             return text;
         }
+
+        public string BuildWorkTimesheetSubmissionLogText(PersonalLog log)
+            => $"I have submitted my {GetDataValue(log.Data, "employer_name")} timesheets";
     }
 }

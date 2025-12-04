@@ -3200,5 +3200,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             return text;
         }
+
+        public string BuildWorkTimesheetSubmissionLogText(PersonalLog log)
+            => $"Am trimis pontajul pentru {GetDataValue(log.Data, "employer_name")}";
     }
 }

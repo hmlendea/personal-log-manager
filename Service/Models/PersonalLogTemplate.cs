@@ -170,6 +170,7 @@ namespace PersonalLogManager.Service.Models
         WaterDrinking,
         WeddingAttendance,
         WorkFromTheOffice,
-        WorkMandatoryCourseCompletion
+        WorkMandatoryCourseCompletion,
+        WorkTimesheetSubmission
     }
 }
