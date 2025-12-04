@@ -3137,6 +3137,56 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildVehicleMileageMeasurementLogText(PersonalLog log)
+        {
+            string text = $"Distanța totală parcursă de";
+            string vehicleType;
+
+            if (IsDataValuePresent(log.Data, "vehicle_model") ||
+                IsDataValuePresent(log.Data, "vehicle_name") ||
+                IsDataValuePresent(log.Data, "vehicle_registration_number"))
+            {
+                vehicleType = GetMappedDataValue(
+                    log.Data,
+                    "vehicle_type",
+                    new()
+                    {
+                        { "Car", "mașina" },
+                        { "ElectricScooter", "trotineta eletrică" }
+                    },
+                    "vehiculul");
+            }
+            else
+            {
+                vehicleType = GetMappedDataValue(
+                    log.Data,
+                    "vehicle_type",
+                    new()
+                    {
+                        { "Car", "mașină" },
+                        { "ElectricScooter", "trotineta eletrică" }
+                    },
+                    "vehicul");
+            }
+
+            if (log.Data.TryGetValue("vehicle_name", out string vehicleName))
+            {
+                text += $" '{vehicleName}'";
+            }
+
+            if (log.Data.TryGetValue("vehicle_model", out string vehicleModel))
+            {
+                text += $" {vehicleModel}";
+            }
+
+            if (log.Data.TryGetValue("vehicle_registration_number", out string vehicleRegistrationNumber))
+            {
+                text += $" cu numărul de înmatriculare '{vehicleRegistrationNumber}'";
+            }
+            
+            return $"{text} a fost măsurată la {GetDataValue(log.Data, "distance")} {GetDataValue(log.Data, "unit", "km")}";
+        }
+
         public string BuildVideoUploadLogText(PersonalLog log)
         {
             string text = $"Am publicat un video";

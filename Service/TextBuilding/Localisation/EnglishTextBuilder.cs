@@ -792,8 +792,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildBodyWeightMeasurementLogText(PersonalLog log)
         {
-            string unit = GetDataValue(log.Data, "unit", "kg");
-            string text = $"My body weight measured {log.Data["body_weight"]} {unit}";
+            string text = $"My body weight measured {GetDataValue(log.Data, "body_weight")} {GetDataValue(log.Data, "unit", "kg")}";
 
             if (log.Data.TryGetValue("scale_name", out string scaleName))
             {
@@ -3032,6 +3031,39 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
 
             return text;
+        }
+
+        public string BuildVehicleMileageMeasurementLogText(PersonalLog log)
+        {
+            string text = $"The total mileage of the";
+            string vehicleType;
+
+            if (log.Data.TryGetValue("vehicle_model", out string vehicleModel))
+            {
+                text += $" {vehicleModel}";
+            }
+
+            vehicleType = GetMappedDataValue(
+                log.Data,
+                "vehicle_type",
+                new()
+                {
+                    { "Car", "car" },
+                    { "ElectricScooter", "electric scooter" }
+                },
+                "vehicle");
+
+            if (log.Data.TryGetValue("vehicle_name", out string vehicleName))
+            {
+                text += $" '{vehicleName}'";
+            }
+
+            if (log.Data.TryGetValue("vehicle_registration_number", out string vehicleRegistrationNumber))
+            {
+                text += $" with the '{vehicleRegistrationNumber}' registration number";
+            }
+            
+            return $"{text} was measured at {GetDataValue(log.Data, "distance")} {GetDataValue(log.Data, "unit", "km")}";
         }
 
         public string BuildVideoUploadLogText(PersonalLog log)
