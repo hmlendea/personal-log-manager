@@ -2952,6 +2952,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 "vehicle");
 
+            text += $" {vehicleType}";
+
             if (log.Data.TryGetValue("vehicle_name", out string vehicleName))
             {
                 text += $" '{vehicleName}'";
@@ -3072,6 +3074,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             return text;
         }
+
+        public string BuildWorkOnCallBeginning(PersonalLog log)
+            => $"My on-call work shift for {GetDataValue(log.Data, "employer_name")} has begun";
+
+        public string BuildWorkOnCallEnding(PersonalLog log)
+            => $"My on-call work shift for {GetDataValue(log.Data, "employer_name")} has ended";
 
         public string BuildWorkTimesheetSubmissionLogText(PersonalLog log)
             => $"I have submitted my {GetDataValue(log.Data, "employer_name")} timesheets";

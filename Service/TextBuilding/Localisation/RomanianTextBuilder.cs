@@ -3057,6 +3057,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     "vehicul");
             }
 
+            text += $" {vehicleType}";
+
             if (log.Data.TryGetValue("vehicle_name", out string vehicleName))
             {
                 text += $" '{vehicleName}'";
@@ -3184,6 +3186,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             return text;
         }
+
+        public string BuildWorkOnCallBeginning(PersonalLog log)
+            => $"Tura mea de gardă pentru {GetDataValue(log.Data, "employer_name")} a început";
+
+        public string BuildWorkOnCallEnding(PersonalLog log)
+            => $"Tura mea de gardă pentru {GetDataValue(log.Data, "employer_name")} s-a terminat";
 
         public string BuildWorkTimesheetSubmissionLogText(PersonalLog log)
             => $"Am trimis pontajul pentru {GetDataValue(log.Data, "employer_name")}";
