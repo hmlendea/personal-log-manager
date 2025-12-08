@@ -2421,6 +2421,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildRestaurantVisitLogText(PersonalLog log)
+        {
+            string text = $"I have been to the restaurant at";
+
+            if (log.Data.TryGetValue("restaurant_name", out string restaurantName))
+            {
+                text += $" at {restaurantName}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", in {location}";
+            }
+
+            if (log.Data.TryGetValue("together_with", out string togetherWih))
+            {
+                text += $", together with {togetherWih}";
+            }
+
+            return text;
+        }
+
         public string BuildSaunaSessionLogText(PersonalLog log)
         {
             string text = $"I have been to the sauna";

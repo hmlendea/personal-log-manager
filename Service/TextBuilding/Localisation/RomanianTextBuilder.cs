@@ -2500,6 +2500,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildRestaurantVisitLogText(PersonalLog log)
+        {
+            string text = $"Am fost la restaurant";
+
+            if (log.Data.TryGetValue("restaurant_name", out string restaurantName))
+            {
+                text += $" la {restaurantName}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", în {location}";
+            }
+
+            if (log.Data.TryGetValue("together_with", out string togetherWih))
+            {
+                text += $", împreună cu {togetherWih}";
+            }
+
+            return text;
+        }
+
         public string BuildSaunaSessionLogText(PersonalLog log)
         {
             string text = $"Am fost la saună";
