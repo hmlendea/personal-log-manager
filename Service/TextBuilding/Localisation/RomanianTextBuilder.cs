@@ -3187,10 +3187,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
-        public string BuildWorkOnCallBeginning(PersonalLog log)
+        public string BuildWorkOnCallShiftBeginning(PersonalLog log)
             => $"Tura mea de gardă pentru {GetDataValue(log.Data, "employer_name")} a început";
 
-        public string BuildWorkOnCallEnding(PersonalLog log)
+        public string BuildWorkOnCallShiftEnding(PersonalLog log)
             => $"Tura mea de gardă pentru {GetDataValue(log.Data, "employer_name")} s-a terminat";
 
         public string BuildWorkTimesheetSubmissionLogText(PersonalLog log)

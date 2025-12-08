@@ -3075,10 +3075,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
-        public string BuildWorkOnCallBeginning(PersonalLog log)
+        public string BuildWorkOnCallShiftBeginning(PersonalLog log)
             => $"My on-call work shift for {GetDataValue(log.Data, "employer_name")} has begun";
 
-        public string BuildWorkOnCallEnding(PersonalLog log)
+        public string BuildWorkOnCallShiftEnding(PersonalLog log)
             => $"My on-call work shift for {GetDataValue(log.Data, "employer_name")} has ended";
 
         public string BuildWorkTimesheetSubmissionLogText(PersonalLog log)

@@ -174,6 +174,8 @@ namespace PersonalLogManager.Service.Models
         WeddingAttendance,
         WorkFromTheOffice,
         WorkMandatoryCourseCompletion,
+        WorkOnCallShiftBeginning,
+        WorkOnCallShiftEnding,
         WorkTimesheetSubmission
     }
 }
