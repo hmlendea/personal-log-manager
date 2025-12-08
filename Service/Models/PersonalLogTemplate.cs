@@ -129,6 +129,8 @@ namespace PersonalLogManager.Service.Models
         MicronationSettlementFounding,
         MicronationSettlementRankDowngrade,
         MicronationSettlementRankUpgrade,
+        MovieBeginning,
+        MovieCompletion,
         MovieWatching,
         NailCutting,
         ObjectSale,
@@ -144,6 +146,7 @@ namespace PersonalLogManager.Service.Models
         PetWeightMeasurement,
         PhysiotherapySession,
         PsychotherapySession,
+        RestaurantVisit,
         SaunaSession,
         SeriesBeginning,
         SeriesCompletion,
@@ -164,12 +167,16 @@ namespace PersonalLogManager.Service.Models
         TreePlanting,
         UtilityBillPayment,
         UtilityIndexMeasurement,
+        VehicleMileageMeasurement,
         VideoUpload,
         VideoWatching,
         WakingUp,
         WaterDrinking,
         WeddingAttendance,
         WorkFromTheOffice,
-        WorkMandatoryCourseCompletion
+        WorkMandatoryCourseCompletion,
+        WorkOnCallShiftBeginning,
+        WorkOnCallShiftEnding,
+        WorkTimesheetSubmission
     }
 }

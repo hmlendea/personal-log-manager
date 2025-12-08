@@ -135,6 +135,9 @@ namespace PersonalLogManager.Service.TextBuilding
             return false;
         }
 
+        public bool IsDataValuePresent(Dictionary<string, string> data, string key)
+            => data.ContainsKey(key);
+
         public string GetMappedDataValue(Dictionary<string, string> data, string key, Dictionary<string, string> mappings)
         {
             string mapKey = GetDataValue(data, key);
@@ -175,5 +178,7 @@ namespace PersonalLogManager.Service.TextBuilding
 
             return mappedValue;
         }
+
+        protected abstract string GetDeviceType(Dictionary<string, string> data);
     }
 }

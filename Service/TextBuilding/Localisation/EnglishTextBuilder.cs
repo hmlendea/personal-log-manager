@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using PersonalLogManager.Service.Models;
 
 namespace PersonalLogManager.Service.TextBuilding.Localisation
@@ -82,9 +83,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $", made on {requestDate},";
             }
 
-            text += " has been fulfilled";
-
-            return text;
+            return $"{text} has been fulfilled";
         }
 
         public string BuildAccountDataExportSaveLogText(PersonalLog log)
@@ -792,8 +791,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildBodyWeightMeasurementLogText(PersonalLog log)
         {
-            string unit = GetDataValue(log.Data, "unit", "kg");
-            string text = $"My body weight measured {log.Data["body_weight"]} {unit}";
+            string text = $"My body weight measured {GetDataValue(log.Data, "body_weight")} {GetDataValue(log.Data, "unit", "kg")}";
 
             if (log.Data.TryGetValue("scale_name", out string scaleName))
             {
@@ -1118,52 +1116,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildDeviceBatteryHealthLogText(PersonalLog log)
-        {
-            string deviceType = GetMappedDataValue(
-                log.Data,
-                "device_type",
-                new()
-                {
-                    { "Console", "console" },
-                    { "DesktopComputer", "desktop computer" },
-                    { "FitnessTracker", "fitness tracker" },
-                    { "Headphones", "headphones" },
-                    { "Laptop", "laptop" },
-                    { "Phone", "phone" },
-                    { "Scale", "scale" },
-                    { "Scooter", "scooter" },
-                    { "Tablet", "tablet" },
-                    { "VacuumCleaner", "vacuum cleaner" },
-                    { "Watch", "watch" },
-                    { "WaterFlosser", "water flosser" },
-                });
-
-            return $"The battery health of my {log.Data["device_name"]} {deviceType} was at {log.Data["battery_health_percentage"]}%";
-        }
+            => $"The battery health of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)} was at {log.Data["battery_health_percentage"]}%";
 
         public string BuildDeviceBatteryLevelLogText(PersonalLog log)
-        {
-            string deviceType = GetMappedDataValue(
-                log.Data,
-                "device_type",
-                new()
-                {
-                    { "Console", "console" },
-                    { "DesktopComputer", "desktop computer" },
-                    { "FitnessTracker", "fitness tracker" },
-                    { "Headphones", "headphones" },
-                    { "Laptop", "laptop" },
-                    { "Phone", "phone" },
-                    { "Scale", "scale" },
-                    { "Scooter", "scooter" },
-                    { "Tablet", "tablet" },
-                    { "VacuumCleaner", "vacuum cleaner" },
-                    { "Watch", "watch" },
-                    { "WaterFlosser", "water flosser" },
-                });
-
-            return $"The battery level of my {log.Data["device_name"]} {deviceType} was at {log.Data["battery_level_percentage"]}%";
-        }
+            => $"The battery level of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)} was at {log.Data["battery_level_percentage"]}%";
 
         public string BuildDeviceBreakingLogText(PersonalLog log)
         {
@@ -1180,24 +1136,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             text += $" {log.Data["device_name"]}";
 
-            string deviceType = GetMappedDataValue(
-                log.Data,
-                "device_type",
-                new()
-                {
-                    { "Console", "console" },
-                    { "DesktopComputer", "desktop computer" },
-                    { "FitnessTracker", "fitness tracker" },
-                    { "Headphones", "headphones" },
-                    { "Laptop", "laptop" },
-                    { "Phone", "phone" },
-                    { "Scale", "scale" },
-                    { "Scooter", "scooter" },
-                    { "Tablet", "tablet" },
-                    { "VacuumCleaner", "vacuum cleaner" },
-                    { "Watch", "watch" },
-                    { "WaterFlosser", "water flosser" },
-                });
+            string deviceType = GetDeviceType(log.Data);
 
             text += $" {deviceType}";
 
@@ -1219,26 +1158,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildDeviceChargingLogText(PersonalLog log)
-        {
-            string deviceType = GetMappedDataValue(
-                log.Data,
-                "device_type",
-                new()
-                {
-                    { "Console", "console" },
-                    { "FitnessTracker", "fitness tracker" },
-                    { "Headphones", "headphones" },
-                    { "Laptop", "laptop" },
-                    { "Phone", "phone" },
-                    { "Scooter", "scooter" },
-                    { "Tablet", "tablet" },
-                    { "VacuumCleaner", "vacuum cleaner" },
-                    { "Watch", "watch" },
-                    { "WaterFlosser", "water flosser" },
-                });
-
-            return $"I have charged my {log.Data["device_name"]} {deviceType}";
-        }
+            => $"I have charged my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
 
         public string BuildDeviceRepairLogText(PersonalLog log)
         {
@@ -1255,24 +1175,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             text += $" {log.Data["device_name"]}";
 
-            string deviceType = GetMappedDataValue(
-                log.Data,
-                "device_type",
-                new()
-                {
-                    { "Console", "console" },
-                    { "DesktopComputer", "desktop computer" },
-                    { "FitnessTracker", "fitness tracker" },
-                    { "Headphones", "headphones" },
-                    { "Laptop", "laptop" },
-                    { "Phone", "phone" },
-                    { "Scale", "scale" },
-                    { "Scooter", "scooter" },
-                    { "Tablet", "tablet" },
-                    { "VacuumCleaner", "vacuum cleaner" },
-                    { "Watch", "watch" },
-                    { "WaterFlosser", "water flosser" },
-                });
+            string deviceType = GetDeviceType(log.Data);
 
             text += $" {deviceType}";
 
@@ -2250,6 +2153,52 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return $"I have upgraded the {oldRank} {log.Data["settlement_name"]} in the micronation of {log.Data["micronation_name"]} to the rank of {newRank}";
         }
 
+        public string BuildMovieBeginningLogText(PersonalLog log)
+        {
+            string text = $"I have begun watching the movie {log.Data["episode_number"]}";
+
+            if (log.Data.ContainsKey("platform"))
+            {
+                text += $" on {GetPlatform(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", at {location}";
+            }
+
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
+            {
+                text += $", together with {watchedWith}";
+            }
+
+            return text;
+        }
+
+        public string BuildMovieCompletionLogText(PersonalLog log)
+        {
+            string text = $"I have finished watching the movie {log.Data["episode_number"]}";
+
+            if (log.Data.ContainsKey("platform"))
+            {
+                text += $" on {GetPlatform(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", at {location}";
+            }
+
+            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
+            if (!string.IsNullOrWhiteSpace(watchedWith))
+            {
+                text += $", together with {watchedWith}";
+            }
+
+            return text;
+        }
+
         public string BuildMovieWatchingLogText(PersonalLog log)
         {
             string text = $"I have watched the movie '{log.Data["movie_name"]}'";
@@ -2261,7 +2210,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.TryGetValue("location", out string location))
             {
-                text += $" at {location}";
+                text += $", at {location}";
             }
 
             string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
@@ -2467,6 +2416,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("therapist_name", out string therapistName))
             {
                 text += $", by {therapistName}";
+            }
+
+            return text;
+        }
+
+        public string BuildRestaurantVisitLogText(PersonalLog log)
+        {
+            string text = $"I have been to the restaurant at";
+
+            if (log.Data.TryGetValue("restaurant_name", out string restaurantName))
+            {
+                text += $" at {restaurantName}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", in {location}";
+            }
+
+            if (log.Data.TryGetValue("together_with", out string togetherWih))
+            {
+                text += $", together with {togetherWih}";
             }
 
             return text;
@@ -2724,6 +2695,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "GenitalHair", "pubic hair" },
                     { "HeadHair", "head" },
                     { "Mustache", "mustache" },
+                    { "NoseHair", "nose hair" },
                     { "Sideburns", "sideburns" },
                     { "UnderarmHair", "underarm hair" },
                     { "Unibrow", "unibrow" }
@@ -2983,6 +2955,41 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildVehicleMileageMeasurementLogText(PersonalLog log)
+        {
+            string text = $"The total mileage of the";
+            string vehicleType;
+
+            if (log.Data.TryGetValue("vehicle_model", out string vehicleModel))
+            {
+                text += $" {vehicleModel}";
+            }
+
+            vehicleType = GetMappedDataValue(
+                log.Data,
+                "vehicle_type",
+                new()
+                {
+                    { "Car", "car" },
+                    { "ElectricScooter", "electric scooter" }
+                },
+                "vehicle");
+
+            text += $" {vehicleType}";
+
+            if (log.Data.TryGetValue("vehicle_name", out string vehicleName))
+            {
+                text += $" '{vehicleName}'";
+            }
+
+            if (log.Data.TryGetValue("vehicle_registration_number", out string vehicleRegistrationNumber))
+            {
+                text += $" with the '{vehicleRegistrationNumber}' registration number";
+            }
+
+            return $"{text} was measured at {GetDataValue(log.Data, "distance")} {GetDataValue(log.Data, "unit", "km")}";
+        }
+
         public string BuildVideoUploadLogText(PersonalLog log)
         {
             string text = $"I have uploaded a video titled '{log.Data["video_title"]}' to {GetPlatform(log.Data)}";
@@ -3090,5 +3097,35 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             return text;
         }
+
+        public string BuildWorkOnCallShiftBeginningLogText(PersonalLog log)
+            => $"My on-call work shift for {GetDataValue(log.Data, "employer_name")} has begun";
+
+        public string BuildWorkOnCallShiftEndingLogText(PersonalLog log)
+            => $"My on-call work shift for {GetDataValue(log.Data, "employer_name")} has ended";
+
+        public string BuildWorkTimesheetSubmissionLogText(PersonalLog log)
+            => $"I have submitted my {GetDataValue(log.Data, "employer_name")} timesheets";
+
+        protected override string GetDeviceType(Dictionary<string, string> data)
+            => GetMappedDataValue(data, "device_type", new()
+                {
+                    { "Console", "console" },
+                    { "DesktopComputer", "desktop computer" },
+                    { "FitnessTracker", "fitness tracker" },
+                    { "HairTrimmer", "hair trimmer" },
+                    { "Headphones", "headphones" },
+                    { "Laptop", "laptop" },
+                    { "Phone", "phone" },
+                    { "Scale", "scale" },
+                    { "Scooter", "scooter" },
+                    { "Tablet", "tablet" },
+                    { "Toothbrush", "toothbrush" },
+                    { "VacuumCleaner", "vacuum cleaner" },
+                    { "Watch", "watch" },
+                    { "WaterFlosser", "water flosser" },
+                },
+                data["device_type"].ToLower()
+            );
     }
 }
