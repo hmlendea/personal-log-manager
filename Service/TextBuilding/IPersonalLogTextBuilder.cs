@@ -130,6 +130,8 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildMicronationSettlementFoundingLogText(PersonalLog log);
         string BuildMicronationSettlementRankDowngradeLogText(PersonalLog log);
         string BuildMicronationSettlementRankUpgradeLogText(PersonalLog log);
+        string BuildMovieBeginningLogText(PersonalLog log);
+        string BuildMovieCompletionLogText(PersonalLog log);
         string BuildMovieWatchingLogText(PersonalLog log);
         string BuildNailCuttingLogText(PersonalLog log);
         string BuildObjectSaleLogText(PersonalLog log);
@@ -166,6 +168,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildTreePlantingLogText(PersonalLog log);
         string BuildUtilityBillPaymentLogText(PersonalLog log);
         string BuildUtilityIndexMeasurementLogText(PersonalLog log);
+        string BuildVehicleMileageMeasurementLogText(PersonalLog log);
         string BuildVideoUploadLogText(PersonalLog log);
         string BuildVideoWatchingLogText(PersonalLog log);
         string BuildWakingUpLogText(PersonalLog log);
@@ -173,5 +176,8 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildWeddingAttendanceLogText(PersonalLog log);
         string BuildWorkFromTheOfficeLogText(PersonalLog log);
         string BuildWorkMandatoryCourseCompletionLogText(PersonalLog log);
+        string BuildWorkOnCallShiftBeginningLogText(PersonalLog log);
+        string BuildWorkOnCallShiftEndingLogText(PersonalLog log);
+        string BuildWorkTimesheetSubmissionLogText(PersonalLog log);
     }
 }
