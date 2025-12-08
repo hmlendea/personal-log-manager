@@ -83,9 +83,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $", made on {requestDate},";
             }
 
-            text += " has been fulfilled";
-
-            return text;
+            return $"{text} has been fulfilled";
         }
 
         public string BuildAccountDataExportSaveLogText(PersonalLog log)

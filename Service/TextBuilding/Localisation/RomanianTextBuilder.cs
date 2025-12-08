@@ -89,9 +89,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $", trimisă pe {requestDate},";
             }
 
-            text += " a fost îndeplinită";
-
-            return text;
+            return $"{text} a fost îndeplinită";
         }
 
         public string BuildAccountDataExportSaveLogText(PersonalLog log)
