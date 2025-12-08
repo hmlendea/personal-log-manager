@@ -2772,8 +2772,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "FaceHair", "părul facial" },
                     { "FootHair", "părul de pe labele picioarelor" },
                     { "GenitalHair", "părul pubian" },
+                    { "HairTrimmer", "trimmer-ul de păr" },
                     { "HeadHair", "părul de pe cap" },
                     { "Mustache", "mustața" },
+                    { "NoseHair", "părul din nas" },
                     { "Sideburns", "părul de pe tâmple" },
                     { "UnderarmHair", "părul de la subraț" },
                     { "Unibrow", "monosprânceana" }

@@ -2695,6 +2695,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "GenitalHair", "pubic hair" },
                     { "HeadHair", "head" },
                     { "Mustache", "mustache" },
+                    { "NoseHair", "nose hair" },
                     { "Sideburns", "sideburns" },
                     { "UnderarmHair", "underarm hair" },
                     { "Unibrow", "unibrow" }
@@ -3112,6 +3113,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Console", "console" },
                     { "DesktopComputer", "desktop computer" },
                     { "FitnessTracker", "fitness tracker" },
+                    { "HairTrimmer", "hair trimmer" },
                     { "Headphones", "headphones" },
                     { "Laptop", "laptop" },
                     { "Phone", "phone" },
