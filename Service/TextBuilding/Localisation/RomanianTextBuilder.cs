@@ -772,7 +772,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"Nivelul de fosfatază alcalină a fost măsurat la {GetDecimalValue(log.Data, "alkaline_phosphatase_level")} {GetDataValue(log.Data, "unit", "U/L")}";
 
         public string BuildBedMakingLogText(PersonalLog log)
-            => "Am făcut patul";
+        {
+            string text = "Am făcut patul";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", la {location}";
+            }
+
+            return text;
+        }
 
         public string BuildBloodDonationLogText(PersonalLog log)
         {
@@ -1733,10 +1742,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildGettingInToBedLogText(PersonalLog log)
-            => $"M-am pus în pat";
+        {
+            string text = "M-am pus în pat";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", la {location}";
+            }
+
+            return text;
+        }
 
         public string BuildGettingOutOfBedLogText(PersonalLog log)
-            => $"M-am ridicat din pat";
+        {
+            string text = "M-am ridicat din pat";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", la {location}";
+            }
+
+            return text;
+        }
 
         public string BuildGiftReceivalLogText(PersonalLog log)
         {
@@ -1782,7 +1809,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"Am creat repozitory-ul '{log.Data["repository_name"]}' pe {GetPlatform(log.Data)}";
 
         public string BuildGoingToSleepLogText(PersonalLog log)
-            => $"M-am culcat";
+        {
+            string text = "M-am culcat";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", la {location}";
+            }
+
+            return text;
+        }
 
         public string BuildGoingToTheToiletLogText(PersonalLog log)
             => $"Am mers la toaletă";
