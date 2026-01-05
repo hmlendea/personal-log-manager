@@ -3185,7 +3185,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildWakingUpLogText(PersonalLog log)
-            => "M-am trezit";
+        {
+            string text = "M-am trezit";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", la {location}";
+            }
+
+            return text;
+        }
 
         public string BuildWaterDrinkingLogText(PersonalLog log)
             => $"Am băut apă";
