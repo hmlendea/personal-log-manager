@@ -174,6 +174,7 @@ namespace PersonalLogManager.Service.Models
         WaterDrinking,
         WeddingAttendance,
         WorkFromTheOffice,
+        WorkMandatoryCourseBeginning,
         WorkMandatoryCourseCompletion,
         WorkOnCallShiftBeginning,
         WorkOnCallShiftEnding,

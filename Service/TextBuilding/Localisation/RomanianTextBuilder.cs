@@ -3244,6 +3244,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildWorkMandatoryCourseBeginningLogText(PersonalLog log)
+        {
+            string text = $"Am început cursul obligatoriu '{log.Data["course_name"]}'";
+
+            if (log.Data.TryGetValue("employer_name", out string employerName))
+            {
+                text += $" de la {employerName}";
+            }
+
+            return text;
+        }
+
         public string BuildWorkMandatoryCourseCompletionLogText(PersonalLog log)
         {
             string text = $"Am finalizat cursul obligatoriu '{log.Data["course_name"]}'";
