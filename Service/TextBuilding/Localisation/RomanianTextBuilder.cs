@@ -1978,36 +1978,49 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (IsDataValuePlural(log.Data, "medication_name"))
             {
                 medicationType = GetMappedDataValue(
-                log.Data,
-                "medication_type",
-                new()
-                {
-                    { "Antibiotic", "antibiotice" },
-                    { "Antiparasitic", "antiparazitice" },
-                    { "Anxiolytic", "anxiolitice" },
-                    { "Vaccine", "vaccinuri" },
-                    { "Painkiller", "antinevralgice" },
-                    { "Supplement", "suplimente" }
-                },
-                "medicamente");
+                    log.Data,
+                    "medication_type",
+                    new()
+                    {
+                        { "Antibiotic", "antibiotice" },
+                        { "Antiparasitic", "antiparazitice" },
+                        { "Anxiolytic", "anxiolitice" },
+                        { "Corticosteroid", "corticosteroizi" },
+                        { "Enzymatic", "enzimatice" },
+                        { "Vaccine", "vaccinuri" },
+                        { "Painkiller", "antinevralgice" },
+                        { "Supplement", "suplimente" }
+                    },
+                    "medicamente");
 
-                text += $" următoarele {medicationType}";
+                if (medicationType.EndsWith('i'))
+                {
+                    text += " următorii";
+                }
+                else
+                {
+                    text += " următoarele";
+                }
+
+                text += $" {medicationType}";
             }
             else
             {
                 medicationType = GetMappedDataValue(
-                log.Data,
-                "medication_type",
-                new()
-                {
-                    { "Antibiotic", "antibiotic" },
-                    { "Antiparasitic", "antiparazitic" },
-                    { "Anxiolytic", "anxiolitic" },
-                    { "Vaccine", "vaccin" },
-                    { "Painkiller", "antinevralgic" },
-                    { "Supplement", "supliment" }
-                },
-                "medicament");
+                    log.Data,
+                    "medication_type",
+                    new()
+                    {
+                        { "Antibiotic", "antibiotic" },
+                        { "Antiparasitic", "antiparazitic" },
+                        { "Anxiolytic", "anxiolitic" },
+                        { "Corticosteroid", "corticosteroid" },
+                        { "Enzymatic", "enzimatic" },
+                        { "Vaccine", "vaccin" },
+                        { "Painkiller", "antinevralgic" },
+                        { "Supplement", "supliment" }
+                    },
+                    "medicament");
 
                 text += $" următorul {medicationType}";
             }
@@ -2409,7 +2422,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 "pet");
 
-            return $"Am curățat litiera de {petType}";
+            string text = $"Am curățat litiera de {petType}";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", din {location}";
+            }
+
+            return text;
         }
 
         public string BuildPetLitterEmptyingLogText(PersonalLog log)
@@ -2426,7 +2446,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 "pet");
 
-            return $"Am golit litiera de {petType}";
+            string text = $"Am golit litiera de {petType}";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", din {location}";
+            }
+
+            return text;
         }
 
         public string BuildPetLitterRefillLogText(PersonalLog log)
@@ -2454,36 +2481,49 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (IsDataValuePlural(log.Data, "medication_name"))
             {
                 medicationType = GetMappedDataValue(
-                log.Data,
-                "medication_type",
-                new()
-                {
-                    { "Antibiotic", "antibiotice" },
-                    { "Antiparasitic", "antiparazitice" },
-                    { "Anxiolytic", "anxiolitice" },
-                    { "Vaccine", "vaccinuri" },
-                    { "Painkiller", "antinevralgice" },
-                    { "Supplement", "suplimente" }
-                },
-                "medicamente");
+                    log.Data,
+                    "medication_type",
+                    new()
+                    {
+                        { "Antibiotic", "antibiotice" },
+                        { "Antiparasitic", "antiparazitice" },
+                        { "Anxiolytic", "anxiolitice" },
+                        { "Corticosteroid", "corticosteroizi" },
+                        { "Enzymatic", "enzimatice" },
+                        { "Vaccine", "vaccinuri" },
+                        { "Painkiller", "antinevralgice" },
+                        { "Supplement", "suplimente" }
+                    },
+                    "medicamente");
 
-                text += $" următoarele {medicationType}";
+                if (medicationType.EndsWith('i'))
+                {
+                    text += " următorii";
+                }
+                else
+                {
+                    text += " următoarele";
+                }
+
+                text += $" {medicationType}";
             }
             else
             {
                 medicationType = GetMappedDataValue(
-                log.Data,
-                "medication_type",
-                new()
-                {
-                    { "Antibiotic", "antibiotic" },
-                    { "Antiparasitic", "antiparazitic" },
-                    { "Anxiolytic", "anxiolitic" },
-                    { "Vaccine", "vaccin" },
-                    { "Painkiller", "antinevralgic" },
-                    { "Supplement", "supliment" }
-                },
-                "medicament");
+                    log.Data,
+                    "medication_type",
+                    new()
+                    {
+                        { "Antibiotic", "antibiotic" },
+                        { "Antiparasitic", "antiparazitic" },
+                        { "Anxiolytic", "anxiolitic" },
+                        { "Corticosteroid", "corticosteroid" },
+                        { "Enzymatic", "enzimatic" },
+                        { "Vaccine", "vaccin" },
+                        { "Painkiller", "antinevralgic" },
+                        { "Supplement", "supliment" }
+                    },
+                    "medicament");
 
                 text += $" următorul {medicationType}";
             }
@@ -3185,7 +3225,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildWakingUpLogText(PersonalLog log)
-            => "M-am trezit";
+        {
+            string text = "M-am trezit";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", la {location}";
+            }
+
+            return text;
+        }
 
         public string BuildWaterDrinkingLogText(PersonalLog log)
             => $"Am băut apă";
@@ -3230,6 +3279,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("office_name", out string officeName))
             {
                 text += $", din {officeName}";
+            }
+
+            return text;
+        }
+
+        public string BuildWorkMandatoryCourseBeginningLogText(PersonalLog log)
+        {
+            string text = $"Am început cursul obligatoriu '{log.Data["course_name"]}'";
+
+            if (log.Data.TryGetValue("employer_name", out string employerName))
+            {
+                text += $" de la {employerName}";
             }
 
             return text;

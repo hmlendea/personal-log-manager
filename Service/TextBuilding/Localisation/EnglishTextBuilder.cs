@@ -1952,6 +1952,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Antibiotic", "antibiotic" },
                     { "Antiparasitic", "antiparasitic" },
                     { "Anxiolytic", "anxiolytic" },
+                    { "Corticosteroid", "corticosteroid" },
+                    { "Enzymatic", "enzymatic" },
                     { "Vaccine", "vaccine" },
                     { "Painkiller", "painkiller" },
                     { "Supplement", "supplement" }
@@ -2349,7 +2351,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 "pet");
 
-            return $"I have cleaned the {petType} litter";
+            string text = $"I have cleaned the {petType} litter";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", from {location}";
+            }
+
+            return text;
         }
 
         public string BuildPetLitterEmptyingLogText(PersonalLog log)
@@ -2366,7 +2375,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 "pet");
 
-            return $"I have emptied the {petType} litter";
+            string text = $"I have emptied the {petType} litter";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", from {location}";
+            }
+
+            return text;
         }
 
         public string BuildPetLitterRefillLogText(PersonalLog log)
@@ -2396,6 +2412,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Antibiotic", "antibiotic" },
                     { "Antiparasitic", "antiparasitic" },
                     { "Anxiolytic", "anxiolytic" },
+                    { "Corticosteroid", "corticosteroid" },
+                    { "Enzymatic", "enzymatic" },
                     { "Vaccine", "vaccine" },
                     { "Painkiller", "painkiller" },
                     { "Supplement", "supplement" }
@@ -3072,7 +3090,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildWakingUpLogText(PersonalLog log)
-            => $"I have woken up";
+        {
+            string text = "I have woken up";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", at {location}";
+            }
+
+            return text;
+        }
 
         public string BuildWaterDrinkingLogText(PersonalLog log)
             => $"I have drunk water";
@@ -3122,13 +3149,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildWorkMandatoryCourseBeginningLogText(PersonalLog log)
+        {
+            string text = $"I have started the mandatory work course '{log.Data["course_name"]}'";
+
+            if (log.Data.TryGetValue("employer_name", out string employerName))
+            {
+                text += $" for {employerName}";
+            }
+
+            return text;
+        }
+
         public string BuildWorkMandatoryCourseCompletionLogText(PersonalLog log)
         {
             string text = $"I have completed the mandatory work course '{log.Data["course_name"]}'";
 
             if (log.Data.TryGetValue("employer_name", out string employerName))
             {
-                text += $" at {employerName}";
+                text += $" for {employerName}";
             }
 
             return text;
