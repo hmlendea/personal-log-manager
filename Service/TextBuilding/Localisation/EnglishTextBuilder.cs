@@ -1953,6 +1953,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Antiparasitic", "antiparasitic" },
                     { "Anxiolytic", "anxiolytic" },
                     { "Corticosteroid", "corticosteroid" },
+                    { "Enzymatic", "enzymatic" },
                     { "Vaccine", "vaccine" },
                     { "Painkiller", "painkiller" },
                     { "Supplement", "supplement" }
@@ -2412,6 +2413,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Antiparasitic", "antiparasitic" },
                     { "Anxiolytic", "anxiolytic" },
                     { "Corticosteroid", "corticosteroid" },
+                    { "Enzymatic", "enzymatic" },
                     { "Vaccine", "vaccine" },
                     { "Painkiller", "painkiller" },
                     { "Supplement", "supplement" }

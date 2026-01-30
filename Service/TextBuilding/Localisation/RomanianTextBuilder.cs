@@ -1986,6 +1986,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                         { "Antiparasitic", "antiparazitice" },
                         { "Anxiolytic", "anxiolitice" },
                         { "Corticosteroid", "corticosteroizi" },
+                        { "Enzymatic", "enzimatice" },
                         { "Vaccine", "vaccinuri" },
                         { "Painkiller", "antinevralgice" },
                         { "Supplement", "suplimente" }
@@ -2006,19 +2007,20 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             else
             {
                 medicationType = GetMappedDataValue(
-                log.Data,
-                "medication_type",
-                new()
-                {
-                    { "Antibiotic", "antibiotic" },
-                    { "Antiparasitic", "antiparazitic" },
-                    { "Anxiolytic", "anxiolitic" },
-                    { "Corticosteroid", "corticosteroid" },
-                    { "Vaccine", "vaccin" },
-                    { "Painkiller", "antinevralgic" },
-                    { "Supplement", "supliment" }
-                },
-                "medicament");
+                    log.Data,
+                    "medication_type",
+                    new()
+                    {
+                        { "Antibiotic", "antibiotic" },
+                        { "Antiparasitic", "antiparazitic" },
+                        { "Anxiolytic", "anxiolitic" },
+                        { "Corticosteroid", "corticosteroid" },
+                        { "Enzymatic", "enzimatic" },
+                        { "Vaccine", "vaccin" },
+                        { "Painkiller", "antinevralgic" },
+                        { "Supplement", "supliment" }
+                    },
+                    "medicament");
 
                 text += $" următorul {medicationType}";
             }
@@ -2479,19 +2481,20 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (IsDataValuePlural(log.Data, "medication_name"))
             {
                 medicationType = GetMappedDataValue(
-                log.Data,
-                "medication_type",
-                new()
-                {
-                    { "Antibiotic", "antibiotice" },
-                    { "Antiparasitic", "antiparazitice" },
-                    { "Anxiolytic", "anxiolitice" },
-                    { "Corticosteroid", "corticosteroizi" },
-                    { "Vaccine", "vaccinuri" },
-                    { "Painkiller", "antinevralgice" },
-                    { "Supplement", "suplimente" }
-                },
-                "medicamente");
+                    log.Data,
+                    "medication_type",
+                    new()
+                    {
+                        { "Antibiotic", "antibiotice" },
+                        { "Antiparasitic", "antiparazitice" },
+                        { "Anxiolytic", "anxiolitice" },
+                        { "Corticosteroid", "corticosteroizi" },
+                        { "Enzymatic", "enzimatice" },
+                        { "Vaccine", "vaccinuri" },
+                        { "Painkiller", "antinevralgice" },
+                        { "Supplement", "suplimente" }
+                    },
+                    "medicamente");
 
                 if (medicationType.EndsWith('i'))
                 {
@@ -2507,19 +2510,20 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             else
             {
                 medicationType = GetMappedDataValue(
-                log.Data,
-                "medication_type",
-                new()
-                {
-                    { "Antibiotic", "antibiotic" },
-                    { "Antiparasitic", "antiparazitic" },
-                    { "Anxiolytic", "anxiolitic" },
-                    { "Corticosteroid", "corticosteroid" },
-                    { "Vaccine", "vaccin" },
-                    { "Painkiller", "antinevralgic" },
-                    { "Supplement", "supliment" }
-                },
-                "medicament");
+                    log.Data,
+                    "medication_type",
+                    new()
+                    {
+                        { "Antibiotic", "antibiotic" },
+                        { "Antiparasitic", "antiparazitic" },
+                        { "Anxiolytic", "anxiolitic" },
+                        { "Corticosteroid", "corticosteroid" },
+                        { "Enzymatic", "enzimatic" },
+                        { "Vaccine", "vaccin" },
+                        { "Painkiller", "antinevralgic" },
+                        { "Supplement", "supliment" }
+                    },
+                    "medicament");
 
                 text += $" următorul {medicationType}";
             }
