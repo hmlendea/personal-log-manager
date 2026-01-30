@@ -1978,20 +1978,30 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (IsDataValuePlural(log.Data, "medication_name"))
             {
                 medicationType = GetMappedDataValue(
-                log.Data,
-                "medication_type",
-                new()
-                {
-                    { "Antibiotic", "antibiotice" },
-                    { "Antiparasitic", "antiparazitice" },
-                    { "Anxiolytic", "anxiolitice" },
-                    { "Vaccine", "vaccinuri" },
-                    { "Painkiller", "antinevralgice" },
-                    { "Supplement", "suplimente" }
-                },
-                "medicamente");
+                    log.Data,
+                    "medication_type",
+                    new()
+                    {
+                        { "Antibiotic", "antibiotice" },
+                        { "Antiparasitic", "antiparazitice" },
+                        { "Anxiolytic", "anxiolitice" },
+                        { "Corticosteroid", "corticosteroizi" },
+                        { "Vaccine", "vaccinuri" },
+                        { "Painkiller", "antinevralgice" },
+                        { "Supplement", "suplimente" }
+                    },
+                    "medicamente");
 
-                text += $" următoarele {medicationType}";
+                if (medicationType.EndsWith('i'))
+                {
+                    text += " următorii";
+                }
+                else
+                {
+                    text += " următoarele";
+                }
+
+                text += $" {medicationType}";
             }
             else
             {
@@ -2003,6 +2013,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Antibiotic", "antibiotic" },
                     { "Antiparasitic", "antiparazitic" },
                     { "Anxiolytic", "anxiolitic" },
+                    { "Corticosteroid", "corticosteroid" },
                     { "Vaccine", "vaccin" },
                     { "Painkiller", "antinevralgic" },
                     { "Supplement", "supliment" }
@@ -2461,13 +2472,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Antibiotic", "antibiotice" },
                     { "Antiparasitic", "antiparazitice" },
                     { "Anxiolytic", "anxiolitice" },
+                    { "Corticosteroid", "corticosteroizi" },
                     { "Vaccine", "vaccinuri" },
                     { "Painkiller", "antinevralgice" },
                     { "Supplement", "suplimente" }
                 },
                 "medicamente");
 
-                text += $" următoarele {medicationType}";
+                if (medicationType.EndsWith('i'))
+                {
+                    text += " următorii";
+                }
+                else
+                {
+                    text += " următoarele";
+                }
+
+                text += $" {medicationType}";
             }
             else
             {
@@ -2479,6 +2500,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Antibiotic", "antibiotic" },
                     { "Antiparasitic", "antiparazitic" },
                     { "Anxiolytic", "anxiolitic" },
+                    { "Corticosteroid", "corticosteroid" },
                     { "Vaccine", "vaccin" },
                     { "Painkiller", "antinevralgic" },
                     { "Supplement", "supliment" }
