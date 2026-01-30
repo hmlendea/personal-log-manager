@@ -2350,7 +2350,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 "pet");
 
-            return $"I have cleaned the {petType} litter";
+            string text = $"I have cleaned the {petType} litter";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", from {location}";
+            }
+
+            return text;
         }
 
         public string BuildPetLitterEmptyingLogText(PersonalLog log)
@@ -2367,7 +2374,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 "pet");
 
-            return $"I have emptied the {petType} litter";
+            string text = $"I have emptied the {petType} litter";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", from {location}";
+            }
+
+            return text;
         }
 
         public string BuildPetLitterRefillLogText(PersonalLog log)

@@ -2420,7 +2420,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 "pet");
 
-            return $"Am curățat litiera de {petType}";
+            string text = $"Am curățat litiera de {petType}";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", din {location}";
+            }
+
+            return text;
         }
 
         public string BuildPetLitterEmptyingLogText(PersonalLog log)
@@ -2437,7 +2444,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 "pet");
 
-            return $"Am golit litiera de {petType}";
+            string text = $"Am golit litiera de {petType}";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", din {location}";
+            }
+
+            return text;
         }
 
         public string BuildPetLitterRefillLogText(PersonalLog log)
