@@ -2405,7 +2405,13 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 "pet");
 
-            string text = $"I have cleaned the {petType} litter";
+            string text = $"I have cleaned the";
+
+            if (log.Data.ContainsKey("room")) {
+                text += $" {GetRoom(log.Data)}";
+            }
+
+            text += $" {petType} litter";
 
             if (log.Data.TryGetValue("location", out string location))
             {
@@ -2429,7 +2435,13 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 "pet");
 
-            string text = $"I have emptied the {petType} litter";
+            string text = $"I have emptied the";
+
+            if (log.Data.ContainsKey("room")) {
+                text += $" {GetRoom(log.Data)}";
+            }
+
+            text += $" {petType} litter";
 
             if (log.Data.TryGetValue("location", out string location))
             {
