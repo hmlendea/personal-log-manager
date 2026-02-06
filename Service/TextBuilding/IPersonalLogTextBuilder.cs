@@ -179,6 +179,8 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildWakingUpLogText(PersonalLog log);
         string BuildWaterDrinkingLogText(PersonalLog log);
         string BuildWeddingAttendanceLogText(PersonalLog log);
+        string BuildWindowClosingLogText(PersonalLog log);
+        string BuildWindowOpeningLogText(PersonalLog log);
         string BuildWorkFromTheOfficeLogText(PersonalLog log);
         string BuildWorkMandatoryCourseBeginningLogText(PersonalLog log);
         string BuildWorkMandatoryCourseCompletionLogText(PersonalLog log);

@@ -3207,6 +3207,44 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildWindowClosingLogText(PersonalLog log)
+        {
+            string text = $"I have closed the";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" {GetRoom(log.Data)}";
+            }
+
+            text += " window";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            return text;
+        }
+
+        public string BuildWindowOpeningLogText(PersonalLog log)
+        {
+            string text = $"I have opened the";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" {GetRoom(log.Data)}";
+            }
+
+            text += " window";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            return text;
+        }
+
         public string BuildWorkFromTheOfficeLogText(PersonalLog log)
         {
             string text = $"I have worked from the office";
