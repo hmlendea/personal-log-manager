@@ -77,6 +77,8 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildDeviceBatteryLevelLogText(PersonalLog log);
         string BuildDeviceBreakingLogText(PersonalLog log);
         string BuildDeviceChargingLogText(PersonalLog log);
+        string BuildDeviceExternalCleaningLogText(PersonalLog log);
+        string BuildDeviceInternalCleaningLogText(PersonalLog log);
         string BuildDeviceRepairLogText(PersonalLog log);
         string BuildDeviceScreentimeMeasurementLogText(PersonalLog log);
         string BuildDirectBilirubinMeasurementLogText(PersonalLog log);
@@ -179,6 +181,8 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildWakingUpLogText(PersonalLog log);
         string BuildWaterDrinkingLogText(PersonalLog log);
         string BuildWeddingAttendanceLogText(PersonalLog log);
+        string BuildWindowClosingLogText(PersonalLog log);
+        string BuildWindowOpeningLogText(PersonalLog log);
         string BuildWorkFromTheOfficeLogText(PersonalLog log);
         string BuildWorkMandatoryCourseBeginningLogText(PersonalLog log);
         string BuildWorkMandatoryCourseCompletionLogText(PersonalLog log);

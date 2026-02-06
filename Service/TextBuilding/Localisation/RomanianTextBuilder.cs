@@ -1211,6 +1211,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildDeviceChargingLogText(PersonalLog log)
             => $"Am pus la încărcat {GetDeviceType(log.Data)} {log.Data["device_name"]}";
 
+        public string BuildDeviceExternalCleaningLogText(PersonalLog log)
+            => $"Am curățat extern {GetDeviceType(log.Data)} {log.Data["device_name"]}";
+
+        public string BuildDeviceInternalCleaningLogText(PersonalLog log)
+            => $"Am curățat intern {GetDeviceType(log.Data)} {log.Data["device_name"]}";
+
         public string BuildDeviceRepairLogText(PersonalLog log)
         {
             string deviceType = GetDeviceType(log.Data);
@@ -1841,14 +1847,21 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.ContainsKey("church_name"))
             {
-                text += $"a \"{log.Data["church_name"]}\"";
+                text += $"a '{log.Data["church_name"]}'";
+
+                if (log.Data.TryGetValue("location", out string location))
+                {
+                    text += $", din {location}";
+                }
             }
-
-            text += "ă";
-
-            if (log.Data.TryGetValue("location", out string location))
+            else
             {
-                text += $", din {location}";
+                text += "ă";
+
+                if (log.Data.TryGetValue("location", out string location))
+                {
+                    text += $", în {location}";
+                }
             }
 
             return text;
@@ -3342,6 +3355,40 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildWindowClosingLogText(PersonalLog log)
+        {
+            string text = $"Am închis fereastra";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            return text;
+        }
+
+        public string BuildWindowOpeningLogText(PersonalLog log)
+        {
+            string text = $"Am deschis fereastra";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            return text;
+        }
+
         public string BuildWorkFromTheOfficeLogText(PersonalLog log)
         {
             string text = $"Am lucrat de la birou";
@@ -3390,7 +3437,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"Tura mea de gardă pentru {GetDataValue(log.Data, "employer_name")} s-a terminat";
 
         public string BuildWorkTimesheetSubmissionLogText(PersonalLog log)
-            => $"Am trimis pontajul pentru {GetDataValue(log.Data, "employer_name")}";
+        {
+            string text = $"Am trimis pontajul pentru {GetDataValue(log.Data, "employer_name")}";
+
+            if (log.Data.TryGetValue("week_number", out string weekNumber))
+            {
+                text += $", pentru săptămâna #{weekNumber} a anului ";
+
+                if (log.Data.TryGetValue("year", out string year))
+                {
+                    text += year;
+                }
+                else
+                {
+                    text += "curent";
+                }
+            }
+
+            return text;
+        }
 
         protected override string GetDeviceType(Dictionary<string, string> data)
             => GetMappedDataValue(data, "device_type", new()

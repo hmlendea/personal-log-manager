@@ -1169,6 +1169,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildDeviceChargingLogText(PersonalLog log)
             => $"I have charged my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
 
+        public string BuildDeviceExternalCleaningLogText(PersonalLog log)
+            => $"I have cleaned the exterior of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
+
+        public string BuildDeviceInternalCleaningLogText(PersonalLog log)
+            => $"I have cleaned the interior of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
+
         public string BuildDeviceRepairLogText(PersonalLog log)
         {
             string text = "I have repaired";
@@ -1808,7 +1814,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.ContainsKey("church_name"))
             {
-                text += $" \"{log.Data["church_name"]}\"";
+                text += $" '{log.Data["church_name"]}'";
             }
 
             text += " church";
@@ -3207,6 +3213,44 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildWindowClosingLogText(PersonalLog log)
+        {
+            string text = $"I have closed the";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" {GetRoom(log.Data)}";
+            }
+
+            text += " window";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            return text;
+        }
+
+        public string BuildWindowOpeningLogText(PersonalLog log)
+        {
+            string text = $"I have opened the";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" {GetRoom(log.Data)}";
+            }
+
+            text += " window";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            return text;
+        }
+
         public string BuildWorkFromTheOfficeLogText(PersonalLog log)
         {
             string text = $"I have worked from the office";
@@ -3255,8 +3299,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"My on-call work shift for {GetDataValue(log.Data, "employer_name")} has ended";
 
         public string BuildWorkTimesheetSubmissionLogText(PersonalLog log)
-            => $"I have submitted my {GetDataValue(log.Data, "employer_name")} timesheets";
+        {
+            string text = $"I have submitted my {GetDataValue(log.Data, "employer_name")} timesheets";
 
+            if (log.Data.TryGetValue("week_number", out string weekNumber))
+            {
+                text += $", for week #{weekNumber} of ";
+
+                if (log.Data.TryGetValue("year", out string year))
+                {
+                    text += year;
+                }
+                else
+                {
+                    text += "the current year";
+                }
+            }
+
+            return text;
+        }
         protected override string GetDeviceType(Dictionary<string, string> data)
             => GetMappedDataValue(data, "device_type", new()
                 {
