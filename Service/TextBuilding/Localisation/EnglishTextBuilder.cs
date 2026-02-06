@@ -3040,6 +3040,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildVacuumCleaningLogText(PersonalLog log)
+        {
+            string text = $"I have vacuum cleaned";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" the {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            return text;
+        }
+
         public string BuildVehicleMileageMeasurementLogText(PersonalLog log)
         {
             string text = $"The total mileage of the";
@@ -3237,6 +3254,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "WaterFlosser", "water flosser" },
                 },
                 data["device_type"].ToLower()
+            );
+
+        protected override string GetRoom(Dictionary<string, string> data)
+            => GetMappedDataValue(data, "room", new()
+                {
+                    { "Bathroom", "bathroom" },
+                    { "Bedroom", "bedroom" },
+                    { "LivingRoom", "living room" },
+                    { "Kitchen", "kitchen" }
+                },
+                data["room"].ToLower()
             );
     }
 }

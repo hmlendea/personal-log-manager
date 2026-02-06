@@ -168,6 +168,7 @@ namespace PersonalLogManager.Service.Models
         TreePlanting,
         UtilityBillPayment,
         UtilityIndexMeasurement,
+        VacuumCleaning,
         VehicleMileageMeasurement,
         VideoUpload,
         VideoWatching,

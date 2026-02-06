@@ -180,5 +180,7 @@ namespace PersonalLogManager.Service.TextBuilding
         }
 
         protected abstract string GetDeviceType(Dictionary<string, string> data);
+
+        protected abstract string GetRoom(Dictionary<string, string> data);
     }
 }

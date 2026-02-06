@@ -170,6 +170,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildTreePlantingLogText(PersonalLog log);
         string BuildUtilityBillPaymentLogText(PersonalLog log);
         string BuildUtilityIndexMeasurementLogText(PersonalLog log);
+        string BuildVacuumCleaningLogText(PersonalLog log);
         string BuildVehicleMileageMeasurementLogText(PersonalLog log);
         string BuildVideoUploadLogText(PersonalLog log);
         string BuildVideoWatchingLogText(PersonalLog log);

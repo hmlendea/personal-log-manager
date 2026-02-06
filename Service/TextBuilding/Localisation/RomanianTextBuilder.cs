@@ -3156,6 +3156,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildVacuumCleaningLogText(PersonalLog log)
+        {
+            string text = $"Am aspirat";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            return text;
+        }
+
         public string BuildVehicleMileageMeasurementLogText(PersonalLog log)
         {
             string text = $"Distanța totală parcursă de";
@@ -3369,6 +3386,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "WaterFlosser", "irigatorul bucal" },
                 },
                 data["device_type"].ToLower()
+            );
+
+        protected override string GetRoom(Dictionary<string, string> data)
+            => GetMappedDataValue(data, "room", new()
+                {
+                    { "Bathroom", "baie" },
+                    { "Bedroom", "dormitor" },
+                    { "LivingRoom", "sufragerie" },
+                    { "Kitchen", "bucătărie" }
+                },
+                data["room"].ToLower()
             );
     }
 }
