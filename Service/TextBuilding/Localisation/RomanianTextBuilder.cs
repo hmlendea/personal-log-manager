@@ -1401,6 +1401,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildFireDrillLogText(PersonalLog log)
+        {
+            string text = $"Am participat la un exercițiu de evacuare în caz de incendiu";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            return text;
+        }
+
         public string BuildGameAchievementUnlockLogText(PersonalLog log)
         {
             string achievementType = "achievement-ul";
@@ -1821,7 +1833,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildGoingToTheToiletLogText(PersonalLog log)
-            => $"Am mers la toaletă";
+        {
+            string text = "Am mers la toaletă";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", la {location}";
+            }
+
+            return text;
+        }
 
         public string BuildGraduationCeremonyAttendanceLogText(PersonalLog log)
         {
@@ -1956,6 +1977,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("clinic_name", out string clinicName))
             {
                 text += $" la {clinicName}";
+            }
+
+            if (log.Data.TryGetValue("therapist_name", out string therapistName))
+            {
+                text += $", cu {therapistName}";
             }
 
             return text;
@@ -2556,6 +2582,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" la {clinicName}";
             }
 
+            if (log.Data.TryGetValue("therapist_name", out string therapistName))
+            {
+                text += $", cu {therapistName}";
+            }
+
             return text;
         }
 
@@ -3125,6 +3156,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildVacuumCleaningLogText(PersonalLog log)
+        {
+            string text = $"Am aspirat";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            return text;
+        }
+
         public string BuildVehicleMileageMeasurementLogText(PersonalLog log)
         {
             string text = $"Distanța totală parcursă de";
@@ -3305,6 +3353,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" de la {employerName}";
             }
 
+            if (log.Data.TryGetValue("score_obtained", out string scorePercentage))
+            {
+                text += $", obținând un scor de {scorePercentage}%";
+            }
+
             return text;
         }
 
@@ -3333,6 +3386,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "WaterFlosser", "irigatorul bucal" },
                 },
                 data["device_type"].ToLower()
+            );
+
+        protected override string GetRoom(Dictionary<string, string> data)
+            => GetMappedDataValue(data, "room", new()
+                {
+                    { "Bathroom", "baie" },
+                    { "Bedroom", "dormitor" },
+                    { "LivingRoom", "sufragerie" },
+                    { "Kitchen", "bucătărie" }
+                },
+                data["room"].ToLower()
             );
     }
 }
