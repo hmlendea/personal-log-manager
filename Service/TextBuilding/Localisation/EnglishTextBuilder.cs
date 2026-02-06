@@ -3299,8 +3299,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"My on-call work shift for {GetDataValue(log.Data, "employer_name")} has ended";
 
         public string BuildWorkTimesheetSubmissionLogText(PersonalLog log)
-            => $"I have submitted my {GetDataValue(log.Data, "employer_name")} timesheets";
+        {
+            string text = $"I have submitted my {GetDataValue(log.Data, "employer_name")} timesheets";
 
+            if (log.Data.TryGetValue("week_number", out string weekNumber))
+            {
+                text += $", for week #{weekNumber} of ";
+
+                if (log.Data.TryGetValue("year", out string year))
+                {
+                    text += year;
+                }
+                else
+                {
+                    text += "the current year";
+                }
+            }
+
+            return text;
+        }
         protected override string GetDeviceType(Dictionary<string, string> data)
             => GetMappedDataValue(data, "device_type", new()
                 {

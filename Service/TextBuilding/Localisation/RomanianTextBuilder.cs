@@ -3437,7 +3437,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"Tura mea de gardă pentru {GetDataValue(log.Data, "employer_name")} s-a terminat";
 
         public string BuildWorkTimesheetSubmissionLogText(PersonalLog log)
-            => $"Am trimis pontajul pentru {GetDataValue(log.Data, "employer_name")}";
+        {
+            string text = $"Am trimis pontajul pentru {GetDataValue(log.Data, "employer_name")}";
+
+            if (log.Data.TryGetValue("week_number", out string weekNumber))
+            {
+                text += $", pentru săptămâna #{weekNumber} a anului ";
+
+                if (log.Data.TryGetValue("year", out string year))
+                {
+                    text += year;
+                }
+                else
+                {
+                    text += "curent";
+                }
+            }
+
+            return text;
+        }
 
         protected override string GetDeviceType(Dictionary<string, string> data)
             => GetMappedDataValue(data, "device_type", new()
