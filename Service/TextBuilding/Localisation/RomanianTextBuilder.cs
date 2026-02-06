@@ -3398,6 +3398,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Console", "consola" },
                     { "FitnessTracker", "brățara de fitness" },
                     { "Headphones", "căștile" },
+                    { "HeadTorch", "lanterna frontală" },
                     { "Laptop", "laptop-ul" },
                     { "Phone", "telefonul" },
                     { "Scooter", "trotineta" },

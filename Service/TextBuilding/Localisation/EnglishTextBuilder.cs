@@ -3265,6 +3265,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "FitnessTracker", "fitness tracker" },
                     { "HairTrimmer", "hair trimmer" },
                     { "Headphones", "headphones" },
+                    { "HeadTorch", "head torch" },
                     { "Laptop", "laptop" },
                     { "Phone", "phone" },
                     { "Scale", "scale" },
