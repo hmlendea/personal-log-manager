@@ -1288,6 +1288,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildDirectBilirubinMeasurementLogText(PersonalLog log)
             => $"Nivelul de bilirubină directă a fost măsurat la {log.Data["direct_bilirubin_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
+        public string BuildDonationLogText(PersonalLog log)
+            => $"Am donat {GetDataValue(log.Data, "amount")} {GetDataValue(log.Data, "currency")} către {GetDataValue(log.Data, "recipient")}";
+
         public string BuildEducationalGradeReceivalLogText(PersonalLog log)
         {
             string gradeType = GetMappedDataValue(
