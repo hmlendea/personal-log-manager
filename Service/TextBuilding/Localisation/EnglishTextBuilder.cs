@@ -1169,6 +1169,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildDeviceChargingLogText(PersonalLog log)
             => $"I have charged my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
 
+        public string BuildDeviceExternalCleaningLogText(PersonalLog log)
+            => $"I have cleaned the exterior of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
+
+        public string BuildDeviceInternalCleaningLogText(PersonalLog log)
+            => $"I have cleaned the interior of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
+
         public string BuildDeviceRepairLogText(PersonalLog log)
         {
             string text = "I have repaired";

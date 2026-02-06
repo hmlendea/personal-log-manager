@@ -1211,6 +1211,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildDeviceChargingLogText(PersonalLog log)
             => $"Am pus la încărcat {GetDeviceType(log.Data)} {log.Data["device_name"]}";
 
+        public string BuildDeviceExternalCleaningLogText(PersonalLog log)
+            => $"Am curățat extern {GetDeviceType(log.Data)} {log.Data["device_name"]}";
+
+        public string BuildDeviceInternalCleaningLogText(PersonalLog log)
+            => $"Am curățat intern {GetDeviceType(log.Data)} {log.Data["device_name"]}";
+
         public string BuildDeviceRepairLogText(PersonalLog log)
         {
             string deviceType = GetDeviceType(log.Data);
