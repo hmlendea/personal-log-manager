@@ -2485,6 +2485,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string text = $"Am curățat litiera de {petType}";
 
+            if (log.Data.ContainsKey("room")) {
+                text += $" din {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", din {location}";
@@ -2508,6 +2512,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "pet");
 
             string text = $"Am golit litiera de {petType}";
+
+            if (log.Data.ContainsKey("room")) {
+                text += $" din {GetRoom(log.Data)}";
+            }
 
             if (log.Data.TryGetValue("location", out string location))
             {
@@ -2925,6 +2933,30 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "părul facial");
 
             return $"Mi-am ras {hairType}";
+        }
+
+        public string BuildShowerBeginningLogText(PersonalLog log)
+        {
+            string text = $"Am început să fac duș";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            return text;
+        }
+
+        public string BuildShowerCompletionLogText(PersonalLog log)
+        {
+            string text = $"Am terminat de făcut duș";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            return text;
         }
 
         public string BuildShowerTakingLogText(PersonalLog log)

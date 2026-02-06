@@ -161,6 +161,8 @@ namespace PersonalLogManager.Service.Models
         SeriesSeasonBeginning,
         SeriesSeasonCompletion,
         Shaving,
+        ShowerBeginning,
+        ShowerCompletion,
         ShowerTaking,
         StepCountMeasurement,
         SwimmingActivity,

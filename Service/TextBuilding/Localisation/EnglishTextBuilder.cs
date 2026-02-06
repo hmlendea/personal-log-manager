@@ -2405,7 +2405,13 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 "pet");
 
-            string text = $"I have cleaned the {petType} litter";
+            string text = $"I have cleaned the";
+
+            if (log.Data.ContainsKey("room")) {
+                text += $" {GetRoom(log.Data)}";
+            }
+
+            text += $" {petType} litter";
 
             if (log.Data.TryGetValue("location", out string location))
             {
@@ -2429,7 +2435,13 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 "pet");
 
-            string text = $"I have emptied the {petType} litter";
+            string text = $"I have emptied the";
+
+            if (log.Data.ContainsKey("room")) {
+                text += $" {GetRoom(log.Data)}";
+            }
+
+            text += $" {petType} litter";
 
             if (log.Data.TryGetValue("location", out string location))
             {
@@ -2816,6 +2828,30 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "facial hair");
 
             return $"I have shaved my {hairType}";
+        }
+
+        public string BuildShowerBeginningLogText(PersonalLog log)
+        {
+            string text = $"I have started taking a shower";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            return text;
+        }
+
+        public string BuildShowerCompletionLogText(PersonalLog log)
+        {
+            string text = $"I have finished taking a shower";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            return text;
         }
 
         public string BuildShowerTakingLogText(PersonalLog log)
