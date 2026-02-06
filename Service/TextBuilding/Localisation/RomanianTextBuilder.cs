@@ -1958,6 +1958,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" la {clinicName}";
             }
 
+            if (log.Data.TryGetValue("therapist_name", out string therapistName))
+            {
+                text += $", cu {therapistName}";
+            }
+
             return text;
         }
 
@@ -2554,6 +2559,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("clinic_name", out string clinicName))
             {
                 text += $" la {clinicName}";
+            }
+
+            if (log.Data.TryGetValue("therapist_name", out string therapistName))
+            {
+                text += $", cu {therapistName}";
             }
 
             return text;

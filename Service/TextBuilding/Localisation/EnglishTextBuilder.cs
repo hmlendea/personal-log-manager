@@ -1930,6 +1930,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" at {clinicName}";
             }
 
+            if (log.Data.TryGetValue("therapist_name", out string therapistName))
+            {
+                text += $", by {therapistName}";
+            }
+
             return text;
         }
 
@@ -2453,6 +2458,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("clinic_name", out string clinicName))
             {
                 text += $" at {clinicName}";
+            }
+
+            if (log.Data.TryGetValue("therapist_name", out string therapistName))
+            {
+                text += $", by {therapistName}";
             }
 
             return text;
