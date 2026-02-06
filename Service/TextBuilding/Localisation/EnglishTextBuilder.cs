@@ -1788,7 +1788,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildGoingToTheToiletLogText(PersonalLog log)
-            => $"I have gone to the toilet";
+        {
+            string text = "I have gone to the toilet";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", at {location}";
+            }
+
+            return text;
+        }
 
         public string BuildGraduationCeremonyAttendanceLogText(PersonalLog log)
         {

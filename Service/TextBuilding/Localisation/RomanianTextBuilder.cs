@@ -1821,7 +1821,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildGoingToTheToiletLogText(PersonalLog log)
-            => $"Am mers la toaletă";
+        {
+            string text = "Am mers la toaletă";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", la {location}";
+            }
+
+            return text;
+        }
 
         public string BuildGraduationCeremonyAttendanceLogText(PersonalLog log)
         {
