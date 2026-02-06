@@ -85,6 +85,7 @@ namespace PersonalLogManager.Service.Models
         EmailExport,
         EventTicketPurchase,
         EyeCheckup,
+        FireDrill,
         GameAchievementUnlock,
         GameArticlePublishing,
         GameBuildingBought,

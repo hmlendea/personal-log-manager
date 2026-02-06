@@ -1349,6 +1349,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildFireDrillLogText(PersonalLog log)
+        {
+            string text = $"I have participated in a fire drill";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            return text;
+        }
+
         public string BuildGameAchievementUnlockLogText(PersonalLog log)
         {
             string achievementAction = "unlocked";

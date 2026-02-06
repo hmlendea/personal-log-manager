@@ -1401,6 +1401,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildFireDrillLogText(PersonalLog log)
+        {
+            string text = $"Am participat la un exercițiu de evacuare în caz de incendiu";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            return text;
+        }
+
         public string BuildGameAchievementUnlockLogText(PersonalLog log)
         {
             string achievementType = "achievement-ul";
