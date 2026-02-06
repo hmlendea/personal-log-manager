@@ -1841,14 +1841,21 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.ContainsKey("church_name"))
             {
-                text += $"a \"{log.Data["church_name"]}\"";
+                text += $"a '{log.Data["church_name"]}'";
+
+                if (log.Data.TryGetValue("location", out string location))
+                {
+                    text += $", din {location}";
+                }
             }
-
-            text += "ă";
-
-            if (log.Data.TryGetValue("location", out string location))
+            else
             {
-                text += $", din {location}";
+                text += "ă";
+
+                if (log.Data.TryGetValue("location", out string location))
+                {
+                    text += $", în {location}";
+                }
             }
 
             return text;

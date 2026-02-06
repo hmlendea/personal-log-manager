@@ -1808,7 +1808,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.ContainsKey("church_name"))
             {
-                text += $" \"{log.Data["church_name"]}\"";
+                text += $" '{log.Data["church_name"]}'";
             }
 
             text += " church";
