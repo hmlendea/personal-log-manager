@@ -3400,6 +3400,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Headphones", "căștile" },
                     { "HeadTorch", "lanterna frontală" },
                     { "Laptop", "laptop-ul" },
+                    { "LintRemover", "aparatul de scos scame" },
                     { "Phone", "telefonul" },
                     { "Scooter", "trotineta" },
                     { "Tablet", "tableta" },

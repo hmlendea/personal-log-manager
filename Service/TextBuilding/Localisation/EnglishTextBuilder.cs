@@ -3267,6 +3267,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Headphones", "headphones" },
                     { "HeadTorch", "head torch" },
                     { "Laptop", "laptop" },
+                    { "LintRemover", "lint remover" },
                     { "Phone", "phone" },
                     { "Scale", "scale" },
                     { "Scooter", "scooter" },
