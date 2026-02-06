@@ -1835,6 +1835,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGoingToTheChurchLogText(PersonalLog log)
+        {
+            string text = "Am fost la biseric";
+
+            if (log.Data.ContainsKey("church_name"))
+            {
+                text += $"a \"{log.Data["church_name"]}\"";
+            }
+
+            text += "ă";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", din {location}";
+            }
+
+            return text;
+        }
+
         public string BuildGoingToTheToiletLogText(PersonalLog log)
         {
             string text = "Am mers la toaletă";

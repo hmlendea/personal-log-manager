@@ -110,6 +110,7 @@ namespace PersonalLogManager.Service.Models
         GitRelease,
         GitRepositoryCreation,
         GoingToSleep,
+        GoingToTheChurch,
         GoingToTheToilet,
         GraduationCeremonyAttendance,
         GraduationCeremonyParticipation,

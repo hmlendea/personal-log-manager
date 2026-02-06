@@ -1802,6 +1802,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildGoingToTheChurchLogText(PersonalLog log)
+        {
+            string text = "I have gone to the";
+
+            if (log.Data.ContainsKey("church_name"))
+            {
+                text += $" \"{log.Data["church_name"]}\"";
+            }
+
+            text += " church";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", in {location}";
+            }
+
+            return text;
+        }
+
         public string BuildGoingToTheToiletLogText(PersonalLog log)
         {
             string text = "I have gone to the toilet";
