@@ -3324,6 +3324,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" de la {employerName}";
             }
 
+            if (log.Data.TryGetValue("score_obtained", out string scorePercentage))
+            {
+                text += $", obținând un scor de {scorePercentage}%";
+            }
+
             return text;
         }
 

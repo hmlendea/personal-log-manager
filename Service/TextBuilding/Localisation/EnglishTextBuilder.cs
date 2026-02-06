@@ -3189,6 +3189,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" for {employerName}";
             }
 
+            if (log.Data.TryGetValue("score_obtained", out string scorePercentage))
+            {
+                text += $", obtaining a score of {scorePercentage}%";
+            }
+
             return text;
         }
 
