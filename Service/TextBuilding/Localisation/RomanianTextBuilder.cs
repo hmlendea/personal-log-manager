@@ -2935,6 +2935,30 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return $"Mi-am ras {hairType}";
         }
 
+        public string BuildShowerBeginningLogText(PersonalLog log)
+        {
+            string text = $"Am început să fac duș";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            return text;
+        }
+
+        public string BuildShowerCompletionLogText(PersonalLog log)
+        {
+            string text = $"Am terminat de făcut duș";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            return text;
+        }
+
         public string BuildShowerTakingLogText(PersonalLog log)
         {
             string text = $"Am făcut duș";

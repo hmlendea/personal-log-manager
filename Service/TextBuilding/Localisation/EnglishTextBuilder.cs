@@ -2830,6 +2830,30 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return $"I have shaved my {hairType}";
         }
 
+        public string BuildShowerBeginningLogText(PersonalLog log)
+        {
+            string text = $"I have started taking a shower";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            return text;
+        }
+
+        public string BuildShowerCompletionLogText(PersonalLog log)
+        {
+            string text = $"I have finished taking a shower";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            return text;
+        }
+
         public string BuildShowerTakingLogText(PersonalLog log)
         {
             string text = $"I have taken a shower";
