@@ -1288,6 +1288,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildDirectBilirubinMeasurementLogText(PersonalLog log)
             => $"Nivelul de bilirubină directă a fost măsurat la {log.Data["direct_bilirubin_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
+        public string BuildDonationLogText(PersonalLog log)
+            => $"Am donat {GetDataValue(log.Data, "amount")} {GetDataValue(log.Data, "currency")} către {GetDataValue(log.Data, "recipient")}";
+
         public string BuildEducationalGradeReceivalLogText(PersonalLog log)
         {
             string gradeType = GetMappedDataValue(
@@ -1827,6 +1830,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", la {location}";
+            }
+
+            return text;
+        }
+
+        public string BuildGoingToTheChurchLogText(PersonalLog log)
+        {
+            string text = "Am fost la biseric";
+
+            if (log.Data.ContainsKey("church_name"))
+            {
+                text += $"a \"{log.Data["church_name"]}\"";
+            }
+
+            text += "ă";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", din {location}";
             }
 
             return text;
@@ -3376,7 +3398,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Console", "consola" },
                     { "FitnessTracker", "brățara de fitness" },
                     { "Headphones", "căștile" },
+                    { "HeadTorch", "lanterna frontală" },
                     { "Laptop", "laptop-ul" },
+                    { "LintRemover", "aparatul de scos scame" },
                     { "Phone", "telefonul" },
                     { "Scooter", "trotineta" },
                     { "Tablet", "tableta" },

@@ -80,6 +80,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildDeviceRepairLogText(PersonalLog log);
         string BuildDeviceScreentimeMeasurementLogText(PersonalLog log);
         string BuildDirectBilirubinMeasurementLogText(PersonalLog log);
+        string BuildDonationLogText(PersonalLog log);
         string BuildEducationalGradeReceivalLogText(PersonalLog log);
         string BuildEmailExportLogText(PersonalLog log);
         string BuildEmailAliasCreationLogText(PersonalLog log);
@@ -110,6 +111,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildGitReleaseLogText(PersonalLog log);
         string BuildGitRepositoryCreationLogText(PersonalLog log);
         string BuildGoingToSleepLogText(PersonalLog log);
+        string BuildGoingToTheChurchLogText(PersonalLog log);
         string BuildGoingToTheToiletLogText(PersonalLog log);
         string BuildGraduationCeremonyAttendanceLogText(PersonalLog log);
         string BuildGraduationCeremonyParticipationLogText(PersonalLog log);

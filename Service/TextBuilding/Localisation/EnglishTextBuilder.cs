@@ -1236,6 +1236,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildDirectBilirubinMeasurementLogText(PersonalLog log)
             => $"My direct bilirubin level measured {log.Data["direct_bilirubin_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
+        public string BuildDonationLogText(PersonalLog log)
+            => $"I have donated {GetDataValue(log.Data, "amount")} {GetDataValue(log.Data, "currency")} to {GetDataValue(log.Data, "recipient")}";
+
         public string BuildEducationalGradeReceivalLogText(PersonalLog log)
         {
             string gradeType = GetMappedDataValue(
@@ -1794,6 +1797,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", at {location}";
+            }
+
+            return text;
+        }
+
+        public string BuildGoingToTheChurchLogText(PersonalLog log)
+        {
+            string text = "I have gone to the";
+
+            if (log.Data.ContainsKey("church_name"))
+            {
+                text += $" \"{log.Data["church_name"]}\"";
+            }
+
+            text += " church";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", in {location}";
             }
 
             return text;
@@ -3243,7 +3265,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "FitnessTracker", "fitness tracker" },
                     { "HairTrimmer", "hair trimmer" },
                     { "Headphones", "headphones" },
+                    { "HeadTorch", "head torch" },
                     { "Laptop", "laptop" },
+                    { "LintRemover", "lint remover" },
                     { "Phone", "phone" },
                     { "Scale", "scale" },
                     { "Scooter", "scooter" },
