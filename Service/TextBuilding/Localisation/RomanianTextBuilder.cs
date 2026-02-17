@@ -1766,6 +1766,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = "M-am pus în pat";
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", la {location}";
@@ -1777,6 +1782,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildGettingOutOfBedLogText(PersonalLog log)
         {
             string text = "M-am ridicat din pat";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
 
             if (log.Data.TryGetValue("location", out string location))
             {
@@ -1833,6 +1843,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = "M-am culcat";
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", la {location}";
@@ -1870,6 +1885,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildGoingToTheToiletLogText(PersonalLog log)
         {
             string text = "Am mers la toaletă";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
 
             if (log.Data.TryGetValue("location", out string location))
             {
@@ -2939,9 +2959,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am început să fac duș";
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $", în {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" la {location}";
+            }
+
+            if (log.Data.TryGetValue("together_with", out string togetherWih))
+            {
+                text += $", împreună cu {togetherWih}";
             }
 
             return text;
@@ -2951,9 +2981,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am terminat de făcut duș";
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $", în {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" la {location}";
+            }
+
+            if (log.Data.TryGetValue("together_with", out string togetherWih))
+            {
+                text += $", împreună cu {togetherWih}";
             }
 
             return text;
@@ -2966,6 +3006,21 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
             {
                 text += $" timp de {durationMinutes} minute";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $", în {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            if (log.Data.TryGetValue("together_with", out string togetherWih))
+            {
+                text += $", împreună cu {togetherWih}";
             }
 
             return text;
@@ -3020,6 +3075,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 {
                     text += "e";
                 }
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", la {location}";
             }
 
             return text;
@@ -3343,6 +3408,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = "M-am trezit";
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", la {location}";
@@ -3512,10 +3582,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         protected override string GetRoom(Dictionary<string, string> data)
             => GetMappedDataValue(data, "room", new()
                 {
+                    { "Attic", "pod" },
                     { "Bathroom", "baie" },
                     { "Bedroom", "dormitor" },
-                    { "LivingRoom", "sufragerie" },
-                    { "Kitchen", "bucătărie" }
+                    { "DressingRoom", "dressing" },
+                    { "Hallway", "hol" },
+                    { "LargerBathroom", "baia mare" },
+                    { "LargerBedroom", "dormitorul mare" },
+                    { "LivingRoom", "livingul" },
+                    { "LowerBathroom", "baia de jos" },
+                    { "LowerHallway", "holul de jos" },
+                    { "Kitchen", "bucătărie" },
+                    { "Office", "birou" },
+                    { "Pantry", "cămară" },
+                    { "SmallerBathroom", "baia mică" },
+                    { "SmallerBedroom", "dormitorul mic" },
+                    { "UppperBathroom", "baia de sus" },
+                    { "UpperHallway", "holul de sus" }
                 },
                 data["room"].ToLower()
             );

@@ -1731,6 +1731,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = "I have gotten in to bed";
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", at {location}";
@@ -1742,6 +1747,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildGettingOutOfBedLogText(PersonalLog log)
         {
             string text = "I have gotten out of bed";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
 
             if (log.Data.TryGetValue("location", out string location))
             {
@@ -1800,6 +1810,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = "I have gone to sleep";
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", at {location}";
@@ -1830,6 +1845,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildGoingToTheToiletLogText(PersonalLog log)
         {
             string text = "I have gone to the toilet";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
 
             if (log.Data.TryGetValue("location", out string location))
             {
@@ -2834,9 +2854,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have started taking a shower";
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $", in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("together_with", out string togetherWih))
+            {
+                text += $", together with {togetherWih}";
             }
 
             return text;
@@ -2846,9 +2876,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have finished taking a shower";
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $", in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("together_with", out string togetherWih))
+            {
+                text += $", together with {togetherWih}";
             }
 
             return text;
@@ -2861,6 +2901,21 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
             {
                 text += $" for {durationMinutes} minutes";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $", in the {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("together_with", out string togetherWih))
+            {
+                text += $", together with {togetherWih}";
             }
 
             return text;
@@ -2910,6 +2965,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
             {
                 text += $" for {durationMinutes} minutes";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", at {location}";
             }
 
             return text;
@@ -3205,6 +3270,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = "I have woken up";
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", at {location}";
@@ -3380,10 +3450,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         protected override string GetRoom(Dictionary<string, string> data)
             => GetMappedDataValue(data, "room", new()
                 {
+                    { "Attic", "attic" },
                     { "Bathroom", "bathroom" },
                     { "Bedroom", "bedroom" },
+                    { "DressingRoom", "dressing room" },
+                    { "Hallway", "hallway" },
+                    { "LargerBathroom", "larger bathroom" },
+                    { "LargerBedroom", "larger bedroom" },
                     { "LivingRoom", "living room" },
-                    { "Kitchen", "kitchen" }
+                    { "LowerBathroom", "lower bathroom" },
+                    { "LowerHallway", "lower hallway" },
+                    { "Kitchen", "kitchen" },
+                    { "Office", "office" },
+                    { "Pantry", "pantry" },
+                    { "SmallerBathroom", "smaller bathroom" },
+                    { "SmallerBedroom", "smaller bedroom" },
+                    { "UppperBathroom", "upper bathroom" },
+                    { "UpperHallway", "upper hallway" }
                 },
                 data["room"].ToLower()
             );
