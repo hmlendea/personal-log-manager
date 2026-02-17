@@ -3047,6 +3047,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" în {GetRoom(log.Data)}";
             }
 
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", la {location}";
+            }
+
             return text;
         }
 
