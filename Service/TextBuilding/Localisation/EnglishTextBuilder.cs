@@ -1731,6 +1731,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = "I have gotten in to bed";
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", at {location}";
@@ -1742,6 +1747,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildGettingOutOfBedLogText(PersonalLog log)
         {
             string text = "I have gotten out of bed";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
 
             if (log.Data.TryGetValue("location", out string location))
             {
@@ -1800,6 +1810,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = "I have gone to sleep";
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", at {location}";
@@ -1830,6 +1845,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildGoingToTheToiletLogText(PersonalLog log)
         {
             string text = "I have gone to the toilet";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
 
             if (log.Data.TryGetValue("location", out string location))
             {
@@ -2912,6 +2932,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" for {durationMinutes} minutes";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
             return text;
         }
 
@@ -3204,6 +3229,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildWakingUpLogText(PersonalLog log)
         {
             string text = "I have woken up";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
 
             if (log.Data.TryGetValue("location", out string location))
             {

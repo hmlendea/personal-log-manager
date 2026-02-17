@@ -1766,6 +1766,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = "M-am pus în pat";
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", la {location}";
@@ -1777,6 +1782,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildGettingOutOfBedLogText(PersonalLog log)
         {
             string text = "M-am ridicat din pat";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
 
             if (log.Data.TryGetValue("location", out string location))
             {
@@ -1833,6 +1843,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = "M-am culcat";
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", la {location}";
@@ -1870,6 +1885,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildGoingToTheToiletLogText(PersonalLog log)
         {
             string text = "Am mers la toaletă";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
 
             if (log.Data.TryGetValue("location", out string location))
             {
@@ -3022,6 +3042,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 }
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
             return text;
         }
 
@@ -3342,6 +3367,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildWakingUpLogText(PersonalLog log)
         {
             string text = "M-am trezit";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
 
             if (log.Data.TryGetValue("location", out string location))
             {
