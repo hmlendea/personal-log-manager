@@ -3450,10 +3450,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         protected override string GetRoom(Dictionary<string, string> data)
             => GetMappedDataValue(data, "room", new()
                 {
+                    { "Attic", "attic" },
                     { "Bathroom", "bathroom" },
                     { "Bedroom", "bedroom" },
+                    { "DressingRoom", "dressing room" },
+                    { "Hallway", "hallway" },
+                    { "LargerBathroom", "larger bathroom" },
+                    { "LargerBedroom", "larger bedroom" },
                     { "LivingRoom", "living room" },
-                    { "Kitchen", "kitchen" }
+                    { "LowerBathroom", "lower bathroom" },
+                    { "LowerHallway", "lower hallway" },
+                    { "Kitchen", "kitchen" },
+                    { "Office", "office" },
+                    { "Pantry", "pantry" },
+                    { "SmallerBathroom", "smaller bathroom" },
+                    { "SmallerBedroom", "smaller bedroom" },
+                    { "UppperBathroom", "upper bathroom" },
+                    { "UpperHallway", "upper hallway" }
                 },
                 data["room"].ToLower()
             );

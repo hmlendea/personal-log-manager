@@ -3582,10 +3582,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         protected override string GetRoom(Dictionary<string, string> data)
             => GetMappedDataValue(data, "room", new()
                 {
+                    { "Attic", "pod" },
                     { "Bathroom", "baie" },
                     { "Bedroom", "dormitor" },
-                    { "LivingRoom", "sufragerie" },
-                    { "Kitchen", "bucătărie" }
+                    { "DressingRoom", "dressing" },
+                    { "Hallway", "hol" },
+                    { "LargerBathroom", "baia mare" },
+                    { "LargerBedroom", "dormitorul mare" },
+                    { "LivingRoom", "livingul" },
+                    { "LowerBathroom", "baia de jos" },
+                    { "LowerHallway", "holul de jos" },
+                    { "Kitchen", "bucătărie" },
+                    { "Office", "birou" },
+                    { "Pantry", "cămară" },
+                    { "SmallerBathroom", "baia mică" },
+                    { "SmallerBedroom", "dormitorul mic" },
+                    { "UppperBathroom", "baia de sus" },
+                    { "UpperHallway", "holul de sus" }
                 },
                 data["room"].ToLower()
             );
