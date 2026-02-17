@@ -2854,9 +2854,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have started taking a shower";
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $", in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("together_with", out string togetherWih))
+            {
+                text += $", together with {togetherWih}";
             }
 
             return text;
@@ -2866,9 +2876,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have finished taking a shower";
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $", in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("together_with", out string togetherWih))
+            {
+                text += $", together with {togetherWih}";
             }
 
             return text;
@@ -2881,6 +2901,21 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
             {
                 text += $" for {durationMinutes} minutes";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $", in the {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("together_with", out string togetherWih))
+            {
+                text += $", together with {togetherWih}";
             }
 
             return text;
