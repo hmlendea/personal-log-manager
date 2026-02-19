@@ -71,6 +71,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildChatGroupDeletionLogText(PersonalLog log);
         string BuildChatGroupJoiningLogText(PersonalLog log);
         string BuildChatGroupLeavingLogText(PersonalLog log);
+        string BuildCustomGptCreationLogText(PersonalLog log);
         string BuildDatingAppMatchLogText(PersonalLog log);
         string BuildDeliveryReceivalLogText(PersonalLog log);
         string BuildDentalAppointmentLogText(PersonalLog log);
@@ -157,6 +158,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildPetWeightMeasurementLogText(PersonalLog log);
         string BuildPhysiotherapySessionLogText(PersonalLog log);
         string BuildPsychotherapySessionLogText(PersonalLog log);
+        string BuildPublicIpAddressMeasurementLogText(PersonalLog log);
         string BuildRestaurantVisitLogText(PersonalLog log);
         string BuildSaunaSessionLogText(PersonalLog log);
         string BuildSeriesBeginningLogText(PersonalLog log);

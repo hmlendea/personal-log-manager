@@ -1140,6 +1140,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildCustomGptCreationLogText(PersonalLog log)
+        {
+            string text = $"Am creat un GPT personalizat";
+
+            if (log.Data.TryGetValue("gpt_name", out string gptName))
+            {
+                text += $" numit '{gptName}'";
+            }
+
+            if (log.Data.ContainsKey("platform"))
+            {
+                text += $" pe {GetPlatform(log.Data)}";
+            }
+
+            return text;
+        }
+
         public string BuildDatingAppMatchLogText(PersonalLog log)
             => $"Am făcut match cu {log.Data["match_name"]} pe {GetPlatform(log.Data)}";
 
@@ -2783,6 +2800,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             return text;
         }
+
+        public string BuildPublicIpAddressMeasurementLogText(PersonalLog log)
+            => $"Adresa IP publică de la {GetDataValue(log.Data, "location")} a fost {log.Data["ip_address"]}";
 
         public string BuildRestaurantVisitLogText(PersonalLog log)
         {
