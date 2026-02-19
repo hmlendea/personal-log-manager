@@ -1344,7 +1344,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"Am donat {GetDataValue(log.Data, "amount")} {GetDataValue(log.Data, "currency")} către {GetDataValue(log.Data, "recipient")}";
 
         public string BuildEarwaxCleaningLogText(PersonalLog log)
-            => "Mi-am curățat ceara din urechi";
+        {
+            string text = "Mi-am curățat ceara din urechi";
+
+            if (log.Data.ContainsKey("cleaning_method"))
+            {
+                text += $" prin {GetCleaningMethod(log.Data)}";
+            }
+
+            return text;
+        }
 
         public string BuildEducationalGradeReceivalLogText(PersonalLog log)
         {
@@ -3768,6 +3777,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         protected override string GetCleaningMethod(Dictionary<string, string> data)
             => GetMappedDataValue(data, "cleaning_method", new()
             {
+                { "CottonBuds", "utilizarea bețișoarelor de urechi" },
+                { "SpiralEarCleaner", "utilizarea dispozitivului de curățare a urechilor în formă de spirală" },
                 { "Vacuuming", "aspirare" },
                 { "Washing", "spălare" },
                 { "Wiping", "ștergere" },
