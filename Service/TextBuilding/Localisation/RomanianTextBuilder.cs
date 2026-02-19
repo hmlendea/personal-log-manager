@@ -2343,6 +2343,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", la {location}";
@@ -2366,6 +2371,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", la {location}";
@@ -2387,6 +2397,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.ContainsKey("platform"))
             {
                 text += $" pe {GetPlatform(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -2723,6 +2738,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" la {location}";
@@ -2744,6 +2764,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.ContainsKey("platform"))
             {
                 text += $" pe {GetPlatform(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -2784,6 +2809,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" la {location}";
@@ -2820,6 +2850,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.ContainsKey("platform"))
             {
                 text += $" pe {GetPlatform(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -2860,6 +2895,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" la {location}";
@@ -2888,6 +2928,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" la {location}";
@@ -2914,6 +2959,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.ContainsKey("platform"))
             {
                 text += $" pe {GetPlatform(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
