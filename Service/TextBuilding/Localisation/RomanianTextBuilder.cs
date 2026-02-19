@@ -3633,6 +3633,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => GetMappedDataValue(data, "room", new()
                 {
                     { "Attic", "pod" },
+                    { "Balcony", "balcon" },
                     { "Bathroom", "baie" },
                     { "Bedroom", "dormitor" },
                     { "DressingRoom", "dressing" },
