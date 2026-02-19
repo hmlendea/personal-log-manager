@@ -3278,27 +3278,52 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
-        public string BuildVehicleMileageMeasurementLogText(PersonalLog log)
+        public string BuildVehicleFluidChangingLogText(PersonalLog log)
         {
-            string text = $"The total mileage of the";
-            string vehicleType;
+            string text = $"The {GetFluidType(log.Data, useDefinitiveForm: false)} of";
 
             if (log.Data.TryGetValue("vehicle_model", out string vehicleModel))
             {
                 text += $" {vehicleModel}";
             }
 
-            vehicleType = GetMappedDataValue(
-                log.Data,
-                "vehicle_type",
-                new()
-                {
-                    { "Car", "car" },
-                    { "ElectricScooter", "electric scooter" }
-                },
-                "vehicle");
+            text += $" {GetVehicleType(log.Data, useDefinitiveForm: true)}";
 
-            text += $" {vehicleType}";
+            if (log.Data.TryGetValue("vehicle_name", out string vehicleName))
+            {
+                text += $" '{vehicleName}'";
+            }
+
+            if (log.Data.TryGetValue("vehicle_registration_number", out string vehicleRegistrationNumber))
+            {
+                text += $" with the '{vehicleRegistrationNumber}' registration number";
+            }
+
+            text += " has been changed";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("mechanic_name", out string mechanicName))
+            {
+                text += $" by {mechanicName}";
+            }
+
+            return text;
+        }
+
+        public string BuildVehicleMileageMeasurementLogText(PersonalLog log)
+        {
+            string text = $"The total mileage of the";
+
+            if (log.Data.TryGetValue("vehicle_model", out string vehicleModel))
+            {
+                text += $" {vehicleModel}";
+            }
+
+            text += $" {GetVehicleType(log.Data, useDefinitiveForm: true)}";
 
             if (log.Data.TryGetValue("vehicle_name", out string vehicleName))
             {
@@ -3541,6 +3566,24 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 data["device_type"].ToLower()
             );
 
+        protected override string GetFluidType(Dictionary<string, string> data, bool useDefinitiveForm)
+        {
+            string fluidType = GetMappedDataValue(data, "fluid_type", new()
+            {
+                { "Coolant", "coolant" },
+                { "MotorOil", "motor oil" },
+                { "WindscreenWashingFluid", "windscreen washing fluid" }
+            },
+            "liquid");
+
+            if (useDefinitiveForm)
+            {
+                return $"the {fluidType}";
+            }
+
+            return fluidType;
+        }
+
         protected override string GetHairType(Dictionary<string, string> data)
             => GetMappedDataValue(data, "hair_type", new()
             {
@@ -3587,5 +3630,22 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 data["room"].ToLower()
             );
+
+        protected override string GetVehicleType(Dictionary<string, string> data, bool useDefinitiveForm)
+        {
+            string vehicleType = GetMappedDataValue(data, "vehicle_type", new()
+            {
+                { "Car", "car" },
+                { "ElectricScooter", "electric scooter" }
+            },
+            "vehicle");
+
+            if (useDefinitiveForm)
+            {
+                return $"the {vehicleType}";
+            }
+
+            return vehicleType;
+        }
     }
 }

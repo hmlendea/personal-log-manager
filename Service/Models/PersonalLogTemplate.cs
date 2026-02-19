@@ -179,6 +179,7 @@ namespace PersonalLogManager.Service.Models
         UtilityBillPayment,
         UtilityIndexMeasurement,
         VacuumCleaning,
+        VehicleFluidChanging,
         VehicleMileageMeasurement,
         VideoUpload,
         VideoWatching,

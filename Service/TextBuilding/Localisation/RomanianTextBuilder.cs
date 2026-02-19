@@ -3400,6 +3400,49 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildVehicleFluidChangingLogText(PersonalLog log)
+        {
+            string text = $"A fost înlocuit complet {GetFluidType(log.Data, useDefinitiveForm: true)} din";
+
+            if (IsDataValuePresent(log.Data, "vehicle_model") ||
+                IsDataValuePresent(log.Data, "vehicle_name") ||
+                IsDataValuePresent(log.Data, "vehicle_registration_number"))
+            {
+                text += $" {GetVehicleType(log.Data, useDefinitiveForm: true)}";
+            }
+            else
+            {
+                text += $" {GetVehicleType(log.Data, useDefinitiveForm: false)}";
+            }
+
+            if (log.Data.TryGetValue("vehicle_name", out string vehicleName))
+            {
+                text += $" '{vehicleName}'";
+            }
+
+            if (log.Data.TryGetValue("vehicle_model", out string vehicleModel))
+            {
+                text += $" {vehicleModel}";
+            }
+
+            if (log.Data.TryGetValue("vehicle_registration_number", out string vehicleRegistrationNumber))
+            {
+                text += $" cu numărul de înmatriculare '{vehicleRegistrationNumber}'";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            if (log.Data.TryGetValue("mechanic_name", out string mechanicName))
+            {
+                text += $" de către {mechanicName}";
+            }
+
+            return text;
+        }
+
         public string BuildVehicleMileageMeasurementLogText(PersonalLog log)
         {
             string text = $"Distanța totală parcursă de";
@@ -3409,27 +3452,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 IsDataValuePresent(log.Data, "vehicle_name") ||
                 IsDataValuePresent(log.Data, "vehicle_registration_number"))
             {
-                vehicleType = GetMappedDataValue(
-                    log.Data,
-                    "vehicle_type",
-                    new()
-                    {
-                        { "Car", "mașina" },
-                        { "ElectricScooter", "trotineta eletrică" }
-                    },
-                    "vehiculul");
+                vehicleType = GetVehicleType(log.Data, useDefinitiveForm: true);
             }
             else
             {
-                vehicleType = GetMappedDataValue(
-                    log.Data,
-                    "vehicle_type",
-                    new()
-                    {
-                        { "Car", "mașină" },
-                        { "ElectricScooter", "trotineta eletrică" }
-                    },
-                    "vehicul");
+                vehicleType = GetVehicleType(log.Data, useDefinitiveForm: false);
             }
 
             text += $" {vehicleType}";
@@ -3679,6 +3706,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 data["device_type"].ToLower()
             );
 
+        protected override string GetFluidType(Dictionary<string, string> data, bool useDefinitiveForm)
+        {
+            if (useDefinitiveForm)
+            {
+                return GetMappedDataValue(data, "fluid_type", new()
+                {
+                    { "Coolant", "lichidul de răcire" },
+                    { "MotorOil", "uleiul de motor" },
+                    { "WindscreenWasherFluid", "lichidul de parbriz" }
+                },
+                "lichidul");
+            }
+
+            return GetMappedDataValue(data, "fluid_type", new()
+            {
+                { "Coolant", "lichid de răcire" },
+                { "MotorOil", "ulei de motor" },
+                { "WindscreenWasherFluid", "lichid de parbriz" }
+            },
+            "lichid");
+        }
+
         protected override string GetHairType(Dictionary<string, string> data)
             => GetMappedDataValue(data, "hair_type", new()
             {
@@ -3726,5 +3775,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 data["room"].ToLower()
             );
+
+        protected override string GetVehicleType(Dictionary<string, string> data, bool useDefinitiveForm)
+        {
+            if (useDefinitiveForm)
+            {
+                return GetMappedDataValue(data, "vehicle_type", new()
+                {
+                    { "Car", "mașina" },
+                    { "ElectricScooter", "trotineta eletrică" }
+                },
+                "vehiculul");
+            }
+
+            return GetMappedDataValue(data, "vehicle_type", new()
+            {
+                { "Car", "mașină" },
+                { "ElectricScooter", "trotinetă electrică" }
+            },
+            "vehicul");
+        }
     }
 }
