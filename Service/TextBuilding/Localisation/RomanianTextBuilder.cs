@@ -2069,7 +2069,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     new()
                     {
                         { "Antibiotic", "antibiotice" },
+                        { "Antifungal", "antifungice" },
                         { "Antiparasitic", "antiparazitice" },
+                        { "Antiseptic", "antiseptice" },
                         { "Anxiolytic", "anxiolitice" },
                         { "Corticosteroid", "corticosteroizi" },
                         { "Enzymatic", "enzimatice" },
@@ -2098,7 +2100,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     new()
                     {
                         { "Antibiotic", "antibiotic" },
+                        { "Antifungal", "antifungic" },
                         { "Antiparasitic", "antiparazitic" },
+                        { "Antiseptic", "antiseptic" },
                         { "Anxiolytic", "anxiolitic" },
                         { "Corticosteroid", "corticosteroid" },
                         { "Enzymatic", "enzimatic" },
@@ -2595,7 +2599,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     new()
                     {
                         { "Antibiotic", "antibiotice" },
+                        { "Antifungal", "antifungice" },
                         { "Antiparasitic", "antiparazitice" },
+                        { "Antiseptic", "antiseptice" },
                         { "Anxiolytic", "anxiolitice" },
                         { "Corticosteroid", "corticosteroizi" },
                         { "Enzymatic", "enzimatice" },
@@ -2624,7 +2630,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     new()
                     {
                         { "Antibiotic", "antibiotic" },
+                        { "Antifungal", "antifungic" },
                         { "Antiparasitic", "antiparazitic" },
+                        { "Antiseptic", "antiseptic" },
                         { "Anxiolytic", "anxiolitic" },
                         { "Corticosteroid", "corticosteroid" },
                         { "Enzymatic", "enzimatic" },

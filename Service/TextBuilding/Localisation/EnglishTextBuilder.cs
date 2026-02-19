@@ -2029,7 +2029,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 new()
                 {
                     { "Antibiotic", "antibiotic" },
+                    { "Antifungal", "antifungal" },
                     { "Antiparasitic", "antiparasitic" },
+                    { "Antiseptic", "antiseptic" },
                     { "Anxiolytic", "anxiolytic" },
                     { "Corticosteroid", "corticosteroid" },
                     { "Enzymatic", "enzymatic" },
@@ -2516,7 +2518,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 new()
                 {
                     { "Antibiotic", "antibiotic" },
+                    { "Antifungal", "antifungal" },
                     { "Antiparasitic", "antiparasitic" },
+                    { "Antiseptic", "antiseptic" },
                     { "Anxiolytic", "anxiolytic" },
                     { "Corticosteroid", "corticosteroid" },
                     { "Enzymatic", "enzymatic" },
