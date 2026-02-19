@@ -3625,6 +3625,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "VacuumCleaner", "aspiratorul" },
                     { "Watch", "ceasul" },
                     { "WaterFlosser", "irigatorul bucal" },
+                    { "WirelessSpeaker", "boxa fără fir" }
                 },
                 data["device_type"].ToLower()
             );

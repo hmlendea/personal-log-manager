@@ -3443,6 +3443,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "VacuumCleaner", "vacuum cleaner" },
                     { "Watch", "watch" },
                     { "WaterFlosser", "water flosser" },
+                    { "WirelessSpeaker", "wireless speaker" }
                 },
                 data["device_type"].ToLower()
             );
