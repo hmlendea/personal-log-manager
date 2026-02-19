@@ -1198,10 +1198,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"I have emptied the container of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
 
         public string BuildDeviceExternalCleaningLogText(PersonalLog log)
-            => $"I have cleaned the exterior of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
+        {
+            string text = $"I have cleaned the exterior of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
+
+            if (log.Data.ContainsKey("cleaning_method"))
+            {
+                text += $" by {GetCleaningMethod(log.Data)}";
+            }
+
+            return text;
+        }
 
         public string BuildDeviceInternalCleaningLogText(PersonalLog log)
-            => $"I have cleaned the interior of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
+        {
+            string text = $"I have cleaned the interior of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
+
+            if (log.Data.ContainsKey("cleaning_method"))
+            {
+                text += $" by {GetCleaningMethod(log.Data)}";
+            }
+
+            return text;
+        }
 
         public string BuildDeviceRepairLogText(PersonalLog log)
         {

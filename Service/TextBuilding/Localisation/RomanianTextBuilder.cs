@@ -1240,10 +1240,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"Am golit rezervorul de la {GetDeviceType(log.Data)} {log.Data["device_name"]}";
 
         public string BuildDeviceExternalCleaningLogText(PersonalLog log)
-            => $"Am curățat extern {GetDeviceType(log.Data)} {log.Data["device_name"]}";
+        {
+            string text = $"Am curățat extern {GetDeviceType(log.Data)} {log.Data["device_name"]}";
+
+            if (log.Data.ContainsKey("cleaning_method"))
+            {
+                text += $" prin {GetCleaningMethod(log.Data)}";
+            }
+
+            return text;
+        }
 
         public string BuildDeviceInternalCleaningLogText(PersonalLog log)
-            => $"Am curățat intern {GetDeviceType(log.Data)} {log.Data["device_name"]}";
+        {
+            string text = $"Am curățat intern {GetDeviceType(log.Data)} {log.Data["device_name"]}";
+
+            if (log.Data.ContainsKey("cleaning_method"))
+            {
+                text += $" prin {GetCleaningMethod(log.Data)}";
+            }
+
+            return text;
+        }
 
         public string BuildDeviceRepairLogText(PersonalLog log)
         {
