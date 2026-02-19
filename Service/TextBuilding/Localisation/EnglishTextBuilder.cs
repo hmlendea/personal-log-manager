@@ -764,6 +764,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = "I have made the bed";
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", at {location}";
@@ -2274,6 +2279,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", at {location}";
@@ -2297,6 +2307,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", at {location}";
@@ -2318,6 +2333,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.ContainsKey("platform"))
             {
                 text += $" on {GetPlatform(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -2619,6 +2639,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
@@ -2640,6 +2665,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.ContainsKey("platform"))
             {
                 text += $" on {GetPlatform(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -2680,6 +2710,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
@@ -2716,6 +2751,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.ContainsKey("platform"))
             {
                 text += $" on {GetPlatform(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -2756,6 +2796,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
@@ -2784,6 +2829,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
@@ -2810,6 +2860,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.ContainsKey("platform"))
             {
                 text += $" on {GetPlatform(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))

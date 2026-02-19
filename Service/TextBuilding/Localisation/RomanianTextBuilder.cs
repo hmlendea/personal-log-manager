@@ -775,6 +775,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = "Am făcut patul";
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", la {location}";
