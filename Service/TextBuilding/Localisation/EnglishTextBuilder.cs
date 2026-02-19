@@ -3461,6 +3461,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "LargerBedroom", "larger bedroom" },
                     { "LivingRoom", "living room" },
                     { "LowerBathroom", "lower bathroom" },
+                    { "LowerBedroom", "lower bedroom" },
                     { "LowerHallway", "lower hallway" },
                     { "Kitchen", "kitchen" },
                     { "Office", "office" },
@@ -3470,6 +3471,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "SmallerBedroom", "smaller bedroom" },
                     { "Stairway", "stairway" },
                     { "UppperBathroom", "upper bathroom" },
+                    { "UpperBedroom", "upper bedroom" },
                     { "UpperHallway", "upper hallway" }
                 },
                 data["room"].ToLower()

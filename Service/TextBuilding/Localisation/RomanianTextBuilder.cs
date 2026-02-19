@@ -3643,6 +3643,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "LargerBedroom", "dormitorul mare" },
                     { "LivingRoom", "sufragerie" },
                     { "LowerBathroom", "baia de jos" },
+                    { "LowerBedroom", "dormitorul de jos" },
                     { "LowerHallway", "holul de jos" },
                     { "Kitchen", "bucătărie" },
                     { "Office", "birou" },
@@ -3652,6 +3653,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "SmallerBedroom", "dormitorul mic" },
                     { "Stairway", "scară" },
                     { "UpperBathroom", "baia de sus" },
+                    { "UpperBedroom", "dormitorul de sus" },
                     { "UpperHallway", "holul de sus" }
                 },
                 data["room"].ToLower()
