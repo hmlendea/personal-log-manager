@@ -3656,10 +3656,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 { "Beard", "beard" },
                 { "ChestHair", "chest hair" },
+                { "EyebrowHair", "eyebrow hair" },
                 { "FaceHair", "facial hair" },
                 { "FootHair", "foot hair" },
                 { "GenitalHair", "pubic hair" },
                 { "HeadHair", "head" },
+                { "LegHair", "leg hair" },
                 { "Mustache", "mustache" },
                 { "NoseHair", "nose hair" },
                 { "Sideburns", "sideburns" },
