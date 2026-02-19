@@ -1987,9 +1987,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have gotten my hair cut";
 
-            if (log.Data.TryGetValue("salon_name", out string salonName))
+            if (log.Data.TryGetValue("location", out string location))
             {
-                text += $" at {salonName}";
+                text += $" at {location}";
             }
 
             if (log.Data.TryGetValue("hairdresser_name", out string hairdresserName))

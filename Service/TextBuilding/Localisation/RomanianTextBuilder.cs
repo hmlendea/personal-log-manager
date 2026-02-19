@@ -2027,14 +2027,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am fost la tuns";
 
-            if (log.Data.TryGetValue("salon_name", out string salonName))
+            if (log.Data.TryGetValue("location", out string location))
             {
-                text += $" la {salonName}";
+                text += $" la {location}";
             }
 
             if (log.Data.TryGetValue("hairdresser_name", out string hairdresserName))
             {
-                text += $", la {hairdresserName}";
+                text += $", de către {hairdresserName}";
             }
 
             return text;
@@ -3065,7 +3065,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildShavingLogText(PersonalLog log)
         {
-            string text = $"Mi-am ras {GetHairType(log.Data)}";
+            string text = string.Empty;
+
+            if (log.Data.ContainsKey("stylist_name"))
+            {
+                text = "Mi-a fost rasă";
+            }
+            else
+            {
+                text = "Mi-am ras";
+            }
+
+            text += $" {GetHairType(log.Data)}";
+
+            if (log.Data.TryGetValue("stylist_name", out string stylistName))
+            {
+                text += $" de către {stylistName}";
+            }
 
             if (log.Data.ContainsKey("room"))
             {
