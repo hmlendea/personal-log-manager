@@ -157,6 +157,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildPetWeightMeasurementLogText(PersonalLog log);
         string BuildPhysiotherapySessionLogText(PersonalLog log);
         string BuildPsychotherapySessionLogText(PersonalLog log);
+        string BuildPublicIpAddressMeasurementLogText(PersonalLog log);
         string BuildRestaurantVisitLogText(PersonalLog log);
         string BuildSaunaSessionLogText(PersonalLog log);
         string BuildSeriesBeginningLogText(PersonalLog log);

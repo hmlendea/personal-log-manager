@@ -2674,6 +2674,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildPublicIpAddressMeasurementLogText(PersonalLog log)
+            => $"The public IP address at {GetDataValue(log.Data, "location")} was {log.Data["ip_address"]}";
+
         public string BuildRestaurantVisitLogText(PersonalLog log)
         {
             string text = $"I have been to the restaurant at";

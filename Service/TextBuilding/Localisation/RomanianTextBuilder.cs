@@ -2784,6 +2784,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildPublicIpAddressMeasurementLogText(PersonalLog log)
+            => $"Adresa IP publică de la {GetDataValue(log.Data, "location")} a fost {log.Data["ip_address"]}";
+
         public string BuildRestaurantVisitLogText(PersonalLog log)
         {
             string text = $"Am fost la restaurant";
