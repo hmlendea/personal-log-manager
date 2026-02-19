@@ -3443,6 +3443,49 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildVehicleFluidRefillingLogText(PersonalLog log)
+        {
+            string text = $"A fost completat {GetFluidType(log.Data, useDefinitiveForm: true)} în";
+
+            if (IsDataValuePresent(log.Data, "vehicle_model") ||
+                IsDataValuePresent(log.Data, "vehicle_name") ||
+                IsDataValuePresent(log.Data, "vehicle_registration_number"))
+            {
+                text += $" {GetVehicleType(log.Data, useDefinitiveForm: true)}";
+            }
+            else
+            {
+                text += $" {GetVehicleType(log.Data, useDefinitiveForm: false)}";
+            }
+
+            if (log.Data.TryGetValue("vehicle_name", out string vehicleName))
+            {
+                text += $" '{vehicleName}'";
+            }
+
+            if (log.Data.TryGetValue("vehicle_model", out string vehicleModel))
+            {
+                text += $" {vehicleModel}";
+            }
+
+            if (log.Data.TryGetValue("vehicle_registration_number", out string vehicleRegistrationNumber))
+            {
+                text += $" cu numărul de înmatriculare '{vehicleRegistrationNumber}'";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            if (log.Data.TryGetValue("mechanic_name", out string mechanicName))
+            {
+                text += $" de către {mechanicName}";
+            }
+
+            return text;
+        }
+
         public string BuildVehicleMileageMeasurementLogText(PersonalLog log)
         {
             string text = $"Distanța totală parcursă de";

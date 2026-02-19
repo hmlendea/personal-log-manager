@@ -3314,6 +3314,42 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildVehicleFluidRefillingLogText(PersonalLog log)
+        {
+            string text = $"The {GetFluidType(log.Data, useDefinitiveForm: false)} of";
+
+            if (log.Data.TryGetValue("vehicle_model", out string vehicleModel))
+            {
+                text += $" {vehicleModel}";
+            }
+
+            text += $" {GetVehicleType(log.Data, useDefinitiveForm: true)}";
+
+            if (log.Data.TryGetValue("vehicle_name", out string vehicleName))
+            {
+                text += $" '{vehicleName}'";
+            }
+
+            if (log.Data.TryGetValue("vehicle_registration_number", out string vehicleRegistrationNumber))
+            {
+                text += $" with the '{vehicleRegistrationNumber}' registration number";
+            }
+
+            text += " has been refilled";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("mechanic_name", out string mechanicName))
+            {
+                text += $" by {mechanicName}";
+            }
+
+            return text;
+        }
+
         public string BuildVehicleMileageMeasurementLogText(PersonalLog log)
         {
             string text = $"The total mileage of the";

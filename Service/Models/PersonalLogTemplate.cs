@@ -180,6 +180,7 @@ namespace PersonalLogManager.Service.Models
         UtilityIndexMeasurement,
         VacuumCleaning,
         VehicleFluidChanging,
+        VehicleFluidRefilling,
         VehicleMileageMeasurement,
         VideoUpload,
         VideoWatching,
