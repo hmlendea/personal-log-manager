@@ -1140,6 +1140,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildCustomGptCreationLogText(PersonalLog log)
+        {
+            string text = $"Am creat un GPT personalizat";
+
+            if (log.Data.TryGetValue("gpt_name", out string gptName))
+            {
+                text += $" numit '{gptName}'";
+            }
+
+            if (log.Data.ContainsKey("platform"))
+            {
+                text += $" pe {GetPlatform(log.Data)}";
+            }
+
+            return text;
+        }
+
         public string BuildDatingAppMatchLogText(PersonalLog log)
             => $"Am făcut match cu {log.Data["match_name"]} pe {GetPlatform(log.Data)}";
 

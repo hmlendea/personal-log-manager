@@ -70,6 +70,7 @@ namespace PersonalLogManager.Service.Models
         ChatGroupDeletion,
         ChatGroupJoining,
         ChatGroupLeaving,
+        CustomGptCreation,
         DatingAppMatch,
         DeliveryReceival,
         DentalAppointment,

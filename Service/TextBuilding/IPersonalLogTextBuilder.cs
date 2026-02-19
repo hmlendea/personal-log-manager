@@ -71,6 +71,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildChatGroupDeletionLogText(PersonalLog log);
         string BuildChatGroupJoiningLogText(PersonalLog log);
         string BuildChatGroupLeavingLogText(PersonalLog log);
+        string BuildCustomGptCreationLogText(PersonalLog log);
         string BuildDatingAppMatchLogText(PersonalLog log);
         string BuildDeliveryReceivalLogText(PersonalLog log);
         string BuildDentalAppointmentLogText(PersonalLog log);
