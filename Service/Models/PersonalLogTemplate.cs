@@ -84,6 +84,7 @@ namespace PersonalLogManager.Service.Models
         DeviceScreentimeMeasurement,
         DirectBilirubinMeasurement,
         Donation,
+        EarwaxCleaning,
         EducationalGradeReceival,
         EmailAliasCreation,
         EmailAliasDeletion,

@@ -1270,6 +1270,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildDonationLogText(PersonalLog log)
             => $"I have donated {GetDataValue(log.Data, "amount")} {GetDataValue(log.Data, "currency")} to {GetDataValue(log.Data, "recipient")}";
 
+        public string BuildEarwaxCleaningLogText(PersonalLog log)
+            => "I have cleaned my earwax";
+
         public string BuildEducationalGradeReceivalLogText(PersonalLog log)
         {
             string gradeType = GetMappedDataValue(

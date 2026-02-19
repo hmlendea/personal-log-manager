@@ -85,6 +85,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildDeviceScreentimeMeasurementLogText(PersonalLog log);
         string BuildDirectBilirubinMeasurementLogText(PersonalLog log);
         string BuildDonationLogText(PersonalLog log);
+        string BuildEarwaxCleaningLogText(PersonalLog log);
         string BuildEducationalGradeReceivalLogText(PersonalLog log);
         string BuildEmailExportLogText(PersonalLog log);
         string BuildEmailAliasCreationLogText(PersonalLog log);
