@@ -764,6 +764,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = "I have made the bed";
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", at {location}";
@@ -2024,7 +2029,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 new()
                 {
                     { "Antibiotic", "antibiotic" },
+                    { "Antifungal", "antifungal" },
                     { "Antiparasitic", "antiparasitic" },
+                    { "Antiseptic", "antiseptic" },
                     { "Anxiolytic", "anxiolytic" },
                     { "Corticosteroid", "corticosteroid" },
                     { "Enzymatic", "enzymatic" },
@@ -2274,6 +2281,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", at {location}";
@@ -2297,6 +2309,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", at {location}";
@@ -2318,6 +2335,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.ContainsKey("platform"))
             {
                 text += $" on {GetPlatform(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -2496,7 +2518,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 new()
                 {
                     { "Antibiotic", "antibiotic" },
+                    { "Antifungal", "antifungal" },
                     { "Antiparasitic", "antiparasitic" },
+                    { "Antiseptic", "antiseptic" },
                     { "Anxiolytic", "anxiolytic" },
                     { "Corticosteroid", "corticosteroid" },
                     { "Enzymatic", "enzymatic" },
@@ -2619,6 +2643,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
@@ -2640,6 +2669,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.ContainsKey("platform"))
             {
                 text += $" on {GetPlatform(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -2680,6 +2714,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
@@ -2716,6 +2755,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.ContainsKey("platform"))
             {
                 text += $" on {GetPlatform(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -2756,6 +2800,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
@@ -2784,6 +2833,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" at {location}";
@@ -2810,6 +2864,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.ContainsKey("platform"))
             {
                 text += $" on {GetPlatform(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -2847,7 +2906,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 "facial hair");
 
-            return $"I have shaved my {hairType}";
+            string text = $"I have shaved my {hairType}";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $", in the {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            return text;
         }
 
         public string BuildShowerBeginningLogText(PersonalLog log)
@@ -3443,6 +3514,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "VacuumCleaner", "vacuum cleaner" },
                     { "Watch", "watch" },
                     { "WaterFlosser", "water flosser" },
+                    { "WirelessSpeaker", "wireless speaker" }
                 },
                 data["device_type"].ToLower()
             );
@@ -3451,6 +3523,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => GetMappedDataValue(data, "room", new()
                 {
                     { "Attic", "attic" },
+                    { "BackPorch", "back porch" },
+                    { "Balcony", "balcony" },
                     { "Bathroom", "bathroom" },
                     { "Bedroom", "bedroom" },
                     { "DressingRoom", "dressing room" },
@@ -3459,13 +3533,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "LargerBedroom", "larger bedroom" },
                     { "LivingRoom", "living room" },
                     { "LowerBathroom", "lower bathroom" },
+                    { "LowerBedroom", "lower bedroom" },
                     { "LowerHallway", "lower hallway" },
                     { "Kitchen", "kitchen" },
                     { "Office", "office" },
                     { "Pantry", "pantry" },
+                    { "Porch", "porch" },
                     { "SmallerBathroom", "smaller bathroom" },
                     { "SmallerBedroom", "smaller bedroom" },
+                    { "Stairway", "stairway" },
                     { "UppperBathroom", "upper bathroom" },
+                    { "UpperBedroom", "upper bedroom" },
                     { "UpperHallway", "upper hallway" }
                 },
                 data["room"].ToLower()

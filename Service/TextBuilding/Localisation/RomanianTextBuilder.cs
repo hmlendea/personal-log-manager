@@ -775,6 +775,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = "Am făcut patul";
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", la {location}";
@@ -2064,7 +2069,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     new()
                     {
                         { "Antibiotic", "antibiotice" },
+                        { "Antifungal", "antifungice" },
                         { "Antiparasitic", "antiparazitice" },
+                        { "Antiseptic", "antiseptice" },
                         { "Anxiolytic", "anxiolitice" },
                         { "Corticosteroid", "corticosteroizi" },
                         { "Enzymatic", "enzimatice" },
@@ -2093,7 +2100,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     new()
                     {
                         { "Antibiotic", "antibiotic" },
+                        { "Antifungal", "antifungic" },
                         { "Antiparasitic", "antiparazitic" },
+                        { "Antiseptic", "antiseptic" },
                         { "Anxiolytic", "anxiolitic" },
                         { "Corticosteroid", "corticosteroid" },
                         { "Enzymatic", "enzimatic" },
@@ -2343,6 +2352,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", la {location}";
@@ -2366,6 +2380,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", la {location}";
@@ -2387,6 +2406,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.ContainsKey("platform"))
             {
                 text += $" pe {GetPlatform(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -2575,7 +2599,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     new()
                     {
                         { "Antibiotic", "antibiotice" },
+                        { "Antifungal", "antifungice" },
                         { "Antiparasitic", "antiparazitice" },
+                        { "Antiseptic", "antiseptice" },
                         { "Anxiolytic", "anxiolitice" },
                         { "Corticosteroid", "corticosteroizi" },
                         { "Enzymatic", "enzimatice" },
@@ -2604,7 +2630,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     new()
                     {
                         { "Antibiotic", "antibiotic" },
+                        { "Antifungal", "antifungic" },
                         { "Antiparasitic", "antiparazitic" },
+                        { "Antiseptic", "antiseptic" },
                         { "Anxiolytic", "anxiolitic" },
                         { "Corticosteroid", "corticosteroid" },
                         { "Enzymatic", "enzimatic" },
@@ -2723,6 +2751,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" la {location}";
@@ -2744,6 +2777,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.ContainsKey("platform"))
             {
                 text += $" pe {GetPlatform(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -2784,6 +2822,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" la {location}";
@@ -2820,6 +2863,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.ContainsKey("platform"))
             {
                 text += $" pe {GetPlatform(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -2860,6 +2908,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" la {location}";
@@ -2888,6 +2941,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $" la {location}";
@@ -2914,6 +2972,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.ContainsKey("platform"))
             {
                 text += $" pe {GetPlatform(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -2952,7 +3015,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 "părul facial");
 
-            return $"Mi-am ras {hairType}";
+            string text = $"Mi-am ras {hairType}";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $", în {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            return text;
         }
 
         public string BuildShowerBeginningLogText(PersonalLog log)
@@ -3575,6 +3650,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "VacuumCleaner", "aspiratorul" },
                     { "Watch", "ceasul" },
                     { "WaterFlosser", "irigatorul bucal" },
+                    { "WirelessSpeaker", "boxa fără fir" }
                 },
                 data["device_type"].ToLower()
             );
@@ -3583,21 +3659,27 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => GetMappedDataValue(data, "room", new()
                 {
                     { "Attic", "pod" },
+                    { "BackPorch", "veranda din spate" },
+                    { "Balcony", "balcon" },
                     { "Bathroom", "baie" },
                     { "Bedroom", "dormitor" },
                     { "DressingRoom", "dressing" },
                     { "Hallway", "hol" },
                     { "LargerBathroom", "baia mare" },
                     { "LargerBedroom", "dormitorul mare" },
-                    { "LivingRoom", "livingul" },
+                    { "LivingRoom", "sufragerie" },
                     { "LowerBathroom", "baia de jos" },
+                    { "LowerBedroom", "dormitorul de jos" },
                     { "LowerHallway", "holul de jos" },
                     { "Kitchen", "bucătărie" },
                     { "Office", "birou" },
                     { "Pantry", "cămară" },
+                    { "Porch", "verandă" },
                     { "SmallerBathroom", "baia mică" },
                     { "SmallerBedroom", "dormitorul mic" },
-                    { "UppperBathroom", "baia de sus" },
+                    { "Stairway", "scară" },
+                    { "UpperBathroom", "baia de sus" },
+                    { "UpperBedroom", "dormitorul de sus" },
                     { "UpperHallway", "holul de sus" }
                 },
                 data["room"].ToLower()
