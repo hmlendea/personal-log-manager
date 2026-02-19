@@ -5,6 +5,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 {
     public class EnglishTextBuilder() : PersonalLogTextBuilderBase, IPersonalLogTextBuilder
     {
+        public string BuildAccessoryCleaningLogText(PersonalLog log)
+            => $"I have cleaned {GetAccessoryType(log.Data)} by {GetCleaningMethod(log.Data)}";
+
         public string BuildAccountActivationLogText(PersonalLog log)
             => $"I have activated the {GetPlatform(log.Data)} account";
 
@@ -760,6 +763,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildAlkalinePhosphataseMeasurementLogText(PersonalLog log)
             => $"My alkaline phosphatase level measured {GetDecimalValue(log.Data, "alkaline_phosphatase_level")} {GetDataValue(log.Data, "unit", "U/L")}";
 
+        public string BuildBedLinenChangingLogText(PersonalLog log)
+        {
+            string text = "I have changed the bed linen";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", at {location}";
+            }
+
+            return text;
+        }
+
         public string BuildBedMakingLogText(PersonalLog log)
         {
             string text = "I have made the bed";
@@ -1174,6 +1194,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildDeviceChargingLogText(PersonalLog log)
             => $"I have charged my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
 
+        public string BuildDeviceContainerEmptyingLogText(PersonalLog log)
+            => $"I have emptied the container of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
+
         public string BuildDeviceExternalCleaningLogText(PersonalLog log)
             => $"I have cleaned the exterior of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
 
@@ -1249,6 +1272,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildDonationLogText(PersonalLog log)
             => $"I have donated {GetDataValue(log.Data, "amount")} {GetDataValue(log.Data, "currency")} to {GetDataValue(log.Data, "recipient")}";
+
+        public string BuildEarwaxCleaningLogText(PersonalLog log)
+            => "I have cleaned my earwax";
 
         public string BuildEducationalGradeReceivalLogText(PersonalLog log)
         {
@@ -1942,6 +1968,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("hairdresser_name", out string hairdresserName))
             {
                 text += $", by {hairdresserName}";
+            }
+
+            return text;
+        }
+
+        public string BuildHairTrimmingLogText(PersonalLog log)
+        {
+            string text = $"I have trimmed {GetHairType(log.Data)}";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
             }
 
             return text;
@@ -2887,26 +2930,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildShavingLogText(PersonalLog log)
         {
-            string hairType = GetMappedDataValue(
-                log.Data,
-                "hair_type",
-                new()
-                {
-                    { "Beard", "beard" },
-                    { "ChestHair", "chest hair" },
-                    { "FaceHair", "facial hair" },
-                    { "FootHair", "foot hair" },
-                    { "GenitalHair", "pubic hair" },
-                    { "HeadHair", "head" },
-                    { "Mustache", "mustache" },
-                    { "NoseHair", "nose hair" },
-                    { "Sideburns", "sideburns" },
-                    { "UnderarmHair", "underarm hair" },
-                    { "Unibrow", "unibrow" }
-                },
-                "facial hair");
-
-            string text = $"I have shaved my {hairType}";
+            string text = $"I have shaved my {GetHairType(log.Data)}";
 
             if (log.Data.ContainsKey("room"))
             {
@@ -3257,27 +3281,88 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
-        public string BuildVehicleMileageMeasurementLogText(PersonalLog log)
+        public string BuildVehicleFluidChangingLogText(PersonalLog log)
         {
-            string text = $"The total mileage of the";
-            string vehicleType;
+            string text = $"The {GetFluidType(log.Data, useDefinitiveForm: false)} of";
 
             if (log.Data.TryGetValue("vehicle_model", out string vehicleModel))
             {
                 text += $" {vehicleModel}";
             }
 
-            vehicleType = GetMappedDataValue(
-                log.Data,
-                "vehicle_type",
-                new()
-                {
-                    { "Car", "car" },
-                    { "ElectricScooter", "electric scooter" }
-                },
-                "vehicle");
+            text += $" {GetVehicleType(log.Data, useDefinitiveForm: true)}";
 
-            text += $" {vehicleType}";
+            if (log.Data.TryGetValue("vehicle_name", out string vehicleName))
+            {
+                text += $" '{vehicleName}'";
+            }
+
+            if (log.Data.TryGetValue("vehicle_registration_number", out string vehicleRegistrationNumber))
+            {
+                text += $" with the '{vehicleRegistrationNumber}' registration number";
+            }
+
+            text += " has been changed";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("mechanic_name", out string mechanicName))
+            {
+                text += $" by {mechanicName}";
+            }
+
+            return text;
+        }
+
+        public string BuildVehicleFluidRefillingLogText(PersonalLog log)
+        {
+            string text = $"The {GetFluidType(log.Data, useDefinitiveForm: false)} of";
+
+            if (log.Data.TryGetValue("vehicle_model", out string vehicleModel))
+            {
+                text += $" {vehicleModel}";
+            }
+
+            text += $" {GetVehicleType(log.Data, useDefinitiveForm: true)}";
+
+            if (log.Data.TryGetValue("vehicle_name", out string vehicleName))
+            {
+                text += $" '{vehicleName}'";
+            }
+
+            if (log.Data.TryGetValue("vehicle_registration_number", out string vehicleRegistrationNumber))
+            {
+                text += $" with the '{vehicleRegistrationNumber}' registration number";
+            }
+
+            text += " has been refilled";
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            if (log.Data.TryGetValue("mechanic_name", out string mechanicName))
+            {
+                text += $" by {mechanicName}";
+            }
+
+            return text;
+        }
+
+        public string BuildVehicleMileageMeasurementLogText(PersonalLog log)
+        {
+            string text = $"The total mileage of the";
+
+            if (log.Data.TryGetValue("vehicle_model", out string vehicleModel))
+            {
+                text += $" {vehicleModel}";
+            }
+
+            text += $" {GetVehicleType(log.Data, useDefinitiveForm: true)}";
 
             if (log.Data.TryGetValue("vehicle_name", out string vehicleName))
             {
@@ -3495,10 +3580,39 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             return text;
         }
+
+        protected override string GetAccessoryType(
+            Dictionary<string, string> data,
+            bool useDefinitiveForm = false)
+        {
+            string accessoryType = GetMappedDataValue(data, "accessory_type", new()
+            {
+                { "Glasses", "glasses" }
+            },
+            "accessory");
+
+            if (useDefinitiveForm)
+            {
+                return $"the {accessoryType}";
+            }
+
+            return accessoryType;
+        }
+
+        protected override string GetCleaningMethod(Dictionary<string, string> data)
+            => GetMappedDataValue(data, "accessory_type", new()
+            {
+                { "Vacuuming", "vacuuming" },
+                { "Washing", "washing" },
+                { "Wiping", "wiping" },
+            },
+            "cleaning");
+
         protected override string GetDeviceType(Dictionary<string, string> data)
             => GetMappedDataValue(data, "device_type", new()
                 {
                     { "Console", "console" },
+                    { "Dehumidifier", "dehumidifier" },
                     { "DesktopComputer", "desktop computer" },
                     { "FitnessTracker", "fitness tracker" },
                     { "HairTrimmer", "hair trimmer" },
@@ -3518,6 +3632,41 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 data["device_type"].ToLower()
             );
+
+        protected override string GetFluidType(Dictionary<string, string> data, bool useDefinitiveForm)
+        {
+            string fluidType = GetMappedDataValue(data, "fluid_type", new()
+            {
+                { "Coolant", "coolant" },
+                { "MotorOil", "motor oil" },
+                { "WindscreenWashingFluid", "windscreen washing fluid" }
+            },
+            "liquid");
+
+            if (useDefinitiveForm)
+            {
+                return $"the {fluidType}";
+            }
+
+            return fluidType;
+        }
+
+        protected override string GetHairType(Dictionary<string, string> data)
+            => GetMappedDataValue(data, "hair_type", new()
+            {
+                { "Beard", "beard" },
+                { "ChestHair", "chest hair" },
+                { "FaceHair", "facial hair" },
+                { "FootHair", "foot hair" },
+                { "GenitalHair", "pubic hair" },
+                { "HeadHair", "head" },
+                { "Mustache", "mustache" },
+                { "NoseHair", "nose hair" },
+                { "Sideburns", "sideburns" },
+                { "UnderarmHair", "underarm hair" },
+                { "Unibrow", "unibrow" }
+            },
+            "hair");
 
         protected override string GetRoom(Dictionary<string, string> data)
             => GetMappedDataValue(data, "room", new()
@@ -3548,5 +3697,22 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 data["room"].ToLower()
             );
+
+        protected override string GetVehicleType(Dictionary<string, string> data, bool useDefinitiveForm)
+        {
+            string vehicleType = GetMappedDataValue(data, "vehicle_type", new()
+            {
+                { "Car", "car" },
+                { "ElectricScooter", "electric scooter" }
+            },
+            "vehicle");
+
+            if (useDefinitiveForm)
+            {
+                return $"the {vehicleType}";
+            }
+
+            return vehicleType;
+        }
     }
 }

@@ -5,6 +5,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 {
     public class RomanianTextBuilder() : PersonalLogTextBuilderBase, IPersonalLogTextBuilder
     {
+        public string BuildAccessoryCleaningLogText(PersonalLog log)
+            => $"Mi-am curățat {GetAccessoryType(log.Data)} prin {GetCleaningMethod(log.Data)}";
+
         public string BuildAccountActivationLogText(PersonalLog log)
             => $"Am activat contul de {GetPlatform(log.Data)}";
 
@@ -771,6 +774,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildAlkalinePhosphataseMeasurementLogText(PersonalLog log)
             => $"Nivelul de fosfatază alcalină a fost măsurat la {GetDecimalValue(log.Data, "alkaline_phosphatase_level")} {GetDataValue(log.Data, "unit", "U/L")}";
 
+        public string BuildBedLinenChangingLogText(PersonalLog log)
+        {
+            string text = "Am schimbat lenjeria de pat";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", la {location}";
+            }
+
+            return text;
+        }
+
         public string BuildBedMakingLogText(PersonalLog log)
         {
             string text = "Am făcut patul";
@@ -1216,6 +1236,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildDeviceChargingLogText(PersonalLog log)
             => $"Am pus la încărcat {GetDeviceType(log.Data)} {log.Data["device_name"]}";
 
+        public string BuildDeviceContainerEmptyingLogText(PersonalLog log)
+            => $"Am golit rezervorul de la {GetDeviceType(log.Data)} {log.Data["device_name"]}";
+
         public string BuildDeviceExternalCleaningLogText(PersonalLog log)
             => $"Am curățat extern {GetDeviceType(log.Data)} {log.Data["device_name"]}";
 
@@ -1301,6 +1324,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildDonationLogText(PersonalLog log)
             => $"Am donat {GetDataValue(log.Data, "amount")} {GetDataValue(log.Data, "currency")} către {GetDataValue(log.Data, "recipient")}";
+
+        public string BuildEarwaxCleaningLogText(PersonalLog log)
+            => "Mi-am curățat ceara din urechi";
 
         public string BuildEducationalGradeReceivalLogText(PersonalLog log)
         {
@@ -1982,6 +2008,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("hairdresser_name", out string hairdresserName))
             {
                 text += $", la {hairdresserName}";
+            }
+
+            return text;
+        }
+
+        public string BuildHairTrimmingLogText(PersonalLog log)
+        {
+            string text = $"Mi-am scurtat {GetHairType(log.Data)}";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
             }
 
             return text;
@@ -2995,27 +3038,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildShavingLogText(PersonalLog log)
         {
-            string hairType = GetMappedDataValue(
-                log.Data,
-                "hair_type",
-                new()
-                {
-                    { "Beard", "barba" },
-                    { "ChestHair", "părul de pe piept" },
-                    { "FaceHair", "părul facial" },
-                    { "FootHair", "părul de pe labele picioarelor" },
-                    { "GenitalHair", "părul pubian" },
-                    { "HairTrimmer", "trimmer-ul de păr" },
-                    { "HeadHair", "părul de pe cap" },
-                    { "Mustache", "mustața" },
-                    { "NoseHair", "părul din nas" },
-                    { "Sideburns", "părul de pe tâmple" },
-                    { "UnderarmHair", "părul de la subraț" },
-                    { "Unibrow", "monosprânceana" }
-                },
-                "părul facial");
-
-            string text = $"Mi-am ras {hairType}";
+            string text = $"Mi-am ras {GetHairType(log.Data)}";
 
             if (log.Data.ContainsKey("room"))
             {
@@ -3380,6 +3403,92 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildVehicleFluidChangingLogText(PersonalLog log)
+        {
+            string text = $"A fost înlocuit complet {GetFluidType(log.Data, useDefinitiveForm: true)} din";
+
+            if (IsDataValuePresent(log.Data, "vehicle_model") ||
+                IsDataValuePresent(log.Data, "vehicle_name") ||
+                IsDataValuePresent(log.Data, "vehicle_registration_number"))
+            {
+                text += $" {GetVehicleType(log.Data, useDefinitiveForm: true)}";
+            }
+            else
+            {
+                text += $" {GetVehicleType(log.Data, useDefinitiveForm: false)}";
+            }
+
+            if (log.Data.TryGetValue("vehicle_name", out string vehicleName))
+            {
+                text += $" '{vehicleName}'";
+            }
+
+            if (log.Data.TryGetValue("vehicle_model", out string vehicleModel))
+            {
+                text += $" {vehicleModel}";
+            }
+
+            if (log.Data.TryGetValue("vehicle_registration_number", out string vehicleRegistrationNumber))
+            {
+                text += $" cu numărul de înmatriculare '{vehicleRegistrationNumber}'";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            if (log.Data.TryGetValue("mechanic_name", out string mechanicName))
+            {
+                text += $" de către {mechanicName}";
+            }
+
+            return text;
+        }
+
+        public string BuildVehicleFluidRefillingLogText(PersonalLog log)
+        {
+            string text = $"A fost completat {GetFluidType(log.Data, useDefinitiveForm: true)} în";
+
+            if (IsDataValuePresent(log.Data, "vehicle_model") ||
+                IsDataValuePresent(log.Data, "vehicle_name") ||
+                IsDataValuePresent(log.Data, "vehicle_registration_number"))
+            {
+                text += $" {GetVehicleType(log.Data, useDefinitiveForm: true)}";
+            }
+            else
+            {
+                text += $" {GetVehicleType(log.Data, useDefinitiveForm: false)}";
+            }
+
+            if (log.Data.TryGetValue("vehicle_name", out string vehicleName))
+            {
+                text += $" '{vehicleName}'";
+            }
+
+            if (log.Data.TryGetValue("vehicle_model", out string vehicleModel))
+            {
+                text += $" {vehicleModel}";
+            }
+
+            if (log.Data.TryGetValue("vehicle_registration_number", out string vehicleRegistrationNumber))
+            {
+                text += $" cu numărul de înmatriculare '{vehicleRegistrationNumber}'";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
+            }
+
+            if (log.Data.TryGetValue("mechanic_name", out string mechanicName))
+            {
+                text += $" de către {mechanicName}";
+            }
+
+            return text;
+        }
+
         public string BuildVehicleMileageMeasurementLogText(PersonalLog log)
         {
             string text = $"Distanța totală parcursă de";
@@ -3389,27 +3498,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 IsDataValuePresent(log.Data, "vehicle_name") ||
                 IsDataValuePresent(log.Data, "vehicle_registration_number"))
             {
-                vehicleType = GetMappedDataValue(
-                    log.Data,
-                    "vehicle_type",
-                    new()
-                    {
-                        { "Car", "mașina" },
-                        { "ElectricScooter", "trotineta eletrică" }
-                    },
-                    "vehiculul");
+                vehicleType = GetVehicleType(log.Data, useDefinitiveForm: true);
             }
             else
             {
-                vehicleType = GetMappedDataValue(
-                    log.Data,
-                    "vehicle_type",
-                    new()
-                    {
-                        { "Car", "mașină" },
-                        { "ElectricScooter", "trotineta eletrică" }
-                    },
-                    "vehicul");
+                vehicleType = GetVehicleType(log.Data, useDefinitiveForm: false);
             }
 
             text += $" {vehicleType}";
@@ -3634,16 +3727,49 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        protected override string GetAccessoryType(
+            Dictionary<string, string> data,
+            bool useDefinitiveForm = false)
+        {
+            if (useDefinitiveForm)
+            {
+                return GetMappedDataValue(data, "accessory_type", new()
+                {
+                    { "Glasses", "ochelarii" }
+                },
+                "accesoriul");
+            }
+
+            return GetMappedDataValue(data, "accessory_type", new()
+            {
+                { "Glasses", "ochelari" }
+            },
+            "accesoriu");
+        }
+
+        protected override string GetCleaningMethod(Dictionary<string, string> data)
+            => GetMappedDataValue(data, "accessory_type", new()
+            {
+                { "Vacuuming", "aspirare" },
+                { "Washing", "spălare" },
+                { "Wiping", "ștergere" },
+            },
+            "curățare");
+
         protected override string GetDeviceType(Dictionary<string, string> data)
             => GetMappedDataValue(data, "device_type", new()
                 {
                     { "Console", "consola" },
+                    { "Dehumidifier", "dezumidificatorul" },
+                    { "DesktopComputer", "desktop computer" },
                     { "FitnessTracker", "brățara de fitness" },
+                    { "HairTrimmer", "aparatul de tuns părul" },
                     { "Headphones", "căștile" },
                     { "HeadTorch", "lanterna frontală" },
                     { "Laptop", "laptop-ul" },
                     { "LintRemover", "aparatul de scos scame" },
                     { "Phone", "telefonul" },
+                    { "Scale", "cântarul" },
                     { "Scooter", "trotineta" },
                     { "Tablet", "tableta" },
                     { "Toothbrush", "periuța de dinți" },
@@ -3654,6 +3780,46 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 data["device_type"].ToLower()
             );
+
+        protected override string GetFluidType(Dictionary<string, string> data, bool useDefinitiveForm)
+        {
+            if (useDefinitiveForm)
+            {
+                return GetMappedDataValue(data, "fluid_type", new()
+                {
+                    { "Coolant", "lichidul de răcire" },
+                    { "MotorOil", "uleiul de motor" },
+                    { "WindscreenWasherFluid", "lichidul de parbriz" }
+                },
+                "lichidul");
+            }
+
+            return GetMappedDataValue(data, "fluid_type", new()
+            {
+                { "Coolant", "lichid de răcire" },
+                { "MotorOil", "ulei de motor" },
+                { "WindscreenWasherFluid", "lichid de parbriz" }
+            },
+            "lichid");
+        }
+
+        protected override string GetHairType(Dictionary<string, string> data)
+            => GetMappedDataValue(data, "hair_type", new()
+            {
+                { "Beard", "barba" },
+                { "ChestHair", "părul de pe piept" },
+                { "FaceHair", "părul facial" },
+                { "FootHair", "părul de pe labele picioarelor" },
+                { "GenitalHair", "părul pubian" },
+                { "HairTrimmer", "trimmer-ul de păr" },
+                { "HeadHair", "părul de pe cap" },
+                { "Mustache", "mustața" },
+                { "NoseHair", "părul din nas" },
+                { "Sideburns", "părul de pe tâmple" },
+                { "UnderarmHair", "părul de la subraț" },
+                { "Unibrow", "monosprânceana" }
+            },
+            "părul");
 
         protected override string GetRoom(Dictionary<string, string> data)
             => GetMappedDataValue(data, "room", new()
@@ -3684,5 +3850,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 data["room"].ToLower()
             );
+
+        protected override string GetVehicleType(Dictionary<string, string> data, bool useDefinitiveForm)
+        {
+            if (useDefinitiveForm)
+            {
+                return GetMappedDataValue(data, "vehicle_type", new()
+                {
+                    { "Car", "mașina" },
+                    { "ElectricScooter", "trotineta eletrică" }
+                },
+                "vehiculul");
+            }
+
+            return GetMappedDataValue(data, "vehicle_type", new()
+            {
+                { "Car", "mașină" },
+                { "ElectricScooter", "trotinetă electrică" }
+            },
+            "vehicul");
+        }
     }
 }
