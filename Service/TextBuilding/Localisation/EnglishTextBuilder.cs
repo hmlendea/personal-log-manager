@@ -1985,7 +1985,21 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildHairCuttingLogText(PersonalLog log)
         {
-            string text = $"I have gotten my hair cut";
+            string text = string.Empty;
+
+            if (log.Data.ContainsKey("hairdresser_name"))
+            {
+                text += $"My {GetHairType(log.Data)} was cut";
+            }
+            else
+            {
+                text += $"I have cut my {GetHairType(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
 
             if (log.Data.TryGetValue("location", out string location))
             {

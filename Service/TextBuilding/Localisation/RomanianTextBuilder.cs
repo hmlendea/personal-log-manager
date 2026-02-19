@@ -2025,7 +2025,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildHairCuttingLogText(PersonalLog log)
         {
-            string text = $"Am fost la tuns";
+            string text = string.Empty;
+
+            if (log.Data.ContainsKey("hairdresser_name"))
+            {
+                text += $"Mi-a fost tuns";
+            }
+            else
+            {
+                text += $"Mi-am tuns";
+            }
+
+            text += $" {GetHairType(log.Data)}";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
 
             if (log.Data.TryGetValue("location", out string location))
             {
