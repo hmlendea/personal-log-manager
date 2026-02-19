@@ -4,6 +4,7 @@ namespace PersonalLogManager.Service.TextBuilding
 {
     public interface IPersonalLogTextBuilder
     {
+        string BuildAccessoryCleaningLogText(PersonalLog log);
         string BuildAccountActivationLogText(PersonalLog log);
         string BuildAccountBanningLogText(PersonalLog log);
         string BuildAccountContactEmailAddressChangeLogText(PersonalLog log);

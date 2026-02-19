@@ -179,6 +179,13 @@ namespace PersonalLogManager.Service.TextBuilding
             return mappedValue;
         }
 
+        protected abstract string GetAccessoryType(
+            Dictionary<string, string> data,
+            bool useDefinitiveForm = false);
+
+        protected abstract string GetCleaningMethod(
+            Dictionary<string, string> data);
+
         protected abstract string GetDeviceType(Dictionary<string, string> data);
 
         protected abstract string GetFluidType(Dictionary<string, string> data, bool useDefinitiveForm);

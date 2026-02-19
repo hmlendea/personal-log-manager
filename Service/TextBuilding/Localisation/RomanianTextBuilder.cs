@@ -5,6 +5,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 {
     public class RomanianTextBuilder() : PersonalLogTextBuilderBase, IPersonalLogTextBuilder
     {
+        public string BuildAccessoryCleaningLogText(PersonalLog log)
+            => $"Mi-am curățat {GetAccessoryType(log.Data)} prin {GetCleaningMethod(log.Data)}";
+
         public string BuildAccountActivationLogText(PersonalLog log)
             => $"Am activat contul de {GetPlatform(log.Data)}";
 
@@ -3723,6 +3726,35 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             return text;
         }
+
+        protected override string GetAccessoryType(
+            Dictionary<string, string> data,
+            bool useDefinitiveForm = false)
+        {
+            if (useDefinitiveForm)
+            {
+                return GetMappedDataValue(data, "accessory_type", new()
+                {
+                    { "Glasses", "ochelarii" }
+                },
+                "accesoriul");
+            }
+
+            return GetMappedDataValue(data, "accessory_type", new()
+            {
+                { "Glasses", "ochelari" }
+            },
+            "accesoriu");
+        }
+
+        protected override string GetCleaningMethod(Dictionary<string, string> data)
+            => GetMappedDataValue(data, "accessory_type", new()
+            {
+                { "Vacuuming", "aspirare" },
+                { "Washing", "spălare" },
+                { "Wiping", "ștergere" },
+            },
+            "curățare");
 
         protected override string GetDeviceType(Dictionary<string, string> data)
             => GetMappedDataValue(data, "device_type", new()

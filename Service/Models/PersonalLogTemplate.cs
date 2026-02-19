@@ -3,6 +3,7 @@ namespace PersonalLogManager.Service.Models
     public enum PersonalLogTemplate
     {
         Text,
+        AccessoryCleaning,
         AccountActivation,
         AccountBanning,
         AccountContactEmailAddressChange,

@@ -5,6 +5,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 {
     public class EnglishTextBuilder() : PersonalLogTextBuilderBase, IPersonalLogTextBuilder
     {
+        public string BuildAccessoryCleaningLogText(PersonalLog log)
+            => $"I have cleaned {GetAccessoryType(log.Data)} by {GetCleaningMethod(log.Data)}";
+
         public string BuildAccountActivationLogText(PersonalLog log)
             => $"I have activated the {GetPlatform(log.Data)} account";
 
@@ -3577,6 +3580,34 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             return text;
         }
+
+        protected override string GetAccessoryType(
+            Dictionary<string, string> data,
+            bool useDefinitiveForm = false)
+        {
+            string accessoryType = GetMappedDataValue(data, "accessory_type", new()
+            {
+                { "Glasses", "glasses" }
+            },
+            "accessory");
+
+            if (useDefinitiveForm)
+            {
+                return $"the {accessoryType}";
+            }
+
+            return accessoryType;
+        }
+
+        protected override string GetCleaningMethod(Dictionary<string, string> data)
+            => GetMappedDataValue(data, "accessory_type", new()
+            {
+                { "Vacuuming", "vacuuming" },
+                { "Washing", "washing" },
+                { "Wiping", "wiping" },
+            },
+            "cleaning");
+
         protected override string GetDeviceType(Dictionary<string, string> data)
             => GetMappedDataValue(data, "device_type", new()
                 {
