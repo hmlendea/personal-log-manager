@@ -2902,7 +2902,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 "facial hair");
 
-            return $"I have shaved my {hairType}";
+            string text = $"I have shaved my {hairType}";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $", in the {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            return text;
         }
 
         public string BuildShowerBeginningLogText(PersonalLog log)
