@@ -3466,6 +3466,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Pantry", "pantry" },
                     { "SmallerBathroom", "smaller bathroom" },
                     { "SmallerBedroom", "smaller bedroom" },
+                    { "Stairway", "stairway" },
                     { "UppperBathroom", "upper bathroom" },
                     { "UpperHallway", "upper hallway" }
                 },

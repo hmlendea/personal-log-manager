@@ -3648,7 +3648,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Pantry", "cămară" },
                     { "SmallerBathroom", "baia mică" },
                     { "SmallerBedroom", "dormitorul mic" },
-                    { "UppperBathroom", "baia de sus" },
+                    { "Stairway", "scară" },
+                    { "UpperBathroom", "baia de sus" },
                     { "UpperHallway", "holul de sus" }
                 },
                 data["room"].ToLower()
