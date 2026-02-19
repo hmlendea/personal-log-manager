@@ -1322,7 +1322,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildDonationLogText(PersonalLog log)
             => $"Am donat {GetDataValue(log.Data, "amount")} {GetDataValue(log.Data, "currency")} către {GetDataValue(log.Data, "recipient")}";
 
-        public string BuildEarwaxRemovalLogText(PersonalLog log)
+        public string BuildEarwaxCleaningLogText(PersonalLog log)
             => "Mi-am curățat ceara din urechi";
 
         public string BuildEducationalGradeReceivalLogText(PersonalLog log)
@@ -2005,6 +2005,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("hairdresser_name", out string hairdresserName))
             {
                 text += $", la {hairdresserName}";
+            }
+
+            return text;
+        }
+
+        public string BuildHairTrimmingLogText(PersonalLog log)
+        {
+            string text = $"Mi-am scurtat {GetHairType(log.Data)}";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
             }
 
             return text;
@@ -3018,27 +3035,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildShavingLogText(PersonalLog log)
         {
-            string hairType = GetMappedDataValue(
-                log.Data,
-                "hair_type",
-                new()
-                {
-                    { "Beard", "barba" },
-                    { "ChestHair", "părul de pe piept" },
-                    { "FaceHair", "părul facial" },
-                    { "FootHair", "părul de pe labele picioarelor" },
-                    { "GenitalHair", "părul pubian" },
-                    { "HairTrimmer", "trimmer-ul de păr" },
-                    { "HeadHair", "părul de pe cap" },
-                    { "Mustache", "mustața" },
-                    { "NoseHair", "părul din nas" },
-                    { "Sideburns", "părul de pe tâmple" },
-                    { "UnderarmHair", "părul de la subraț" },
-                    { "Unibrow", "monosprânceana" }
-                },
-                "părul facial");
-
-            string text = $"Mi-am ras {hairType}";
+            string text = $"Mi-am ras {GetHairType(log.Data)}";
 
             if (log.Data.ContainsKey("room"))
             {
@@ -3681,6 +3678,24 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 data["device_type"].ToLower()
             );
+
+        protected override string GetHairType(Dictionary<string, string> data)
+            => GetMappedDataValue(data, "hair_type", new()
+            {
+                { "Beard", "barba" },
+                { "ChestHair", "părul de pe piept" },
+                { "FaceHair", "părul facial" },
+                { "FootHair", "părul de pe labele picioarelor" },
+                { "GenitalHair", "părul pubian" },
+                { "HairTrimmer", "trimmer-ul de păr" },
+                { "HeadHair", "părul de pe cap" },
+                { "Mustache", "mustața" },
+                { "NoseHair", "părul din nas" },
+                { "Sideburns", "părul de pe tâmple" },
+                { "UnderarmHair", "părul de la subraț" },
+                { "Unibrow", "monosprânceana" }
+            },
+            "părul");
 
         protected override string GetRoom(Dictionary<string, string> data)
             => GetMappedDataValue(data, "room", new()

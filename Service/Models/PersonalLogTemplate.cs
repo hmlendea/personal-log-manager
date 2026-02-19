@@ -120,6 +120,7 @@ namespace PersonalLogManager.Service.Models
         GraduationCeremonyAttendance,
         GraduationCeremonyParticipation,
         HairCutting,
+        HairTrimming,
         HdlCholesterolMeasurement,
         HeartRateMeasurement,
         IndirectBilirubinMeasurement,

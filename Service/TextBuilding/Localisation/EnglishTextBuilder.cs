@@ -1970,6 +1970,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildHairTrimmingLogText(PersonalLog log)
+        {
+            string text = $"I have trimmed {GetHairType(log.Data)}";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
+            }
+
+            return text;
+        }
+
         public string BuildHdlCholesterolMeasurementLogText(PersonalLog log)
             => $"My HDL cholesterol level measured {log.Data["hdl_cholesterol_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
@@ -2910,26 +2927,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildShavingLogText(PersonalLog log)
         {
-            string hairType = GetMappedDataValue(
-                log.Data,
-                "hair_type",
-                new()
-                {
-                    { "Beard", "beard" },
-                    { "ChestHair", "chest hair" },
-                    { "FaceHair", "facial hair" },
-                    { "FootHair", "foot hair" },
-                    { "GenitalHair", "pubic hair" },
-                    { "HeadHair", "head" },
-                    { "Mustache", "mustache" },
-                    { "NoseHair", "nose hair" },
-                    { "Sideburns", "sideburns" },
-                    { "UnderarmHair", "underarm hair" },
-                    { "Unibrow", "unibrow" }
-                },
-                "facial hair");
-
-            string text = $"I have shaved my {hairType}";
+            string text = $"I have shaved my {GetHairType(log.Data)}";
 
             if (log.Data.ContainsKey("room"))
             {
@@ -3542,6 +3540,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 data["device_type"].ToLower()
             );
+
+        protected override string GetHairType(Dictionary<string, string> data)
+            => GetMappedDataValue(data, "hair_type", new()
+            {
+                { "Beard", "beard" },
+                { "ChestHair", "chest hair" },
+                { "FaceHair", "facial hair" },
+                { "FootHair", "foot hair" },
+                { "GenitalHair", "pubic hair" },
+                { "HeadHair", "head" },
+                { "Mustache", "mustache" },
+                { "NoseHair", "nose hair" },
+                { "Sideburns", "sideburns" },
+                { "UnderarmHair", "underarm hair" },
+                { "Unibrow", "unibrow" }
+            },
+            "hair");
 
         protected override string GetRoom(Dictionary<string, string> data)
             => GetMappedDataValue(data, "room", new()

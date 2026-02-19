@@ -121,6 +121,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildGraduationCeremonyAttendanceLogText(PersonalLog log);
         string BuildGraduationCeremonyParticipationLogText(PersonalLog log);
         string BuildHairCuttingLogText(PersonalLog log);
+        string BuildHairTrimmingLogText(PersonalLog log);
         string BuildHdlCholesterolMeasurementLogText(PersonalLog log);
         string BuildHeartRateMeasurementLogText(PersonalLog log);
         string BuildIndirectBilirubinMeasurementLogText(PersonalLog log);
