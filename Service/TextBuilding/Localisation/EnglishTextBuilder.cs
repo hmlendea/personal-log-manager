@@ -1198,10 +1198,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"I have emptied the container of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
 
         public string BuildDeviceExternalCleaningLogText(PersonalLog log)
-            => $"I have cleaned the exterior of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
+        {
+            string text = $"I have cleaned the exterior of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
+
+            if (log.Data.ContainsKey("cleaning_method"))
+            {
+                text += $" by {GetCleaningMethod(log.Data)}";
+            }
+
+            return text;
+        }
 
         public string BuildDeviceInternalCleaningLogText(PersonalLog log)
-            => $"I have cleaned the interior of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
+        {
+            string text = $"I have cleaned the interior of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
+
+            if (log.Data.ContainsKey("cleaning_method"))
+            {
+                text += $" by {GetCleaningMethod(log.Data)}";
+            }
+
+            return text;
+        }
 
         public string BuildDeviceRepairLogText(PersonalLog log)
         {
@@ -1274,7 +1292,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"I have donated {GetDataValue(log.Data, "amount")} {GetDataValue(log.Data, "currency")} to {GetDataValue(log.Data, "recipient")}";
 
         public string BuildEarwaxCleaningLogText(PersonalLog log)
-            => "I have cleaned my earwax";
+        {
+            string text = "I have cleaned my earwax";
+
+            if (log.Data.ContainsKey("cleaning_method"))
+            {
+                text += $" by {GetCleaningMethod(log.Data)}";
+            }
+
+            return text;
+        }
 
         public string BuildEducationalGradeReceivalLogText(PersonalLog log)
         {
@@ -1958,11 +1985,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildHairCuttingLogText(PersonalLog log)
         {
-            string text = $"I have gotten my hair cut";
+            string text = string.Empty;
 
-            if (log.Data.TryGetValue("salon_name", out string salonName))
+            if (log.Data.ContainsKey("hairdresser_name"))
             {
-                text += $" at {salonName}";
+                text += $"My {GetHairType(log.Data)} was cut";
+            }
+            else
+            {
+                text += $"I have cut my {GetHairType(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" at {location}";
             }
 
             if (log.Data.TryGetValue("hairdresser_name", out string hairdresserName))
@@ -3602,6 +3643,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         protected override string GetCleaningMethod(Dictionary<string, string> data)
             => GetMappedDataValue(data, "cleaning_method", new()
             {
+                { "CottonBuds", "using cotton buds" },
+                { "SpiralEarCleaner", "using a spiral ear cleaner" },
                 { "Vacuuming", "vacuuming" },
                 { "Washing", "washing" },
                 { "Wiping", "wiping" },
@@ -3656,10 +3699,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 { "Beard", "beard" },
                 { "ChestHair", "chest hair" },
+                { "EyebrowHair", "eyebrow hair" },
                 { "FaceHair", "facial hair" },
                 { "FootHair", "foot hair" },
                 { "GenitalHair", "pubic hair" },
-                { "HeadHair", "head" },
+                { "HeadHair", "head hair" },
+                { "LegHair", "leg hair" },
                 { "Mustache", "mustache" },
                 { "NoseHair", "nose hair" },
                 { "Sideburns", "sideburns" },

@@ -1240,10 +1240,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"Am golit rezervorul de la {GetDeviceType(log.Data)} {log.Data["device_name"]}";
 
         public string BuildDeviceExternalCleaningLogText(PersonalLog log)
-            => $"Am curățat extern {GetDeviceType(log.Data)} {log.Data["device_name"]}";
+        {
+            string text = $"Am curățat extern {GetDeviceType(log.Data)} {log.Data["device_name"]}";
+
+            if (log.Data.ContainsKey("cleaning_method"))
+            {
+                text += $" prin {GetCleaningMethod(log.Data)}";
+            }
+
+            return text;
+        }
 
         public string BuildDeviceInternalCleaningLogText(PersonalLog log)
-            => $"Am curățat intern {GetDeviceType(log.Data)} {log.Data["device_name"]}";
+        {
+            string text = $"Am curățat intern {GetDeviceType(log.Data)} {log.Data["device_name"]}";
+
+            if (log.Data.ContainsKey("cleaning_method"))
+            {
+                text += $" prin {GetCleaningMethod(log.Data)}";
+            }
+
+            return text;
+        }
 
         public string BuildDeviceRepairLogText(PersonalLog log)
         {
@@ -1326,7 +1344,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"Am donat {GetDataValue(log.Data, "amount")} {GetDataValue(log.Data, "currency")} către {GetDataValue(log.Data, "recipient")}";
 
         public string BuildEarwaxCleaningLogText(PersonalLog log)
-            => "Mi-am curățat ceara din urechi";
+        {
+            string text = "Mi-am curățat ceara din urechi";
+
+            if (log.Data.ContainsKey("cleaning_method"))
+            {
+                text += $" prin {GetCleaningMethod(log.Data)}";
+            }
+
+            return text;
+        }
 
         public string BuildEducationalGradeReceivalLogText(PersonalLog log)
         {
@@ -1998,16 +2025,32 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildHairCuttingLogText(PersonalLog log)
         {
-            string text = $"Am fost la tuns";
+            string text = string.Empty;
 
-            if (log.Data.TryGetValue("salon_name", out string salonName))
+            if (log.Data.ContainsKey("hairdresser_name"))
             {
-                text += $" la {salonName}";
+                text += $"Mi-a fost tuns";
+            }
+            else
+            {
+                text += $"Mi-am tuns";
+            }
+
+            text += $" {GetHairType(log.Data)}";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" în {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" la {location}";
             }
 
             if (log.Data.TryGetValue("hairdresser_name", out string hairdresserName))
             {
-                text += $", la {hairdresserName}";
+                text += $", de către {hairdresserName}";
             }
 
             return text;
@@ -3038,7 +3081,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildShavingLogText(PersonalLog log)
         {
-            string text = $"Mi-am ras {GetHairType(log.Data)}";
+            string text = string.Empty;
+
+            if (log.Data.ContainsKey("stylist_name"))
+            {
+                text = "Mi-a fost rasă";
+            }
+            else
+            {
+                text = "Mi-am ras";
+            }
+
+            text += $" {GetHairType(log.Data)}";
+
+            if (log.Data.TryGetValue("stylist_name", out string stylistName))
+            {
+                text += $" de către {stylistName}";
+            }
 
             if (log.Data.ContainsKey("room"))
             {
@@ -3750,6 +3809,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         protected override string GetCleaningMethod(Dictionary<string, string> data)
             => GetMappedDataValue(data, "cleaning_method", new()
             {
+                { "CottonBuds", "utilizarea bețișoarelor de urechi" },
+                { "SpiralEarCleaner", "utilizarea dispozitivului de curățare a urechilor în formă de spirală" },
                 { "Vacuuming", "aspirare" },
                 { "Washing", "spălare" },
                 { "Wiping", "ștergere" },
@@ -3808,11 +3869,13 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 { "Beard", "barba" },
                 { "ChestHair", "părul de pe piept" },
+                { "EyebrowHair", "părul de pe sprâncene" },
                 { "FaceHair", "părul facial" },
                 { "FootHair", "părul de pe labele picioarelor" },
                 { "GenitalHair", "părul pubian" },
                 { "HairTrimmer", "trimmer-ul de păr" },
                 { "HeadHair", "părul de pe cap" },
+                { "LegHair", "părul de pe picioare" },
                 { "Mustache", "mustața" },
                 { "NoseHair", "părul din nas" },
                 { "Sideburns", "părul de pe tâmple" },
