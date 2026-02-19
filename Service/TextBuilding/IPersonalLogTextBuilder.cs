@@ -77,6 +77,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildDeviceBatteryLevelLogText(PersonalLog log);
         string BuildDeviceBreakingLogText(PersonalLog log);
         string BuildDeviceChargingLogText(PersonalLog log);
+        string BuildDeviceContainerEmptyingLogText(PersonalLog log);
         string BuildDeviceExternalCleaningLogText(PersonalLog log);
         string BuildDeviceInternalCleaningLogText(PersonalLog log);
         string BuildDeviceRepairLogText(PersonalLog log);

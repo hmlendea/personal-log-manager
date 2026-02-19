@@ -1174,6 +1174,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildDeviceChargingLogText(PersonalLog log)
             => $"I have charged my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
 
+        public string BuildDeviceContainerEmptyingLogText(PersonalLog log)
+            => $"I have emptied the container of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
+
         public string BuildDeviceExternalCleaningLogText(PersonalLog log)
             => $"I have cleaned the exterior of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
 
@@ -3499,6 +3502,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => GetMappedDataValue(data, "device_type", new()
                 {
                     { "Console", "console" },
+                    { "Dehumidifier", "dehumidifier" },
                     { "DesktopComputer", "desktop computer" },
                     { "FitnessTracker", "fitness tracker" },
                     { "HairTrimmer", "hair trimmer" },

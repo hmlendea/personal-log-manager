@@ -76,6 +76,7 @@ namespace PersonalLogManager.Service.Models
         DeviceBatteryLevel,
         DeviceBreaking,
         DeviceCharging,
+        DeviceContainerEmptying,
         DeviceExternalCleaning,
         DeviceInternalCleaning,
         DeviceRepair,

@@ -1216,6 +1216,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildDeviceChargingLogText(PersonalLog log)
             => $"Am pus la încărcat {GetDeviceType(log.Data)} {log.Data["device_name"]}";
 
+        public string BuildDeviceContainerEmptyingLogText(PersonalLog log)
+            => $"Am golit rezervorul de la {GetDeviceType(log.Data)} {log.Data["device_name"]}";
+
         public string BuildDeviceExternalCleaningLogText(PersonalLog log)
             => $"Am curățat extern {GetDeviceType(log.Data)} {log.Data["device_name"]}";
 
@@ -3638,12 +3641,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => GetMappedDataValue(data, "device_type", new()
                 {
                     { "Console", "consola" },
+                    { "Dehumidifier", "dezumidificatorul" },
+                    { "DesktopComputer", "desktop computer" },
                     { "FitnessTracker", "brățara de fitness" },
+                    { "HairTrimmer", "aparatul de tuns părul" },
                     { "Headphones", "căștile" },
                     { "HeadTorch", "lanterna frontală" },
                     { "Laptop", "laptop-ul" },
                     { "LintRemover", "aparatul de scos scame" },
                     { "Phone", "telefonul" },
+                    { "Scale", "cântarul" },
                     { "Scooter", "trotineta" },
                     { "Tablet", "tableta" },
                     { "Toothbrush", "periuța de dinți" },
