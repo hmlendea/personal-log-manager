@@ -3703,7 +3703,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 { "FaceHair", "facial hair" },
                 { "FootHair", "foot hair" },
                 { "GenitalHair", "pubic hair" },
-                { "HeadHair", "head" },
+                { "HeadHair", "head hair" },
                 { "LegHair", "leg hair" },
                 { "Mustache", "mustache" },
                 { "NoseHair", "nose hair" },
