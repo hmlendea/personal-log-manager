@@ -51,6 +51,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildAccountVisibilityMadePrivateLogText(PersonalLog log);
         string BuildAccountVisibilityMadePublicLogText(PersonalLog log);
         string BuildAlkalinePhosphataseMeasurementLogText(PersonalLog log);
+        string BuildBedLinenChangingLogText(PersonalLog log);
         string BuildBedMakingLogText(PersonalLog log);
         string BuildBloodDonationLogText(PersonalLog log);
         string BuildBloodGlucoseMeasurementLogText(PersonalLog log);
