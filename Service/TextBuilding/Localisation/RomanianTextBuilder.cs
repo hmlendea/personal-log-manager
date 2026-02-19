@@ -3589,7 +3589,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Hallway", "hol" },
                     { "LargerBathroom", "baia mare" },
                     { "LargerBedroom", "dormitorul mare" },
-                    { "LivingRoom", "livingul" },
+                    { "LivingRoom", "sufragerie" },
                     { "LowerBathroom", "baia de jos" },
                     { "LowerHallway", "holul de jos" },
                     { "Kitchen", "bucătărie" },
