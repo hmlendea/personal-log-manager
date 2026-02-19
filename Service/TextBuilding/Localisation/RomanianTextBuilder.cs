@@ -3633,6 +3633,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => GetMappedDataValue(data, "room", new()
                 {
                     { "Attic", "pod" },
+                    { "BackPorch", "veranda din spate" },
                     { "Balcony", "balcon" },
                     { "Bathroom", "baie" },
                     { "Bedroom", "dormitor" },
@@ -3646,6 +3647,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Kitchen", "bucătărie" },
                     { "Office", "birou" },
                     { "Pantry", "cămară" },
+                    { "Porch", "verandă" },
                     { "SmallerBathroom", "baia mică" },
                     { "SmallerBedroom", "dormitorul mic" },
                     { "Stairway", "scară" },
