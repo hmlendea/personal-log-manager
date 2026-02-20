@@ -3908,11 +3908,13 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => GetMappedDataValue(data, "room", new()
                 {
                     { "Attic", "pod" },
+                    { "BackBalcony", "balconul din spate" },
                     { "BackPorch", "veranda din spate" },
                     { "Balcony", "balcon" },
                     { "Bathroom", "baie" },
                     { "Bedroom", "dormitor" },
                     { "DressingRoom", "dressing" },
+                    { "FrontBalcony", "balconul din față" },
                     { "Hallway", "hol" },
                     { "LargerBathroom", "baia mare" },
                     { "LargerBedroom", "dormitorul mare" },
