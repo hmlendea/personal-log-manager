@@ -1843,7 +1843,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.ContainsKey("room"))
             {
-                text += $" în {GetRoom(log.Data)}";
+                text += $"ul din {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("side"))
+            {
+                text += $" pe partea {GetSide(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -1860,7 +1865,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.ContainsKey("room"))
             {
-                text += $" în {GetRoom(log.Data)}";
+                text += $"ul din {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("side"))
+            {
+                text += $" pe partea {GetSide(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -1920,12 +1930,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.ContainsKey("room"))
             {
-                text += $" în {GetRoom(log.Data)}";
+                text += $" în patul din {GetRoom(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", la {location}";
+            }
+
+            if (log.Data.ContainsKey("side"))
+            {
+                text += $", pe partea {GetSide(log.Data)}";
             }
 
             return text;
@@ -3593,12 +3608,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.ContainsKey("room"))
             {
-                text += $" în {GetRoom(log.Data)}";
+                text += $" în patul din {GetRoom(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", la {location}";
+            }
+
+            if (log.Data.ContainsKey("side"))
+            {
+                text += $", pe partea {GetSide(log.Data)}";
             }
 
             return text;
@@ -3939,6 +3959,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "UpperHallway", "holul de sus" }
                 },
                 data["room"].ToLower()
+            );
+
+        protected override string GetSide(Dictionary<string, string> data)
+            => GetMappedDataValue(data, "side", new()
+                {
+                    { "central", "centrală" },
+                    { "right", "dreaptă" },
+                    { "left", "stângă" }
+                },
+                "necunoscută"
             );
 
         protected override string GetVehicleType(Dictionary<string, string> data, bool useDefinitiveForm)

@@ -1811,6 +1811,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" in the {GetRoom(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("side"))
+            {
+                text += $" on the {GetSide(log.Data)} side";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", at {location}";
@@ -1826,6 +1831,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.ContainsKey("room"))
             {
                 text += $" in the {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("side"))
+            {
+                text += $" on the {GetSide(log.Data)} side";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -1893,6 +1903,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", at {location}";
+            }
+
+            if (log.Data.ContainsKey("side"))
+            {
+                text += $", on the {GetSide(log.Data)} side of the bed";
             }
 
             return text;
@@ -3469,6 +3484,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $", at {location}";
             }
 
+            if (log.Data.ContainsKey("side"))
+            {
+                text += $", on the {GetSide(log.Data)} side of the bed";
+            }
+
             return text;
         }
 
@@ -3806,6 +3826,15 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 data["room"].ToLower()
             );
 
+        protected override string GetSide(Dictionary<string, string> data)
+            => GetMappedDataValue(data, "side", new()
+                {
+                    { "central", "central" },
+                    { "right", "right" },
+                    { "left", "left" }
+                },
+                "unknown"
+            );
         protected override string GetVehicleType(Dictionary<string, string> data, bool useDefinitiveForm)
         {
             string vehicleType = GetMappedDataValue(data, "vehicle_type", new()
