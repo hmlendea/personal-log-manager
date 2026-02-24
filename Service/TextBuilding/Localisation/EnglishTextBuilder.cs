@@ -2549,6 +2549,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildPetBathingLogText(PersonalLog log)
             => $"I have bathed {GetLocalisedValue(log.Data, "pet_name", "en")}";
 
+        public string BuildPetBrushingLogText(PersonalLog log)
+            => $"I have brushed {GetLocalisedValue(log.Data, "pet_name", "en")}";
+
         public string BuildPetLitterCleaningLogText(PersonalLog log)
         {
             string petType = GetMappedDataValue(

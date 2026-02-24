@@ -150,6 +150,7 @@ namespace PersonalLogManager.Service.Models
         OnlineStorePurchase,
         PetAdoption,
         PetBathing,
+        PetBrushing,
         PetLitterCleaning,
         PetLitterEmptying,
         PetLitterRefill,
