@@ -2678,6 +2678,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildPlantWateringLogText(PersonalLog log)
+        {
+            string text = $"I have watered the {GetPlantType(log.Data, useDefinitiveForm: true, usePluralForm: true)}";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" in the {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", at {location}";
+            }
+
+            return text;
+        }
+
         public string BuildPsychotherapySessionLogText(PersonalLog log)
         {
             string text = $"I have undergone a psychotherapy session";
@@ -3805,6 +3822,51 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Vaccine", "vaccine" },
                 },
                 "medication");
+        }
+
+        protected override string GetPlantType(
+            Dictionary<string, string> data,
+            bool useDefinitiveForm,
+            bool usePluralForm)
+        {
+            string plantType = null;
+
+            if (usePluralForm)
+            {
+                plantType = GetMappedDataValue(
+                    data,
+                    "plant_type",
+                    new()
+                    {
+                        { "Flower", "flowers" },
+                        { "Succulent", "succulents" },
+                    },
+                    "plants");
+
+                if (useDefinitiveForm)
+                {
+                    return $"the {plantType}";
+                }
+
+                return plantType;
+            }
+
+            plantType = GetMappedDataValue(
+                data,
+                "plant_type",
+                new()
+                {
+                    { "Flower", "flower" },
+                    { "Succulent", "succulent" },
+                },
+                "plant");
+
+            if (useDefinitiveForm)
+            {
+                return $"the {plantType}";
+            }
+
+            return plantType;
         }
 
         protected override string GetRoom(Dictionary<string, string> data)

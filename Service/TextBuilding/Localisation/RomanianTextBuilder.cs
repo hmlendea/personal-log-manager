@@ -2752,6 +2752,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildPlantWateringLogText(PersonalLog log)
+        {
+            string text = $"Am udat {GetPlantType(log.Data, useDefinitiveForm: true, usePluralForm: true)}";
+
+            if (log.Data.ContainsKey("room"))
+            {
+                text += $" din {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $", de la {location}";
+            }
+
+            return text;
+        }
+
         public string BuildPsychotherapySessionLogText(PersonalLog log)
         {
             string text = $"Am avut o ședință de psihoterapie";
@@ -3940,6 +3957,55 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Vaccine", "vaccin" },
                 },
                 "medicament");
+        }
+
+        protected override string GetPlantType(
+            Dictionary<string, string> data,
+            bool useDefinitiveForm,
+            bool usePluralForm)
+        {
+            if (usePluralForm)
+            {
+                string plantType = GetMappedDataValue(
+                    data,
+                    "plant_type",
+                    new()
+                    {
+                        { "Flower", "flori" },
+                        { "Succulent", "suculente" },
+                    },
+                    "plante");
+
+                if (useDefinitiveForm)
+                {
+                    return $"{plantType}le";
+                }
+
+                return plantType;
+            }
+
+            if (useDefinitiveForm)
+            {
+                return GetMappedDataValue(
+                    data,
+                    "plant_type",
+                    new()
+                    {
+                        { "Flower", "floarea" },
+                        { "Succulent", "suculenta" },
+                    },
+                    "planta");
+            }
+
+            return GetMappedDataValue(
+                data,
+                "plant_type",
+                new()
+                {
+                    { "Flower", "floare" },
+                    { "Succulent", "suculentă" },
+                },
+                "plantă");
         }
 
         protected override string GetRoom(Dictionary<string, string> data)
