@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using NuciAPI.Controllers;
 using PersonalLogManager.Api.Models;
@@ -14,7 +15,7 @@ namespace PersonalLogManager.Api.Controllers
             => ProcessRequest(request, () => service.StorePersonalLog(request));
 
         [HttpGet]
-        public ActionResult GetPersonalLogs([FromBody] GetLogRequest request)
+        public ActionResult GetPersonalLogs([FromQuery] GetLogRequest request)
             => ProcessRequest(request, () => service.GetPersonalLogs(request));
 
         [HttpPut]
