@@ -3683,6 +3683,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $", din {officeName}";
             }
 
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" din {location}";
+            }
+
+            if (log.Data.TryGetValue("floor_index", out string floorIndex))
+            {
+                text += $", de la etajul {floorIndex}";
+            }
+
             return text;
         }
 

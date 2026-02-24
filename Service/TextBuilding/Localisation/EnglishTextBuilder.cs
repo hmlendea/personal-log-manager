@@ -3552,7 +3552,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.TryGetValue("office_name", out string officeName))
             {
-                text += $" ({officeName})";
+                text += $", at {officeName}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" in {location}";
+            }
+
+            if (log.Data.TryGetValue("floor_index", out string floorIndex))
+            {
+                text += $", on floor {floorIndex}";
             }
 
             return text;
