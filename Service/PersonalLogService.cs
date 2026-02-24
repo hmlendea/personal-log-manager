@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using AutoMapper;
 using NuciDAL.Repositories;
 using PersonalLogManager.Api.Models;
@@ -45,24 +46,31 @@ namespace PersonalLogManager.Service
 
             if (!string.IsNullOrWhiteSpace(request.Date))
             {
-                logs = logs.Where(log => log.Date.Equals(request.Date));
+                logs = logs.Where(log => Regex.IsMatch(log.Date, request.Date));
             }
 
             if (!string.IsNullOrWhiteSpace(request.Time))
             {
-                logs = logs.Where(log => log.Time.Equals(request.Time));
+                logs = logs.Where(log => Regex.IsMatch(log.Time, request.Time));
             }
 
             if (!string.IsNullOrWhiteSpace(request.Template))
             {
-                logs = logs.Where(log => log.Template.Equals(request.Template));
+                logs = logs.Where(log => Regex.IsMatch(log.Template, request.Template));
             }
 
             if (request.Data is not null && request.Data.Count > 0)
             {
                 foreach (string dataKey in request.Data.Keys)
                 {
-                    logs = logs.Where(log => log.Data is not null && log.Data.ContainsKey(dataKey) && log.Data[dataKey].Equals(request.Data[dataKey], StringComparison.OrdinalIgnoreCase));
+                    logs = logs.Where(log =>
+                        log.Data is not null &&
+                        log.Data.ContainsKey(dataKey) &&
+                        log.Data[dataKey] is not null &&
+                        Regex.IsMatch(
+                            log.Data[dataKey],
+                            request.Data[dataKey],
+                            RegexOptions.IgnoreCase));
                 }
             }
 
