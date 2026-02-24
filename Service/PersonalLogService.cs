@@ -5,7 +5,6 @@ using System.Text.RegularExpressions;
 using AutoMapper;
 using NuciDAL.Repositories;
 using PersonalLogManager.Api.Models;
-using PersonalLogManager.Configuration;
 using PersonalLogManager.DataAccess.DataObjects;
 using PersonalLogManager.Service.Models;
 using PersonalLogManager.Service.TextBuilding;
@@ -15,15 +14,12 @@ namespace PersonalLogManager.Service
     public class PersonalLogService(
         IPersonalLogTextBuilderFactory logTextBuilder,
         IFileRepository<PersonalLogEntity> repository,
-        SecuritySettings securitySettings,
         IMapper mapper) : IPersonalLogService
     {
         private readonly Random random = new();
 
         public void StorePersonalLog(StoreLogRequest request)
         {
-            request.ValidateHMAC(securitySettings.SharedSecretKey);
-
             repository.Add(new()
             {
                 Id = $"L{random.Next(0, 1000000000):D9}",
@@ -40,8 +36,6 @@ namespace PersonalLogManager.Service
 
         public GetLogResponse GetPersonalLogs(GetLogRequest request)
         {
-            request.ValidateHMAC(securitySettings.SharedSecretKey);
-
             IEnumerable<PersonalLogEntity> logs = repository.GetAll();
 
             if (!string.IsNullOrWhiteSpace(request.Date))
@@ -88,8 +82,6 @@ namespace PersonalLogManager.Service
 
         public void UpdatePersonalLog(UpdateLogRequest request)
         {
-            request.ValidateHMAC(securitySettings.SharedSecretKey);
-
             PersonalLogEntity personalLog = repository.Get(request.Identifier);
 
             if (request.Date is not null)
@@ -123,7 +115,6 @@ namespace PersonalLogManager.Service
 
         public void DeletePersonalLog(DeleteLogRequest request)
         {
-            request.ValidateHMAC(securitySettings.SharedSecretKey);
             repository.Remove(request.Identifier);
             repository.ApplyChanges();
         }
