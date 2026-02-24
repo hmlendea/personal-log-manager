@@ -654,9 +654,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             text += $" pentru contul de {GetPlatform(log.Data)}";
 
-            if (log.Data.TryGetValue("price_amount", out string priceAmount))
+            if (log.Data.ContainsKey("price_amount"))
             {
-                text += $" pentru {priceAmount} {log.Data["price_currency"]}";
+                text += $" pentru {GetBalance(log.Data)}";
             }
 
             return text;
@@ -1021,6 +1021,20 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildBotsTotalBalanceMeasurementLogText(PersonalLog log)
+        {
+            string text = $"Soldul total al boților";
+
+            if (log.Data.ContainsKey("platform"))
+            {
+                text += $" de {GetPlatform(log.Data)}";
+            }
+
+            text += $" a fost măsurat la {GetBalance(log.Data)}";
+
+            return text;
+        }
+
         public string BuildCalciumLevelMeasurementLogText(PersonalLog log)
             => $"Nivelul de calciu a fost măsurat la {GetDecimalValue(log.Data, "calcium_level")} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
@@ -1358,7 +1372,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"Nivelul de bilirubină directă a fost măsurat la {log.Data["direct_bilirubin_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildDonationLogText(PersonalLog log)
-            => $"Am donat {GetDataValue(log.Data, "amount")} {GetDataValue(log.Data, "currency")} către {GetDataValue(log.Data, "recipient")}";
+            => $"Am donat {GetBalance(log.Data)} către {GetDataValue(log.Data, "recipient")}";
 
         public string BuildEarwaxCleaningLogText(PersonalLog log)
         {
@@ -2172,7 +2186,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"Nivelul de magneziu a fost măsurat la {log.Data["magnesium_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildMealVoucherCardCreditationLogText(PersonalLog log)
-            => $"Cardul de bonuri de masă a fost creditat cu {log.Data["amount"]} {log.Data["currency"]}";
+            => $"Cardul de bonuri de masă a fost creditat cu {GetBalance(log.Data)}";
 
         public string BuildMedicationIntakeLogText(PersonalLog log)
         {
@@ -2537,9 +2551,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
-            if (log.Data.TryGetValue("price_amount", out string priceAmount))
+            if (log.Data.ContainsKey("price_amount"))
             {
-                text += $" cu {priceAmount} {log.Data["price_currency"]}";
+                text += $" cu {GetBalance(log.Data)}";
             }
 
             return text;
@@ -2570,9 +2584,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am cumpărat {log.Data["product_name"]} pe {GetPlatform(log.Data)}";
 
-            if (log.Data.TryGetValue("price_amount", out string priceAmount))
+            if (log.Data.ContainsKey("price_amount"))
             {
-                text += $", cu {priceAmount} {log.Data["price_currency"]}";
+                text += $", cu {GetBalance(log.Data)}";
             }
 
             return text;
@@ -3259,9 +3273,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pentru vehiculul cu numărul de înmatriculare {vehicleRegistrationNumber}";
             }
 
-            if (log.Data.TryGetValue("cost_amount", out string costAmount))
+            if (log.Data.ContainsKey("cost_amount"))
             {
-                text += $", în valoare de {costAmount} {log.Data["cost_currency"]}";
+                text += $", în valoare de {GetBalance(log.Data)}";
             }
 
             return text;
@@ -3373,9 +3387,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" de la {location}";
             }
 
-            if (log.Data.TryGetValue("cost_amount", out string costAmount))
+            if (log.Data.ContainsKey("cost_amount"))
             {
-                text += $", în valoare de {costAmount} {log.Data["cost_currency"]}";
+                text += $", în valoare de {GetBalance(log.Data)}";
             }
 
             return text;

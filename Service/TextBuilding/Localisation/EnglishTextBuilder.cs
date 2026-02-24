@@ -643,9 +643,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             text += $" subscription for the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("price_amount", out string priceAmount))
+            if (log.Data.ContainsKey("price_amount"))
             {
-                text += $" for {priceAmount} {log.Data["price_currency"]}";
+                text += $" for {GetBalance(log.Data)}";
             }
 
             return text;
@@ -1009,6 +1009,20 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildBotsTotalBalanceMeasurementLogText(PersonalLog log)
+        {
+            string text = $"The total balance of the";
+
+            if (log.Data.ContainsKey("platform"))
+            {
+                text += $" {GetPlatform(log.Data)}";
+            }
+
+            text += $" bots was measured at {GetBalance(log.Data)}";
+
+            return text;
+        }
+
         public string BuildCalciumLevelMeasurementLogText(PersonalLog log)
             => $"My calcium level measured {GetDecimalValue(log.Data, "calcium_level")} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
@@ -1306,7 +1320,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"My direct bilirubin level measured {log.Data["direct_bilirubin_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildDonationLogText(PersonalLog log)
-            => $"I have donated {GetDataValue(log.Data, "amount")} {GetDataValue(log.Data, "currency")} to {GetDataValue(log.Data, "recipient")}";
+            => $"I have donated {GetBalance(log.Data)} to {GetDataValue(log.Data, "recipient")}";
 
         public string BuildEarwaxCleaningLogText(PersonalLog log)
         {
@@ -2135,7 +2149,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"My magnesium level measured {GetDecimalValue(log.Data, "magnesium_level")} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
         public string BuildMealVoucherCardCreditationLogText(PersonalLog log)
-            => $"My meal voucher card was credited with {log.Data["amount"]} {log.Data["currency"]}";
+            => $"My meal voucher card was credited with {GetBalance(log.Data)}";
 
         public string BuildMedicationIntakeLogText(PersonalLog log)
         {
@@ -2482,9 +2496,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
-            if (log.Data.TryGetValue("price_amount", out string priceAmount))
+            if (log.Data.ContainsKey("price_amount"))
             {
-                text += $" for {priceAmount} {log.Data["price_currency"]}";
+                text += $" for {GetBalance(log.Data)}";
             }
 
             return text;
@@ -2506,9 +2520,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have purchased {log.Data["product_name"]} from {GetPlatform(log.Data)}";
 
-            if (log.Data.TryGetValue("price_amount", out string priceAmount))
+            if (log.Data.ContainsKey("price_amount"))
             {
-                text += $", for {priceAmount} {log.Data["price_currency"]}";
+                text += $", for {GetBalance(log.Data)}";
             }
 
             return text;
@@ -3164,9 +3178,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" for the vehicle with the registration number {vehicleRegistrationNumber}";
             }
 
-            if (log.Data.TryGetValue("cost_amount", out string costAmount))
+            if (log.Data.ContainsKey("cost_amount"))
             {
-                text += $", amounting to {costAmount} {log.Data["cost_currency"]}";
+                text += $", amounting to {GetBalance(log.Data)}";
             }
 
             return text;
@@ -3269,9 +3283,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" at {location}";
             }
 
-            if (log.Data.TryGetValue("cost_amount", out string costAmount))
+            if (log.Data.ContainsKey("cost_amount"))
             {
-                text += $", amounting to {costAmount} {log.Data["cost_currency"]}";
+                text += $", amounting to {GetBalance(log.Data)}";
             }
 
             return text;

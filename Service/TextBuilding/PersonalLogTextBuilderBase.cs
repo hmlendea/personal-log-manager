@@ -183,6 +183,72 @@ namespace PersonalLogManager.Service.TextBuilding
             Dictionary<string, string> data,
             bool useDefinitiveForm = false);
 
+        protected string GetBalance(Dictionary<string, string> data)
+        {
+            decimal amount = 0.0m;
+
+            if (data.ContainsKey("amount"))
+            {
+                amount = decimal.Parse(GetDataValue(data, "amount"));
+            }
+            else if (data.ContainsKey("balance"))
+            {
+                amount = decimal.Parse(GetDataValue(data, "balance"));
+            }
+            else if (data.ContainsKey("price"))
+            {
+                amount = decimal.Parse(GetDataValue(data, "price"));
+            }
+            else if (data.ContainsKey("price_amount"))
+            {
+                amount = decimal.Parse(GetDataValue(data, "price_amount"));
+            }
+            else if (data.ContainsKey("cost_amount"))
+            {
+                amount = decimal.Parse(GetDataValue(data, "cost_amount"));
+            }
+            else if (data.ContainsKey("total_amount"))
+            {
+                amount = decimal.Parse(GetDataValue(data, "total_amount"));
+            }
+
+            string currency = string.Empty;
+
+            if (data.ContainsKey("currency"))
+            {
+                currency = GetDataValue(data, "currency");
+            }
+            else if (data.ContainsKey("amount_currency"))
+            {
+                currency = GetDataValue(data, "amount_currency");
+            }
+            else if (data.ContainsKey("balance_currency"))
+            {
+                currency = GetDataValue(data, "balance_currency");
+            }
+            else if (data.ContainsKey("cost_currency"))
+            {
+                currency = GetDataValue(data, "cost_currency");
+            }
+            else if (data.ContainsKey("price_currency"))
+            {
+                currency = GetDataValue(data, "price_currency");
+            }
+            else if (data.ContainsKey("total_amount_currency"))
+            {
+                currency = GetDataValue(data, "total_amount_currency");
+            }
+
+            string text = $"{amount}";
+
+            if (!string.IsNullOrWhiteSpace(currency))
+            {
+                text += $" {currency}";
+            }
+
+            return text;
+        }
+
         protected abstract string GetCleaningMethod(
             Dictionary<string, string> data);
 
