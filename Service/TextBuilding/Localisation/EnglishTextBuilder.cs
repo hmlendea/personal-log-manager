@@ -2124,29 +2124,15 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildMedicationIntakeLogText(PersonalLog log)
         {
-            string medicationType = GetMappedDataValue(
-                log.Data,
-                "medication_type",
-                new()
-                {
-                    { "Antibiotic", "antibiotic" },
-                    { "Antifungal", "antifungal" },
-                    { "Antiparasitic", "antiparasitic" },
-                    { "Antiseptic", "antiseptic" },
-                    { "Anxiolytic", "anxiolytic" },
-                    { "Corticosteroid", "corticosteroid" },
-                    { "Enzymatic", "enzymatic" },
-                    { "Vaccine", "vaccine" },
-                    { "Painkiller", "painkiller" },
-                    { "Supplement", "supplement" }
-                },
-                "medication");
-
-            string text = $"I have taken the following {medicationType}";
+            string text = $"I have taken the following";
 
             if (IsDataValuePlural(log.Data, "medication_name"))
             {
-                text += $"s";
+                text += $" {GetMedicationType(log.Data, usePluralForm: true)}";
+            }
+            else
+            {
+                text += $" {GetMedicationType(log.Data, usePluralForm: false)}";
             }
 
             return $"{text}: {GetLocalisedValue(log.Data, "medication_name", "en")}";
@@ -2613,29 +2599,15 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildPetMedicationAdministrationLogText(PersonalLog log)
         {
-            string medicationType = GetMappedDataValue(
-                log.Data,
-                "medication_type",
-                new()
-                {
-                    { "Antibiotic", "antibiotic" },
-                    { "Antifungal", "antifungal" },
-                    { "Antiparasitic", "antiparasitic" },
-                    { "Antiseptic", "antiseptic" },
-                    { "Anxiolytic", "anxiolytic" },
-                    { "Corticosteroid", "corticosteroid" },
-                    { "Enzymatic", "enzymatic" },
-                    { "Vaccine", "vaccine" },
-                    { "Painkiller", "painkiller" },
-                    { "Supplement", "supplement" }
-                },
-                "medication");
-
-            string text = $"I have administered the following {medicationType}";
+            string text = $"I have administered the following";
 
             if (IsDataValuePlural(log.Data, "medication_name"))
             {
-                text += $"s";
+                text += $" {GetMedicationType(log.Data, usePluralForm: true)}";
+            }
+            else
+            {
+                text += $" {GetMedicationType(log.Data, usePluralForm: false)}";
             }
 
             return $"{text} to {GetDataValue(log.Data, "pet_name")}: {GetLocalisedValue(log.Data, "medication_name", "en")}";
@@ -3732,6 +3704,50 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 { "Unibrow", "unibrow" }
             },
             "hair");
+
+        protected override string GetMedicationType(
+            Dictionary<string, string> data,
+            bool usePluralForm)
+        {
+            if (usePluralForm)
+            {
+                return GetMappedDataValue(
+                    data,
+                    "medication_type",
+                    new()
+                    {
+                        { "Antibiotic", "antibiotics" },
+                        { "Antifungal", "antifungals" },
+                        { "Antiparasitic", "antiparasitics" },
+                        { "Antiseptic", "antiseptics" },
+                        { "Anxiolytic", "anxiolytics" },
+                        { "Corticosteroid", "corticosteroids" },
+                        { "Enzymatic", "enzymatics" },
+                        { "Vaccine", "vaccines" },
+                        { "Painkiller", "painkillers" },
+                        { "Supplement", "supplements" }
+                    },
+                    "medications");
+            }
+
+            return GetMappedDataValue(
+                data,
+                "medication_type",
+                new()
+                {
+                    { "Antibiotic", "antibiotic" },
+                    { "Antifungal", "antifungal" },
+                    { "Antiparasitic", "antiparasitic" },
+                    { "Antiseptic", "antiseptic" },
+                    { "Anxiolytic", "anxiolytic" },
+                    { "Corticosteroid", "corticosteroid" },
+                    { "Enzymatic", "enzymatic" },
+                    { "Vaccine", "vaccine" },
+                    { "Painkiller", "painkiller" },
+                    { "Supplement", "supplement" }
+                },
+                "medication");
+        }
 
         protected override string GetRoom(Dictionary<string, string> data)
             => GetMappedDataValue(data, "room", new()

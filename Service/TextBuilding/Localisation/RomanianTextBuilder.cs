@@ -2166,23 +2166,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (IsDataValuePlural(log.Data, "medication_name"))
             {
-                medicationType = GetMappedDataValue(
-                    log.Data,
-                    "medication_type",
-                    new()
-                    {
-                        { "Antibiotic", "antibiotice" },
-                        { "Antifungal", "antifungice" },
-                        { "Antiparasitic", "antiparazitice" },
-                        { "Antiseptic", "antiseptice" },
-                        { "Anxiolytic", "anxiolitice" },
-                        { "Corticosteroid", "corticosteroizi" },
-                        { "Enzymatic", "enzimatice" },
-                        { "Vaccine", "vaccinuri" },
-                        { "Painkiller", "antinevralgice" },
-                        { "Supplement", "suplimente" }
-                    },
-                    "medicamente");
+                medicationType = GetMedicationType(log.Data, usePluralForm: true);
 
                 if (medicationType.EndsWith('i'))
                 {
@@ -2197,23 +2181,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
             else
             {
-                medicationType = GetMappedDataValue(
-                    log.Data,
-                    "medication_type",
-                    new()
-                    {
-                        { "Antibiotic", "antibiotic" },
-                        { "Antifungal", "antifungic" },
-                        { "Antiparasitic", "antiparazitic" },
-                        { "Antiseptic", "antiseptic" },
-                        { "Anxiolytic", "anxiolitic" },
-                        { "Corticosteroid", "corticosteroid" },
-                        { "Enzymatic", "enzimatic" },
-                        { "Vaccine", "vaccin" },
-                        { "Painkiller", "antinevralgic" },
-                        { "Supplement", "supliment" }
-                    },
-                    "medicament");
+                medicationType = GetMedicationType(log.Data, usePluralForm: false);
 
                 text += $" următorul {medicationType}";
             }
@@ -2696,23 +2664,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (IsDataValuePlural(log.Data, "medication_name"))
             {
-                medicationType = GetMappedDataValue(
-                    log.Data,
-                    "medication_type",
-                    new()
-                    {
-                        { "Antibiotic", "antibiotice" },
-                        { "Antifungal", "antifungice" },
-                        { "Antiparasitic", "antiparazitice" },
-                        { "Antiseptic", "antiseptice" },
-                        { "Anxiolytic", "anxiolitice" },
-                        { "Corticosteroid", "corticosteroizi" },
-                        { "Enzymatic", "enzimatice" },
-                        { "Vaccine", "vaccinuri" },
-                        { "Painkiller", "antinevralgice" },
-                        { "Supplement", "suplimente" }
-                    },
-                    "medicamente");
+                medicationType = GetMedicationType(log.Data, usePluralForm: true);
 
                 if (medicationType.EndsWith('i'))
                 {
@@ -2727,23 +2679,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
             else
             {
-                medicationType = GetMappedDataValue(
-                    log.Data,
-                    "medication_type",
-                    new()
-                    {
-                        { "Antibiotic", "antibiotic" },
-                        { "Antifungal", "antifungic" },
-                        { "Antiparasitic", "antiparazitic" },
-                        { "Antiseptic", "antiseptic" },
-                        { "Anxiolytic", "anxiolitic" },
-                        { "Corticosteroid", "corticosteroid" },
-                        { "Enzymatic", "enzimatic" },
-                        { "Vaccine", "vaccin" },
-                        { "Painkiller", "antinevralgic" },
-                        { "Supplement", "supliment" }
-                    },
-                    "medicament");
+                medicationType = GetMedicationType(log.Data, usePluralForm: false);
 
                 text += $" următorul {medicationType}";
             }
@@ -3903,6 +3839,50 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 { "Unibrow", "monosprânceana" }
             },
             "părul");
+
+        protected override string GetMedicationType(
+            Dictionary<string, string> data,
+            bool usePluralForm)
+        {
+            if (usePluralForm)
+            {
+                return GetMappedDataValue(
+                    data,
+                    "medication_type",
+                    new()
+                    {
+                        { "Antibiotic", "antibiotice" },
+                        { "Antifungal", "antifungice" },
+                        { "Antiparasitic", "antiparazitice" },
+                        { "Antiseptic", "antiseptice" },
+                        { "Anxiolytic", "anxiolitice" },
+                        { "Corticosteroid", "corticosteroizi" },
+                        { "Enzymatic", "enzimatice" },
+                        { "Vaccine", "vaccinuri" },
+                        { "Painkiller", "antinevralgice" },
+                        { "Supplement", "suplimente" }
+                    },
+                    "medicamente");
+            }
+
+            return GetMappedDataValue(
+                data,
+                "medication_type",
+                new()
+                {
+                    { "Antibiotic", "antibiotic" },
+                    { "Antifungal", "antifungic" },
+                    { "Antiparasitic", "antiparazitic" },
+                    { "Antiseptic", "antiseptic" },
+                    { "Anxiolytic", "anxiolitic" },
+                    { "Corticosteroid", "corticosteroid" },
+                    { "Enzymatic", "enzimatic" },
+                    { "Vaccine", "vaccin" },
+                    { "Painkiller", "antinevralgic" },
+                    { "Supplement", "supliment" }
+                },
+                "medicament");
+        }
 
         protected override string GetRoom(Dictionary<string, string> data)
             => GetMappedDataValue(data, "room", new()
