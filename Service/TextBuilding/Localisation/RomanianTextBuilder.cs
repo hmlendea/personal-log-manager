@@ -1843,7 +1843,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.ContainsKey("room"))
             {
-                text += $" în {GetRoom(log.Data)}";
+                text += $"ul din {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("side"))
+            {
+                text += $" pe partea {GetSide(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -1860,7 +1865,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.ContainsKey("room"))
             {
-                text += $" în {GetRoom(log.Data)}";
+                text += $"ul din {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("side"))
+            {
+                text += $" pe partea {GetSide(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -1920,12 +1930,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.ContainsKey("room"))
             {
-                text += $" în {GetRoom(log.Data)}";
+                text += $" în patul din {GetRoom(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", la {location}";
+            }
+
+            if (log.Data.ContainsKey("side"))
+            {
+                text += $", pe partea {GetSide(log.Data)}";
             }
 
             return text;
@@ -2166,23 +2181,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (IsDataValuePlural(log.Data, "medication_name"))
             {
-                medicationType = GetMappedDataValue(
-                    log.Data,
-                    "medication_type",
-                    new()
-                    {
-                        { "Antibiotic", "antibiotice" },
-                        { "Antifungal", "antifungice" },
-                        { "Antiparasitic", "antiparazitice" },
-                        { "Antiseptic", "antiseptice" },
-                        { "Anxiolytic", "anxiolitice" },
-                        { "Corticosteroid", "corticosteroizi" },
-                        { "Enzymatic", "enzimatice" },
-                        { "Vaccine", "vaccinuri" },
-                        { "Painkiller", "antinevralgice" },
-                        { "Supplement", "suplimente" }
-                    },
-                    "medicamente");
+                medicationType = GetMedicationType(log.Data, usePluralForm: true);
 
                 if (medicationType.EndsWith('i'))
                 {
@@ -2197,23 +2196,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
             else
             {
-                medicationType = GetMappedDataValue(
-                    log.Data,
-                    "medication_type",
-                    new()
-                    {
-                        { "Antibiotic", "antibiotic" },
-                        { "Antifungal", "antifungic" },
-                        { "Antiparasitic", "antiparazitic" },
-                        { "Antiseptic", "antiseptic" },
-                        { "Anxiolytic", "anxiolitic" },
-                        { "Corticosteroid", "corticosteroid" },
-                        { "Enzymatic", "enzimatic" },
-                        { "Vaccine", "vaccin" },
-                        { "Painkiller", "antinevralgic" },
-                        { "Supplement", "supliment" }
-                    },
-                    "medicament");
+                medicationType = GetMedicationType(log.Data, usePluralForm: false);
 
                 text += $" următorul {medicationType}";
             }
@@ -2696,23 +2679,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (IsDataValuePlural(log.Data, "medication_name"))
             {
-                medicationType = GetMappedDataValue(
-                    log.Data,
-                    "medication_type",
-                    new()
-                    {
-                        { "Antibiotic", "antibiotice" },
-                        { "Antifungal", "antifungice" },
-                        { "Antiparasitic", "antiparazitice" },
-                        { "Antiseptic", "antiseptice" },
-                        { "Anxiolytic", "anxiolitice" },
-                        { "Corticosteroid", "corticosteroizi" },
-                        { "Enzymatic", "enzimatice" },
-                        { "Vaccine", "vaccinuri" },
-                        { "Painkiller", "antinevralgice" },
-                        { "Supplement", "suplimente" }
-                    },
-                    "medicamente");
+                medicationType = GetMedicationType(log.Data, usePluralForm: true);
 
                 if (medicationType.EndsWith('i'))
                 {
@@ -2727,23 +2694,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
             else
             {
-                medicationType = GetMappedDataValue(
-                    log.Data,
-                    "medication_type",
-                    new()
-                    {
-                        { "Antibiotic", "antibiotic" },
-                        { "Antifungal", "antifungic" },
-                        { "Antiparasitic", "antiparazitic" },
-                        { "Antiseptic", "antiseptic" },
-                        { "Anxiolytic", "anxiolitic" },
-                        { "Corticosteroid", "corticosteroid" },
-                        { "Enzymatic", "enzimatic" },
-                        { "Vaccine", "vaccin" },
-                        { "Painkiller", "antinevralgic" },
-                        { "Supplement", "supliment" }
-                    },
-                    "medicament");
+                medicationType = GetMedicationType(log.Data, usePluralForm: false);
 
                 text += $" următorul {medicationType}";
             }
@@ -3657,12 +3608,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.ContainsKey("room"))
             {
-                text += $" în {GetRoom(log.Data)}";
+                text += $" în patul din {GetRoom(log.Data)}";
             }
 
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", la {location}";
+            }
+
+            if (log.Data.ContainsKey("side"))
+            {
+                text += $", pe partea {GetSide(log.Data)}";
             }
 
             return text;
@@ -3747,6 +3703,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $", din {officeName}";
             }
 
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" din {location}";
+            }
+
+            if (log.Data.TryGetValue("floor_index", out string floorIndex))
+            {
+                text += $", de la etajul {floorIndex}";
+            }
+
             return text;
         }
 
@@ -3829,7 +3795,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         protected override string GetCleaningMethod(Dictionary<string, string> data)
             => GetMappedDataValue(data, "cleaning_method", new()
             {
+                { "AirBlower", "utilizarea suflantei de aer" },
                 { "CottonBuds", "utilizarea bețișoarelor de urechi" },
+                { "LintRemover", "utilizarea aparatului de scos scame" },
+                { "LintRoller", "utilizarea rolei de scame" },
                 { "SpiralEarCleaner", "utilizarea dispozitivului de curățare a urechilor în formă de spirală" },
                 { "Vacuuming", "aspirare" },
                 { "Washing", "spălare" },
@@ -3904,23 +3873,81 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             },
             "părul");
 
+        protected override string GetMedicationType(
+            Dictionary<string, string> data,
+            bool usePluralForm)
+        {
+            if (usePluralForm)
+            {
+                return GetMappedDataValue(
+                    data,
+                    "medication_type",
+                    new()
+                    {
+                        { "Antiacid", "antiacide" },
+                        { "Antibiotic", "antibiotice" },
+                        { "Antifungal", "antifungice" },
+                        { "Antiinflammatory", "antiinflamatoare" },
+                        { "Antiparasitic", "antiparazitice" },
+                        { "Antiseptic", "antiseptice" },
+                        { "Anxiolytic", "anxiolitice" },
+                        { "Corticosteroid", "corticosteroizi" },
+                        { "Enzymatic", "enzimatice" },
+                        { "Gastroprotective", "gastroprotective" },
+                        { "Painkiller", "antinevralgice" },
+                        { "Probiotic", "probiotice" },
+                        { "Supplement", "suplimente" },
+                        { "Vaccine", "vaccinuri" },
+                    },
+                    "medicamente");
+            }
+
+            return GetMappedDataValue(
+                data,
+                "medication_type",
+                new()
+                {
+                    { "Antiacid", "antiacid" },
+                    { "Antibiotic", "antibiotic" },
+                    { "Antifungal", "antifungic" },
+                    { "Antiinflammatory", "antiinflamator" },
+                    { "Antiparasitic", "antiparazitic" },
+                    { "Antiseptic", "antiseptic" },
+                    { "Anxiolytic", "anxiolitic" },
+                    { "Corticosteroid", "corticosteroid" },
+                    { "Enzymatic", "enzimatic" },
+                    { "Gastroprotective", "gastroprotectiv" },
+                    { "Painkiller", "antinevralgic" },
+                    { "Probiotic", "probiotic" },
+                    { "Supplement", "supliment" },
+                    { "Vaccine", "vaccin" },
+                },
+                "medicament");
+        }
+
         protected override string GetRoom(Dictionary<string, string> data)
             => GetMappedDataValue(data, "room", new()
                 {
+                    { "AccessibleBathroom", "baia pentru persoanele cu dezabilități" },
                     { "Attic", "pod" },
+                    { "BackBalcony", "balconul din spate" },
                     { "BackPorch", "veranda din spate" },
                     { "Balcony", "balcon" },
                     { "Bathroom", "baie" },
                     { "Bedroom", "dormitor" },
                     { "DressingRoom", "dressing" },
+                    { "FemaleBathroom", "baia pentru femei" },
+                    { "FrontBalcony", "balconul din față" },
+                    { "FrontPorch", "veranda din față" },
                     { "Hallway", "hol" },
+                    { "Kitchen", "bucătărie" },
                     { "LargerBathroom", "baia mare" },
                     { "LargerBedroom", "dormitorul mare" },
                     { "LivingRoom", "sufragerie" },
                     { "LowerBathroom", "baia de jos" },
                     { "LowerBedroom", "dormitorul de jos" },
                     { "LowerHallway", "holul de jos" },
-                    { "Kitchen", "bucătărie" },
+                    { "MaleBathroom", "baia pentru bărbați" },
                     { "Office", "birou" },
                     { "Pantry", "cămară" },
                     { "Porch", "verandă" },
@@ -3932,6 +3959,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "UpperHallway", "holul de sus" }
                 },
                 data["room"].ToLower()
+            );
+
+        protected override string GetSide(Dictionary<string, string> data)
+            => GetMappedDataValue(data, "side", new()
+                {
+                    { "central", "centrală" },
+                    { "right", "dreaptă" },
+                    { "left", "stângă" }
+                },
+                "necunoscută"
             );
 
         protected override string GetVehicleType(Dictionary<string, string> data, bool useDefinitiveForm)

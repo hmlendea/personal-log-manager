@@ -192,7 +192,11 @@ namespace PersonalLogManager.Service.TextBuilding
 
         protected abstract string GetHairType(Dictionary<string, string> data);
 
+        protected abstract string GetMedicationType(Dictionary<string, string> data, bool usePluralForm);
+
         protected abstract string GetRoom(Dictionary<string, string> data);
+
+        protected abstract string GetSide(Dictionary<string, string> data);
 
         protected abstract string GetVehicleType(Dictionary<string, string> data, bool useDefinitiveForm);
     }

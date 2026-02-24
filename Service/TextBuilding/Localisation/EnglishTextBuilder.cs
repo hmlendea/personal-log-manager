@@ -1811,6 +1811,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" in the {GetRoom(log.Data)}";
             }
 
+            if (log.Data.ContainsKey("side"))
+            {
+                text += $" on the {GetSide(log.Data)} side";
+            }
+
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", at {location}";
@@ -1826,6 +1831,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.ContainsKey("room"))
             {
                 text += $" in the {GetRoom(log.Data)}";
+            }
+
+            if (log.Data.ContainsKey("side"))
+            {
+                text += $" on the {GetSide(log.Data)} side";
             }
 
             if (log.Data.TryGetValue("location", out string location))
@@ -1893,6 +1903,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (log.Data.TryGetValue("location", out string location))
             {
                 text += $", at {location}";
+            }
+
+            if (log.Data.ContainsKey("side"))
+            {
+                text += $", on the {GetSide(log.Data)} side of the bed";
             }
 
             return text;
@@ -2124,29 +2139,15 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildMedicationIntakeLogText(PersonalLog log)
         {
-            string medicationType = GetMappedDataValue(
-                log.Data,
-                "medication_type",
-                new()
-                {
-                    { "Antibiotic", "antibiotic" },
-                    { "Antifungal", "antifungal" },
-                    { "Antiparasitic", "antiparasitic" },
-                    { "Antiseptic", "antiseptic" },
-                    { "Anxiolytic", "anxiolytic" },
-                    { "Corticosteroid", "corticosteroid" },
-                    { "Enzymatic", "enzymatic" },
-                    { "Vaccine", "vaccine" },
-                    { "Painkiller", "painkiller" },
-                    { "Supplement", "supplement" }
-                },
-                "medication");
-
-            string text = $"I have taken the following {medicationType}";
+            string text = $"I have taken the following";
 
             if (IsDataValuePlural(log.Data, "medication_name"))
             {
-                text += $"s";
+                text += $" {GetMedicationType(log.Data, usePluralForm: true)}";
+            }
+            else
+            {
+                text += $" {GetMedicationType(log.Data, usePluralForm: false)}";
             }
 
             return $"{text}: {GetLocalisedValue(log.Data, "medication_name", "en")}";
@@ -2613,29 +2614,15 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildPetMedicationAdministrationLogText(PersonalLog log)
         {
-            string medicationType = GetMappedDataValue(
-                log.Data,
-                "medication_type",
-                new()
-                {
-                    { "Antibiotic", "antibiotic" },
-                    { "Antifungal", "antifungal" },
-                    { "Antiparasitic", "antiparasitic" },
-                    { "Antiseptic", "antiseptic" },
-                    { "Anxiolytic", "anxiolytic" },
-                    { "Corticosteroid", "corticosteroid" },
-                    { "Enzymatic", "enzymatic" },
-                    { "Vaccine", "vaccine" },
-                    { "Painkiller", "painkiller" },
-                    { "Supplement", "supplement" }
-                },
-                "medication");
-
-            string text = $"I have administered the following {medicationType}";
+            string text = $"I have administered the following";
 
             if (IsDataValuePlural(log.Data, "medication_name"))
             {
-                text += $"s";
+                text += $" {GetMedicationType(log.Data, usePluralForm: true)}";
+            }
+            else
+            {
+                text += $" {GetMedicationType(log.Data, usePluralForm: false)}";
             }
 
             return $"{text} to {GetDataValue(log.Data, "pet_name")}: {GetLocalisedValue(log.Data, "medication_name", "en")}";
@@ -3497,6 +3484,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $", at {location}";
             }
 
+            if (log.Data.ContainsKey("side"))
+            {
+                text += $", on the {GetSide(log.Data)} side of the bed";
+            }
+
             return text;
         }
 
@@ -3580,7 +3572,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.TryGetValue("office_name", out string officeName))
             {
-                text += $" ({officeName})";
+                text += $", at {officeName}";
+            }
+
+            if (log.Data.TryGetValue("location", out string location))
+            {
+                text += $" in {location}";
+            }
+
+            if (log.Data.TryGetValue("floor_index", out string floorIndex))
+            {
+                text += $", on floor {floorIndex}";
             }
 
             return text;
@@ -3663,7 +3665,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         protected override string GetCleaningMethod(Dictionary<string, string> data)
             => GetMappedDataValue(data, "cleaning_method", new()
             {
+                { "AirBlower", "using an air blower" },
                 { "CottonBuds", "using cotton buds" },
+                { "LintRemover", "using a lint remover" },
+                { "LintRoller", "using a lint roller" },
                 { "SpiralEarCleaner", "using a spiral ear cleaner" },
                 { "Vacuuming", "vacuuming" },
                 { "Washing", "washing" },
@@ -3733,15 +3738,72 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             },
             "hair");
 
+        protected override string GetMedicationType(
+            Dictionary<string, string> data,
+            bool usePluralForm)
+        {
+            if (usePluralForm)
+            {
+                return GetMappedDataValue(
+                    data,
+                    "medication_type",
+                    new()
+                    {
+                        { "Antiacid", "antiacids" },
+                        { "Antibiotic", "antibiotics" },
+                        { "Antifungal", "antifungals" },
+                        { "Antiinflammatory", "anti-inflammatories" },
+                        { "Antiparasitic", "antiparasitics" },
+                        { "Antiseptic", "antiseptics" },
+                        { "Anxiolytic", "anxiolytics" },
+                        { "Corticosteroid", "corticosteroids" },
+                        { "Enzymatic", "enzymatics" },
+                        { "Gastroprotective", "gastroprotectives" },
+                        { "Painkiller", "painkillers" },
+                        { "Probiotic", "probiotics" },
+                        { "Supplement", "supplements" },
+                        { "Vaccine", "vaccines" },
+                    },
+                    "medications");
+            }
+
+            return GetMappedDataValue(
+                data,
+                "medication_type",
+                new()
+                {
+                    { "Antiacid", "antiacid" },
+                    { "Antibiotic", "antibiotic" },
+                    { "Antifungal", "antifungal" },
+                    { "Antiinflammatory", "anti-inflammatory" },
+                    { "Antiparasitic", "antiparasitic" },
+                    { "Antiseptic", "antiseptic" },
+                    { "Anxiolytic", "anxiolytic" },
+                    { "Corticosteroid", "corticosteroid" },
+                    { "Enzymatic", "enzymatic" },
+                    { "Gastroprotective", "gastroprotective" },
+                    { "Painkiller", "painkiller" },
+                    { "Probiotic", "probiotic" },
+                    { "Supplement", "supplement" },
+                    { "Vaccine", "vaccine" },
+                },
+                "medication");
+        }
+
         protected override string GetRoom(Dictionary<string, string> data)
             => GetMappedDataValue(data, "room", new()
                 {
+                    { "AccessibleBathroom", "accessible bathroom" },
                     { "Attic", "attic" },
+                    { "BackBalcony", "back balcony" },
                     { "BackPorch", "back porch" },
                     { "Balcony", "balcony" },
                     { "Bathroom", "bathroom" },
                     { "Bedroom", "bedroom" },
                     { "DressingRoom", "dressing room" },
+                    { "FemaleBathroom", "female bathroom" },
+                    { "FrontBalcony", "front balcony" },
+                    { "FrontPorch", "front porch" },
                     { "Hallway", "hallway" },
                     { "LargerBathroom", "larger bathroom" },
                     { "LargerBedroom", "larger bedroom" },
@@ -3749,6 +3811,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "LowerBathroom", "lower bathroom" },
                     { "LowerBedroom", "lower bedroom" },
                     { "LowerHallway", "lower hallway" },
+                    { "MaleBathroom", "male bathroom" },
                     { "Kitchen", "kitchen" },
                     { "Office", "office" },
                     { "Pantry", "pantry" },
@@ -3763,6 +3826,15 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 data["room"].ToLower()
             );
 
+        protected override string GetSide(Dictionary<string, string> data)
+            => GetMappedDataValue(data, "side", new()
+                {
+                    { "central", "central" },
+                    { "right", "right" },
+                    { "left", "left" }
+                },
+                "unknown"
+            );
         protected override string GetVehicleType(Dictionary<string, string> data, bool useDefinitiveForm)
         {
             string vehicleType = GetMappedDataValue(data, "vehicle_type", new()
