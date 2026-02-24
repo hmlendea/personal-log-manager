@@ -46,17 +46,17 @@ namespace PersonalLogManager.Service
 
             if (!string.IsNullOrWhiteSpace(request.Date))
             {
-                logs = logs.Where(log => Regex.IsMatch(log.Date, request.Date));
+                logs = logs.Where(log => DoesFieldMatch(log.Date, request.Date));
             }
 
             if (!string.IsNullOrWhiteSpace(request.Time))
             {
-                logs = logs.Where(log => Regex.IsMatch(log.Time, request.Time));
+                logs = logs.Where(log => DoesFieldMatch(log.Time, request.Time));
             }
 
             if (!string.IsNullOrWhiteSpace(request.Template))
             {
-                logs = logs.Where(log => Regex.IsMatch(log.Template, request.Template));
+                logs = logs.Where(log => DoesFieldMatch(log.Template, request.Template));
             }
 
             if (request.Data is not null && request.Data.Count > 0)
@@ -67,7 +67,7 @@ namespace PersonalLogManager.Service
                         log.Data is not null &&
                         log.Data.ContainsKey(dataKey) &&
                         log.Data[dataKey] is not null &&
-                        Regex.IsMatch(
+                        DoesFieldMatch(
                             log.Data[dataKey],
                             request.Data[dataKey],
                             RegexOptions.IgnoreCase));
@@ -126,6 +126,30 @@ namespace PersonalLogManager.Service
             request.ValidateHMAC(securitySettings.SharedSecretKey);
             repository.Remove(request.Identifier);
             repository.ApplyChanges();
+        }
+
+        private static bool DoesFieldMatch(
+            string input,
+            string pattern,
+            RegexOptions options = RegexOptions.None)
+        {
+            string anchoredPattern = pattern;
+            if (input is null || pattern is null)
+            {
+                return false;
+            }
+
+            if (!pattern.StartsWith("^"))
+            {
+                anchoredPattern = "^" + pattern;
+            }
+
+            if (!pattern.EndsWith("$"))
+            {
+                anchoredPattern += "$";
+            }
+
+            return Regex.IsMatch(input, anchoredPattern, options);
         }
     }
 }
