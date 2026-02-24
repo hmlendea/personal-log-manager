@@ -2695,6 +2695,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildProductKeyActivationLogText(PersonalLog log)
+            => $"I have activated the product key '{log.Data["product_key"]}' for {log.Data["product_name"]} on {GetPlatform(log.Data)}";
+
         public string BuildPsychotherapySessionLogText(PersonalLog log)
         {
             string text = $"I have undergone a psychotherapy session";

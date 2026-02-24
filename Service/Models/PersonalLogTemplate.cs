@@ -159,6 +159,7 @@ namespace PersonalLogManager.Service.Models
         PetWeightMeasurement,
         PhysiotherapySession,
         PlantWatering,
+        ProductKeyActivation,
         PsychotherapySession,
         PublicIpAddressMeasurement,
         RestaurantVisit,
