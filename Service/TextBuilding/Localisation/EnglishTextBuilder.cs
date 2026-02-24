@@ -3645,7 +3645,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         protected override string GetCleaningMethod(Dictionary<string, string> data)
             => GetMappedDataValue(data, "cleaning_method", new()
             {
+                { "AirBlower", "using an air blower" },
                 { "CottonBuds", "using cotton buds" },
+                { "LintRemover", "using a lint remover" },
+                { "LintRoller", "using a lint roller" },
                 { "SpiralEarCleaner", "using a spiral ear cleaner" },
                 { "Vacuuming", "vacuuming" },
                 { "Washing", "washing" },

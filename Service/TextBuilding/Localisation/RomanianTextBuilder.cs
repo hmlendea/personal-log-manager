@@ -3775,7 +3775,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         protected override string GetCleaningMethod(Dictionary<string, string> data)
             => GetMappedDataValue(data, "cleaning_method", new()
             {
+                { "AirBlower", "utilizarea suflantei de aer" },
                 { "CottonBuds", "utilizarea bețișoarelor de urechi" },
+                { "LintRemover", "utilizarea aparatului de scos scame" },
+                { "LintRoller", "utilizarea rolei de scame" },
                 { "SpiralEarCleaner", "utilizarea dispozitivului de curățare a urechilor în formă de spirală" },
                 { "Vacuuming", "aspirare" },
                 { "Washing", "spălare" },
