@@ -3716,16 +3716,20 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     "medication_type",
                     new()
                     {
+                        { "Antiacid", "antiacids" },
                         { "Antibiotic", "antibiotics" },
                         { "Antifungal", "antifungals" },
+                        { "Antiinflammatory", "anti-inflammatories" },
                         { "Antiparasitic", "antiparasitics" },
                         { "Antiseptic", "antiseptics" },
                         { "Anxiolytic", "anxiolytics" },
                         { "Corticosteroid", "corticosteroids" },
                         { "Enzymatic", "enzymatics" },
-                        { "Vaccine", "vaccines" },
+                        { "Gastroprotective", "gastroprotectives" },
                         { "Painkiller", "painkillers" },
-                        { "Supplement", "supplements" }
+                        { "Probiotic", "probiotics" },
+                        { "Supplement", "supplements" },
+                        { "Vaccine", "vaccines" },
                     },
                     "medications");
             }
@@ -3735,16 +3739,20 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 "medication_type",
                 new()
                 {
+                    { "Antiacid", "antiacid" },
                     { "Antibiotic", "antibiotic" },
                     { "Antifungal", "antifungal" },
+                    { "Antiinflammatory", "anti-inflammatory" },
                     { "Antiparasitic", "antiparasitic" },
                     { "Antiseptic", "antiseptic" },
                     { "Anxiolytic", "anxiolytic" },
                     { "Corticosteroid", "corticosteroid" },
                     { "Enzymatic", "enzymatic" },
-                    { "Vaccine", "vaccine" },
+                    { "Gastroprotective", "gastroprotective" },
                     { "Painkiller", "painkiller" },
-                    { "Supplement", "supplement" }
+                    { "Probiotic", "probiotic" },
+                    { "Supplement", "supplement" },
+                    { "Vaccine", "vaccine" },
                 },
                 "medication");
         }
