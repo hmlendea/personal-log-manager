@@ -3402,6 +3402,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         protected override string GetDeviceType(Dictionary<string, string> data)
             => GetMappedDataValue(data, "device_type", new()
                 {
+                    { "BloodGlucoseMeter", "glucometrul" },
                     { "Console", "consola" },
                     { "Dehumidifier", "dezumidificatorul" },
                     { "DesktopComputer", "desktop computer" },
@@ -3409,7 +3410,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "HairTrimmer", "aparatul de tuns părul" },
                     { "Headphones", "căștile" },
                     { "HeadTorch", "lanterna frontală" },
+                    { "HeartRateMonitor", "monitorul de ritm cardiac" },
                     { "Laptop", "laptop-ul" },
+                    { "LaserPetToy", "laserul pentru animale de companie" },
                     { "LintRemover", "aparatul de scos scame" },
                     { "Phone", "telefonul" },
                     { "Scale", "cântarul" },
