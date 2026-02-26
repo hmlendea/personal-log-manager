@@ -1194,10 +1194,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildDeviceChargingLogText(PersonalLog log)
-            => $"I have charged my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
+            => $"I have charged my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}" +
+                GetLocation(log.Data);
 
         public string BuildDeviceContainerEmptyingLogText(PersonalLog log)
-            => $"I have emptied the container of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
+            => $"I have emptied the container of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}" +
+                GetLocation(log.Data);
 
         public string BuildDeviceExternalCleaningLogText(PersonalLog log)
         {

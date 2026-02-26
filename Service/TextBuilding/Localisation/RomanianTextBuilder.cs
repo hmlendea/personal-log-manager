@@ -1238,10 +1238,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildDeviceChargingLogText(PersonalLog log)
-            => $"Am pus la încărcat {GetDeviceType(log.Data)} {log.Data["device_name"]}";
+            => $"Am pus la încărcat {GetDeviceType(log.Data)} {log.Data["device_name"]}" +
+                GetLocation(log.Data);
 
         public string BuildDeviceContainerEmptyingLogText(PersonalLog log)
-            => $"Am golit rezervorul de la {GetDeviceType(log.Data)} {log.Data["device_name"]}";
+            => $"Am golit rezervorul de la {GetDeviceType(log.Data)} {log.Data["device_name"]}" +
+                GetLocation(log.Data);
 
         public string BuildDeviceExternalCleaningLogText(PersonalLog log)
         {
