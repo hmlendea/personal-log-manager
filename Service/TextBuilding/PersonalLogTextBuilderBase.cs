@@ -258,6 +258,8 @@ namespace PersonalLogManager.Service.TextBuilding
 
         protected abstract string GetHairType(Dictionary<string, string> data);
 
+        protected abstract string GetLocation(Dictionary<string, string> data);
+
         protected abstract string GetMedicationType(
             Dictionary<string, string> data,
             bool usePluralForm);
