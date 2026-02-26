@@ -1563,7 +1563,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             string guildType = GetMappedDataValue(
                 log.Data,
                 "guild_type",
-                new System.Collections.Generic.Dictionary<string, string>
+                new Dictionary<string, string>
                 {
                     { "Clan", "clan" },
                     { "MilitaryUnit", "military unit" },
@@ -1594,7 +1594,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             string guildType = GetMappedDataValue(
                 log.Data,
                 "guild_type",
-                new System.Collections.Generic.Dictionary<string, string>
+                new Dictionary<string, string>
                 {
                     { "Clan", "clan" },
                     { "MilitaryUnit", "military unit" },
@@ -2231,15 +2231,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", together with {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildMovieCompletionLogText(PersonalLog log)
@@ -2251,15 +2243,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", together with {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildMovieWatchingLogText(PersonalLog log)
@@ -2271,15 +2255,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", together with {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildNailCuttingLogText(PersonalLog log)
@@ -2480,16 +2456,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"The public IP address was {log.Data["ip_address"]}" + GetLocation(log.Data);
 
         public string BuildRestaurantVisitLogText(PersonalLog log)
-        {
-            string text = $"I have been to the restaurant at" + GetLocation(log.Data);
-
-            if (log.Data.TryGetValue("together_with", out string togetherWih))
-            {
-                text += $", together with {togetherWih}";
-            }
-
-            return text;
-        }
+            => $"I have been to the restaurant at" + GetLocation(log.Data);
 
         public string BuildSaunaSessionLogText(PersonalLog log)
         {
@@ -2517,15 +2484,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", together with {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildSeriesCompletionLogText(PersonalLog log)
@@ -2537,15 +2496,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", together with {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildSeriesEpisodeBeginningLogText(PersonalLog log)
@@ -2572,15 +2523,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", together with {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildSeriesEpisodeCompletionLogText(PersonalLog log)
@@ -2607,15 +2550,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", together with {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildSeriesEpisodeWatchingLogText(PersonalLog log)
@@ -2642,15 +2577,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", together with {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildSeriesSeasonBeginningLogText(PersonalLog log)
@@ -2667,15 +2594,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", together with {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildSeriesSeasonCompletionLogText(PersonalLog log)
@@ -2692,43 +2611,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", together with {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildShavingLogText(PersonalLog log)
             => $"I have shaved my {GetHairType(log.Data)}" + GetLocation(log.Data);
 
         public string BuildShowerBeginningLogText(PersonalLog log)
-        {
-            string text = $"I have started taking a shower" + GetLocation(log.Data);
-
-            if (log.Data.TryGetValue("together_with", out string togetherWih))
-            {
-                text += $", together with {togetherWih}";
-            }
-
-            return text;
-        }
+            => $"I have started taking a shower" + GetLocation(log.Data);
 
         public string BuildShowerCompletionLogText(PersonalLog log)
-        {
-            string text = $"I have finished taking a shower" + GetLocation(log.Data);
-
-            if (log.Data.TryGetValue("together_with", out string togetherWih))
-            {
-                text += $", together with {togetherWih}";
-            }
-
-            return text;
-        }
+            => $"I have finished taking a shower" + GetLocation(log.Data);
 
         public string BuildShowerTakingLogText(PersonalLog log)
         {
@@ -2739,14 +2632,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" for {durationMinutes} minutes";
             }
 
-            text += GetLocation(log.Data);
-
-            if (log.Data.TryGetValue("together_with", out string togetherWih))
-            {
-                text += $", together with {togetherWih}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildStepCountMeasurementLogText(PersonalLog log)
@@ -2790,18 +2676,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildTheatricalPlayAttendanceLogText(PersonalLog log)
-        {
-            string text =
-                $"I have attended the '{log.Data["play_name"]}' theatrical play" +
-                GetLocation(log.Data);
-
-            if (log.Data.TryGetValue("together_with", out string togetherWih))
-            {
-                text += $", together with {togetherWih}";
-            }
-
-            return text;
-        }
+            => $"I have attended the '{log.Data["play_name"]}' theatrical play" + GetLocation(log.Data);
 
         public string BuildTollPaymentLogText(PersonalLog log)
         {
@@ -2854,7 +2729,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             string treeSpecies = GetMappedDataValue(
                 log.Data,
                 "tree_species",
-                new System.Collections.Generic.Dictionary<string, string>
+                new Dictionary<string, string>
                 {
                     { "Oak", "oak" },
                     { "Pine", "pine" },
@@ -2880,15 +2755,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += "s";
             }
 
-            text += GetLocation(log.Data);
-
-            string togetherWith = GetLocalisedValue(log.Data, "together_with", "en");
-            if (!string.IsNullOrWhiteSpace(togetherWith))
-            {
-                text += $", together with {togetherWith}"; ;
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildUtilityBillPaymentLogText(PersonalLog log)
@@ -2896,7 +2763,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             string utilityType = GetMappedDataValue(
                 log.Data,
                 "utility_type",
-                new System.Collections.Generic.Dictionary<string, string>
+                new Dictionary<string, string>
                 {
                     { "Electricity", "electricity" },
                     { "Gas", "gas" },
@@ -2934,7 +2801,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             string utilityType = GetMappedDataValue(
                 log.Data,
                 "utility_type",
-                new System.Collections.Generic.Dictionary<string, string>
+                new Dictionary<string, string>
                 {
                     { "Electricity", "electricity" },
                     { "Gas", "gas" },
@@ -3081,15 +2948,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "en");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", together with {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildWakingUpLogText(PersonalLog log)
@@ -3398,6 +3257,26 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 data.ContainsKey("floor_index"))
             {
                 text += $", on floor {GetDataValue(data, "floor_index")}";
+            }
+
+            string with = string.Empty;
+
+            if (data.ContainsKey("with"))
+            {
+                with = GetLocalisedValue(data, "with", "ro");
+            }
+            else if (data.ContainsKey("together_with"))
+            {
+                with = GetLocalisedValue(data, "together_with", "ro");
+            }
+            else if (data.ContainsKey("watched_with"))
+            {
+                with = GetLocalisedValue(data, "watched_with", "ro");
+            }
+
+            if (!string.IsNullOrWhiteSpace(with))
+            {
+                text += $", together with {with}";
             }
 
             return text;

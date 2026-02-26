@@ -1621,7 +1621,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             string guildType = GetMappedDataValue(
                 log.Data,
                 "guild_type",
-                new System.Collections.Generic.Dictionary<string, string>
+                new Dictionary<string, string>
                 {
                     { "Clan", "clanul" },
                     { "MilitaryUnit", "unitatea militară" },
@@ -1652,7 +1652,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             string guildType = GetMappedDataValue(
                 log.Data,
                 "guild_type",
-                new System.Collections.Generic.Dictionary<string, string>
+                new Dictionary<string, string>
                 {
                     { "Clan", "clanul" },
                     { "MilitaryUnit", "unitatea militară" },
@@ -2288,15 +2288,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "ro");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", împreună cu {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildMovieCompletionLogText(PersonalLog log)
@@ -2308,15 +2300,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "ro");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", împreună cu {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildMovieWatchingLogText(PersonalLog log)
@@ -2328,15 +2312,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "ro");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", împreună cu {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildNailCuttingLogText(PersonalLog log)
@@ -2560,24 +2536,15 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"Adresa IP publică a fost {log.Data["ip_address"]}" + GetLocation(log.Data);
 
         public string BuildRestaurantVisitLogText(PersonalLog log)
-        {
-            string text = $"Am fost la restaurant" + GetLocation(log.Data);
-
-            if (log.Data.TryGetValue("together_with", out string togetherWih))
-            {
-                text += $", împreună cu {togetherWih}";
-            }
-
-            return text;
-        }
+            => $"Am fost la restaurant" + GetLocation(log.Data);
 
         public string BuildSaunaSessionLogText(PersonalLog log)
         {
-            string text = $"Am fost la saună" + GetLocation(log.Data);
+            string text = $"Am fost la saună";
 
             if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
             {
-                text += $", pentru {durationMinutes} minut";
+                text += $" timp de {durationMinutes} minut";
 
                 if (durationMinutes != "1")
                 {
@@ -2585,7 +2552,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 }
             }
 
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildSeriesBeginningLogText(PersonalLog log)
@@ -2597,15 +2564,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "ro");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", împreună cu {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildSeriesCompletionLogText(PersonalLog log)
@@ -2617,15 +2576,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "ro");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", împreună cu {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildSeriesEpisodeBeginningLogText(PersonalLog log)
@@ -2652,15 +2603,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "ro");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", împreună cu {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildSeriesEpisodeCompletionLogText(PersonalLog log)
@@ -2687,15 +2630,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "ro");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", împreună cu {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildSeriesEpisodeWatchingLogText(PersonalLog log)
@@ -2722,15 +2657,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "ro");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", împreună cu {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildSeriesSeasonBeginningLogText(PersonalLog log)
@@ -2747,15 +2674,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "ro");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", împreună cu {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildSeriesSeasonCompletionLogText(PersonalLog log)
@@ -2772,15 +2691,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" pe {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "ro");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", împreună cu {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildShavingLogText(PersonalLog log)
@@ -2807,28 +2718,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildShowerBeginningLogText(PersonalLog log)
-        {
-            string text = $"Am început să fac duș" + GetLocation(log.Data);
-
-            if (log.Data.TryGetValue("together_with", out string togetherWih))
-            {
-                text += $", împreună cu {togetherWih}";
-            }
-
-            return text;
-        }
+            => "Am început să fac duș" + GetLocation(log.Data);
 
         public string BuildShowerCompletionLogText(PersonalLog log)
-        {
-            string text = $"Am terminat de făcut duș" + GetLocation(log.Data);
-
-            if (log.Data.TryGetValue("together_with", out string togetherWih))
-            {
-                text += $", împreună cu {togetherWih}";
-            }
-
-            return text;
-        }
+            => "Am terminat de făcut duș" + GetLocation(log.Data);
 
         public string BuildShowerTakingLogText(PersonalLog log)
         {
@@ -2839,14 +2732,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" timp de {durationMinutes} minute";
             }
 
-            text += GetLocation(log.Data);
-
-            if (log.Data.TryGetValue("together_with", out string togetherWih))
-            {
-                text += $", împreună cu {togetherWih}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildStepCountMeasurementLogText(PersonalLog log)
@@ -2895,18 +2781,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildTheatricalPlayAttendanceLogText(PersonalLog log)
-        {
-            string text =
-                $"Am fost la piesa de teatru '{log.Data["play_name"]}'" +
-                GetLocation(log.Data);
-
-            if (log.Data.TryGetValue("together_with", out string togetherWih))
-            {
-                text += $", împreună cu {togetherWih}";
-            }
-
-            return text;
-        }
+            => $"Am fost la piesa de teatru '{log.Data["play_name"]}'" + GetLocation(log.Data);
 
         public string BuildTollPaymentLogText(PersonalLog log)
         {
@@ -2964,7 +2839,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 treeSpecies = GetMappedDataValue(
                     log.Data,
                     "tree_species",
-                    new System.Collections.Generic.Dictionary<string, string>
+                    new Dictionary<string, string>
                     {
                         { "Oak", "stejar" },
                         { "Pine", "brad" },
@@ -2984,7 +2859,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 treeSpecies = GetMappedDataValue(
                     log.Data,
                     "tree_species",
-                    new System.Collections.Generic.Dictionary<string, string>
+                    new Dictionary<string, string>
                     {
                         { "Oak", "stejari" },
                         { "Pine", "brazi" },
@@ -2998,15 +2873,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     "copaci");
             }
 
-            text += $" {treeSpecies}" + GetLocation(log.Data);
-
-            string togetherWith = GetLocalisedValue(log.Data, "together_with", "ro");
-            if (!string.IsNullOrWhiteSpace(togetherWith))
-            {
-                text += $", împreună cu {togetherWith}";;
-            }
-
-            return text;
+            return $"{text} {treeSpecies}" + GetLocation(log.Data);
         }
 
         public string BuildUtilityBillPaymentLogText(PersonalLog log)
@@ -3014,7 +2881,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             string utilityType = GetMappedDataValue(
                 log.Data,
                 "utility_type",
-                new System.Collections.Generic.Dictionary<string, string>
+                new Dictionary<string, string>
                 {
                     { "Electricity", "curent" },
                     { "Gas", "gaz" },
@@ -3046,7 +2913,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             string utilityType = GetMappedDataValue(
                 log.Data,
                 "utility_type",
-                new System.Collections.Generic.Dictionary<string, string>
+                new Dictionary<string, string>
                 {
                     { "Electricity", "curent" },
                     { "Gas", "gaz" },
@@ -3225,15 +3092,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" de pe {GetPlatform(log.Data)}";
             }
 
-            text += GetLocation(log.Data);
-
-            string watchedWith = GetLocalisedValue(log.Data, "watched_with", "ro");
-            if (!string.IsNullOrWhiteSpace(watchedWith))
-            {
-                text += $", împreună cu {watchedWith}";
-            }
-
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildWakingUpLogText(PersonalLog log)
@@ -3553,6 +3412,26 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 data.ContainsKey("floor_index"))
             {
                 text += $", de la etajul {GetDataValue(data, "floor_index")}";
+            }
+
+            string with = string.Empty;
+
+            if (data.ContainsKey("with"))
+            {
+                with = GetLocalisedValue(data, "with", "ro");
+            }
+            else if (data.ContainsKey("together_with"))
+            {
+                with = GetLocalisedValue(data, "together_with", "ro");
+            }
+            else if (data.ContainsKey("watched_with"))
+            {
+                with = GetLocalisedValue(data, "watched_with", "ro");
+            }
+
+            if (!string.IsNullOrWhiteSpace(with))
+            {
+                text += $", împreună cu {with}";
             }
 
             return text;
