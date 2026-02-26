@@ -3258,7 +3258,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (!string.IsNullOrWhiteSpace(deviceName))
             {
-                if (string.IsNullOrWhiteSpace(text))
+                if (!string.IsNullOrWhiteSpace(text))
                 {
                     text += " ";
                 }
@@ -3344,9 +3344,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = string.Empty;
 
+            string room = string.Empty;
+
             if (data.ContainsKey("room"))
             {
-                text += $", în {GetRoom(data)}";
+                room = GetRoom(data);
+            }
+
+            if (!string.IsNullOrWhiteSpace(room))
+            {
+                text += $", în {room}";
             }
 
             string buildingName = string.Empty;
@@ -3359,6 +3366,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 buildingName = GetDataValue(data, "clinic_name");
             }
+            else if (data.ContainsKey("location_name"))
+            {
+                buildingName = GetDataValue(data, "location_name");
+            }
             else if (data.ContainsKey("office_name"))
             {
                 buildingName = GetDataValue(data, "office_name");
@@ -3366,6 +3377,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             else if (data.ContainsKey("restaurant_name"))
             {
                 buildingName = GetDataValue(data, "restaurant_name");
+            }
+            else if (data.ContainsKey("salon_name"))
+            {
+                buildingName = GetDataValue(data, "salon_name");
             }
             else if (data.ContainsKey("theatre_name"))
             {
@@ -3399,11 +3414,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (!string.IsNullOrWhiteSpace(location))
             {
-                if (!string.IsNullOrWhiteSpace(text))
-                {
-                    text += " de";
-                }
-                else
+                if (string.IsNullOrWhiteSpace(text))
                 {
                     text += ",";
                 }
