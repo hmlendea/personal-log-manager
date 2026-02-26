@@ -3123,6 +3123,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => GetMappedDataValue(data, "device_type", new()
                 {
                     { "BloodGlucoseMeter", "blood glucose meter" },
+                    { "BodyScale", "body scale" },
                     { "Console", "console" },
                     { "Dehumidifier", "dehumidifier" },
                     { "DesktopComputer", "desktop computer" },

@@ -3273,6 +3273,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => GetMappedDataValue(data, "device_type", new()
                 {
                     { "BloodGlucoseMeter", "glucometrul" },
+                    { "BodyScale", "cântarul de corp" },
                     { "Console", "consola" },
                     { "Dehumidifier", "dezumidificatorul" },
                     { "DesktopComputer", "desktop computer" },
