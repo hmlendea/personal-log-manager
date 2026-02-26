@@ -826,7 +826,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildBloodGlucoseMeasurementLogText(PersonalLog log)
-            => $"Nivelul de glucoză a fost măsurat la {log.Data["glucose_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
+        {
+            string text = $"Nivelul de glucoză a fost măsurat la {log.Data["glucose_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
+
+            if (log.Data.ContainsKey("device_name"))
+            {
+                text += $", folosind dispozitivul {GetDataValue(log.Data, "device_name")}";
+            }
+
+            return text;
+        }
 
         public string BuildBloodPressureMeasurementLogText(PersonalLog log)
             => $"Tensiunea arterială a fost măsurată la {log.Data["systolic_pressure"]}/{log.Data["diastolic_pressure"]} {GetDataValue(log.Data, "unit", "mmHg")}";

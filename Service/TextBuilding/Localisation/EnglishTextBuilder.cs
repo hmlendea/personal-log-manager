@@ -815,7 +815,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildBloodGlucoseMeasurementLogText(PersonalLog log)
-            => $"My blood glucose level measured {log.Data["glucose_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
+        {
+            string text = $"My blood glucose level measured {log.Data["glucose_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
+
+            if (log.Data.TryGetValue("device_name", out string deviceName))
+            {
+                text += $", using the device {deviceName}";
+            }
+
+            return text;
+        }
 
         public string BuildBloodPressureMeasurementLogText(PersonalLog log)
             => $"My blood pressure measured {log.Data["systolic_pressure"]}/{log.Data["diastolic_pressure"]} {GetDataValue(log.Data, "unit", "mmHg")}";
