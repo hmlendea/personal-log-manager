@@ -820,9 +820,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             string unit = GetDataValue(log.Data, "unit", "kg");
             string text = $"Greutatea corporală a fost măsurată la {log.Data["body_weight"]} {unit}";
 
-            if (log.Data.TryGetValue("scale_name", out string scaleName))
+            if (log.Data.ContainsKey("device_name") || log.Data.ContainsKey("scale_name"))
             {
-                text += $", folosind cântarul {scaleName}";
+                text += $", folosind {GetDevice(log.Data)}";
             }
 
             return text;
@@ -3245,14 +3245,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += GetDeviceType(data);
             }
 
+            string deviceName = string.Empty;
+
             if (data.ContainsKey("device_name"))
+            {
+                deviceName = GetDataValue(data, "device_name");
+            }
+            else if (data.ContainsKey("scale_name"))
+            {
+                deviceName = GetDataValue(data, "scale_name");
+            }
+
+            if (!string.IsNullOrWhiteSpace(deviceName))
             {
                 if (string.IsNullOrWhiteSpace(text))
                 {
                     text += " ";
                 }
 
-                text += GetDataValue(data, "device_name");
+                text += deviceName;
             }
 
             return text;

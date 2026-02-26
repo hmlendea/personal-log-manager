@@ -808,9 +808,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"My body weight measured {GetDataValue(log.Data, "body_weight")} {GetDataValue(log.Data, "unit", "kg")}";
 
-            if (log.Data.TryGetValue("scale_name", out string scaleName))
+            if (log.Data.ContainsKey("device_name") || log.Data.ContainsKey("scale_name"))
             {
-                text += $" on the scale {scaleName}";
+                text += $", using the {GetDevice(log.Data)}";
             }
 
             return text;
@@ -3090,9 +3090,20 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = string.Empty;
 
+            string deviceName = string.Empty;
+
             if (data.ContainsKey("device_name"))
             {
-                text += GetDataValue(data, "device_name");
+                deviceName = GetDataValue(data, "device_name");
+            }
+            else if (data.ContainsKey("scale_name"))
+            {
+                deviceName = GetDataValue(data, "scale_name");
+            }
+
+            if (!string.IsNullOrWhiteSpace(deviceName))
+            {
+                text += deviceName;
             }
 
             if (data.ContainsKey("device_type"))
