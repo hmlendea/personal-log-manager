@@ -252,11 +252,15 @@ namespace PersonalLogManager.Service.TextBuilding
         protected abstract string GetCleaningMethod(
             Dictionary<string, string> data);
 
+        protected abstract string GetDevice(Dictionary<string, string> data);
+
         protected abstract string GetDeviceType(Dictionary<string, string> data);
 
         protected abstract string GetFluidType(Dictionary<string, string> data, bool useDefinitiveForm);
 
         protected abstract string GetHairType(Dictionary<string, string> data);
+
+        protected abstract string GetLocation(Dictionary<string, string> data);
 
         protected abstract string GetMedicationType(
             Dictionary<string, string> data,
