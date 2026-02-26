@@ -803,7 +803,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (log.Data.ContainsKey("device_name"))
             {
-                text += $", folosind dispozitivul {GetDataValue(log.Data, "device_name")}";
+                text += $", folosind dispozitivul {GetDevice(log.Data)}";
             }
 
             return text;
@@ -1197,10 +1197,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildDeviceBatteryHealthLogText(PersonalLog log)
-            => $"Sănătatea bateriei din {GetDeviceType(log.Data)} {log.Data["device_name"]} a fost {log.Data["battery_health_percentage"]}%";
+            => $"Sănătatea bateriei din {GetDevice(log.Data)} a fost {log.Data["battery_health_percentage"]}%";
 
         public string BuildDeviceBatteryLevelLogText(PersonalLog log)
-            => $"Nivelul bateriei din {GetDeviceType(log.Data)} {log.Data["device_name"]} a fost la {log.Data["battery_level_percentage"]}%";
+            => $"Nivelul bateriei din {GetDevice(log.Data)} a fost măsurat la {log.Data["battery_level_percentage"]}%";
 
         public string BuildDeviceBreakingLogText(PersonalLog log)
         {
@@ -1238,16 +1238,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildDeviceChargingLogText(PersonalLog log)
-            => $"Am pus la încărcat {GetDeviceType(log.Data)} {log.Data["device_name"]}" +
-                GetLocation(log.Data);
+            => $"Am pus la încărcat {GetDevice(log.Data)}" + GetLocation(log.Data);
 
         public string BuildDeviceContainerEmptyingLogText(PersonalLog log)
-            => $"Am golit rezervorul de la {GetDeviceType(log.Data)} {log.Data["device_name"]}" +
-                GetLocation(log.Data);
+            => $"Am golit rezervorul de la {GetDevice(log.Data)}" + GetLocation(log.Data);
 
         public string BuildDeviceExternalCleaningLogText(PersonalLog log)
         {
-            string text = $"Am curățat extern {GetDeviceType(log.Data)} {log.Data["device_name"]}";
+            string text = $"Am curățat extern {GetDevice(log.Data)}";
 
             if (log.Data.ContainsKey("cleaning_method"))
             {
@@ -1259,7 +1257,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildDeviceInternalCleaningLogText(PersonalLog log)
         {
-            string text = $"Am curățat intern {GetDeviceType(log.Data)} {log.Data["device_name"]}";
+            string text = $"Am curățat intern {GetDevice(log.Data)}";
 
             if (log.Data.ContainsKey("cleaning_method"))
             {
@@ -1301,7 +1299,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildDeviceScreentimeMeasurementLogText(PersonalLog log)
         {
-            string text = $"Timpul petrecut astăzi pe {log.Data["device_name"]} a fost măsurat la";
+            string text = $"Timpul petrecut astăzi pe {GetDevice(log.Data)} a fost măsurat la";
 
             if (log.Data.TryGetValue("screentime_hours", out string screentimeHours))
             {
@@ -1970,9 +1968,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             string unit = GetDataValue(log.Data, "unit", "bpm");
             string text = $"Ritmul cardiac a fost măsurat la {log.Data["heart_rate"]} {unit}";
 
-            if (log.Data.TryGetValue("device_name", out string deviceName))
+            if (log.Data.ContainsKey("device_name"))
             {
-                text += $" folosind {deviceName}";
+                text += $" folosind {GetDevice(log.Data)}";
             }
 
             return text;
@@ -2865,9 +2863,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $", arzând {caloriesBurned} de kilocalorii";
             }
 
-            if (log.Data.TryGetValue("device_name", out string deviceName))
+            if (log.Data.ContainsKey("device_name"))
             {
-                text += $", conform măsurătorilor făcute de {deviceName}";
+                text += $", conform măsurătorilor făcute de {GetDevice(log.Data)}";
             }
 
             return text;
@@ -3378,6 +3376,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 { "Wiping", "ștergere" },
             },
             "curățare");
+
+        protected override string GetDevice(Dictionary<string, string> data)
+        {
+            string text = string.Empty;
+
+            if (data.ContainsKey("device_type"))
+            {
+                text += GetDeviceType(data);
+            }
+
+            if (data.ContainsKey("device_name"))
+            {
+                if (string.IsNullOrWhiteSpace(text))
+                {
+                    text += " ";
+                }
+
+                text += GetDataValue(data, "device_name");
+            }
+
+            return text;
+        }
 
         protected override string GetDeviceType(Dictionary<string, string> data)
             => GetMappedDataValue(data, "device_type", new()

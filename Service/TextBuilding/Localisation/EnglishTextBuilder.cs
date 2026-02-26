@@ -790,9 +790,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"My blood glucose level measured {log.Data["glucose_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
-            if (log.Data.TryGetValue("device_name", out string deviceName))
+            if (log.Data.ContainsKey("device_name"))
             {
-                text += $", using the device {deviceName}";
+                text += $", using the {GetDevice(log.Data)}";
             }
 
             return text;
@@ -1157,10 +1157,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildDeviceBatteryHealthLogText(PersonalLog log)
-            => $"The battery health of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)} was at {log.Data["battery_health_percentage"]}%";
+            => $"The battery health of my {GetDevice(log.Data)} was measured at {log.Data["battery_health_percentage"]}%";
 
         public string BuildDeviceBatteryLevelLogText(PersonalLog log)
-            => $"The battery level of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)} was at {log.Data["battery_level_percentage"]}%";
+            => $"The battery level of my {GetDevice(log.Data)} was measured at {log.Data["battery_level_percentage"]}%";
 
         public string BuildDeviceBreakingLogText(PersonalLog log)
         {
@@ -1194,16 +1194,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildDeviceChargingLogText(PersonalLog log)
-            => $"I have charged my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}" +
+            => $"I have charged my {GetDevice(log.Data)}" +
                 GetLocation(log.Data);
 
         public string BuildDeviceContainerEmptyingLogText(PersonalLog log)
-            => $"I have emptied the container of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}" +
+            => $"I have emptied the container of my {GetDevice(log.Data)}" +
                 GetLocation(log.Data);
 
         public string BuildDeviceExternalCleaningLogText(PersonalLog log)
         {
-            string text = $"I have cleaned the exterior of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
+            string text = $"I have cleaned the exterior of my {GetDevice(log.Data)}";
 
             if (log.Data.ContainsKey("cleaning_method"))
             {
@@ -1215,7 +1215,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildDeviceInternalCleaningLogText(PersonalLog log)
         {
-            string text = $"I have cleaned the interior of my {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}";
+            string text = $"I have cleaned the interior of my {GetDevice(log.Data)}";
 
             if (log.Data.ContainsKey("cleaning_method"))
             {
@@ -1238,12 +1238,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += " my";
             }
 
-            return $" {GetDataValue(log.Data, "device_name")} {GetDeviceType(log.Data)}" + GetLocation(log.Data);
+            return $"{text} {GetDevice(log.Data)}" + GetLocation(log.Data);
         }
 
         public string BuildDeviceScreentimeMeasurementLogText(PersonalLog log)
         {
-            string text = $"Today's screentime on {log.Data["device_name"]} was measured at";
+            string text = $"Today's screentime on my {GetDevice(log.Data)} was measured at";
 
             if (log.Data.TryGetValue("screentime_hours", out string screentimeHours))
             {
@@ -1924,9 +1924,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             string unit = GetDataValue(log.Data, "unit", "bpm");
             string text = $"My heart rate measured {log.Data["heart_rate"]} {unit}";
 
-            if (log.Data.TryGetValue("device_name", out string deviceName))
+            if (log.Data.ContainsKey("device_name"))
             {
-                text += $" on the {deviceName}";
+                text += $" on the {GetDevice(log.Data)}";
             }
 
             return text;
@@ -2763,9 +2763,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $", burning {caloriesBurned} kilocalories";
             }
 
-            if (log.Data.TryGetValue("device_name", out string deviceName))
+            if (log.Data.ContainsKey("device_name"))
             {
-                text += $", according to the measurements made by my {deviceName}";
+                text += $", according to the measurements made by my {GetDevice(log.Data)}";
             }
 
             return text;
@@ -3226,6 +3226,28 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 { "Wiping", "wiping" },
             },
             "cleaning");
+
+        protected override string GetDevice(Dictionary<string, string> data)
+        {
+            string text = string.Empty;
+
+            if (data.ContainsKey("device_name"))
+            {
+                text += GetDataValue(data, "device_name");
+            }
+
+            if (data.ContainsKey("device_type"))
+            {
+                if (string.IsNullOrWhiteSpace(text))
+                {
+                    text += " ";
+                }
+
+                text += GetDeviceType(data);
+            }
+
+            return text;
+        }
 
         protected override string GetDeviceType(Dictionary<string, string> data)
             => GetMappedDataValue(data, "device_type", new()
