@@ -773,12 +773,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildBloodDonationLogText(PersonalLog log)
         {
-            string text = $"I have donated blood";
-
-            if (log.Data.TryGetValue("donation_centre_name", out string donationCentreName))
-            {
-                text += $" at {donationCentreName}";
-            }
+            string text = $"I have donated blood" + GetLocation(log.Data);
 
             if (log.Data.TryGetValue("donation_code", out string donationCode))
             {
@@ -3206,6 +3201,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             else if (data.ContainsKey("clinic_name"))
             {
                 buildingName = GetDataValue(data, "clinic_name");
+            }
+            else if (data.ContainsKey("donation_centre_name"))
+            {
+                buildingName = GetDataValue(data, "donation_centre_name");
             }
             else if (data.ContainsKey("location_name"))
             {
