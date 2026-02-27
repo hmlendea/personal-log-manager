@@ -828,7 +828,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildBodyWeightMeasurementLogText(PersonalLog log)
         {
-            string text = $"My body weight measured {GetDataValue(log.Data, "body_weight")} {GetDataValue(log.Data, "unit", "kg")}";
+            string text =
+                $"My body weight measured {GetDataValue(log.Data, "body_weight")} {GetDataValue(log.Data, "unit", "kg")}" +
+                GetLocation(log.Data);
 
             if (log.Data.ContainsKey("device_name") || log.Data.ContainsKey("scale_name"))
             {
