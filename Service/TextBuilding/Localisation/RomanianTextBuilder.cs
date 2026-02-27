@@ -5,6 +5,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 {
     public class RomanianTextBuilder() : PersonalLogTextBuilderBase, IPersonalLogTextBuilder
     {
+        protected override string LanguageCode => "ro";
+
         public string BuildAccessoryCleaningLogText(PersonalLog log)
             => $"Mi-am curățat {GetAccessoryType(log.Data)} prin {GetCleaningMethod(log.Data)}" +
                 GetLocation(log.Data);
@@ -1768,7 +1770,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text =
                 $"Am participat la ceremonia de absolvire a lui " +
-                GetLocalisedValue(log.Data, "graduate_name", "ro") +
+                GetLocalisedValue(log.Data, "graduate_name") +
                 GetLocation(log.Data);
 
             string degreeLevel = GetMappedDataValue(
@@ -1941,7 +1943,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" următorul {medicationType}";
             }
 
-            return $"{text}: {GetLocalisedValue(log.Data, "medication_name", "ro")}";
+            return $"{text}: {GetLocalisedValue(log.Data, "medication_name")}";
         }
 
         public string BuildMicronationExternalRelationsRequestSendingLogText(PersonalLog log)
@@ -2309,7 +2311,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" următorul {medicationType}";
             }
 
-            return $"{text} lui {GetPet(log.Data)}: {GetLocalisedValue(log.Data, "medication_name", "ro")}";
+            return $"{text} lui {GetPet(log.Data)}: {GetLocalisedValue(log.Data, "medication_name")}";
         }
 
         public string BuildPetNailsTrimmingLogText(PersonalLog log)
@@ -3179,7 +3181,6 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         protected override string GetLocation(Dictionary<string, string> data)
         {
             string text = string.Empty;
-
             string room = string.Empty;
 
             if (data.ContainsKey("room"))
@@ -3281,15 +3282,15 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (data.ContainsKey("with"))
             {
-                with = GetLocalisedValue(data, "with", "ro");
+                with = GetLocalisedValue(data, "with");
             }
             else if (data.ContainsKey("together_with"))
             {
-                with = GetLocalisedValue(data, "together_with", "ro");
+                with = GetLocalisedValue(data, "together_with");
             }
             else if (data.ContainsKey("watched_with"))
             {
-                with = GetLocalisedValue(data, "watched_with", "ro");
+                with = GetLocalisedValue(data, "watched_with");
             }
 
             if (!string.IsNullOrWhiteSpace(with))
@@ -3360,7 +3361,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         protected override string GetPet(Dictionary<string, string> data)
-            => GetLocalisedValue(data, "pet_name", "ro");
+            => GetLocalisedValue(data, "pet_name");
 
         protected override string GetPetType(
             Dictionary<string, string> data,

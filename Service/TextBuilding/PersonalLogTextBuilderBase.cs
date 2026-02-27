@@ -6,6 +6,8 @@ namespace PersonalLogManager.Service.TextBuilding
 {
     public abstract class PersonalLogTextBuilderBase
     {
+        protected abstract string LanguageCode { get; }
+
         public string BuildTextLogText(PersonalLog log)
             => GetDataValue(log.Data, "text");
 
@@ -85,10 +87,10 @@ namespace PersonalLogManager.Service.TextBuilding
             return $"{decimal.Parse(value):F2}".Replace(".00", string.Empty);
         }
 
-        public string GetLocalisedValue(Dictionary<string, string> data, string key, string localisation)
-            => GetLocalisedValue(data, key, localisation, null);
+        public string GetLocalisedValue(Dictionary<string, string> data, string key)
+            => GetLocalisedValue(data, key, defaultValue: null);
 
-        public string GetLocalisedValue(Dictionary<string, string> data, string key, string localisation, string defaultValue)
+        public string GetLocalisedValue(Dictionary<string, string> data, string key, string defaultValue)
         {
             string value = GetDataValue(data, key);
 
@@ -97,9 +99,7 @@ namespace PersonalLogManager.Service.TextBuilding
                 return defaultValue;
             }
 
-            if (localisation.Equals("ro-RO") ||
-                localisation.Equals("ro-MD") ||
-                localisation.Equals("ro"))
+            if (LanguageCode.Equals("ro"))
             {
                 return value
                     .Replace(" and ", " și ")

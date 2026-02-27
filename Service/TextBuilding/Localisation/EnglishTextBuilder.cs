@@ -5,6 +5,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 {
     public class EnglishTextBuilder() : PersonalLogTextBuilderBase, IPersonalLogTextBuilder
     {
+        protected override string LanguageCode => "en";
+
         public string BuildAccessoryCleaningLogText(PersonalLog log)
             => $"I have cleaned {GetAccessoryType(log.Data)} by {GetCleaningMethod(log.Data)}" +
                 GetLocation(log.Data);
@@ -1749,7 +1751,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildGraduationCeremonyAttendanceLogText(PersonalLog log)
         {
             string text =
-                $"I have attended {GetLocalisedValue(log.Data, "graduate_name", "en")}'s graduation ceremony" +
+                $"I have attended {GetLocalisedValue(log.Data, "graduate_name")}'s graduation ceremony" +
                 GetLocation(log.Data);
 
             string degreeLevel = GetMappedDataValue(
@@ -1912,7 +1914,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" {GetMedicationType(log.Data, usePluralForm: false)}";
             }
 
-            return $"{text}: {GetLocalisedValue(log.Data, "medication_name", "en")}";
+            return $"{text}: {GetLocalisedValue(log.Data, "medication_name")}";
         }
 
         public string BuildMicronationExternalRelationsRequestSendingLogText(PersonalLog log)
@@ -2250,7 +2252,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" {GetMedicationType(log.Data, usePluralForm: false)}";
             }
 
-            return $"{text} to {GetPet(log.Data)}: {GetLocalisedValue(log.Data, "medication_name", "en")}";
+            return $"{text} to {GetPet(log.Data)}: {GetLocalisedValue(log.Data, "medication_name")}";
         }
 
         public string BuildPetNailsTrimmingLogText(PersonalLog log)
@@ -3046,7 +3048,6 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         protected override string GetLocation(Dictionary<string, string> data)
         {
             string text = string.Empty;
-
             string room = string.Empty;
 
             if (data.ContainsKey("room"))
@@ -3152,15 +3153,15 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (data.ContainsKey("with"))
             {
-                with = GetLocalisedValue(data, "with", "ro");
+                with = GetLocalisedValue(data, "with");
             }
             else if (data.ContainsKey("together_with"))
             {
-                with = GetLocalisedValue(data, "together_with", "ro");
+                with = GetLocalisedValue(data, "together_with");
             }
             else if (data.ContainsKey("watched_with"))
             {
-                with = GetLocalisedValue(data, "watched_with", "ro");
+                with = GetLocalisedValue(data, "watched_with");
             }
 
             if (!string.IsNullOrWhiteSpace(with))
