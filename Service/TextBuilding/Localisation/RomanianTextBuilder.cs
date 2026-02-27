@@ -1063,106 +1063,50 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildChatGroupCreationLogText(PersonalLog log)
         {
-            log.Data.TryGetValue("platform", out string platform);
+            string text = $"Am creat un grup de chat";
 
-            if (string.IsNullOrWhiteSpace(platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                platform = "chat";
+                text += $" de {GetPlatform(log.Data)}";
             }
 
-            string text = $"Am creat un grup de {platform}";
-
-            if (!platform.Equals("chat"))
-            {
-                string discriminator = GetDiscriminator(log.Data);
-
-                if (!string.IsNullOrWhiteSpace(discriminator))
-                {
-                    text += $" ({discriminator})";
-                }
-            }
-
-            text += $" '{log.Data["group_name"]}'";
-
-            return text;
+            return $"{text} numit '{log.Data["group_name"]}'";
         }
 
         public string BuildChatGroupDeletionLogText(PersonalLog log)
         {
-            log.Data.TryGetValue("platform", out string platform);
+            string text = $"Am șters grupul de chat";
 
-            if (string.IsNullOrWhiteSpace(platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                platform = "chat";
+                text += $" de {GetPlatform(log.Data)}";
             }
 
-            string text = $"Am șters grupul de {platform}";
-
-            if (!platform.Equals("chat"))
-            {
-                string discriminator = GetDiscriminator(log.Data);
-
-                if (!string.IsNullOrWhiteSpace(discriminator))
-                {
-                    text += $" ({discriminator})";
-                }
-            }
-
-            text += $" '{log.Data["group_name"]}'";
-
-            return text;
+            return $"{text} numit '{log.Data["group_name"]}'";
         }
 
         public string BuildChatGroupJoiningLogText(PersonalLog log)
         {
-            log.Data.TryGetValue("platform", out string platform);
+            string text = $"Am intrat în grupul de chat";
 
-            if (string.IsNullOrWhiteSpace(platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                platform = "chat";
+                text += $" de {GetPlatform(log.Data)}";
             }
 
-            string text = $"Am intrat în grupul de {platform}";
-
-            if (!platform.Equals("chat"))
-            {
-                string discriminator = GetDiscriminator(log.Data);
-
-                if (!string.IsNullOrWhiteSpace(discriminator))
-                {
-                    text += $" ({discriminator})";
-                }
-            }
-
-            text += $" '{log.Data["group_name"]}'";
-
-            return text;
+            return $"{text} numit '{log.Data["group_name"]}'";
         }
 
         public string BuildChatGroupLeavingLogText(PersonalLog log)
         {
-            log.Data.TryGetValue("platform", out string platform);
+            string text = $"Am ieșit din grupul de chat";
 
-            if (string.IsNullOrWhiteSpace(platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                platform = "chat";
+                text += $" de {GetPlatform(log.Data)}";
             }
 
-            string text = $"Am ieșit din grupul de {platform}";
-
-            if (!platform.Equals("chat"))
-            {
-                string discriminator = GetDiscriminator(log.Data);
-
-                if (!string.IsNullOrWhiteSpace(discriminator))
-                {
-                    text += $" ({discriminator})";
-                }
-            }
-
-            text += $" '{log.Data["group_name"]}'";
-
-            return text;
+            return $"{text} numit '{log.Data["group_name"]}'";
         }
 
         public string BuildCustomGptCreationLogText(PersonalLog log)
@@ -1536,16 +1480,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 }
             }
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" pe {platform}";
-            }
-
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
+                text += $" pe {GetPlatform(log.Data)}";
             }
 
             return text;
@@ -1555,16 +1492,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am cumpărat clădirea {log.Data["building_name"]} în {log.Data["game_name"]}";
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" pe {platform}";
-            }
-
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
+                text += $" pe {GetPlatform(log.Data)}";
             }
 
             return text;
@@ -1574,16 +1504,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am ridicat clădirea {log.Data["building_name"]} la nivelul {log.Data["new_level"]} în {log.Data["game_name"]}";
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" pe {platform}";
-            }
-
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
+                text += $" pe {GetPlatform(log.Data)}";
             }
 
             return text;
@@ -1593,16 +1516,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am construit {log.Data["construction_name"]} în {log.Data["game_name"]}";
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" pe {platform}";
-            }
-
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
+                text += $" pe {GetPlatform(log.Data)}";
             }
 
             return text;
@@ -1612,16 +1528,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am început să construiesc {log.Data["construction_name"]} în {log.Data["game_name"]}";
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" pe {platform}";
-            }
-
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
+                text += $" pe {GetPlatform(log.Data)}";
             }
 
             return text;
@@ -1631,16 +1540,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am terminat de construit {log.Data["construction_name"]} în {log.Data["game_name"]}";
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" pe {platform}";
-            }
-
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
+                text += $" pe {GetPlatform(log.Data)}";
             }
 
             return text;
@@ -1662,16 +1564,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string text = $"Am intrat în {guildType} '{log.Data["guild_name"]}' în {log.Data["game_name"]}";
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" pe {platform}";
-            }
-
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
+                text += $" pe {GetPlatform(log.Data)}";
             }
 
             return text;
@@ -1713,16 +1608,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             text += $" în {log.Data["game_name"]}";
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" pe {platform}";
-            }
-
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
+                text += $" pe {GetPlatform(log.Data)}";
             }
 
             return text;
@@ -1744,16 +1632,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             text += $" în {log.Data["game_name"]}";
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" pe {platform}";
-            }
-
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
+                text += $" pe {GetPlatform(log.Data)}";
             }
 
             return text;
@@ -1763,16 +1644,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am avansat la rangul {log.Data["new_rank"]} în {log.Data["game_name"]}";
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" pe {platform}";
-            }
-
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
+                text += $" pe {GetPlatform(log.Data)}";
             }
 
             return text;
@@ -1782,16 +1656,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am început să joc {log.Data["game_name"]}";
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" pe {platform}";
-            }
-
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
+                text += $" pe {GetPlatform(log.Data)}";
             }
 
             return text;
@@ -1801,16 +1668,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am avansat la nivelul {log.Data["new_level"]} în {log.Data["game_name"]}";
 
-            if (log.Data.TryGetValue("platform", out string platform))
+            if (log.Data.ContainsKey("platform"))
             {
-                text += $" pe {platform}";
-            }
-
-            string discriminator = GetDiscriminator(log.Data);
-
-            if (!string.IsNullOrWhiteSpace(discriminator))
-            {
-                text += $" ({discriminator})";
+                text += $" pe {GetPlatform(log.Data)}";
             }
 
             return text;
