@@ -2259,22 +2259,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildPetAdoptionLogText(PersonalLog log)
-        {
-            string petTypeWord = GetMappedDataValue(
-                log.Data,
-                "pet_type",
-                new()
-                {
-                    { "Cat", "pisica mea" },
-                    { "Dog", "câinele meu" },
-                    { "Rabbit", "iepurele meu" },
-                    { "Ferret", "dihorul meu" },
-                    { "GuineaPig", "porcușorul meu de Guineea" }
-                },
-                "pet");
-
-            return $"Am adoptat {petTypeWord}, {GetLocalisedValue(log.Data, "pet_name", "ro")}";
-        }
+            => $"Am adoptat {GetPetType(log.Data, useDefinitiveForm: true)} {GetLocalisedValue(log.Data, "pet_name", "ro")}";
 
         public string BuildPetBathingLogText(PersonalLog log)
             => $"I-am făcut baie lui {GetLocalisedValue(log.Data, "pet_name", "ro")}";
@@ -2283,55 +2268,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"I-am periat blana lui {GetLocalisedValue(log.Data, "pet_name", "ro")}";
 
         public string BuildPetLitterCleaningLogText(PersonalLog log)
-        {
-            string petType = GetMappedDataValue(
-                log.Data,
-                "pet_type",
-                new()
-                {
-                    { "Cat", "pisici" },
-                    { "Rabbit", "iepuri" },
-                    { "Ferret", "dihori" },
-                    { "GuineaPig", "porcușori de Guineea" }
-                },
-                "pet");
-
-            return $"Am curățat litiera de {petType}" + GetLocation(log.Data);
-        }
+            => $"Am curățat litiera de {GetPetType(log.Data, usePluralForm: true)}" +
+                GetLocation(log.Data);
 
         public string BuildPetLitterEmptyingLogText(PersonalLog log)
-        {
-            string petType = GetMappedDataValue(
-                log.Data,
-                "pet_type",
-                new()
-                {
-                    { "Cat", "pisici" },
-                    { "Rabbit", "iepuri" },
-                    { "Ferret", "dihori" },
-                    { "GuineaPig", "porcușori de Guineea" }
-                },
-                "pet");
-
-            return $"Am golit litiera de {petType}" + GetLocation(log.Data);
-        }
+            => $"Am golit litiera de {GetPetType(log.Data, usePluralForm: true)}" +
+                GetLocation(log.Data);
 
         public string BuildPetLitterRefillLogText(PersonalLog log)
-        {
-            string petType = GetMappedDataValue(
-                log.Data,
-                "pet_type",
-                new()
-                {
-                    { "Cat", "pisici" },
-                    { "Rabbit", "iepuri" },
-                    { "Ferret", "dihori" },
-                    { "GuineaPig", "porcușori de Guineea" }
-                },
-                "pet");
-
-            return $"Am reumplut litiera de {petType}" + GetLocation(log.Data);
-        }
+            => $"Am reumplut litiera de {GetPetType(log.Data, usePluralForm: true)}" +
+                GetLocation(log.Data);
 
         public string BuildPetMedicationAdministrationLogText(PersonalLog log)
         {
@@ -3408,6 +3354,65 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "Vaccine", "vaccin" },
                 },
                 "medicament");
+        }
+
+        protected override string GetPetType(
+            Dictionary<string, string> data,
+            bool useDefinitiveForm = false,
+            bool usePluralForm = false)
+        {
+            const string key = "pet_type";
+
+            if (useDefinitiveForm)
+            {
+                if (usePluralForm)
+                {
+                    return GetMappedDataValue(data, key, new()
+                    {
+                        { "Cat", "pisicile" },
+                        { "Dog", "câinii" },
+                        { "Rabbit", "iepurii" },
+                        { "Ferret", "dihorii" },
+                        { "GuineaPig", "porcușorii de Guineea" }
+                    }, "animalele de companie");
+                }
+                else
+                {
+                    return GetMappedDataValue(data, key, new()
+                    {
+                        { "Cat", "pisica" },
+                        { "Dog", "câinele" },
+                        { "Rabbit", "iepurele" },
+                        { "Ferret", "dihorul" },
+                        { "GuineaPig", "porcușorul de Guineea" }
+                    }, "animalul de companie");
+                }
+            }
+            else
+            {
+                if (usePluralForm)
+                {
+                    return GetMappedDataValue(data, key, new()
+                    {
+                        { "Cat", "pisici" },
+                        { "Dog", "câini" },
+                        { "Rabbit", "iepuri" },
+                        { "Ferret", "dihori" },
+                        { "GuineaPig", "porcușori de Guineea" }
+                    }, "animale de companie");
+                }
+                else
+                {
+                    return GetMappedDataValue(data, key, new()
+                    {
+                        { "Cat", "pisică" },
+                        { "Dog", "câine" },
+                        { "Rabbit", "iepure" },
+                        { "Ferret", "dihor" },
+                        { "GuineaPig", "porcușor de Guineea" }
+                    }, "animal de companie");
+                }
+            }
         }
 
         protected override string GetPlantType(

@@ -2217,22 +2217,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildPetAdoptionLogText(PersonalLog log)
-        {
-            string petType = GetMappedDataValue(
-                log.Data,
-                "pet_type",
-                new()
-                {
-                    { "Cat", "cat" },
-                    { "Dog", "dog" },
-                    { "Rabbit", "rabbit" },
-                    { "Ferret", "ferret" },
-                    { "GuineaPig", "guinea pig" }
-                },
-                "pet");
-
-            return $"I have adopted my {petType} {GetLocalisedValue(log.Data, "pet_name", "en")}";
-        }
+            => $"I have adopted my {GetPetType(log.Data)} {GetLocalisedValue(log.Data, "pet_name", "en")}";
 
         public string BuildPetBathingLogText(PersonalLog log)
             => $"I have bathed {GetLocalisedValue(log.Data, "pet_name", "en")}";
@@ -2241,55 +2226,13 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"I have brushed {GetLocalisedValue(log.Data, "pet_name", "en")}";
 
         public string BuildPetLitterCleaningLogText(PersonalLog log)
-        {
-            string petType = GetMappedDataValue(
-                log.Data,
-                "pet_type",
-                new()
-                {
-                    { "Cat", "cat" },
-                    { "Rabbit", "rabbit" },
-                    { "Ferret", "ferret" },
-                    { "GuineaPig", "guinea pig" }
-                },
-                "pet");
-
-            return $"I have cleaned the {petType} litter" + GetLocation(log.Data);;
-        }
+            => $"I have cleaned the {GetPetType(log.Data)} litter" + GetLocation(log.Data);
 
         public string BuildPetLitterEmptyingLogText(PersonalLog log)
-        {
-            string petType = GetMappedDataValue(
-                log.Data,
-                "pet_type",
-                new()
-                {
-                    { "Cat", "cat" },
-                    { "Rabbit", "rabbit" },
-                    { "Ferret", "ferret" },
-                    { "GuineaPig", "guinea pig" }
-                },
-                "pet");
-
-            return $"I have emptied the {petType} litter" + GetLocation(log.Data);
-        }
+            => $"I have emptied the {GetPetType(log.Data)} litter" + GetLocation(log.Data);
 
         public string BuildPetLitterRefillLogText(PersonalLog log)
-        {
-            string petType = GetMappedDataValue(
-                log.Data,
-                "pet_type",
-                new()
-                {
-                    { "Cat", "cat" },
-                    { "Rabbit", "rabbit" },
-                    { "Ferret", "ferret" },
-                    { "GuineaPig", "guinea pig" }
-                },
-                "pet");
-
-            return $"I have refilled the {petType} litter" + GetLocation(log.Data);
-        }
+            => $"I have refilled the {GetPetType(log.Data)} litter" + GetLocation(log.Data);
 
         public string BuildPetMedicationAdministrationLogText(PersonalLog log)
         {
@@ -3059,7 +3002,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 data["device_type"].ToLower()
             );
 
-        protected override string GetFluidType(Dictionary<string, string> data, bool useDefinitiveForm)
+        protected override string GetFluidType(
+            Dictionary<string, string> data,
+            bool useDefinitiveForm)
         {
             string fluidType = GetMappedDataValue(data, "fluid_type", new()
             {
@@ -3282,6 +3227,40 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 { "FingerNails", "finger nails" },
                 { "ToeNails", "toe nails" }
             }, "nails");
+
+        protected override string GetPetType(
+            Dictionary<string, string> data,
+            bool useDefinitiveForm = false,
+            bool usePluralForm = false)
+        {
+            string petType = GetMappedDataValue(data, "pet_type", new()
+            {
+                { "Cat", "cat" },
+                { "Dog", "dog" },
+                { "Rabbit", "rabbit" },
+                { "Ferret", "ferret" },
+                { "GuineaPig", "guinea pig" }
+            }, "pet");
+
+            if (useDefinitiveForm)
+            {
+                petType = $"the {petType}";
+            }
+
+            if (usePluralForm)
+            {
+                if (petType.EndsWith("s"))
+                {
+                    petType += "es";
+                }
+                else
+                {
+                    petType += "s";
+                }
+            }
+
+            return petType;
+        }
 
         protected override string GetPlantType(
             Dictionary<string, string> data,
