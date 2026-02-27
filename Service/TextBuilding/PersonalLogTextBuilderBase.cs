@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using NuciText.Obfuscation;
 using PersonalLogManager.Service.Models;
 
 namespace PersonalLogManager.Service.TextBuilding
@@ -9,6 +10,8 @@ namespace PersonalLogManager.Service.TextBuilding
         protected abstract string LanguageCode { get; }
 
         protected string MissingValue => "[MISSING_VALUE]";
+
+        NuciTextObfuscator obfuscator = new();
 
         public string BuildTextLogText(PersonalLog log)
             => GetDataValue(log.Data, "text");
@@ -77,7 +80,7 @@ namespace PersonalLogManager.Service.TextBuilding
                 return defaultValue;
             }
 
-            return value;
+            return obfuscator.Obfuscate(value);
         }
 
         public string GetDecimalValue(Dictionary<string, string> data, string key)
