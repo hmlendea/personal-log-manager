@@ -141,6 +141,7 @@ namespace PersonalLogManager.Service.Models
         MicronationExternalRelationsEstablishment,
         MicronationFounding,
         MicronationLegalActIssuance,
+        MicronationNameChange,
         MicronationSettlementFounding,
         MicronationSettlementRankDowngrade,
         MicronationSettlementRankUpgrade,

@@ -2036,7 +2036,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildMicronationFoundingLogText(PersonalLog log)
-            => $"Am fondat micronațiunea {GetDataValue(log.Data, "micronation_name")}";
+            => $"Am fondat micronațiunea {GetDataValue(log.Data, "name")}";
 
         public string BuildMicronationLegalActIssuanceLogText(PersonalLog log)
         {
@@ -2084,6 +2084,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             return text;
         }
+
+        public string BuildMicronationNameChangeLogText(PersonalLog log)
+            => $"Am schimbat numele micronațiunii {GetDataValue(log.Data, "old_name")} în {GetDataValue(log.Data, "new_name")}";
 
         public string BuildMicronationSettlementFoundingLogText(PersonalLog log)
         {

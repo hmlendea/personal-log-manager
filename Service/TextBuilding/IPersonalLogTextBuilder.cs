@@ -142,6 +142,7 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildMicronationExternalRelationsEstablishmentLogText(PersonalLog log);
         string BuildMicronationFoundingLogText(PersonalLog log);
         string BuildMicronationLegalActIssuanceLogText(PersonalLog log);
+        string BuildMicronationNameChangeLogText(PersonalLog log);
         string BuildMicronationSettlementFoundingLogText(PersonalLog log);
         string BuildMicronationSettlementRankDowngradeLogText(PersonalLog log);
         string BuildMicronationSettlementRankUpgradeLogText(PersonalLog log);

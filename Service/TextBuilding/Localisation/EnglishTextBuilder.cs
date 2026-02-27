@@ -2007,7 +2007,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildMicronationFoundingLogText(PersonalLog log)
-            => $"I have founded the micronation of {GetDataValue(log.Data, "micronation_name")}";
+            => $"I have founded the micronation of {GetDataValue(log.Data, "name")}";
 
         public string BuildMicronationLegalActIssuanceLogText(PersonalLog log)
         {
@@ -2051,6 +2051,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             return text;
         }
+
+        public string BuildMicronationNameChangeLogText(PersonalLog log)
+            => $"I have changed the name of the micronation of {GetDataValue(log.Data, "old_name")} to {GetDataValue(log.Data, "new_name")}";
 
         public string BuildMicronationSettlementFoundingLogText(PersonalLog log)
         {
