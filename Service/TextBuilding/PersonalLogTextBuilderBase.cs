@@ -273,6 +273,8 @@ namespace PersonalLogManager.Service.TextBuilding
         protected abstract string GetNailsType(
             Dictionary<string, string> data);
 
+        protected abstract string GetPet(Dictionary<string, string> data);
+
         protected abstract string GetPetType(
             Dictionary<string, string> data,
             bool useDefinitiveForm = false,

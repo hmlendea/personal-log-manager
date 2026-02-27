@@ -2217,15 +2217,15 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildPetAdoptionLogText(PersonalLog log)
-            => $"I have adopted my {GetPetType(log.Data)} {GetLocalisedValue(log.Data, "pet_name", "en")}" +
+            => $"I have adopted {GetPet(log.Data)}" +
                 GetLocation(log.Data);
 
         public string BuildPetBathingLogText(PersonalLog log)
-            => $"I have bathed {GetLocalisedValue(log.Data, "pet_name", "en")}" +
+            => $"I have bathed {GetPet(log.Data)}" +
                 GetLocation(log.Data);
 
         public string BuildPetBrushingLogText(PersonalLog log)
-            => $"I have brushed {GetLocalisedValue(log.Data, "pet_name", "en")}'s fur" +
+            => $"I have brushed the fur of {GetPet(log.Data)}" +
                 GetLocation(log.Data);
 
         public string BuildPetLitterCleaningLogText(PersonalLog log)
@@ -2250,21 +2250,20 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" {GetMedicationType(log.Data, usePluralForm: false)}";
             }
 
-            return $"{text} to {GetDataValue(log.Data, "pet_name")}: {GetLocalisedValue(log.Data, "medication_name", "en")}";
+            return $"{text} to {GetPet(log.Data)}: {GetLocalisedValue(log.Data, "medication_name", "en")}";
         }
 
         public string BuildPetNailsTrimmingLogText(PersonalLog log)
-            => $"I have trimmed the nails of {GetLocalisedValue(log.Data, "pet_name", "en")}" +
-                GetLocation(log.Data);
+            => $"I have trimmed the nails of {GetPet(log.Data)}" + GetLocation(log.Data);
 
         public string BuildPetWeightMeasurementLogText(PersonalLog log)
         {
             string unit = GetDataValue(log.Data, "unit", "kg");
-            string text = $"The weight of my pet {log.Data["pet_name"]} measured {log.Data["pet_weight"]} {unit}";
+            string text = $"The weight of {GetPet(log.Data)} measured {log.Data["pet_weight"]} {unit}";
 
             if (log.Data.TryGetValue("scale_name", out string scaleName))
             {
-                text += $" on the scale {scaleName}";
+                text += $" on the {scaleName} scale";
             }
 
             return text + GetLocation(log.Data);
@@ -3230,6 +3229,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 { "FingerNails", "finger nails" },
                 { "ToeNails", "toe nails" }
             }, "nails");
+
+        protected override string GetPet(Dictionary<string, string> data)
+            => $"{GetDataValue(data, "pet_name")} {GetPetType(data, useDefinitiveForm: true)}";
 
         protected override string GetPetType(
             Dictionary<string, string> data,

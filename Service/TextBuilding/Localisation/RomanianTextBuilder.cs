@@ -2259,15 +2259,15 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildPetAdoptionLogText(PersonalLog log)
-            => $"Am adoptat {GetPetType(log.Data, useDefinitiveForm: true)} {GetLocalisedValue(log.Data, "pet_name", "ro")}" +
+            => $"Am adoptat {GetPetType(log.Data, useDefinitiveForm: true)} {GetPet(log.Data)}" +
                 GetLocation(log.Data);
 
         public string BuildPetBathingLogText(PersonalLog log)
-            => $"I-am făcut baie lui {GetLocalisedValue(log.Data, "pet_name", "ro")}" +
+            => $"I-am făcut baie lui {GetPet(log.Data)}" +
                 GetLocation(log.Data);
 
         public string BuildPetBrushingLogText(PersonalLog log)
-            => $"I-am periat blana lui {GetLocalisedValue(log.Data, "pet_name", "ro")}" +
+            => $"I-am periat blana lui {GetPet(log.Data)}" +
                 GetLocation(log.Data);
 
         public string BuildPetLitterCleaningLogText(PersonalLog log)
@@ -2309,17 +2309,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" următorul {medicationType}";
             }
 
-            return $"{text} lui {GetDataValue(log.Data, "pet_name")}: {GetLocalisedValue(log.Data, "medication_name", "ro")}";
+            return $"{text} lui {GetPet(log.Data)}: {GetLocalisedValue(log.Data, "medication_name", "ro")}";
         }
 
         public string BuildPetNailsTrimmingLogText(PersonalLog log)
-            => $"I-am tăiat ghearele lui {GetLocalisedValue(log.Data, "pet_name", "ro")}" +
+            => $"I-am tăiat ghearele lui {GetPet(log.Data)}" +
                 GetLocation(log.Data);
 
         public string BuildPetWeightMeasurementLogText(PersonalLog log)
         {
             string unit = GetDataValue(log.Data, "unit", "kg");
-            string text = $"Greutatea corporală a lui {log.Data["pet_name"]} a fost măsurată la {log.Data["pet_weight"]} {unit}";
+            string text = $"Greutatea corporală a lui {GetPet(log.Data)} a fost măsurată la {log.Data["pet_weight"]} {unit}";
 
             if (log.Data.TryGetValue("scale_name", out string scaleName))
             {
@@ -3358,6 +3358,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 "medicament");
         }
+
+        protected override string GetPet(Dictionary<string, string> data)
+            => GetLocalisedValue(data, "pet_name", "ro");
 
         protected override string GetPetType(
             Dictionary<string, string> data,
