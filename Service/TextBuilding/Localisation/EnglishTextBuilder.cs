@@ -1027,7 +1027,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildCalciumLevelMeasurementLogText(PersonalLog log)
-            => $"My calcium level measured {GetDecimalValue(log.Data, "calcium_level")} {GetDataValue(log.Data, "unit", "mg/dL")}";
+        {
+            string text =
+                $"My calcium level measured {GetDecimalValue(log.Data, "calcium_level")} {GetDataValue(log.Data, "unit", "mg/dL")}" +
+                GetLocation(log.Data);
+
+            if (log.Data.ContainsKey("device_name"))
+            {
+                text += $", using the device {GetDevice(log.Data)}";
+            }
+
+            return text;
+        }
 
         public string BuildCertificationObtainmentLogText(PersonalLog log)
         {

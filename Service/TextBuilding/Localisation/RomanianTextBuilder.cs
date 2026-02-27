@@ -1036,7 +1036,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildCalciumLevelMeasurementLogText(PersonalLog log)
-            => $"Nivelul de calciu a fost măsurat la {GetDecimalValue(log.Data, "calcium_level")} {GetDataValue(log.Data, "unit", "mg/dL")}";
+        {
+            string text =
+            $"Nivelul de calciu a fost măsurat la {GetDecimalValue(log.Data, "calcium_level")} {GetDataValue(log.Data, "unit", "mg/dL")}" +
+                GetLocation(log.Data);
+
+            if (log.Data.ContainsKey("device_name"))
+            {
+                text += $", folosind dispozitivul {GetDevice(log.Data)}";
+            }
+
+            return text;
+        }
 
         public string BuildCertificationObtainmentLogText(PersonalLog log)
         {
