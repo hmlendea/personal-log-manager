@@ -2259,13 +2259,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildPetAdoptionLogText(PersonalLog log)
-            => $"Am adoptat {GetPetType(log.Data, useDefinitiveForm: true)} {GetLocalisedValue(log.Data, "pet_name", "ro")}";
+            => $"Am adoptat {GetPetType(log.Data, useDefinitiveForm: true)} {GetLocalisedValue(log.Data, "pet_name", "ro")}" +
+                GetLocation(log.Data);
 
         public string BuildPetBathingLogText(PersonalLog log)
-            => $"I-am făcut baie lui {GetLocalisedValue(log.Data, "pet_name", "ro")}";
+            => $"I-am făcut baie lui {GetLocalisedValue(log.Data, "pet_name", "ro")}" +
+                GetLocation(log.Data);
 
         public string BuildPetBrushingLogText(PersonalLog log)
-            => $"I-am periat blana lui {GetLocalisedValue(log.Data, "pet_name", "ro")}";
+            => $"I-am periat blana lui {GetLocalisedValue(log.Data, "pet_name", "ro")}" +
+                GetLocation(log.Data);
 
         public string BuildPetLitterCleaningLogText(PersonalLog log)
             => $"Am curățat litiera de {GetPetType(log.Data, usePluralForm: true)}" +

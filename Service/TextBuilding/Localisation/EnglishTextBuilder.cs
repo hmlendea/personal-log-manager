@@ -2217,13 +2217,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildPetAdoptionLogText(PersonalLog log)
-            => $"I have adopted my {GetPetType(log.Data)} {GetLocalisedValue(log.Data, "pet_name", "en")}";
+            => $"I have adopted my {GetPetType(log.Data)} {GetLocalisedValue(log.Data, "pet_name", "en")}" +
+                GetLocation(log.Data);
 
         public string BuildPetBathingLogText(PersonalLog log)
-            => $"I have bathed {GetLocalisedValue(log.Data, "pet_name", "en")}";
+            => $"I have bathed {GetLocalisedValue(log.Data, "pet_name", "en")}" +
+                GetLocation(log.Data);
 
         public string BuildPetBrushingLogText(PersonalLog log)
-            => $"I have brushed {GetLocalisedValue(log.Data, "pet_name", "en")}";
+            => $"I have brushed {GetLocalisedValue(log.Data, "pet_name", "en")}'s fur" +
+                GetLocation(log.Data);
 
         public string BuildPetLitterCleaningLogText(PersonalLog log)
             => $"I have cleaned the {GetPetType(log.Data)} litter" + GetLocation(log.Data);
