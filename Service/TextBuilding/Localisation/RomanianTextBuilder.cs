@@ -2397,7 +2397,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 GetLocation(log.Data);
 
         public string BuildProductKeyActivationLogText(PersonalLog log)
-            => $"Am activat cheia de produs '{log.Data["product_key"]}' pentru {log.Data["product_name"]} pe {GetPlatform(log.Data)}";
+        {
+            string text = "Am activat cheia de produs";
+
+            if (log.Data.ContainsKey("product_key"))
+            {
+                 text += $" '{GetDataValue(log.Data, "product_key")}'";
+            }
+
+            return $"{text} pentru {log.Data["product_name"]} pe {GetPlatform(log.Data)}";
+        }
 
         public string BuildPsychotherapySessionLogText(PersonalLog log)
         {

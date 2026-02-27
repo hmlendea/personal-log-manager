@@ -2341,7 +2341,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 GetLocation(log.Data);
 
         public string BuildProductKeyActivationLogText(PersonalLog log)
-            => $"I have activated the product key '{log.Data["product_key"]}' for {log.Data["product_name"]} on {GetPlatform(log.Data)}";
+        {
+            string text = "I have activated the product key";
+
+            if (log.Data.ContainsKey("product_key"))
+            {
+                 text += $" '{GetDataValue(log.Data, "product_key")}'";
+            }
+
+            return $"{text} for {log.Data["product_name"]} on {GetPlatform(log.Data)}";
+        }
 
         public string BuildPsychotherapySessionLogText(PersonalLog log)
         {
