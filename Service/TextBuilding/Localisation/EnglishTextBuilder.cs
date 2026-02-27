@@ -8,7 +8,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         protected override string LanguageCode => "en";
 
         public string BuildAccessoryCleaningLogText(PersonalLog log)
-            => $"I have cleaned {GetAccessoryType(log.Data)} by {GetCleaningMethod(log.Data)}" +
+            => $"I have cleaned {GetAccessoryType(log.Data, useDefinitiveForm: true)} by {GetCleaningMethod(log.Data)}" +
                 GetLocation(log.Data);
 
         public string BuildAccountActivationLogText(PersonalLog log)
