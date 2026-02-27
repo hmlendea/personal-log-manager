@@ -800,7 +800,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildBloodPressureMeasurementLogText(PersonalLog log)
         {
-            string text = $"My blood pressure measured {log.Data["systolic_pressure"]}/{log.Data["diastolic_pressure"]} {GetDataValue(log.Data, "unit", "mmHg")}" +
+            string text =
+                $"My blood pressure measured {log.Data["systolic_pressure"]}/{log.Data["diastolic_pressure"]} {GetDataValue(log.Data, "unit", "mmHg")}" +
                 GetLocation(log.Data);
 
             if (log.Data.ContainsKey("device_name"))
@@ -812,7 +813,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildBodyWaterRateMeasurementLogText(PersonalLog log)
-            => $"My body water rate measured {GetDecimalValue(log.Data, "body_water_rate")}%";
+        {
+            string text =
+                $"My body water rate measured {GetDecimalValue(log.Data, "body_water_rate")}%" +
+                GetLocation(log.Data);
+
+            if (log.Data.ContainsKey("device_name"))
+            {
+                text += $", using the {GetDevice(log.Data)}";
+            }
+
+            return text;
+        }
 
         public string BuildBodyWeightMeasurementLogText(PersonalLog log)
         {

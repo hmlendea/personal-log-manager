@@ -810,10 +810,30 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildBloodPressureMeasurementLogText(PersonalLog log)
-            => $"Tensiunea arterială a fost măsurată la {log.Data["systolic_pressure"]}/{log.Data["diastolic_pressure"]} {GetDataValue(log.Data, "unit", "mmHg")}";
+        {
+            string text = $"Tensiunea arterială a fost măsurată la {log.Data["systolic_pressure"]}/{log.Data["diastolic_pressure"]} {GetDataValue(log.Data, "unit", "mmHg")}" +
+                GetLocation(log.Data);
+
+            if (log.Data.ContainsKey("device_name"))
+            {
+                text += $", folosind dispozitivul {GetDevice(log.Data)}";
+            }
+
+            return text;
+        }
 
         public string BuildBodyWaterRateMeasurementLogText(PersonalLog log)
-            => $"Nivelul de hidratare corporală a fost măsurat la {GetDecimalValue(log.Data, "body_water_rate")}%";
+        {
+            string text = $"Nivelul de hidratare corporală a fost măsurat la {GetDecimalValue(log.Data, "body_water_rate")}%" +
+                GetLocation(log.Data);
+
+            if (log.Data.ContainsKey("device_name"))
+            {
+                text += $", folosind dispozitivul {GetDevice(log.Data)}";
+            }
+
+            return text;
+        }
 
         public string BuildBodyWeightMeasurementLogText(PersonalLog log)
         {
