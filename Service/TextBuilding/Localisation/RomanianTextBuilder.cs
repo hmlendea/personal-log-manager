@@ -8,7 +8,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         protected override string LanguageCode => "ro";
 
         public string BuildAccessoryCleaningLogText(PersonalLog log)
-            => $"Mi-am curățat {GetAccessoryType(log.Data)} prin {GetCleaningMethod(log.Data)}" +
+            => $"Mi-am curățat {GetAccessoryType(log.Data, useDefinitiveForm: true)} prin {GetCleaningMethod(log.Data)}" +
                 GetLocation(log.Data);
 
         public string BuildAccountActivationLogText(PersonalLog log)
@@ -777,6 +777,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildAlkalinePhosphataseMeasurementLogText(PersonalLog log)
             => $"Nivelul de fosfatază alcalină a fost măsurat la {GetDecimalValue(log.Data, "alkaline_phosphatase_level")} {GetDataValue(log.Data, "unit", "U/L")}" +
                 GetLocation(log.Data);
+
+        public string BuildApplicationInstallationLogText(PersonalLog log)
+            => $"Am instalat aplicația {GetDataValue(log.Data, "application_name")} pe {GetDevice(log.Data)}";
+
+        public string BuildApplicationUninstallationLogText(PersonalLog log)
+            => $"Am dezinstalat aplicația {GetDataValue(log.Data, "application_name")} de pe {GetDevice(log.Data)}";
 
         public string BuildBedLinenChangingLogText(PersonalLog log)
             => "Am schimbat lenjeria de pat" + GetLocation(log.Data);
@@ -2029,6 +2035,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildMicronationFoundingLogText(PersonalLog log)
+            => $"Am fondat micronațiunea {GetDataValue(log.Data, "name")}";
+
         public string BuildMicronationLegalActIssuanceLogText(PersonalLog log)
         {
             string legalActTypeWord = GetMappedDataValue(
@@ -2075,6 +2084,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             return text;
         }
+
+        public string BuildMicronationNameChangeLogText(PersonalLog log)
+            => $"Am schimbat numele micronațiunii {GetDataValue(log.Data, "old_name")} în {GetDataValue(log.Data, "new_name")}";
 
         public string BuildMicronationSettlementFoundingLogText(PersonalLog log)
         {
@@ -2921,7 +2933,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am vizionat video-ul '{log.Data["video_title"]}'";
 
-            if (log.Data.TryGetValue("channel_name", out string channelName))
+            if (TryGetDataValue(log.Data, "video_id", out string videoId))
+            {
+                text += $" ({videoId})";
+            }
+
+            if (TryGetDataValue(log.Data, "channel_name", out string channelName))
             {
                 text += $" de pe canalul '{channelName}'";
             }

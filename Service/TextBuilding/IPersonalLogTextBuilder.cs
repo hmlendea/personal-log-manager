@@ -52,6 +52,8 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildAccountVisibilityMadePrivateLogText(PersonalLog log);
         string BuildAccountVisibilityMadePublicLogText(PersonalLog log);
         string BuildAlkalinePhosphataseMeasurementLogText(PersonalLog log);
+        string BuildApplicationInstallationLogText(PersonalLog log);
+        string BuildApplicationUninstallationLogText(PersonalLog log);
         string BuildBedLinenChangingLogText(PersonalLog log);
         string BuildBedMakingLogText(PersonalLog log);
         string BuildBloodDonationLogText(PersonalLog log);
@@ -138,7 +140,9 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildMicronationExternalRelationsRequestRejectionLogText(PersonalLog log);
         string BuildMicronationExternalRelationsRequestSendingLogText(PersonalLog log);
         string BuildMicronationExternalRelationsEstablishmentLogText(PersonalLog log);
+        string BuildMicronationFoundingLogText(PersonalLog log);
         string BuildMicronationLegalActIssuanceLogText(PersonalLog log);
+        string BuildMicronationNameChangeLogText(PersonalLog log);
         string BuildMicronationSettlementFoundingLogText(PersonalLog log);
         string BuildMicronationSettlementRankDowngradeLogText(PersonalLog log);
         string BuildMicronationSettlementRankUpgradeLogText(PersonalLog log);

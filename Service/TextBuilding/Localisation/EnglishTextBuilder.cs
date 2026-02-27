@@ -8,7 +8,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         protected override string LanguageCode => "en";
 
         public string BuildAccessoryCleaningLogText(PersonalLog log)
-            => $"I have cleaned {GetAccessoryType(log.Data)} by {GetCleaningMethod(log.Data)}" +
+            => $"I have cleaned {GetAccessoryType(log.Data, useDefinitiveForm: true)} by {GetCleaningMethod(log.Data)}" +
                 GetLocation(log.Data);
 
         public string BuildAccountActivationLogText(PersonalLog log)
@@ -766,6 +766,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildAlkalinePhosphataseMeasurementLogText(PersonalLog log)
             => $"My alkaline phosphatase level measured {GetDecimalValue(log.Data, "alkaline_phosphatase_level")} {GetDataValue(log.Data, "unit", "U/L")}" +
                 GetLocation(log.Data);
+
+        public string BuildApplicationInstallationLogText(PersonalLog log)
+            => $"I have installed the application {GetDataValue(log.Data, "application_name")} on {GetDevice(log.Data)}";
+
+        public string BuildApplicationUninstallationLogText(PersonalLog log)
+            => $"I have uninstalled the application {GetDataValue(log.Data, "application_name")} from {GetDevice(log.Data)}";
 
         public string BuildBedLinenChangingLogText(PersonalLog log)
             => "I have changed the bed linen" + GetLocation(log.Data);
@@ -2000,6 +2006,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildMicronationFoundingLogText(PersonalLog log)
+            => $"I have founded the micronation of {GetDataValue(log.Data, "name")}";
+
         public string BuildMicronationLegalActIssuanceLogText(PersonalLog log)
         {
             string legalActTypeWord = GetMappedDataValue(
@@ -2042,6 +2051,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             return text;
         }
+
+        public string BuildMicronationNameChangeLogText(PersonalLog log)
+            => $"I have changed the name of the micronation of {GetDataValue(log.Data, "old_name")} to {GetDataValue(log.Data, "new_name")}";
 
         public string BuildMicronationSettlementFoundingLogText(PersonalLog log)
         {
@@ -2797,7 +2809,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have watched the video '{log.Data["video_title"]}'";
 
-            if (log.Data.TryGetValue("channel_name", out string channelName))
+            if (TryGetDataValue(log.Data, "video_id", out string videoId))
+            {
+                text += $" ({videoId})";
+            }
+
+            if (TryGetDataValue(log.Data, "channel_name", out string channelName))
             {
                 text += $" from the '{channelName}' channel";
             }
