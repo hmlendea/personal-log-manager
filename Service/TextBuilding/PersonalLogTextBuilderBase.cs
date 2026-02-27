@@ -80,7 +80,7 @@ namespace PersonalLogManager.Service.TextBuilding
                 return defaultValue;
             }
 
-            return obfuscator.Obfuscate(value);
+            return obfuscator.Deobfuscate(value);
         }
 
         public string GetDecimalValue(Dictionary<string, string> data, string key)
