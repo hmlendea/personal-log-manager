@@ -1,10 +1,18 @@
 using System;
 using System.Collections.Generic;
+using PersonalLogManager.Service.Models;
 
 namespace PersonalLogManager.Service.TextBuilding
 {
     public abstract class PersonalLogTextBuilderBase
     {
+        protected abstract string LanguageCode { get; }
+
+        protected string MissingValue => "[MISSING_VALUE]";
+
+        public string BuildTextLogText(PersonalLog log)
+            => GetDataValue(log.Data, "text");
+
         public string GetPlatform(Dictionary<string, string> data)
         {
             data.TryGetValue("platform", out string platform);
@@ -81,10 +89,10 @@ namespace PersonalLogManager.Service.TextBuilding
             return $"{decimal.Parse(value):F2}".Replace(".00", string.Empty);
         }
 
-        public string GetLocalisedValue(Dictionary<string, string> data, string key, string localisation)
-            => GetLocalisedValue(data, key, localisation, null);
+        public string GetLocalisedValue(Dictionary<string, string> data, string key)
+            => GetLocalisedValue(data, key, defaultValue: null);
 
-        public string GetLocalisedValue(Dictionary<string, string> data, string key, string localisation, string defaultValue)
+        public string GetLocalisedValue(Dictionary<string, string> data, string key, string defaultValue)
         {
             string value = GetDataValue(data, key);
 
@@ -93,9 +101,7 @@ namespace PersonalLogManager.Service.TextBuilding
                 return defaultValue;
             }
 
-            if (localisation.Equals("ro-RO") ||
-                localisation.Equals("ro-MD") ||
-                localisation.Equals("ro"))
+            if (LanguageCode.Equals("ro"))
             {
                 return value
                     .Replace(" and ", " și ")
@@ -249,6 +255,8 @@ namespace PersonalLogManager.Service.TextBuilding
             return text;
         }
 
+        protected abstract string GetByPerson(Dictionary<string, string> data);
+
         protected abstract string GetCleaningMethod(
             Dictionary<string, string> data);
 
@@ -266,6 +274,16 @@ namespace PersonalLogManager.Service.TextBuilding
             Dictionary<string, string> data,
             bool usePluralForm);
 
+        protected abstract string GetNailsType(
+            Dictionary<string, string> data);
+
+        protected abstract string GetPet(Dictionary<string, string> data);
+
+        protected abstract string GetPetType(
+            Dictionary<string, string> data,
+            bool useDefinitiveForm = false,
+            bool usePluralForm = false);
+
         protected abstract string GetPlantType(
             Dictionary<string, string> data,
             bool useDefinitiveForm,
@@ -276,5 +294,33 @@ namespace PersonalLogManager.Service.TextBuilding
         protected abstract string GetSide(Dictionary<string, string> data);
 
         protected abstract string GetVehicleType(Dictionary<string, string> data, bool useDefinitiveForm);
+
+        protected bool TryGetDevice(Dictionary<string, string> data, out string device)
+        {
+            device = GetDevice(data);
+
+            return !MissingValue.Equals(device);
+        }
+
+        protected bool TryGetByPerson(Dictionary<string, string> data, out string byPerson)
+        {
+            byPerson = GetByPerson(data);
+
+            return !MissingValue.Equals(byPerson);
+        }
+
+        protected bool TryGetPlatform(Dictionary<string, string> data, out string platform)
+        {
+            platform = GetPlatform(data);
+
+            return !string.IsNullOrWhiteSpace(platform);
+        }
+
+        protected bool TryGetSide(Dictionary<string, string> data, out string side)
+        {
+            side = GetSide(data);
+
+            return !string.IsNullOrWhiteSpace(side);
+        }
     }
 }
