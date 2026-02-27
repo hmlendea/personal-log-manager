@@ -778,6 +778,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"Nivelul de fosfatază alcalină a fost măsurat la {GetDecimalValue(log.Data, "alkaline_phosphatase_level")} {GetDataValue(log.Data, "unit", "U/L")}" +
                 GetLocation(log.Data);
 
+        public string BuildApplicationInstallationLogText(PersonalLog log)
+            => $"Am instalat aplicația {GetDataValue(log.Data, "application_name")} pe {GetDevice(log.Data)}";
+
+        public string BuildApplicationUninstallationLogText(PersonalLog log)
+            => $"Am dezinstalat aplicația {GetDataValue(log.Data, "application_name")} de pe {GetDevice(log.Data)}";
+
         public string BuildBedLinenChangingLogText(PersonalLog log)
             => "Am schimbat lenjeria de pat" + GetLocation(log.Data);
 

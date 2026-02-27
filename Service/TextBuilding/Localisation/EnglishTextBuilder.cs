@@ -767,6 +767,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"My alkaline phosphatase level measured {GetDecimalValue(log.Data, "alkaline_phosphatase_level")} {GetDataValue(log.Data, "unit", "U/L")}" +
                 GetLocation(log.Data);
 
+        public string BuildApplicationInstallationLogText(PersonalLog log)
+            => $"I have installed the application {GetDataValue(log.Data, "application_name")} on {GetDevice(log.Data)}";
+
+        public string BuildApplicationUninstallationLogText(PersonalLog log)
+            => $"I have uninstalled the application {GetDataValue(log.Data, "application_name")} from {GetDevice(log.Data)}";
+
         public string BuildBedLinenChangingLogText(PersonalLog log)
             => "I have changed the bed linen" + GetLocation(log.Data);
 

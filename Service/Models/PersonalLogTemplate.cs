@@ -51,6 +51,8 @@ namespace PersonalLogManager.Service.Models
         AccountVisibilityMadePrivate,
         AccountVisibilityMadePublic,
         AlkalinePhosphataseMeasurement,
+        ApplicationInstallation,
+        ApplicationUninstallation,
         BedLinenChanging,
         BedMaking,
         BloodDonation,
