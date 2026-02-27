@@ -788,7 +788,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildBloodGlucoseMeasurementLogText(PersonalLog log)
         {
-            string text = $"My blood glucose level measured {log.Data["glucose_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
+            string text =
+                "My blood glucose level measured" +
+                $" {log.Data["glucose_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}" +
+                GetLocation(log.Data);
 
             if (log.Data.ContainsKey("device_name"))
             {
