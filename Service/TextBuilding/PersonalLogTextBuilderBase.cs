@@ -8,6 +8,8 @@ namespace PersonalLogManager.Service.TextBuilding
     {
         protected abstract string LanguageCode { get; }
 
+        protected string MissingValue => "[MISSING_VALUE]";
+
         public string BuildTextLogText(PersonalLog log)
             => GetDataValue(log.Data, "text");
 
@@ -253,6 +255,8 @@ namespace PersonalLogManager.Service.TextBuilding
             return text;
         }
 
+        protected abstract string GetByPerson(Dictionary<string, string> data);
+
         protected abstract string GetCleaningMethod(
             Dictionary<string, string> data);
 
@@ -290,5 +294,33 @@ namespace PersonalLogManager.Service.TextBuilding
         protected abstract string GetSide(Dictionary<string, string> data);
 
         protected abstract string GetVehicleType(Dictionary<string, string> data, bool useDefinitiveForm);
+
+        protected bool TryGetDevice(Dictionary<string, string> data, out string device)
+        {
+            device = GetDevice(data);
+
+            return !MissingValue.Equals(device);
+        }
+
+        protected bool TryGetByPerson(Dictionary<string, string> data, out string byPerson)
+        {
+            byPerson = GetByPerson(data);
+
+            return !MissingValue.Equals(byPerson);
+        }
+
+        protected bool TryGetPlatform(Dictionary<string, string> data, out string platform)
+        {
+            platform = GetPlatform(data);
+
+            return !string.IsNullOrWhiteSpace(platform);
+        }
+
+        protected bool TryGetSide(Dictionary<string, string> data, out string side)
+        {
+            side = GetSide(data);
+
+            return !string.IsNullOrWhiteSpace(side);
+        }
     }
 }

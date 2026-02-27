@@ -803,9 +803,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 $" {log.Data["glucose_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}" +
                 GetLocation(log.Data);
 
-            if (log.Data.ContainsKey("device_name"))
+            if (TryGetDevice(log.Data, out string device))
             {
-                text += $", folosind dispozitivul {GetDevice(log.Data)}";
+                text += $", folosind {device}";
             }
 
             return text;
@@ -816,9 +816,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             string text = $"Tensiunea arterială a fost măsurată la {log.Data["systolic_pressure"]}/{log.Data["diastolic_pressure"]} {GetDataValue(log.Data, "unit", "mmHg")}" +
                 GetLocation(log.Data);
 
-            if (log.Data.ContainsKey("device_name"))
+            if (TryGetDevice(log.Data, out string device))
             {
-                text += $", folosind dispozitivul {GetDevice(log.Data)}";
+                text += $", folosind {device}";
             }
 
             return text;
@@ -829,9 +829,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             string text = $"Nivelul de hidratare corporală a fost măsurat la {GetDecimalValue(log.Data, "body_water_rate")}%" +
                 GetLocation(log.Data);
 
-            if (log.Data.ContainsKey("device_name"))
+            if (TryGetDevice(log.Data, out string device))
             {
-                text += $", folosind dispozitivul {GetDevice(log.Data)}";
+                text += $", folosind {device}";
             }
 
             return text;
@@ -843,9 +843,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 $"Greutatea corporală a fost măsurată la {GetDataValue(log.Data, "body_weight")} {GetDataValue(log.Data, "unit", "kg")}" +
                 GetLocation(log.Data);
 
-            if (log.Data.ContainsKey("device_name") || log.Data.ContainsKey("scale_name"))
+            if (TryGetDevice(log.Data, out string device))
             {
-                text += $", folosind {GetDevice(log.Data)}";
+                text += $", folosind {device}";
             }
 
             return text;
@@ -1029,9 +1029,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Soldul total al boților";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" de {GetPlatform(log.Data)}";
+                text += $" de {platform}";
             }
 
             return $"{text} a fost măsurat la {GetBalance(log.Data)}";
@@ -1043,9 +1043,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             $"Nivelul de calciu a fost măsurat la {GetDecimalValue(log.Data, "calcium_level")} {GetDataValue(log.Data, "unit", "mg/dL")}" +
                 GetLocation(log.Data);
 
-            if (log.Data.ContainsKey("device_name"))
+            if (TryGetDevice(log.Data, out string device))
             {
-                text += $", folosind dispozitivul {GetDevice(log.Data)}";
+                text += $", folosind {device}";
             }
 
             return text;
@@ -1067,9 +1067,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am creat un grup de chat";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" de {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return $"{text} numit '{log.Data["group_name"]}'";
@@ -1079,9 +1079,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am șters grupul de chat";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" de {GetPlatform(log.Data)}";
+                text += $" de pe {platform}";
             }
 
             return $"{text} numit '{log.Data["group_name"]}'";
@@ -1091,9 +1091,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am intrat în grupul de chat";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" de {GetPlatform(log.Data)}";
+                text += $" de pe {platform}";
             }
 
             return $"{text} numit '{log.Data["group_name"]}'";
@@ -1103,9 +1103,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am ieșit din grupul de chat";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" de {GetPlatform(log.Data)}";
+                text += $" de pe {platform}";
             }
 
             return $"{text} numit '{log.Data["group_name"]}'";
@@ -1120,9 +1120,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" numit '{gptName}'";
             }
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text;
@@ -1152,7 +1152,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am avut o programare la stomatolog" + GetLocation(log.Data);
 
-            if (log.Data.TryGetValue("dentist_name", out string dentistName))
+            if (TryGetByPerson(log.Data, out string dentistName))
             {
                 text += $", cu {dentistName}";
             }
@@ -1164,7 +1164,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am efectuat un detartraj dentar" + GetLocation(log.Data);
 
-            if (log.Data.TryGetValue("dentist_name", out string dentistName))
+            if (TryGetByPerson(log.Data, out string dentistName))
             {
                 text += $", cu {dentistName}";
             }
@@ -1422,9 +1422,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am efectuat un control oftalmologic" + GetLocation(log.Data);
 
-            if (log.Data.TryGetValue("optometrist_name", out string optometristName))
+            if (TryGetByPerson(log.Data, out string optometristName))
             {
-                text += $", de către {optometristName}";
+                text += $", cu {optometristName}";
             }
 
             return text;
@@ -1482,9 +1482,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 }
             }
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text;
@@ -1494,9 +1494,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am cumpărat clădirea {log.Data["building_name"]} în {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text;
@@ -1506,9 +1506,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am ridicat clădirea {log.Data["building_name"]} la nivelul {log.Data["new_level"]} în {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text;
@@ -1518,9 +1518,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am construit {log.Data["construction_name"]} în {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text;
@@ -1530,9 +1530,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am început să construiesc {log.Data["construction_name"]} în {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text;
@@ -1542,9 +1542,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am terminat de construit {log.Data["construction_name"]} în {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text;
@@ -1566,9 +1566,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string text = $"Am intrat în {guildType} '{log.Data["guild_name"]}' în {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text;
@@ -1610,9 +1610,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             text += $" în {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text;
@@ -1634,9 +1634,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             text += $" în {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text;
@@ -1646,9 +1646,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am avansat la rangul {log.Data["new_rank"]} în {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text;
@@ -1658,9 +1658,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am început să joc {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text;
@@ -1670,9 +1670,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am avansat la nivelul {log.Data["new_level"]} în {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text;
@@ -1726,7 +1726,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" de {giftOccasion}";
             }
 
-            if (log.Data.TryGetValue("giver_name", out string giverName))
+            if (TryGetByPerson(log.Data, out string giverName))
             {
                 text += $" de la {giverName}";
             }
@@ -1828,20 +1828,21 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildHairCuttingLogText(PersonalLog log)
         {
             string text = string.Empty;
+            TryGetByPerson(log.Data, out string hairdresserName);
 
-            if (log.Data.ContainsKey("hairdresser_name"))
+            if (string.IsNullOrWhiteSpace(hairdresserName))
             {
-                text += $"Mi-a fost tuns";
+                text += $"Mi-am tuns";
             }
             else
             {
-                text += $"Mi-am tuns";
+                text += $"Mi-a fost tuns";
             }
 
             text += $" {GetHairType(log.Data)}";
             text += GetLocation(log.Data);
 
-            if (log.Data.TryGetValue("hairdresser_name", out string hairdresserName))
+            if (!string.IsNullOrWhiteSpace(hairdresserName))
             {
                 text += $", de către {hairdresserName}";
             }
@@ -1860,9 +1861,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             string unit = GetDataValue(log.Data, "unit", "bpm");
             string text = $"Ritmul cardiac a fost măsurat la {log.Data["heart_rate"]} {unit}";
 
-            if (log.Data.ContainsKey("device_name"))
+            if (TryGetDevice(log.Data, out string device))
             {
-                text += $" folosind {GetDevice(log.Data)}";
+                text += $", folosind {device}";
             }
 
             return text;
@@ -1899,7 +1900,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am avut o ședință de kinetoterapie" + GetLocation(log.Data);
 
-            if (log.Data.TryGetValue("therapist_name", out string therapistName))
+            if (TryGetByPerson(log.Data, out string therapistName))
             {
                 text += $", cu {therapistName}";
             }
@@ -2175,9 +2176,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am început să vizionez filmul {log.Data["movie_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -2187,9 +2188,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am terminat de vizionat filmul {log.Data["movie_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -2199,9 +2200,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am vizionat filmul '{log.Data["movie_name"]}'";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -2214,9 +2215,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am vândut {log.Data["object_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             if (log.Data.ContainsKey("price_amount"))
@@ -2335,7 +2336,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am avut o ședință de fizioterapie" + GetLocation(log.Data);
 
-            if (log.Data.TryGetValue("therapist_name", out string therapistName))
+            if (TryGetByPerson(log.Data, out string therapistName))
             {
                 text += $", cu {therapistName}";
             }
@@ -2363,7 +2364,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am avut o ședință de psihoterapie" + GetLocation(log.Data);
 
-            if (log.Data.TryGetValue("therapist_name", out string therapistName))
+            if (TryGetByPerson(log.Data, out string therapistName))
             {
                 text += $", cu {therapistName}";
             }
@@ -2398,9 +2399,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am început să vizionez serialul '{log.Data["series_name"]}'";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -2410,9 +2411,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Am terminat de vizionat serialul '{log.Data["series_name"]}'";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -2437,9 +2438,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" din '{seriesName}'";
             }
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -2464,9 +2465,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" din '{seriesName}'";
             }
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -2491,9 +2492,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" din '{seriesName}'";
             }
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -2508,9 +2509,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" din '{seriesName}'";
             }
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -2525,9 +2526,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" din '{seriesName}'";
             }
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" pe {GetPlatform(log.Data)}";
+                text += $" pe {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -2588,9 +2589,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $", arzând {caloriesBurned} de kilocalorii";
             }
 
-            if (log.Data.ContainsKey("device_name"))
+            if (TryGetDevice(log.Data, out string device))
             {
-                text += $", conform măsurătorilor făcute de {GetDevice(log.Data)}";
+                text += $", conform măsurătorilor făcute de {device}";
             }
 
             return text;
@@ -2813,7 +2814,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             text += GetLocation(log.Data);
 
-            if (log.Data.TryGetValue("mechanic_name", out string mechanicName))
+            if (TryGetByPerson(log.Data, out string mechanicName))
             {
                 text += $", de către {mechanicName}";
             }
@@ -2853,7 +2854,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             text += GetLocation(log.Data);
 
-            if (log.Data.TryGetValue("mechanic_name", out string mechanicName))
+            if (TryGetByPerson(log.Data, out string mechanicName))
             {
                 text += $", de către {mechanicName}";
             }
@@ -2925,9 +2926,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" de pe canalul '{channelName}'";
             }
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" de pe {GetPlatform(log.Data)}";
+                text += $" de pe {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -3058,6 +3059,48 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 { "Glasses", "ochelari" }
             },
             "accesoriu");
+        }
+
+        protected override string GetByPerson(Dictionary<string, string> data)
+        {
+            if (data.ContainsKey("by"))
+            {
+                return GetLocalisedValue(data, "by");
+            }
+            else if (data.ContainsKey("from"))
+            {
+                return GetLocalisedValue(data, "from");
+            }
+            else if (data.ContainsKey("dentist_name"))
+            {
+                return GetLocalisedValue(data, "dentist_name");
+            }
+            else if (data.ContainsKey("giver_name"))
+            {
+                return GetLocalisedValue(data, "giver_name");
+            }
+            else if (data.ContainsKey("hairdresser_name"))
+            {
+                return GetLocalisedValue(data, "hairdresser_name");
+            }
+            else if (data.ContainsKey("mechanic_name"))
+            {
+                return GetLocalisedValue(data, "mechanic_name");
+            }
+            else if (data.ContainsKey("optometrist_name"))
+            {
+                return GetLocalisedValue(data, "optometrist_name");
+            }
+            else if (data.ContainsKey("therapist_name"))
+            {
+                return GetLocalisedValue(data, "therapist_name");
+            }
+            else if (data.ContainsKey("with"))
+            {
+                return GetLocalisedValue(data, "with");
+            }
+
+            return MissingValue;
         }
 
         protected override string GetCleaningMethod(Dictionary<string, string> data)

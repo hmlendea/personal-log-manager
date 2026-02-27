@@ -792,9 +792,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 $" {log.Data["glucose_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}" +
                 GetLocation(log.Data);
 
-            if (log.Data.ContainsKey("device_name"))
+            if (TryGetDevice(log.Data, out string device))
             {
-                text += $", using the {GetDevice(log.Data)}";
+                text += $", using the {device}";
             }
 
             return text;
@@ -806,9 +806,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 $"My blood pressure measured {log.Data["systolic_pressure"]}/{log.Data["diastolic_pressure"]} {GetDataValue(log.Data, "unit", "mmHg")}" +
                 GetLocation(log.Data);
 
-            if (log.Data.ContainsKey("device_name"))
+            if (TryGetDevice(log.Data, out string device))
             {
-                text += $", using the {GetDevice(log.Data)}";
+                text += $", using the {device}";
             }
 
             return text;
@@ -820,9 +820,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 $"My body water rate measured {GetDecimalValue(log.Data, "body_water_rate")}%" +
                 GetLocation(log.Data);
 
-            if (log.Data.ContainsKey("device_name"))
+            if (TryGetDevice(log.Data, out string device))
             {
-                text += $", using the {GetDevice(log.Data)}";
+                text += $", using the {device}";
             }
 
             return text;
@@ -834,9 +834,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 $"My body weight measured {GetDataValue(log.Data, "body_weight")} {GetDataValue(log.Data, "unit", "kg")}" +
                 GetLocation(log.Data);
 
-            if (log.Data.ContainsKey("device_name") || log.Data.ContainsKey("scale_name"))
+            if (TryGetDevice(log.Data, out string device))
             {
-                text += $", using the {GetDevice(log.Data)}";
+                text += $", using the {device}";
             }
 
             return text;
@@ -1020,9 +1020,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"The total balance of the";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" {GetPlatform(log.Data)}";
+                text += $" {platform}";
             }
 
             return $"{text} bots was measured at {GetBalance(log.Data)}";
@@ -1034,9 +1034,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 $"My calcium level measured {GetDecimalValue(log.Data, "calcium_level")} {GetDataValue(log.Data, "unit", "mg/dL")}" +
                 GetLocation(log.Data);
 
-            if (log.Data.ContainsKey("device_name"))
+            if (TryGetDevice(log.Data, out string device))
             {
-                text += $", using the device {GetDevice(log.Data)}";
+                text += $", using the {device}";
             }
 
             return text;
@@ -1058,9 +1058,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have created a chat group named {log.Data["group_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" {platform}";
             }
 
             return text;
@@ -1070,9 +1070,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have deleted the chat group named {log.Data["group_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" {platform}";
             }
 
             return text;
@@ -1082,9 +1082,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have joined the chat group named {log.Data["group_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" {platform}";
             }
 
             return text;
@@ -1094,9 +1094,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have left the chat group named {log.Data["group_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" {platform}";
             }
 
             return text;
@@ -1111,9 +1111,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" named '{gptName}'";
             }
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" {platform}";
             }
 
             return text;
@@ -1143,7 +1143,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have attended a dental appointment" + GetLocation(log.Data);
 
-            if (log.Data.TryGetValue("dentist_name", out string dentistName))
+            if (TryGetByPerson(log.Data, out string dentistName))
             {
                 text += $", by {dentistName}";
             }
@@ -1155,7 +1155,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have undergone a dental scaling procedure" + GetLocation(log.Data);
 
-            if (log.Data.TryGetValue("dentist_name", out string dentistName))
+            if (TryGetByPerson(log.Data, out string dentistName))
             {
                 text += $", by {dentistName}";
             }
@@ -1393,9 +1393,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have undergone an eye checkup" + GetLocation(log.Data);
 
-            if (log.Data.TryGetValue("optometrist_name", out string optometristName))
+            if (TryGetByPerson(log.Data, out string therapistName))
             {
-                text += $", by {optometristName}";
+                text += $", with {therapistName}";
             }
 
             return text;
@@ -1455,9 +1455,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 }
             }
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text;
@@ -1467,9 +1467,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have bought {log.Data["building_name"]} in the game {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text;
@@ -1479,9 +1479,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have upgraded {log.Data["building_name"]} to level {log.Data["new_level"]} in the game {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text;
@@ -1491,9 +1491,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have built {log.Data["construction_name"]} in the game {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text;
@@ -1503,9 +1503,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have begun the construction of {log.Data["construction_name"]} in the game {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text;
@@ -1515,9 +1515,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have completed the construction of {log.Data["construction_name"]} in the game {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text;
@@ -1539,9 +1539,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string text = $"I have joined the '{log.Data["guild_name"]}' {guildType} in the game {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text;
@@ -1563,9 +1563,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string text = $"I have left the '{log.Data["party_name"]}' {guildType} in the game {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text;
@@ -1590,9 +1590,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             text += $" in {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text;
@@ -1614,9 +1614,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             text += $" in {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text;
@@ -1626,9 +1626,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have ranked up to {log.Data["new_rank"]} in {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text;
@@ -1638,9 +1638,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have started playing {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text;
@@ -1650,9 +1650,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have reached level {log.Data["new_level"]} in {log.Data["game_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text;
@@ -1665,9 +1665,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = "I have gotten in to bed" + GetLocation(log.Data);
 
-            if (log.Data.ContainsKey("side"))
+            if (TryGetSide(log.Data, out string side))
             {
-                text += $", on the {GetSide(log.Data)} side";
+                text += $", on the {side} side";
             }
 
             return text;
@@ -1677,9 +1677,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = "I have gotten out of bed" + GetLocation(log.Data);
 
-            if (log.Data.ContainsKey("side"))
+            if (TryGetSide(log.Data, out string side))
             {
-                text += $", on the {GetSide(log.Data)} side";
+                text += $", on the {side} side";
             }
 
             return text;
@@ -1708,7 +1708,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             text += " gift";
 
-            if (log.Data.TryGetValue("giver_name", out string giverName))
+            if (TryGetByPerson(log.Data, out string giverName))
             {
                 text += $" from {giverName}";
             }
@@ -1734,9 +1734,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = "I have gone to sleep" + GetLocation(log.Data);
 
-            if (log.Data.ContainsKey("side"))
+            if (TryGetSide(log.Data, out string side))
             {
-                text += $", on the {GetSide(log.Data)} side of the bed";
+                text += $", on the {side} side of the bed";
             }
 
             return text;
@@ -1809,19 +1809,20 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildHairCuttingLogText(PersonalLog log)
         {
             string text = string.Empty;
+            TryGetByPerson(log.Data, out string hairdresserName);
 
-            if (log.Data.ContainsKey("hairdresser_name"))
+            if (string.IsNullOrWhiteSpace(hairdresserName))
             {
-                text += $"My {GetHairType(log.Data)} was cut";
+                text += $"I have cut my {GetHairType(log.Data)}";
             }
             else
             {
-                text += $"I have cut my {GetHairType(log.Data)}";
+                text += $"My {GetHairType(log.Data)} was cut";
             }
 
             text += GetLocation(log.Data);
 
-            if (log.Data.TryGetValue("hairdresser_name", out string hairdresserName))
+            if (!string.IsNullOrWhiteSpace(hairdresserName))
             {
                 text += $", by {hairdresserName}";
             }
@@ -1840,9 +1841,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             string unit = GetDataValue(log.Data, "unit", "bpm");
             string text = $"My heart rate measured {log.Data["heart_rate"]} {unit}";
 
-            if (log.Data.ContainsKey("device_name"))
+            if (TryGetDevice(log.Data, out string device))
             {
-                text += $" on the {GetDevice(log.Data)}";
+                text += $" on the {device}";
             }
 
             return text;
@@ -1884,9 +1885,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have undergone a kinetotherapy session" + GetLocation(log.Data);
 
-            if (log.Data.TryGetValue("therapist_name", out string therapistName))
+            if (TryGetByPerson(log.Data, out string therapistName))
             {
-                text += $", by {therapistName}";
+                text += $", with {therapistName}";
             }
 
             return text;
@@ -2142,9 +2143,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have begun watching the movie {log.Data["episode_number"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -2154,9 +2155,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have finished watching the movie {log.Data["episode_number"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -2166,9 +2167,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have watched the movie '{log.Data["movie_name"]}'";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -2181,9 +2182,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have sold the {log.Data["object_name"]}";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             if (log.Data.ContainsKey("price_amount"))
@@ -2275,9 +2276,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have undergone a physiotherapy session" + GetLocation(log.Data);
 
-            if (log.Data.TryGetValue("therapist_name", out string therapistName))
+            if (TryGetByPerson(log.Data, out string therapistName))
             {
-                text += $", by {therapistName}";
+                text += $", with {therapistName}";
             }
 
             return text;
@@ -2303,9 +2304,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have undergone a psychotherapy session" + GetLocation(log.Data);
 
-            if (log.Data.TryGetValue("therapist_name", out string therapistName))
+            if (TryGetByPerson(log.Data, out string therapistName))
             {
-                text += $", by {therapistName}";
+                text += $", with {therapistName}";
             }
 
             return text;
@@ -2338,9 +2339,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I began watching the '{log.Data["series_name"]}' series";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -2350,9 +2351,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I completed watching the '{log.Data["series_name"]}' series";
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -2377,9 +2378,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" of '{seriesName}'";
             }
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -2404,9 +2405,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" of '{seriesName}'";
             }
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -2431,9 +2432,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" of '{seriesName}'";
             }
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -2448,9 +2449,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" of '{seriesName}'";
             }
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -2465,9 +2466,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" of '{seriesName}'";
             }
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -2508,9 +2509,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $", burning {caloriesBurned} kilocalories";
             }
 
-            if (log.Data.ContainsKey("device_name"))
+            if (TryGetDevice(log.Data, out string device))
             {
-                text += $", according to the measurements made by my {GetDevice(log.Data)}";
+                text += $", according to the measurements made by the {device}";
             }
 
             return text;
@@ -2712,7 +2713,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             text += " has been changed" + GetLocation(log.Data);
 
-            if (log.Data.TryGetValue("mechanic_name", out string mechanicName))
+            if (TryGetByPerson(log.Data, out string mechanicName))
             {
                 text += $", by {mechanicName}";
             }
@@ -2743,7 +2744,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             text += " has been refilled" + GetLocation(log.Data);
 
-            if (log.Data.TryGetValue("mechanic_name", out string mechanicName))
+            if (TryGetByPerson(log.Data, out string mechanicName))
             {
                 text += $", by {mechanicName}";
             }
@@ -2801,9 +2802,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" from the '{channelName}' channel";
             }
 
-            if (log.Data.ContainsKey("platform"))
+            if (TryGetPlatform(log.Data, out string platform))
             {
-                text += $" on {GetPlatform(log.Data)}";
+                text += $" on {platform}";
             }
 
             return text + GetLocation(log.Data);
@@ -2813,9 +2814,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = "I have woken up" + GetLocation(log.Data);
 
-            if (log.Data.ContainsKey("side"))
+            if (TryGetSide(log.Data, out string side))
             {
-                text += $", on the {GetSide(log.Data)} side of the bed";
+                text += $", on the {side} side of the bed";
             }
 
             return text;
@@ -2928,6 +2929,48 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
 
             return accessoryType;
+        }
+
+        protected override string GetByPerson(Dictionary<string, string> data)
+        {
+            if (data.ContainsKey("by"))
+            {
+                return GetLocalisedValue(data, "by");
+            }
+            else if (data.ContainsKey("dentist_name"))
+            {
+                return GetLocalisedValue(data, "dentist_name");
+            }
+            else if (data.ContainsKey("from"))
+            {
+                return GetLocalisedValue(data, "from");
+            }
+            else if (data.ContainsKey("giver_name"))
+            {
+                return GetLocalisedValue(data, "giver_name");
+            }
+            else if (data.ContainsKey("hairdresser_name"))
+            {
+                return GetLocalisedValue(data, "hairdresser_name");
+            }
+            else if (data.ContainsKey("mechanic_name"))
+            {
+                return GetLocalisedValue(data, "mechanic_name");
+            }
+            else if (data.ContainsKey("optometrist_name"))
+            {
+                return GetLocalisedValue(data, "optometrist_name");
+            }
+            else if (data.ContainsKey("therapist_name"))
+            {
+                return GetLocalisedValue(data, "therapist_name");
+            }
+            else if (data.ContainsKey("with"))
+            {
+                return GetLocalisedValue(data, "with");
+            }
+
+            return MissingValue;
         }
 
         protected override string GetCleaningMethod(Dictionary<string, string> data)
@@ -3351,13 +3394,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         protected override string GetSide(Dictionary<string, string> data)
             => GetMappedDataValue(data, "side", new()
-                {
-                    { "central", "central" },
-                    { "right", "right" },
-                    { "left", "left" }
-                },
-                "unknown"
-            );
+            {
+                { "central", "central" },
+                { "right", "right" },
+                { "left", "left" }
+            }, MissingValue);
 
         protected override string GetVehicleType(Dictionary<string, string> data, bool useDefinitiveForm)
         {
