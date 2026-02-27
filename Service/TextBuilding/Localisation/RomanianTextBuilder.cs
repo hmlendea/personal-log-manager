@@ -1032,9 +1032,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" de {GetPlatform(log.Data)}";
             }
 
-            text += $" a fost măsurat la {GetBalance(log.Data)}";
-
-            return text;
+            return $"{text} a fost măsurat la {GetBalance(log.Data)}";
         }
 
         public string BuildCalciumLevelMeasurementLogText(PersonalLog log)
@@ -2769,9 +2767,6 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildSwimmingActivityLogText(PersonalLog log)
             => $"Am fost la înnot" + GetLocation(log.Data);
-
-        public string BuildTextLogText(PersonalLog log)
-            => GetDataValue(log.Data, "text");
 
         public string BuildTeethBrushingLogText(PersonalLog log)
         {

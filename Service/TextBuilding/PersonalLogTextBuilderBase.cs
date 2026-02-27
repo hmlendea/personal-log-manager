@@ -1,10 +1,14 @@
 using System;
 using System.Collections.Generic;
+using PersonalLogManager.Service.Models;
 
 namespace PersonalLogManager.Service.TextBuilding
 {
     public abstract class PersonalLogTextBuilderBase
     {
+        public string BuildTextLogText(PersonalLog log)
+            => GetDataValue(log.Data, "text");
+
         public string GetPlatform(Dictionary<string, string> data)
         {
             data.TryGetValue("platform", out string platform);
