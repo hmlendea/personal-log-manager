@@ -266,6 +266,9 @@ namespace PersonalLogManager.Service.TextBuilding
             Dictionary<string, string> data,
             bool usePluralForm);
 
+        protected abstract string GetNailsType(
+            Dictionary<string, string> data);
+
         protected abstract string GetPlantType(
             Dictionary<string, string> data,
             bool useDefinitiveForm,

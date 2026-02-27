@@ -2262,19 +2262,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildNailCuttingLogText(PersonalLog log)
-        {
-            string nailsType = GetMappedDataValue(
-                log.Data,
-                "nails_type",
-                new()
-                {
-                    { "FingerNails", "finger nails" },
-                    { "ToeNails", "toe nails" }
-                },
-                "nails");
-
-            return $"I have cut my {nailsType}";
-        }
+            => $"I have cut my {GetNailsType(log.Data)}";
 
         public string BuildObjectSaleLogText(PersonalLog log)
         {
@@ -3363,6 +3351,13 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 "medication");
         }
+
+        protected override string GetNailsType(Dictionary<string, string> data)
+            => GetMappedDataValue(data, "nails_type", new()
+            {
+                { "FingerNails", "finger nails" },
+                { "ToeNails", "toe nails" }
+            }, "nails");
 
         protected override string GetPlantType(
             Dictionary<string, string> data,
