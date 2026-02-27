@@ -2797,7 +2797,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have watched the video '{log.Data["video_title"]}'";
 
-            if (log.Data.TryGetValue("channel_name", out string channelName))
+            if (TryGetDataValue(log.Data, "video_id", out string videoId))
+            {
+                text += $" ({videoId})";
+            }
+
+            if (TryGetDataValue(log.Data, "channel_name", out string channelName))
             {
                 text += $" from the '{channelName}' channel";
             }

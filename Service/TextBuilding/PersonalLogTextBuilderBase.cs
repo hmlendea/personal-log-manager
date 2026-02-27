@@ -309,6 +309,13 @@ namespace PersonalLogManager.Service.TextBuilding
             return !MissingValue.Equals(byPerson);
         }
 
+        public bool TryGetDataValue(Dictionary<string, string> data, string key, out string value)
+        {
+            value = GetDataValue(data, key, null);
+
+            return !string.IsNullOrWhiteSpace(value);
+        }
+
         protected bool TryGetPlatform(Dictionary<string, string> data, out string platform)
         {
             platform = GetPlatform(data);
