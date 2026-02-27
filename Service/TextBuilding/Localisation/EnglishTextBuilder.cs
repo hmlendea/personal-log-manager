@@ -2006,6 +2006,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildMicronationFoundingLogText(PersonalLog log)
+            => $"I have founded the micronation of {GetDataValue(log.Data, "micronation_name")}";
+
         public string BuildMicronationLegalActIssuanceLogText(PersonalLog log)
         {
             string legalActTypeWord = GetMappedDataValue(

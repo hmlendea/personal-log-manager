@@ -139,6 +139,7 @@ namespace PersonalLogManager.Service.Models
         MicronationExternalRelationsRequestRejection,
         MicronationExternalRelationsRequestSending,
         MicronationExternalRelationsEstablishment,
+        MicronationFounding,
         MicronationLegalActIssuance,
         MicronationSettlementFounding,
         MicronationSettlementRankDowngrade,
