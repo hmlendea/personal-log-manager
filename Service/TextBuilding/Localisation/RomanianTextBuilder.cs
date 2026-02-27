@@ -6,7 +6,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
     public class RomanianTextBuilder() : PersonalLogTextBuilderBase, IPersonalLogTextBuilder
     {
         public string BuildAccessoryCleaningLogText(PersonalLog log)
-            => $"Mi-am curățat {GetAccessoryType(log.Data)} prin {GetCleaningMethod(log.Data)}";
+            => $"Mi-am curățat {GetAccessoryType(log.Data)} prin {GetCleaningMethod(log.Data)}" +
+                GetLocation(log.Data);
 
         public string BuildAccountActivationLogText(PersonalLog log)
             => $"Am activat contul de {GetPlatform(log.Data)}";
@@ -772,7 +773,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"Am făcut public contul de {GetPlatform(log.Data)}";
 
         public string BuildAlkalinePhosphataseMeasurementLogText(PersonalLog log)
-            => $"Nivelul de fosfatază alcalină a fost măsurat la {GetDecimalValue(log.Data, "alkaline_phosphatase_level")} {GetDataValue(log.Data, "unit", "U/L")}";
+            => $"Nivelul de fosfatază alcalină a fost măsurat la {GetDecimalValue(log.Data, "alkaline_phosphatase_level")} {GetDataValue(log.Data, "unit", "U/L")}" +
+                GetLocation(log.Data);
 
         public string BuildBedLinenChangingLogText(PersonalLog log)
             => "Am schimbat lenjeria de pat" + GetLocation(log.Data);
@@ -2319,7 +2321,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildNailCuttingLogText(PersonalLog log)
-            => $"Mi-am tăiat {GetNailsType(log.Data)}";
+            => $"Mi-am tăiat {GetNailsType(log.Data)}" + GetLocation(log.Data);
 
         public string BuildObjectSaleLogText(PersonalLog log)
         {
@@ -2443,7 +2445,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 "pet");
 
-            return $"Am reumplut litiera de {petType}";
+            return $"Am reumplut litiera de {petType}" + GetLocation(log.Data);
         }
 
         public string BuildPetMedicationAdministrationLogText(PersonalLog log)
@@ -2477,7 +2479,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildPetNailsTrimmingLogText(PersonalLog log)
-            => $"I-am tăiat ghearele lui {GetLocalisedValue(log.Data, "pet_name", "ro")}";
+            => $"I-am tăiat ghearele lui {GetLocalisedValue(log.Data, "pet_name", "ro")}" +
+                GetLocation(log.Data);
 
         public string BuildPetWeightMeasurementLogText(PersonalLog log)
         {
@@ -2489,7 +2492,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $", pe cântarul {scaleName}";
             }
 
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildPhysiotherapySessionLogText(PersonalLog log)
@@ -2802,7 +2805,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildTotalBilirubinMeasurementLogText(PersonalLog log)
-            => $"Nivelul de bilirubină totală a fost măsurat la {log.Data["total_bilirubin_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
+            => $"Nivelul de bilirubină totală a fost măsurat la {log.Data["total_bilirubin_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}" +
+                GetLocation(log.Data);
 
         public string BuildTotalCholesterolMeasurementLogText(PersonalLog log)
         {
@@ -2813,7 +2817,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 unit = unitValue;
             }
 
-            return $"Nivelul de colesterol total a fost măsurat la {log.Data["total_cholesterol_level"]} {unit}";
+            return $"Nivelul de colesterol total a fost măsurat la {log.Data["total_cholesterol_level"]} {unit}" +
+                GetLocation(log.Data);
         }
 
         public string BuildTreePlantingLogText(PersonalLog log)
@@ -3016,7 +3021,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildVehicleMileageMeasurementLogText(PersonalLog log)
         {
-            string text = $"Distanța totală parcursă de";
+            string text = "Distanța totală parcursă de";
             string vehicleType;
 
             if (IsDataValuePresent(log.Data, "vehicle_model") ||
@@ -3099,7 +3104,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildWaterDrinkingLogText(PersonalLog log)
-            => $"Am băut apă";
+            => $"Am băut apă" + GetLocation(log.Data);
 
         public string BuildWeddingAttendanceLogText(PersonalLog log)
         {

@@ -6,7 +6,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
     public class EnglishTextBuilder() : PersonalLogTextBuilderBase, IPersonalLogTextBuilder
     {
         public string BuildAccessoryCleaningLogText(PersonalLog log)
-            => $"I have cleaned {GetAccessoryType(log.Data)} by {GetCleaningMethod(log.Data)}";
+            => $"I have cleaned {GetAccessoryType(log.Data)} by {GetCleaningMethod(log.Data)}" +
+                GetLocation(log.Data);
 
         public string BuildAccountActivationLogText(PersonalLog log)
             => $"I have activated the {GetPlatform(log.Data)} account";
@@ -761,7 +762,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"I have made my {GetPlatform(log.Data)} account public";
 
         public string BuildAlkalinePhosphataseMeasurementLogText(PersonalLog log)
-            => $"My alkaline phosphatase level measured {GetDecimalValue(log.Data, "alkaline_phosphatase_level")} {GetDataValue(log.Data, "unit", "U/L")}";
+            => $"My alkaline phosphatase level measured {GetDecimalValue(log.Data, "alkaline_phosphatase_level")} {GetDataValue(log.Data, "unit", "U/L")}" +
+                GetLocation(log.Data);
 
         public string BuildBedLinenChangingLogText(PersonalLog log)
             => "I have changed the bed linen" + GetLocation(log.Data);
@@ -2262,7 +2264,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildNailCuttingLogText(PersonalLog log)
-            => $"I have cut my {GetNailsType(log.Data)}";
+            => $"I have cut my {GetNailsType(log.Data)}" + GetLocation(log.Data);
 
         public string BuildObjectSaleLogText(PersonalLog log)
         {
@@ -2377,7 +2379,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 },
                 "pet");
 
-            return $"I have refilled the {petType} litter";
+            return $"I have refilled the {petType} litter" + GetLocation(log.Data);
         }
 
         public string BuildPetMedicationAdministrationLogText(PersonalLog log)
@@ -2397,7 +2399,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildPetNailsTrimmingLogText(PersonalLog log)
-            => $"I have trimmed the nails of {GetLocalisedValue(log.Data, "pet_name", "en")}";
+            => $"I have trimmed the nails of {GetLocalisedValue(log.Data, "pet_name", "en")}" +
+                GetLocation(log.Data);
 
         public string BuildPetWeightMeasurementLogText(PersonalLog log)
         {
@@ -2409,7 +2412,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" on the scale {scaleName}";
             }
 
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildPhysiotherapySessionLogText(PersonalLog log)
@@ -2697,10 +2700,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildTotalBilirubinMeasurementLogText(PersonalLog log)
-            => $"My total bilirubin level measured {log.Data["total_bilirubin_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
+            => $"My total bilirubin level measured {log.Data["total_bilirubin_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}" +
+                GetLocation(log.Data);
 
         public string BuildTotalCholesterolMeasurementLogText(PersonalLog log)
-            => $"My total cholesterol level measured {log.Data["total_cholesterol_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
+            => $"My total cholesterol level measured {log.Data["total_cholesterol_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}" +
+                GetLocation(log.Data);
 
         public string BuildTreePlantingLogText(PersonalLog log)
         {
@@ -2955,7 +2960,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildWaterDrinkingLogText(PersonalLog log)
-            => $"I have drunk water";
+            => $"I have drunk water" + GetLocation(log.Data);
 
         public string BuildWeddingAttendanceLogText(PersonalLog log)
         {
