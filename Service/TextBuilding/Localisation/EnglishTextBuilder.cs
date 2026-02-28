@@ -3092,7 +3092,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 { "Beard", "beard" },
                 { "ChestHair", "chest hair" },
                 { "EyebrowHair", "eyebrow hair" },
-                { "FaceHair", "facial hair" },
+                { "FacialHair", "facial hair" },
                 { "FootHair", "foot hair" },
                 { "GenitalHair", "pubic hair" },
                 { "HeadHair", "head hair" },
