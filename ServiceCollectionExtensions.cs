@@ -2,7 +2,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using NuciDAL.Repositories;
+using NuciLog;
 using NuciLog.Configuration;
+using NuciLog.Core;
 using PersonalLogManager.Configuration;
 using PersonalLogManager.DataAccess;
 using PersonalLogManager.DataAccess.DataObjects;
@@ -39,6 +41,7 @@ namespace PersonalLogManager
             .AddSingleton<IPersonalLogTextBuilderFactory, PersonalLogTextBuilderFactory>()
             .AddSingleton<IPersonalLogService, PersonalLogService>()
             .AddAutoMapper(typeof(DataAccessMappingProfile))
-            .AddAutoMapper(typeof(ServiceMappingProfile));
+            .AddAutoMapper(typeof(ServiceMappingProfile))
+            .AddScoped<ILogger, NuciLogger>();
     }
 }
