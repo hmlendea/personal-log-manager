@@ -1223,7 +1223,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" by {GetCleaningMethod(log.Data)}";
             }
 
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildDeviceInternalCleaningLogText(PersonalLog log)
@@ -1235,7 +1235,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" by {GetCleaningMethod(log.Data)}";
             }
 
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildDeviceRepairLogText(PersonalLog log)
