@@ -3224,7 +3224,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 { "Beard", "barba" },
                 { "ChestHair", "părul de pe piept" },
                 { "EyebrowHair", "părul de pe sprâncene" },
-                { "FaceHair", "părul facial" },
+                { "FacialHair", "părul facial" },
                 { "FootHair", "părul de pe labele picioarelor" },
                 { "GenitalHair", "părul pubian" },
                 { "HairTrimmer", "trimmer-ul de păr" },
