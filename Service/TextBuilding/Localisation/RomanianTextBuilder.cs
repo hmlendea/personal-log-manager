@@ -1751,8 +1751,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildGitReleaseLogText(PersonalLog log)
             => $"Am lansat versiunea '{log.Data["release_version"]}' pentru repozitory-ul '{log.Data["repository_name"]}' pe {GetPlatform(log.Data)}";
 
+        public string BuildGitRepositoryArchivalLogText(PersonalLog log)
+            => $"Am arhivat repozitory-ul '{GetDataValue(log.Data, "repository_name")}' de pe {GetPlatform(log.Data)}";
+
+        public string BuildGitRepositoryDeletionLogText(PersonalLog log)
+            => $"Am șters repozitory-ul '{GetDataValue(log.Data, "repository_name")}' de pe {GetPlatform(log.Data)}";
+
         public string BuildGitRepositoryCreationLogText(PersonalLog log)
-            => $"Am creat repozitory-ul '{log.Data["repository_name"]}' pe {GetPlatform(log.Data)}";
+            => $"Am creat repozitory-ul '{GetDataValue(log.Data, "repository_name")}' pe {GetPlatform(log.Data)}";
+
+        public string BuildGitRepositoryRenameLogText(PersonalLog log)
+            => $"Am redenumit repozitory-ul '{GetDataValue(log.Data, "old_repository_name")}' de pe {GetPlatform(log.Data)} în '{GetDataValue(log.Data, "new_repository_name")}'";
 
         public string BuildGoingToSleepLogText(PersonalLog log)
         {

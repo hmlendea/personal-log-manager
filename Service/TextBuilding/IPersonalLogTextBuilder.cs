@@ -119,7 +119,10 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildGiftReceivalLogText(PersonalLog log);
         string BuildGitContributionsMeasurementLogText(PersonalLog log);
         string BuildGitReleaseLogText(PersonalLog log);
+        string BuildGitRepositoryArchivalLogText(PersonalLog log);
         string BuildGitRepositoryCreationLogText(PersonalLog log);
+        string BuildGitRepositoryDeletionLogText(PersonalLog log);
+        string BuildGitRepositoryRenameLogText(PersonalLog log);
         string BuildGoingToSleepLogText(PersonalLog log);
         string BuildGoingToTheChurchLogText(PersonalLog log);
         string BuildGoingToTheToiletLogText(PersonalLog log);
