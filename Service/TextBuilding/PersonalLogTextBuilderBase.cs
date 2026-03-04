@@ -302,35 +302,45 @@ namespace PersonalLogManager.Service.TextBuilding
         {
             device = GetDevice(data);
 
-            return !MissingValue.Equals(device);
+            return
+                !string.IsNullOrWhiteSpace(device) &&
+                !MissingValue.Equals(device);
         }
 
         protected bool TryGetByPerson(Dictionary<string, string> data, out string byPerson)
         {
             byPerson = GetByPerson(data);
 
-            return !MissingValue.Equals(byPerson);
+            return
+                !string.IsNullOrWhiteSpace(byPerson) &&
+                !MissingValue.Equals(byPerson);
         }
 
         public bool TryGetDataValue(Dictionary<string, string> data, string key, out string value)
         {
             value = GetDataValue(data, key, null);
 
-            return !string.IsNullOrWhiteSpace(value);
+            return
+                !string.IsNullOrWhiteSpace(value) &&
+                !MissingValue.Equals(value);
         }
 
         protected bool TryGetPlatform(Dictionary<string, string> data, out string platform)
         {
             platform = GetPlatform(data);
 
-            return !string.IsNullOrWhiteSpace(platform);
+            return
+                !string.IsNullOrWhiteSpace(platform) &&
+                !MissingValue.Equals(platform);
         }
 
         protected bool TryGetSide(Dictionary<string, string> data, out string side)
         {
             side = GetSide(data);
 
-            return !string.IsNullOrWhiteSpace(side);
+            return
+                !string.IsNullOrWhiteSpace(side) &&
+                !MissingValue.Equals(side);
         }
     }
 }
