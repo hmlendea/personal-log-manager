@@ -1731,19 +1731,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"I have made {log.Data["contributions_count"]} contributions on {GetPlatform(log.Data)}";
 
         public string BuildGitReleaseLogText(PersonalLog log)
-            => $"I have released version {log.Data["release_version"]} of the `{log.Data["repository_name"]}` repository on {GetPlatform(log.Data)}";
+            => $"I have released version {GetDataValue(log.Data, "version")} of the `{GetDataValue(log.Data, "repository")}` repository on {GetPlatform(log.Data)}";
 
         public string BuildGitRepositoryArchivalLogText(PersonalLog log)
-            => $"I have archived the `{GetDataValue(log.Data, "repository_name")}` repository on {GetPlatform(log.Data)}";
+            => $"I have archived the `{GetDataValue(log.Data, "repository")}` repository on {GetPlatform(log.Data)}";
 
         public string BuildGitRepositoryCreationLogText(PersonalLog log)
-            => $"I have created the `{GetDataValue(log.Data, "repository_name")}` repository on {GetPlatform(log.Data)}";
+            => $"I have created the `{GetDataValue(log.Data, "repository")}` repository on {GetPlatform(log.Data)}";
 
         public string BuildGitRepositoryDeletionLogText(PersonalLog log)
-            => $"I have deleted the `{GetDataValue(log.Data, "repository_name")}` repository from {GetPlatform(log.Data)}";
+            => $"I have deleted the `{GetDataValue(log.Data, "repository")}` repository from {GetPlatform(log.Data)}";
 
         public string BuildGitRepositoryRenameLogText(PersonalLog log)
-            => $"I have renamed the `{GetDataValue(log.Data, "old_repository_name")}` repository from {GetPlatform(log.Data)} to `{GetDataValue(log.Data, "new_repository_name")}`";
+            => $"I have renamed the `{GetDataValue(log.Data, "old_repository")}` repository from {GetPlatform(log.Data)} to `{GetDataValue(log.Data, "new_repository")}`";
 
         public string BuildGoingToSleepLogText(PersonalLog log)
         {
