@@ -12,7 +12,7 @@ namespace PersonalLogManager.Api.Controllers
         IPersonalLogService service,
         SecuritySettings securitySettings) : NuciApiController
     {
-        readonly NuciApiAuthorisation authorisation = NuciApiAuthorisation.ApiKey(securitySettings.SharedSecretKey);
+        readonly NuciApiAuthorisation authorisation = NuciApiAuthorisation.ApiKey(securitySettings.ApiKey);
 
         [HttpPost]
         public ActionResult AddPersonalLog([FromBody] StoreLogRequest request)
