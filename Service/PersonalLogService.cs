@@ -51,7 +51,7 @@ namespace PersonalLogManager.Service
                     CreatedDT = DateTime.UtcNow.ToString("o")
                 });
 
-                repository.ApplyChanges();
+                repository.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -195,7 +195,7 @@ namespace PersonalLogManager.Service
                 personalLog.UpdatedDT = DateTime.UtcNow.ToString("o");
 
                 repository.Update(personalLog);
-                repository.ApplyChanges();
+                repository.SaveChanges();
 
                 logger.Debug(
                     MyOperation.UpdatePersonalLog,
@@ -229,7 +229,7 @@ namespace PersonalLogManager.Service
             try
             {
                 repository.Remove(request.Identifier);
-                repository.ApplyChanges();
+                repository.SaveChanges();
             }
             catch (Exception ex)
             {
