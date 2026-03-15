@@ -2,13 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using AutoMapper;
 using NuciDAL.Repositories;
 using NuciLog.Core;
 using PersonalLogManager.Api.Models;
 using PersonalLogManager.DataAccess.DataObjects;
 using PersonalLogManager.Logging;
-using PersonalLogManager.Service.Models;
+using PersonalLogManager.Service.Mapping;
 using PersonalLogManager.Service.TextBuilding;
 
 namespace PersonalLogManager.Service
@@ -16,7 +15,6 @@ namespace PersonalLogManager.Service
     public class PersonalLogService(
         IPersonalLogTextBuilderFactory logTextBuilder,
         IFileRepository<PersonalLogEntity> repository,
-        IMapper mapper,
         ILogger logger) : IPersonalLogService
     {
         private readonly Random random = new();
@@ -134,7 +132,7 @@ namespace PersonalLogManager.Service
                         .ThenBy(log => log.Template)
                         .ThenBy(log => log.CreatedDT)
                         .Take(request.Count)
-                        .Select(log => $"{log.Id} " + logTextBuilder.BuildLogText(mapper.Map<PersonalLog>(log), request.Localisation))]
+                        .Select(log => $"{log.Id} " + logTextBuilder.BuildLogText(log.ToDomainModel(), request.Localisation))]
                 };
             }
             catch (Exception ex)

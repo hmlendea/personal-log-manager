@@ -40,8 +40,6 @@ namespace PersonalLogManager
             .AddSingleton<IFileRepository<PersonalLogEntity>>(x => new JsonRepository<PersonalLogEntity>(dataStoreSettings.LogStorePath))
             .AddSingleton<IPersonalLogTextBuilderFactory, PersonalLogTextBuilderFactory>()
             .AddSingleton<IPersonalLogService, PersonalLogService>()
-            .AddAutoMapper(typeof(DataAccessMappingProfile))
-            .AddAutoMapper(typeof(ServiceMappingProfile))
             .AddScoped<ILogger, NuciLogger>();
     }
 }
