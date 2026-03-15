@@ -24,7 +24,7 @@ namespace PersonalLogManager.Service.Mapping
             {
                 Id = dataObject.Id,
                 Template = Enum.Parse<PersonalLogTemplate>(dataObject.Template),
-                Data = dataObject.Data,
+                Data = dataObject.Data ?? [],
                 CreatedDateTime = DateTime.Parse(dataObject.CreatedDT),
                 UpdatedDateTime = DateTime.TryParse(dataObject.UpdatedDT, out DateTime updatedDT) ? updatedDT : null
             };

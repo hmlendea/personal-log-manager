@@ -25,12 +25,21 @@ namespace PersonalLogManager.Service.TextBuilding
         {
             IPersonalLogTextBuilder personalLogTextBuilder = GetTextBuilder(localisation);
 
-            return personalLogTextBuilder
-                .GetType()
-                .GetMethod(
-                    $"Build{log.Template}LogText",
-                    BindingFlags.Public | BindingFlags.Instance)
-                .Invoke(personalLogTextBuilder, [log]) as string;
+            try
+            {
+                return personalLogTextBuilder
+                    .GetType()
+                    .GetMethod(
+                        $"Build{log.Template}LogText",
+                        BindingFlags.Public | BindingFlags.Instance)
+                    .Invoke(personalLogTextBuilder, [log]) as string;
+            }
+            catch (TargetInvocationException ex)
+            {
+                Console.WriteLine(ex.InnerException);
+
+                throw ex.InnerException ?? ex;
+            }
         }
 
         static IPersonalLogTextBuilder GetTextBuilder(string localisation)
