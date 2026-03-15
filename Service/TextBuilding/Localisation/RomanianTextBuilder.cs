@@ -3252,6 +3252,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         protected override string GetLocation(Dictionary<string, string> data)
         {
+            if (data is null)
+            {
+                return string.Empty;
+            }
+
             string text = string.Empty;
             string room = string.Empty;
 
