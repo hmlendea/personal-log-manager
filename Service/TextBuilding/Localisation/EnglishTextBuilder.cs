@@ -20,7 +20,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"The {GetPlatform(log.Data)} account has been banned";
 
-            if (log.Data.TryGetValue("ban_reason", out string banReason))
+            if (TryGetDataValue(log.Data, "ban_reason", out string banReason))
             {
                 text += $" for the following reason: {banReason}";
             }
@@ -39,12 +39,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string text = $"I have {verb} the contact e-mail address of the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("old_contact_email_address", out string oldContactEmailAddress))
+            if (TryGetDataValue(log.Data, "old_contact_email_address", out string oldContactEmailAddress))
             {
                 text += $" from {oldContactEmailAddress}";
             }
 
-            if (log.Data.TryGetValue("new_contact_email_address", out string newContactEmailAddress))
+            if (TryGetDataValue(log.Data, "new_contact_email_address", out string newContactEmailAddress))
             {
                 text += $" to {newContactEmailAddress}";
             }
@@ -73,7 +73,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 text += $", via {requestMethod}";
 
-                if (log.Data.TryGetValue("request_id", out string requestId))
+                if (TryGetDataValue(log.Data, "request_id", out string requestId))
                 {
                     text += $" ({requestId})";
                 }
@@ -86,7 +86,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"My data export request for the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("request_date", out string requestDate))
+            if (TryGetDataValue(log.Data, "request_date", out string requestDate))
             {
                 text += $", made on {requestDate},";
             }
@@ -130,7 +130,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have sent a request for the deletion of the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("request_id", out string requestId))
+            if (TryGetDataValue(log.Data, "request_id", out string requestId))
             {
                 text += $" with the {requestId} identification code";
             }
@@ -158,12 +158,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have cancelled the account deletion request for the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("request_id", out string requestId))
+            if (TryGetDataValue(log.Data, "request_id", out string requestId))
             {
                 text += $" with the {requestId} identification code";
             }
 
-            if (log.Data.TryGetValue("request_date", out string requestDate))
+            if (TryGetDataValue(log.Data, "request_date", out string requestDate))
             {
                 text += $", sent on {requestDate},";
             }
@@ -175,12 +175,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"My account deletion request for the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("request_id", out string requestId))
+            if (TryGetDataValue(log.Data, "request_id", out string requestId))
             {
                 text += $" with the {requestId} identification code";
             }
 
-            if (log.Data.TryGetValue("request_date", out string requestDate))
+            if (TryGetDataValue(log.Data, "request_date", out string requestDate))
             {
                 text += $", sent on {requestDate},";
             }
@@ -194,12 +194,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"My account deletion request for the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("request_id", out string requestId))
+            if (TryGetDataValue(log.Data, "request_id", out string requestId))
             {
                 text += $" with the {requestId} identification code";
             }
 
-            if (log.Data.TryGetValue("request_date", out string requestDate))
+            if (TryGetDataValue(log.Data, "request_date", out string requestDate))
             {
                 text += $", sent on {requestDate},";
             }
@@ -213,7 +213,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have validated that the {GetPlatform(log.Data)} account has been deleted";
 
-            if (log.Data.TryGetValue("request_date", out string requestDate))
+            if (TryGetDataValue(log.Data, "request_date", out string requestDate))
             {
                 text += $", following the deletion request sent on {requestDate}";
             }
@@ -232,12 +232,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string text = $"I have {verb} the e-mail address of the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("old_email_address", out string oldEmailAddress))
+            if (TryGetDataValue(log.Data, "old_email_address", out string oldEmailAddress))
             {
                 text += $" from {oldEmailAddress}";
             }
 
-            if (log.Data.TryGetValue("new_email_address", out string newEmailAddress))
+            if (TryGetDataValue(log.Data, "new_email_address", out string newEmailAddress))
             {
                 text += $" to {newEmailAddress}";
             }
@@ -249,17 +249,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have sent a request to change the e-mail address of the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("old_email_address", out string oldEmailAddress))
+            if (TryGetDataValue(log.Data, "old_email_address", out string oldEmailAddress))
             {
                 text += $" from {oldEmailAddress}";
             }
 
-            if (log.Data.TryGetValue("new_email_address", out string newEmailAddress))
+            if (TryGetDataValue(log.Data, "new_email_address", out string newEmailAddress))
             {
                 text += $" to {newEmailAddress}";
             }
 
-            if (log.Data.TryGetValue("request_id", out string requestId))
+            if (TryGetDataValue(log.Data, "request_id", out string requestId))
             {
                 text += $", with the {requestId} identification code";
             }
@@ -287,22 +287,22 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"My request to change the e-mail address of the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("old_email_address", out string oldEmailAddress))
+            if (TryGetDataValue(log.Data, "old_email_address", out string oldEmailAddress))
             {
                 text += $" from {oldEmailAddress}";
             }
 
-            if (log.Data.TryGetValue("new_email_address", out string newEmailAddress))
+            if (TryGetDataValue(log.Data, "new_email_address", out string newEmailAddress))
             {
                 text += $" to {newEmailAddress}";
             }
 
-            if (log.Data.TryGetValue("request_id", out string requestId))
+            if (TryGetDataValue(log.Data, "request_id", out string requestId))
             {
                 text += $", with the {requestId} identification code";
             }
 
-            if (log.Data.TryGetValue("request_date", out string requestDate))
+            if (TryGetDataValue(log.Data, "request_date", out string requestDate))
             {
                 text += $", sent on {requestDate},";
             }
@@ -316,7 +316,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have confirmed the e-mail address";
 
-            if (log.Data.TryGetValue("email_address", out string emailAddress))
+            if (TryGetDataValue(log.Data, "email_address", out string emailAddress))
             {
                 text += $" ({emailAddress})";
             }
@@ -334,7 +334,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have received a friendship request on the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("from_account", out string fromAccount))
+            if (TryGetDataValue(log.Data, "from_account", out string fromAccount))
             {
                 text += $" from {fromAccount}";
             }
@@ -349,9 +349,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have linked the {GetPlatform(log.Data)} account with";
 
-            if (log.Data.TryGetValue("platform_linked", out string platformLinked))
+            if (TryGetDataValue(log.Data, "platform_linked", out string platformLinked))
             {
-                if (log.Data.TryGetValue("account_linked", out string accountLinked))
+                if (TryGetDataValue(log.Data, "account_linked", out string accountLinked))
                 {
                     text += $" the {platformLinked} account ({accountLinked})";
                 }
@@ -378,12 +378,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have changed the personal name for the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("old_personal_name", out string oldPersonalName))
+            if (TryGetDataValue(log.Data, "old_personal_name", out string oldPersonalName))
             {
                 text += $" from {oldPersonalName}";
             }
 
-            if (log.Data.TryGetValue("new_personal_name", out string newPersonalName))
+            if (TryGetDataValue(log.Data, "new_personal_name", out string newPersonalName))
             {
                 text += $" to {newPersonalName}";
             }
@@ -395,7 +395,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have added a phone number to the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("phone_number", out string newPhoneNumber))
+            if (TryGetDataValue(log.Data, "phone_number", out string newPhoneNumber))
             {
                 text += $": {newPhoneNumber}";
             }
@@ -414,12 +414,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string text = $"I have {verb} the phone number for the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("old_phone_number", out string oldPhoneNumber))
+            if (TryGetDataValue(log.Data, "old_phone_number", out string oldPhoneNumber))
             {
                 text += $" from {oldPhoneNumber}";
             }
 
-            if (log.Data.TryGetValue("new_phone_number", out string newPhoneNumber))
+            if (TryGetDataValue(log.Data, "new_phone_number", out string newPhoneNumber))
             {
                 text += $" to {newPhoneNumber}";
             }
@@ -431,7 +431,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have removed a phone number from the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("phone_number", out string newPhoneNumber))
+            if (TryGetDataValue(log.Data, "phone_number", out string newPhoneNumber))
             {
                 text += $": {newPhoneNumber}";
             }
@@ -456,12 +456,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string text = $"I have {verb} the recovery e-mail address of the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("old_recovery_email_address", out string oldEmailAddress))
+            if (TryGetDataValue(log.Data, "old_recovery_email_address", out string oldEmailAddress))
             {
                 text += $" from {oldEmailAddress}";
             }
 
-            if (log.Data.TryGetValue("new_recovery_email_address", out string newEmailAddress))
+            if (TryGetDataValue(log.Data, "new_recovery_email_address", out string newEmailAddress))
             {
                 text += $" to {newEmailAddress}";
             }
@@ -473,7 +473,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have sent a recovery request for the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("request_id", out string requestId))
+            if (TryGetDataValue(log.Data, "request_id", out string requestId))
             {
                 text += $" with the {requestId} identification code";
             }
@@ -501,12 +501,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"My account recovery request for the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("request_id", out string requestId))
+            if (TryGetDataValue(log.Data, "request_id", out string requestId))
             {
                 text += $" with the {requestId} identification code";
             }
 
-            if (log.Data.TryGetValue("request_date", out string requestDate))
+            if (TryGetDataValue(log.Data, "request_date", out string requestDate))
             {
                 text += $", sent on {requestDate},";
             }
@@ -519,13 +519,13 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             string text = $"I have registered the {GetPlatform(log.Data)} account";
             int withCount = 0;
 
-            if (log.Data.TryGetValue("username", out string username))
+            if (TryGetDataValue(log.Data, "username", out string username))
             {
                 text += $" with the username {username}";
                 withCount += 1;
             }
 
-            if (log.Data.TryGetValue("phone_number", out string phoneNumber))
+            if (TryGetDataValue(log.Data, "phone_number", out string phoneNumber))
             {
                 if (withCount > 0)
                 {
@@ -536,7 +536,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 withCount += 1;
             }
 
-            if (log.Data.TryGetValue("email_address", out string emailAddress))
+            if (TryGetDataValue(log.Data, "email_address", out string emailAddress))
             {
                 if (withCount > 0)
                 {
@@ -547,7 +547,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 withCount += 1;
             }
 
-            if (log.Data.TryGetValue("personal_name", out string personalName))
+            if (TryGetDataValue(log.Data, "personal_name", out string personalName))
             {
                 if (withCount > 0)
                 {
@@ -565,7 +565,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have sent a request";
 
-            if (log.Data.TryGetValue("request_id", out string requestId))
+            if (TryGetDataValue(log.Data, "request_id", out string requestId))
             {
                 text += $" with the {requestId} identification code";
             }
@@ -573,13 +573,13 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             text += $" to register the {GetPlatform(log.Data)} account";
             int withCount = 0;
 
-            if (log.Data.TryGetValue("username", out string username))
+            if (TryGetDataValue(log.Data, "username", out string username))
             {
                 text += $" with the username {username}";
                 withCount += 1;
             }
 
-            if (log.Data.TryGetValue("phone_number", out string phoneNumber))
+            if (TryGetDataValue(log.Data, "phone_number", out string phoneNumber))
             {
                 if (withCount > 0)
                 {
@@ -590,7 +590,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 withCount += 1;
             }
 
-            if (log.Data.TryGetValue("email_address", out string emailAddress))
+            if (TryGetDataValue(log.Data, "email_address", out string emailAddress))
             {
                 if (withCount > 0)
                 {
@@ -601,7 +601,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 withCount += 1;
             }
 
-            if (log.Data.TryGetValue("personal_name", out string personalName))
+            if (TryGetDataValue(log.Data, "personal_name", out string personalName))
             {
                 if (withCount > 0)
                 {
@@ -619,12 +619,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"The account registration request for the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("request_id", out string requestId))
+            if (TryGetDataValue(log.Data, "request_id", out string requestId))
             {
                 text += $" with the {requestId} identification code";
             }
 
-            if (log.Data.TryGetValue("request_date", out string requestDate))
+            if (TryGetDataValue(log.Data, "request_date", out string requestDate))
             {
                 text += $", sent on {requestDate},";
             }
@@ -641,7 +641,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have purchased a";
 
-            if (log.Data.TryGetValue("subscription_name", out string subscriptionType))
+            if (TryGetDataValue(log.Data, "subscription_name", out string subscriptionType))
             {
                 text += $" {subscriptionType}";
             }
@@ -662,7 +662,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             text += $" and the {log.Data["platform_unlinked"]} account";
 
-            if (log.Data.TryGetValue("account_unlinked", out string accountLinked))
+            if (TryGetDataValue(log.Data, "account_unlinked", out string accountLinked))
             {
                 text += $" ({accountLinked})";
             }
@@ -681,12 +681,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string text = $"I have {verb} the username of the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("old_username", out string oldUsername))
+            if (TryGetDataValue(log.Data, "old_username", out string oldUsername))
             {
                 text += $" from {oldUsername}";
             }
 
-            if (log.Data.TryGetValue("new_username", out string newUsername))
+            if (TryGetDataValue(log.Data, "new_username", out string newUsername))
             {
                 text += $" to {newUsername}";
             }
@@ -698,17 +698,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have sent a request to change the username of the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("old_username", out string oldUsername))
+            if (TryGetDataValue(log.Data, "old_username", out string oldUsername))
             {
                 text += $" from {oldUsername}";
             }
 
-            if (log.Data.TryGetValue("new_username", out string newUsername))
+            if (TryGetDataValue(log.Data, "new_username", out string newUsername))
             {
                 text += $" to {newUsername}";
             }
 
-            if (log.Data.TryGetValue("request_id", out string requestId))
+            if (TryGetDataValue(log.Data, "request_id", out string requestId))
             {
                 text += $", with the {requestId} identification code";
             }
@@ -736,22 +736,22 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"My request to change the username of the {GetPlatform(log.Data)} account";
 
-            if (log.Data.TryGetValue("old_username", out string oldUsername))
+            if (TryGetDataValue(log.Data, "old_username", out string oldUsername))
             {
                 text += $" from {oldUsername}";
             }
 
-            if (log.Data.TryGetValue("new_username", out string newUsername))
+            if (TryGetDataValue(log.Data, "new_username", out string newUsername))
             {
                 text += $" to {newUsername}";
             }
 
-            if (log.Data.TryGetValue("request_id", out string requestId))
+            if (TryGetDataValue(log.Data, "request_id", out string requestId))
             {
                 text += $", with the {requestId} identification code";
             }
 
-            if (log.Data.TryGetValue("request_date", out string requestDate))
+            if (TryGetDataValue(log.Data, "request_date", out string requestDate))
             {
                 text += $", sent on {requestDate},";
             }
@@ -785,7 +785,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have donated blood" + GetLocation(log.Data);
 
-            if (log.Data.TryGetValue("donation_code", out string donationCode))
+            if (TryGetDataValue(log.Data, "donation_code", out string donationCode))
             {
                 text += $". The donation code was: {donationCode}";
             }
@@ -871,7 +871,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string text = $"I have started {verb} the {bookType} '{log.Data["book_title"]}'";
 
-            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            if (TryGetDataValue(log.Data, "book_series_name", out string bookSeriesName))
             {
                 text += $" of the '{bookSeriesName}' series";
             }
@@ -900,7 +900,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string text = $"I have started {verb} chapter {log.Data["chapter_number"]} of the {bookType} '{log.Data["book_title"]}'";
 
-            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            if (TryGetDataValue(log.Data, "book_series_name", out string bookSeriesName))
             {
                 text += $" of the '{bookSeriesName}' series";
             }
@@ -929,7 +929,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string text = $"I have finished {verb} chapter {log.Data["chapter_number"]} of the {bookType} '{log.Data["book_title"]}'";
 
-            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            if (TryGetDataValue(log.Data, "book_series_name", out string bookSeriesName))
             {
                 text += $" of the '{bookSeriesName}' series";
             }
@@ -958,7 +958,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string text = $"I have finished {verb} the {bookType} '{log.Data["book_title"]}'";
 
-            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            if (TryGetDataValue(log.Data, "book_series_name", out string bookSeriesName))
             {
                 text += $" of the '{bookSeriesName}' series";
             }
@@ -987,7 +987,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string text = $"I have resumed {verb} the {bookType} '{log.Data["book_title"]}'";
 
-            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            if (TryGetDataValue(log.Data, "book_series_name", out string bookSeriesName))
             {
                 text += $" of the '{bookSeriesName}' series";
             }
@@ -1016,7 +1016,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string text = $"I have stopped {verb} the {bookType} '{log.Data["book_title"]}'";
 
-            if (log.Data.TryGetValue("book_series_name", out string bookSeriesName))
+            if (TryGetDataValue(log.Data, "book_series_name", out string bookSeriesName))
             {
                 text += $" of the '{bookSeriesName}' series";
             }
@@ -1054,7 +1054,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have obtained the {log.Data["certification_name"]} certification";
 
-            if (log.Data.TryGetValue("certification_authority", out string certificationAuthority))
+            if (TryGetDataValue(log.Data, "certification_authority", out string certificationAuthority))
             {
                 text += $" from {certificationAuthority}";
             }
@@ -1114,7 +1114,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have created a custom GPT";
 
-            if (log.Data.TryGetValue("gpt_name", out string gptName))
+            if (TryGetDataValue(log.Data, "gpt_name", out string gptName))
             {
                 text += $" named '{gptName}'";
             }
@@ -1134,12 +1134,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have received the delivery of {log.Data["package_description"]}";
 
-            if (log.Data.TryGetValue("tracking_number", out string trackingNumber))
+            if (TryGetDataValue(log.Data, "tracking_number", out string trackingNumber))
             {
                 text += $" with the tracking number {trackingNumber}";
             }
 
-            if (log.Data.TryGetValue("company_name", out string companyName))
+            if (TryGetDataValue(log.Data, "company_name", out string companyName))
             {
                 text += $" via {companyName}";
             }
@@ -1181,7 +1181,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text;
 
-            if (log.Data.TryGetValue("device_owner_name", out string deviceOwnerName))
+            if (TryGetDataValue(log.Data, "device_owner_name", out string deviceOwnerName))
             {
                 text = $"{deviceOwnerName}'s";
             }
@@ -1220,9 +1220,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have cleaned the exterior of my {GetDevice(log.Data)}";
 
-            if (log.Data.ContainsKey("cleaning_method"))
+            if (TryGetCleaningMethod(log.Data, out string cleaningMethod))
             {
-                text += $" by {GetCleaningMethod(log.Data)}";
+                text += $" by {cleaningMethod}";
             }
 
             return text + GetLocation(log.Data);
@@ -1232,9 +1232,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have cleaned the interior of my {GetDevice(log.Data)}";
 
-            if (log.Data.ContainsKey("cleaning_method"))
+            if (TryGetCleaningMethod(log.Data, out string cleaningMethod))
             {
-                text += $" by {GetCleaningMethod(log.Data)}";
+                text += $" by {cleaningMethod}";
             }
 
             return text + GetLocation(log.Data);
@@ -1244,7 +1244,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = "I have repaired";
 
-            if (log.Data.TryGetValue("device_owner_name", out string deviceOwnerName))
+            if (TryGetDataValue(log.Data, "device_owner_name", out string deviceOwnerName))
             {
                 text += $" {deviceOwnerName}'s";
             }
@@ -1260,7 +1260,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"Today's screentime on my {GetDevice(log.Data)} was measured at";
 
-            if (log.Data.TryGetValue("screentime_hours", out string screentimeHours))
+            if (TryGetDataValue(log.Data, "screentime_hours", out string screentimeHours))
             {
                 text += $" {screentimeHours} hour";
 
@@ -1270,7 +1270,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 }
             }
 
-            if (log.Data.TryGetValue("screentime_minutes", out string screentimeMinutes))
+            if (TryGetDataValue(log.Data, "screentime_minutes", out string screentimeMinutes))
             {
                 if (log.Data.ContainsKey("screentime_hours"))
                 {
@@ -1298,9 +1298,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = "I have cleaned my earwax";
 
-            if (log.Data.ContainsKey("cleaning_method"))
+            if (TryGetCleaningMethod(log.Data, out string cleaningMethod))
             {
-                text += $" by {GetCleaningMethod(log.Data)}";
+                text += $" by {cleaningMethod}";
             }
 
             return text;
@@ -1323,25 +1323,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string text = $"I have obtained the {gradeType} {log.Data["grade_value"]} in the subject '{log.Data["subject_name"]}'";
 
-            if (log.Data.TryGetValue("subject_code", out string subjectCode))
+            if (TryGetDataValue(log.Data, "subject_code", out string subjectCode))
             {
                 text += $" ({subjectCode})";
             }
 
-            if (log.Data.TryGetValue("course_name", out string courseName))
+            if (TryGetDataValue(log.Data, "course_name", out string courseName))
             {
                 text += $", in the course {courseName}";
             }
 
-            if (log.Data.TryGetValue("institution_name", out string institutionName))
+            if (TryGetDataValue(log.Data, "institution_name", out string institutionName))
             {
                 text += $", at";
 
-                if (log.Data.TryGetValue("institution_department", out string institutionDepartment))
+                if (TryGetDataValue(log.Data, "institution_department", out string institutionDepartment))
                 {
                     text += $" {institutionDepartment}";
 
-                    if (log.Data.TryGetValue("institution_department_specialisation", out string institutionDepartmentSpecialisation))
+                    if (TryGetDataValue(log.Data, "institution_department_specialisation", out string institutionDepartmentSpecialisation))
                     {
                         text += $", {institutionDepartmentSpecialisation} specialisation,";
                     }
@@ -1352,16 +1352,16 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" {institutionName}";
             }
 
-            if (log.Data.TryGetValue("educational_cycle_year", out string educationalCycleYear))
+            if (TryGetDataValue(log.Data, "educational_cycle_year", out string educationalCycleYear))
             {
                 text += $", in year {educationalCycleYear}";
             }
-            else if (log.Data.TryGetValue("educational_cycle_grade", out string educationalCycleGrade))
+            else if (TryGetDataValue(log.Data, "educational_cycle_grade", out string educationalCycleGrade))
             {
                 text += $", in grade {educationalCycleGrade}";
             }
 
-            if (log.Data.TryGetValue("educational_cycle_semester", out string educationalCycleSemester))
+            if (TryGetDataValue(log.Data, "educational_cycle_semester", out string educationalCycleSemester))
             {
                 text += $", in semester {educationalCycleSemester}";
             }
@@ -1382,14 +1382,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have purchased a";
 
-            if (log.Data.TryGetValue("ticket_type", out string ticketType))
+            if (TryGetDataValue(log.Data, "ticket_type", out string ticketType))
             {
                 text += $" {ticketType}";
             }
 
             text += $"ticket for '{log.Data["event_name"]}'";
 
-            if (log.Data.TryGetValue("event_date", out string eventDate))
+            if (TryGetDataValue(log.Data, "event_date", out string eventDate))
             {
                 text += $" on {eventDate}";
             }
@@ -1417,7 +1417,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             string achievementAction = "unlocked";
             string achievementType = "achievement";
             string game = log.Data["game_name"];
-            log.Data.TryGetValue("platform", out string platform);
+            TryGetDataValue(log.Data, "platform", out string platform);
 
             if (game.Equals("eRepublik"))
             {
@@ -1452,12 +1452,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildGameArticlePublishingLogText(PersonalLog log)
         {
-            log.Data.TryGetValue("game_name", out string gameName);
+            TryGetDataValue(log.Data, "game_name", out string gameName);
             string text = $"I have published an article titled '{log.Data["article_title"]}' in the game {gameName}";
 
             if (gameName?.Equals("eRepublik") == true)
             {
-                if (log.Data.TryGetValue("newspaper_name", out string newspaperName))
+                if (TryGetDataValue(log.Data, "newspaper_name", out string newspaperName))
                 {
                     text += $" in the '{newspaperName}' newspaper";
                 }
@@ -1586,12 +1586,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have begun my term as {log.Data["office_name"]}";
 
-            if (log.Data.TryGetValue("office_location", out string officeLocation))
+            if (TryGetDataValue(log.Data, "office_location", out string officeLocation))
             {
                 text += $" in {officeLocation}";
             }
 
-            if (log.Data.TryGetValue("faction_name", out string factionName))
+            if (TryGetDataValue(log.Data, "faction_name", out string factionName))
             {
                 text += $" as part of {factionName},";
             }
@@ -1610,12 +1610,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have ended my term as {log.Data["office_name"]}";
 
-            if (log.Data.TryGetValue("office_location", out string officeLocation))
+            if (TryGetDataValue(log.Data, "office_location", out string officeLocation))
             {
                 text += $" in {officeLocation}";
             }
 
-            if (log.Data.TryGetValue("faction_name", out string factionName))
+            if (TryGetDataValue(log.Data, "faction_name", out string factionName))
             {
                 text += $" as part of {factionName},";
             }
@@ -1721,7 +1721,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" from {giverName}";
             }
 
-            if (log.Data.TryGetValue("gift_content", out string giftContent))
+            if (TryGetDataValue(log.Data, "gift_content", out string giftContent))
             {
                 text += $": {giftContent}";
             }
@@ -1785,7 +1785,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 text += $", for obtaining their {degreeLevel} degree";
 
-                if (log.Data.TryGetValue("institution_name", out string institutionName))
+                if (TryGetDataValue(log.Data, "institution_name", out string institutionName))
                 {
                     text += $" at {institutionName}";
 
@@ -1813,7 +1813,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 text += $", for obtaining my {degreeLevel} degree";
 
-                if (log.Data.TryGetValue("institution_name", out string institutionName))
+                if (TryGetDataValue(log.Data, "institution_name", out string institutionName))
                 {
                     text += $" at {institutionName}";
 
@@ -1873,7 +1873,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string internshipType = "internship";
 
-            if (log.Data.TryGetValue("period", out string period))
+            if (TryGetDataValue(log.Data, "period", out string period))
             {
                 internshipType = $"{period} {internshipType}";
             }
@@ -1881,14 +1881,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             string text = $"I have submitted an application";
 
 
-            if (log.Data.TryGetValue("contact_person_name", out string contactPersonName))
+            if (TryGetDataValue(log.Data, "contact_person_name", out string contactPersonName))
             {
                 text += $" to {contactPersonName}";
             }
 
             text += $" for an {internshipType} at {log.Data["company_name"]}";
 
-            if (log.Data.TryGetValue("position_name", out string positionName))
+            if (TryGetDataValue(log.Data, "position_name", out string positionName))
             {
                 text += $" for the position of {positionName}";
             }
@@ -1985,7 +1985,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string text = $"{log.Data["source_micronation_name"]}'s request for {relationTypeWord} with {log.Data["target_micronation_name"]}";
 
-            if (log.Data.TryGetValue("request_date", out string requestDate))
+            if (TryGetDataValue(log.Data, "request_date", out string requestDate))
             {
                 text += $", sent on {requestDate},";
             }
@@ -2009,7 +2009,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string text = $"{log.Data["source_micronation_name"]} has established {relationshipTypeWord} with {log.Data["target_micronation_name"]}";
 
-            if (log.Data.TryGetValue("request_date", out string requestDate))
+            if (TryGetDataValue(log.Data, "request_date", out string requestDate))
             {
                 text += $", following the request sent on {requestDate}";
             }
@@ -2222,7 +2222,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have submitted a";
 
-            if (log.Data.TryGetValue("stars_count", out string starsCount))
+            if (TryGetDataValue(log.Data, "stars_count", out string starsCount))
             {
                 text += $" {starsCount}-star";
             }
@@ -2287,7 +2287,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             string unit = GetDataValue(log.Data, "unit", "kg");
             string text = $"The weight of {GetPet(log.Data)} measured {log.Data["pet_weight"]} {unit}";
 
-            if (log.Data.TryGetValue("scale_name", out string scaleName))
+            if (TryGetDataValue(log.Data, "scale_name", out string scaleName))
             {
                 text += $" on the {scaleName} scale";
             }
@@ -2345,7 +2345,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have been to the sauna" + GetLocation(log.Data);
 
-            if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
+            if (TryGetDataValue(log.Data, "duration_minutes", out string durationMinutes))
             {
                 text += $", for {durationMinutes} minute";
 
@@ -2386,17 +2386,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have begun watching episode {log.Data["episode_number"]}";
 
-            if (log.Data.TryGetValue("episode_name", out string episodeName))
+            if (TryGetDataValue(log.Data, "episode_name", out string episodeName))
             {
                 text += $" '{episodeName}'";
             }
 
-            if (log.Data.TryGetValue("season_number", out string seasonNumber))
+            if (TryGetDataValue(log.Data, "season_number", out string seasonNumber))
             {
                 text += $" of season {seasonNumber}";
             }
 
-            if (log.Data.TryGetValue("series_name", out string seriesName))
+            if (TryGetDataValue(log.Data, "series_name", out string seriesName))
             {
                 text += $" of '{seriesName}'";
             }
@@ -2413,17 +2413,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have finished watching episode {log.Data["episode_number"]}";
 
-            if (log.Data.TryGetValue("episode_name", out string episodeName))
+            if (TryGetDataValue(log.Data, "episode_name", out string episodeName))
             {
                 text += $" '{episodeName}'";
             }
 
-            if (log.Data.TryGetValue("season_number", out string seasonNumber))
+            if (TryGetDataValue(log.Data, "season_number", out string seasonNumber))
             {
                 text += $" of season {seasonNumber}";
             }
 
-            if (log.Data.TryGetValue("series_name", out string seriesName))
+            if (TryGetDataValue(log.Data, "series_name", out string seriesName))
             {
                 text += $" of '{seriesName}'";
             }
@@ -2440,17 +2440,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have watched episode {log.Data["episode_number"]}";
 
-            if (log.Data.TryGetValue("episode_name", out string episodeName))
+            if (TryGetDataValue(log.Data, "episode_name", out string episodeName))
             {
                 text += $" '{episodeName}'";
             }
 
-            if (log.Data.TryGetValue("season_number", out string seasonNumber))
+            if (TryGetDataValue(log.Data, "season_number", out string seasonNumber))
             {
                 text += $" of season {seasonNumber}";
             }
 
-            if (log.Data.TryGetValue("series_name", out string seriesName))
+            if (TryGetDataValue(log.Data, "series_name", out string seriesName))
             {
                 text += $" of '{seriesName}'";
             }
@@ -2467,7 +2467,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I began watching season {log.Data["season_number"]}";
 
-            if (log.Data.TryGetValue("series_name", out string seriesName))
+            if (TryGetDataValue(log.Data, "series_name", out string seriesName))
             {
                 text += $" of '{seriesName}'";
             }
@@ -2484,7 +2484,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I completed season {log.Data["season_number"]}";
 
-            if (log.Data.TryGetValue("series_name", out string seriesName))
+            if (TryGetDataValue(log.Data, "series_name", out string seriesName))
             {
                 text += $" of '{seriesName}'";
             }
@@ -2510,7 +2510,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have taken a shower";
 
-            if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
+            if (TryGetDataValue(log.Data, "duration_minutes", out string durationMinutes))
             {
                 text += $" for {durationMinutes} minutes";
             }
@@ -2522,12 +2522,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have walked {log.Data["step_count"]} steps";
 
-            if (log.Data.TryGetValue("distance_metres", out string distanceMetres))
+            if (TryGetDataValue(log.Data, "distance_metres", out string distanceMetres))
             {
                 text += $", over {distanceMetres} de metres";
             }
 
-            if (log.Data.TryGetValue("calories_burned", out string caloriesBurned))
+            if (TryGetDataValue(log.Data, "calories_burned", out string caloriesBurned))
             {
                 text += $", burning {caloriesBurned} kilocalories";
             }
@@ -2547,7 +2547,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have brushed my teeth";
 
-            if (log.Data.TryGetValue("duration_minutes", out string durationMinutes))
+            if (TryGetDataValue(log.Data, "duration_minutes", out string durationMinutes))
             {
                 text += $" for {durationMinutes} minutes";
             }
@@ -2562,17 +2562,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have paid a toll";
 
-            if (log.Data.TryGetValue("provider_name", out string providerName))
+            if (TryGetDataValue(log.Data, "provider_name", out string providerName))
             {
                 text += $" to {providerName}";
             }
 
-            if (log.Data.TryGetValue("toll_location", out string tollLocation))
+            if (TryGetDataValue(log.Data, "toll_location", out string tollLocation))
             {
                 text += $" at {tollLocation}";
             }
 
-            if (log.Data.TryGetValue("vehicle_registration_number", out string vehicleRegistrationNumber))
+            if (TryGetDataValue(log.Data, "vehicle_registration_number", out string vehicleRegistrationNumber))
             {
                 text += $" for the vehicle with the registration number {vehicleRegistrationNumber}";
             }
@@ -2663,7 +2663,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" ({discriminator})";
             }
 
-            if (log.Data.TryGetValue("supply_point_number", out string supplyPointNumber))
+            if (TryGetDataValue(log.Data, "supply_point_number", out string supplyPointNumber))
             {
                 text += $" for the {supplyPointNumber} supply point number";
             }
@@ -2695,14 +2695,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string text = $"I have measured the {utilityType} index";
 
-            if (log.Data.TryGetValue("supply_point_number", out string supplyPointNumber))
+            if (TryGetDataValue(log.Data, "supply_point_number", out string supplyPointNumber))
             {
                 text += $" for the {supplyPointNumber} supply point number";
             }
 
             text += GetLocation(log.Data);
 
-            if (log.Data.TryGetValue("index_value", out string indexValue))
+            if (TryGetDataValue(log.Data, "index_value", out string indexValue))
             {
                 text += $", obtaining a value of {indexValue}";
             }
@@ -2717,19 +2717,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"The {GetFluidType(log.Data, useDefinitiveForm: false)} of";
 
-            if (log.Data.TryGetValue("vehicle_model", out string vehicleModel))
+            if (TryGetDataValue(log.Data, "vehicle_model", out string vehicleModel))
             {
                 text += $" {vehicleModel}";
             }
 
             text += $" {GetVehicleType(log.Data, useDefinitiveForm: true)}";
 
-            if (log.Data.TryGetValue("vehicle_name", out string vehicleName))
+            if (TryGetDataValue(log.Data, "vehicle_name", out string vehicleName))
             {
                 text += $" '{vehicleName}'";
             }
 
-            if (log.Data.TryGetValue("vehicle_registration_number", out string vehicleRegistrationNumber))
+            if (TryGetDataValue(log.Data, "vehicle_registration_number", out string vehicleRegistrationNumber))
             {
                 text += $" with the '{vehicleRegistrationNumber}' registration number";
             }
@@ -2748,19 +2748,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"The {GetFluidType(log.Data, useDefinitiveForm: false)} of";
 
-            if (log.Data.TryGetValue("vehicle_model", out string vehicleModel))
+            if (TryGetDataValue(log.Data, "vehicle_model", out string vehicleModel))
             {
                 text += $" {vehicleModel}";
             }
 
             text += $" {GetVehicleType(log.Data, useDefinitiveForm: true)}";
 
-            if (log.Data.TryGetValue("vehicle_name", out string vehicleName))
+            if (TryGetDataValue(log.Data, "vehicle_name", out string vehicleName))
             {
                 text += $" '{vehicleName}'";
             }
 
-            if (log.Data.TryGetValue("vehicle_registration_number", out string vehicleRegistrationNumber))
+            if (TryGetDataValue(log.Data, "vehicle_registration_number", out string vehicleRegistrationNumber))
             {
                 text += $" with the '{vehicleRegistrationNumber}' registration number";
             }
@@ -2779,19 +2779,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"The total mileage of the";
 
-            if (log.Data.TryGetValue("vehicle_model", out string vehicleModel))
+            if (TryGetDataValue(log.Data, "vehicle_model", out string vehicleModel))
             {
                 text += $" {vehicleModel}";
             }
 
             text += $" {GetVehicleType(log.Data, useDefinitiveForm: true)}";
 
-            if (log.Data.TryGetValue("vehicle_name", out string vehicleName))
+            if (TryGetDataValue(log.Data, "vehicle_name", out string vehicleName))
             {
                 text += $" '{vehicleName}'";
             }
 
-            if (log.Data.TryGetValue("vehicle_registration_number", out string vehicleRegistrationNumber))
+            if (TryGetDataValue(log.Data, "vehicle_registration_number", out string vehicleRegistrationNumber))
             {
                 text += $" with the '{vehicleRegistrationNumber}' registration number";
             }
@@ -2803,12 +2803,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have uploaded a video titled '{log.Data["video_title"]}' to {GetPlatform(log.Data)}";
 
-            if (log.Data.TryGetValue("uploaded_file_name", out string uploadedFileName))
+            if (TryGetDataValue(log.Data, "uploaded_file_name", out string uploadedFileName))
             {
                 text += $", from the '{uploadedFileName}' file";
             }
 
-            if (log.Data.TryGetValue("video_url", out string videoId))
+            if (TryGetDataValue(log.Data, "video_url", out string videoId))
             {
                 text += $", at {videoId}";
             }
@@ -2857,8 +2857,8 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have attended the wedding of";
 
-            log.Data.TryGetValue("bride_name", out string brideName);
-            log.Data.TryGetValue("groom_name", out string groomName);
+            TryGetDataValue(log.Data, "bride_name", out string brideName);
+            TryGetDataValue(log.Data, "groom_name", out string groomName);
 
             if (!string.IsNullOrWhiteSpace(brideName) && !string.IsNullOrWhiteSpace(groomName))
             {
@@ -2889,7 +2889,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have started the mandatory work course '{log.Data["course_name"]}'";
 
-            if (log.Data.TryGetValue("employer_name", out string employerName))
+            if (TryGetDataValue(log.Data, "employer_name", out string employerName))
             {
                 text += $" for {employerName}";
             }
@@ -2901,12 +2901,12 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have completed the mandatory work course '{log.Data["course_name"]}'";
 
-            if (log.Data.TryGetValue("employer_name", out string employerName))
+            if (TryGetDataValue(log.Data, "employer_name", out string employerName))
             {
                 text += $" for {employerName}";
             }
 
-            if (log.Data.TryGetValue("score_obtained", out string scorePercentage))
+            if (TryGetDataValue(log.Data, "score_obtained", out string scorePercentage))
             {
                 text += $", obtaining a score of {scorePercentage}%";
             }
@@ -2924,11 +2924,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string text = $"I have submitted my {GetDataValue(log.Data, "employer_name")} timesheets";
 
-            if (log.Data.TryGetValue("week_number", out string weekNumber))
+            if (TryGetDataValue(log.Data, "week_number", out string weekNumber))
             {
                 text += $", for week #{weekNumber} of ";
 
-                if (log.Data.TryGetValue("year", out string year))
+                if (TryGetDataValue(log.Data, "year", out string year))
                 {
                     text += year;
                 }
@@ -3012,8 +3012,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 { "Vacuuming", "vacuuming" },
                 { "Washing", "washing" },
                 { "Wiping", "wiping" },
-            },
-            "cleaning");
+            });
 
         protected override string GetDevice(Dictionary<string, string> data)
         {
