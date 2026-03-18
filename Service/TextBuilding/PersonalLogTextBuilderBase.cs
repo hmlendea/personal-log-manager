@@ -5,13 +5,12 @@ using PersonalLogManager.Service.Models;
 
 namespace PersonalLogManager.Service.TextBuilding
 {
-    public abstract class PersonalLogTextBuilderBase
+    public abstract class PersonalLogTextBuilderBase(
+        INuciTextObfuscator obfuscator)
     {
         protected abstract string LanguageCode { get; }
 
         protected string MissingValue => "[MISSING_VALUE]";
-
-        NuciTextObfuscator obfuscator = new();
 
         public string BuildTextLogText(PersonalLog log)
             => GetDataValue(log.Data, "text");

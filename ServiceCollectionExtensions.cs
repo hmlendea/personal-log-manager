@@ -5,6 +5,8 @@ using NuciDAL.Repositories;
 using NuciLog;
 using NuciLog.Configuration;
 using NuciLog.Core;
+using NuciText.Normalisation;
+using NuciText.Obfuscation;
 using PersonalLogManager.Configuration;
 using PersonalLogManager.DataAccess;
 using PersonalLogManager.DataAccess.DataObjects;
@@ -40,6 +42,8 @@ namespace PersonalLogManager
             .AddSingleton<IFileRepository<PersonalLogEntity>>(x => new JsonRepository<PersonalLogEntity>(dataStoreSettings.LogStorePath))
             .AddSingleton<IPersonalLogTextBuilderFactory, PersonalLogTextBuilderFactory>()
             .AddSingleton<IPersonalLogService, PersonalLogService>()
+            .AddSingleton<INuciTextNormaliser, NuciTextNormaliser>()
+            .AddSingleton<INuciTextObfuscator, NuciTextObfuscator>()
             .AddScoped<ILogger, NuciLogger>();
     }
 }
