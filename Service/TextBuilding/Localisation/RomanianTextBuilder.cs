@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using NuciText.Obfuscation;
 using PersonalLogManager.Service.Models;
 
 namespace PersonalLogManager.Service.TextBuilding.Localisation
 {
-    public class RomanianTextBuilder() : PersonalLogTextBuilderBase, IPersonalLogTextBuilder
+    public class RomanianTextBuilder(INuciTextObfuscator obfuscator)
+        : PersonalLogTextBuilderBase(obfuscator), IPersonalLogTextBuilder
     {
         protected override string LanguageCode => "ro";
 

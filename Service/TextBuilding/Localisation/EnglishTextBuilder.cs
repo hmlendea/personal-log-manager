@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using NuciText.Obfuscation;
 using PersonalLogManager.Service.Models;
 
 namespace PersonalLogManager.Service.TextBuilding.Localisation
 {
-    public class EnglishTextBuilder() : PersonalLogTextBuilderBase, IPersonalLogTextBuilder
+    public class EnglishTextBuilder(INuciTextObfuscator obfuscator)
+        : PersonalLogTextBuilderBase(obfuscator), IPersonalLogTextBuilder
     {
         protected override string LanguageCode => "en";
 
