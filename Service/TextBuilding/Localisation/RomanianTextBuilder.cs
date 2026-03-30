@@ -1442,6 +1442,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"Am participat la un exercițiu de evacuare în caz de incendiu" +
                 GetLocation(log.Data);
 
+        public string BuildFurnitureCleaningLogText(PersonalLog log)
+        {
+            string text = $"Am curățat {GetFurnitureType(log.Data)} din {GetLocation(log.Data)}";
+
+            if (TryGetCleaningMethod(log.Data, out string cleaningMethod))
+            {
+                text += $", prin {cleaningMethod}";
+            }
+
+            return text;
+        }
+
         public string BuildGameAchievementUnlockLogText(PersonalLog log)
         {
             string achievementType = "achievement-ul";
@@ -3230,6 +3242,27 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             },
             "lichid");
         }
+
+        protected override string GetFurnitureType(Dictionary<string, string> data)
+            => GetMappedDataValue(data, "furniture_type", new()
+            {
+                { "CatTree", "pomul pentru pisici" },
+                { "Chair", "scaunul" },
+                { "Chairs", "scaunele" },
+                { "CoffeeTable", "masa de cafea" },
+                { "Couch", "canapeaua" },
+                { "Countertop", "blatul" },
+                { "Desk", "biroul" },
+                { "Doorstop", "opritorul de ușă" },
+                { "Table", "masa" },
+                { "Toilet", "toaleta" },
+                { "Radiator", "radiatorul" },
+                { "Sink", "chiuveta" },
+                { "TvStand", "comoda pentru televizor" },
+                { "Washbasin", "lavoarul" },
+                { "WindowSill", "pervazul" }
+            },
+            "mobila");
 
         protected override string GetHairType(Dictionary<string, string> data)
             => GetMappedDataValue(data, "hair_type", new()

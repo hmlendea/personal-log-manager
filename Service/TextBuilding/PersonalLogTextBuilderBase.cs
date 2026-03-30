@@ -273,6 +273,8 @@ namespace PersonalLogManager.Service.TextBuilding
 
         protected abstract string GetFluidType(Dictionary<string, string> data, bool useDefinitiveForm);
 
+        protected abstract string GetFurnitureType(Dictionary<string, string> data);
+
         protected abstract string GetHairType(Dictionary<string, string> data);
 
         protected abstract string GetLocation(Dictionary<string, string> data);
