@@ -3147,6 +3147,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => GetMappedDataValue(data, "cleaning_method", new()
             {
                 { "AirBlower", "utilizarea suflantei de aer" },
+                { "Brushing", "periere" },
                 { "CottonBuds", "utilizarea bețișoarelor de urechi" },
                 { "Dusting", "ștergerea prafului" },
                 { "LintRemover", "utilizarea aparatului de scos scame" },
