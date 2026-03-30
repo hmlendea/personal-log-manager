@@ -1444,14 +1444,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildFurnitureCleaningLogText(PersonalLog log)
         {
-            string text = $"Am curățat {GetFurnitureType(log.Data)} din {GetLocation(log.Data)}";
+            string text = $"Am curățat {GetFurnitureType(log.Data)}";
 
             if (TryGetCleaningMethod(log.Data, out string cleaningMethod))
             {
                 text += $", prin {cleaningMethod}";
             }
 
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildGameAchievementUnlockLogText(PersonalLog log)
