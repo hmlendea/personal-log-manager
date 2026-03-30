@@ -3068,6 +3068,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "BloodGlucoseMeter", "blood glucose meter" },
                     { "BodyScale", "body scale" },
                     { "BodyTrimmer", "body trimmer" },
+                    { "Computer", "calculatorul" },
                     { "Console", "console" },
                     { "Dehumidifier", "dehumidifier" },
                     { "DesktopComputer", "desktop computer" },
