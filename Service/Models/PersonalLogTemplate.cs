@@ -97,6 +97,7 @@ namespace PersonalLogManager.Service.Models
         EventTicketPurchase,
         EyeCheckup,
         FireDrill,
+        FurnitureCleaning,
         GameAchievementUnlock,
         GameArticlePublishing,
         GameBuildingBought,
