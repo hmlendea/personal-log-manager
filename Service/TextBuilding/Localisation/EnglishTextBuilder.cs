@@ -3018,6 +3018,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 { "AirBlower", "using an air blower" },
                 { "CottonBuds", "using cotton buds" },
+                { "Dusting", "dusting" },
                 { "LintRemover", "using a lint remover" },
                 { "LintRoller", "using a lint roller" },
                 { "SpiralEarCleaner", "using a spiral ear cleaner" },
@@ -3114,6 +3115,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         protected override string GetFurnitureType(Dictionary<string, string> data)
             => GetMappedDataValue(data, "furniture_type", new()
             {
+                { "Armchair", "armchair" },
                 { "CatTree", "cat tree" },
                 { "Chair", "chair" },
                 { "Chairs", "chairs" },

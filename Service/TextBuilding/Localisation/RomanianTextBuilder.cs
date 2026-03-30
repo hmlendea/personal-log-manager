@@ -3148,6 +3148,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 { "AirBlower", "utilizarea suflantei de aer" },
                 { "CottonBuds", "utilizarea bețișoarelor de urechi" },
+                { "Dusting", "ștergerea prafului" },
                 { "LintRemover", "utilizarea aparatului de scos scame" },
                 { "LintRoller", "utilizarea rolei de scame" },
                 { "SpiralEarCleaner", "utilizarea dispozitivului de curățare a urechilor în formă de spirală" },
@@ -3246,6 +3247,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         protected override string GetFurnitureType(Dictionary<string, string> data)
             => GetMappedDataValue(data, "furniture_type", new()
             {
+                { "Armchair", "fotoliul" },
                 { "CatTree", "pomul pentru pisici" },
                 { "Chair", "scaunul" },
                 { "Chairs", "scaunele" },
