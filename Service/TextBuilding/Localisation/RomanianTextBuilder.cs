@@ -1444,14 +1444,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildFurnitureCleaningLogText(PersonalLog log)
         {
-            string text = $"Am curățat {GetFurnitureType(log.Data)} din {GetLocation(log.Data)}";
+            string text = $"Am curățat {GetFurnitureType(log.Data)}";
 
             if (TryGetCleaningMethod(log.Data, out string cleaningMethod))
             {
                 text += $", prin {cleaningMethod}";
             }
 
-            return text;
+            return text + GetLocation(log.Data);
         }
 
         public string BuildGameAchievementUnlockLogText(PersonalLog log)
@@ -3147,6 +3147,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => GetMappedDataValue(data, "cleaning_method", new()
             {
                 { "AirBlower", "utilizarea suflantei de aer" },
+                { "Brushing", "periere" },
                 { "CottonBuds", "utilizarea bețișoarelor de urechi" },
                 { "Dusting", "ștergerea prafului" },
                 { "LintRemover", "utilizarea aparatului de scos scame" },
@@ -3197,6 +3198,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "BloodGlucoseMeter", "glucometrul" },
                     { "BodyScale", "cântarul de corp" },
                     { "BodyTrimmer", "trimmer-ul corporal" },
+                    { "Computer", "calculatorul" },
                     { "Console", "consola" },
                     { "Dehumidifier", "dezumidificatorul" },
                     { "DesktopComputer", "desktop computer" },
