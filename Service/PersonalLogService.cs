@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using NuciDAL.Repositories;
+using NuciExtensions;
 using NuciLog.Core;
 using PersonalLogManager.Api.Models;
 using PersonalLogManager.DataAccess.DataObjects;
@@ -124,15 +125,16 @@ namespace PersonalLogManager.Service
                     logInfos,
                     new LogInfo(MyLogInfoKey.Count, logs.Count()));
 
+                IEnumerable<PersonalLogEntity> sorted = logs
+                    .OrderByDescending(log => log.Date)
+                    .ThenByDescending(log => log.Time)
+                    .ThenBy(log => log.Template)
+                    .ThenBy(log => log.CreatedDT)
+                    .Take(request.Count);
+
                 return new GetLogResponse()
                 {
-                    Logs = [.. logs
-                        .OrderByDescending(log => log.Date)
-                        .ThenByDescending(log => log.Time)
-                        .ThenBy(log => log.Template)
-                        .ThenBy(log => log.CreatedDT)
-                        .Take(request.Count)
-                        .Select(log => $"{log.Id} " + logTextBuilder.BuildLogText(log.ToDomainModel(), request.Localisation))]
+                    Logs = BuildLogTexts(sorted, request.Localisation)
                 };
             }
             catch (Exception ex)
@@ -145,6 +147,33 @@ namespace PersonalLogManager.Service
 
                 throw;
             }
+        }
+
+        List<string> BuildLogTexts(IEnumerable<PersonalLogEntity> logs, string localisation)
+        {
+            List<string> logTexts = [];
+
+            if (EnumerableExt.IsNullOrEmpty(logs))
+            {
+                return [];
+            }
+
+            string lastLogId = null;
+
+            try
+            {
+                foreach (PersonalLogEntity log in logs)
+                {
+                    lastLogId = log.Id;
+                    logTexts.Add($"{log.Id} {logTextBuilder.BuildLogText(log.ToDomainModel(), localisation)}");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new FormatException($"An error occurred while building log text for {lastLogId}.", ex);
+            }
+
+            return logTexts;
         }
 
         public void UpdatePersonalLog(UpdateLogRequest request)
