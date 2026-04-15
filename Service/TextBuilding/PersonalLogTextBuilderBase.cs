@@ -5,13 +5,12 @@ using PersonalLogManager.Service.Models;
 
 namespace PersonalLogManager.Service.TextBuilding
 {
-    public abstract class PersonalLogTextBuilderBase
+    public abstract class PersonalLogTextBuilderBase(
+        INuciTextObfuscator obfuscator)
     {
         protected abstract string LanguageCode { get; }
 
         protected string MissingValue => "[MISSING_VALUE]";
-
-        NuciTextObfuscator obfuscator = new();
 
         public string BuildTextLogText(PersonalLog log)
             => GetDataValue(log.Data, "text");
@@ -73,6 +72,11 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string GetDataValue(Dictionary<string, string> data, string key, string defaultValue)
         {
+            if (data is null)
+            {
+                return defaultValue;
+            }
+
             data.TryGetValue(key, out string value);
 
             if (string.IsNullOrWhiteSpace(value))
@@ -269,6 +273,8 @@ namespace PersonalLogManager.Service.TextBuilding
 
         protected abstract string GetFluidType(Dictionary<string, string> data, bool useDefinitiveForm);
 
+        protected abstract string GetFurnitureType(Dictionary<string, string> data);
+
         protected abstract string GetHairType(Dictionary<string, string> data);
 
         protected abstract string GetLocation(Dictionary<string, string> data);
@@ -298,6 +304,15 @@ namespace PersonalLogManager.Service.TextBuilding
 
         protected abstract string GetVehicleType(Dictionary<string, string> data, bool useDefinitiveForm);
 
+        protected bool TryGetCleaningMethod(Dictionary<string, string> data, out string cleaningMethod)
+        {
+            cleaningMethod = GetCleaningMethod(data);
+
+            return
+                !string.IsNullOrWhiteSpace(cleaningMethod) &&
+                !MissingValue.Equals(cleaningMethod);
+        }
+
         protected bool TryGetDevice(Dictionary<string, string> data, out string device)
         {
             device = GetDevice(data);
@@ -316,7 +331,7 @@ namespace PersonalLogManager.Service.TextBuilding
                 !MissingValue.Equals(byPerson);
         }
 
-        public bool TryGetDataValue(Dictionary<string, string> data, string key, out string value)
+        protected bool TryGetDataValue(Dictionary<string, string> data, string key, out string value)
         {
             value = GetDataValue(data, key, null);
 

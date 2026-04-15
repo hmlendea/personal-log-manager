@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NuciAPI.Middleware;
 using PersonalLogManager.Configuration;
 
 namespace PersonalLogManager
@@ -24,9 +25,11 @@ namespace PersonalLogManager
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // Ensure the log stores exist
             var dataStoreSettings = app.ApplicationServices.GetRequiredService<DataStoreSettings>();
             CreateStoreIfMissing(dataStoreSettings.LogStorePath);
+
+            app.UseNuciApiRequestLogging();
+            app.UseNuciApiExceptionHandling();
 
             if (env.IsDevelopment())
             {
