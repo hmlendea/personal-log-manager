@@ -1857,21 +1857,21 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildHairCuttingLogText(PersonalLog log)
         {
             string text = string.Empty;
-            TryGetByPerson(log.Data, out string hairdresserName);
+            bool hasHairdresser = TryGetByPerson(log.Data, out string hairdresserName);
 
-            if (string.IsNullOrWhiteSpace(hairdresserName))
+            if (hasHairdresser)
             {
-                text += $"Mi-am tuns";
+                text += $"Mi-a fost";
             }
             else
             {
-                text += $"Mi-a fost tuns";
+                text += $"Mi-am";
             }
 
-            text += $" {GetHairType(log.Data)}";
+            text += $" tuns {GetHairType(log.Data)}";
             text += GetLocation(log.Data);
 
-            if (!string.IsNullOrWhiteSpace(hairdresserName))
+            if (hasHairdresser)
             {
                 text += $", de către {hairdresserName}";
             }

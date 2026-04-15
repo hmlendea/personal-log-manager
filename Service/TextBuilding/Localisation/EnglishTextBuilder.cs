@@ -1838,20 +1838,20 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildHairCuttingLogText(PersonalLog log)
         {
             string text = string.Empty;
-            TryGetByPerson(log.Data, out string hairdresserName);
+            bool hasHairdresser = TryGetByPerson(log.Data, out string hairdresserName);
 
-            if (string.IsNullOrWhiteSpace(hairdresserName))
+            if (hasHairdresser)
             {
-                text += $"I have cut my {GetHairType(log.Data)}";
+                text += $"My {GetHairType(log.Data)} was cut";
             }
             else
             {
-                text += $"My {GetHairType(log.Data)} was cut";
+                text += $"I have cut my {GetHairType(log.Data)}";
             }
 
             text += GetLocation(log.Data);
 
-            if (!string.IsNullOrWhiteSpace(hairdresserName))
+            if (hasHairdresser)
             {
                 text += $", by {hairdresserName}";
             }
