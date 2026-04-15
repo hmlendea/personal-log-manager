@@ -170,7 +170,7 @@ namespace PersonalLogManager.Service
             }
             catch (Exception ex)
             {
-                throw new FormatException($"An error occurred while building log text for {lastLogId}.", ex);
+                throw new InvalidCastException($"An error occurred while building log text for {lastLogId}.", ex);
             }
 
             return logTexts;
