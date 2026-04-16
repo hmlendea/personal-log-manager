@@ -35,7 +35,13 @@ namespace PersonalLogManager.Service
                 OperationStatus.Started,
                 logInfos);
 
-            string id = $"L{random.Next(0, 1000000000):D9}";
+            string id;
+
+            do
+            {
+                id = $"L{random.Next(0, 1000000000):D9}";
+            }
+            while (repository.ContainsId(id));
 
             try
             {
