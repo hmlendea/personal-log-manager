@@ -29,14 +29,22 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildLogTextByTemplate(PersonalLog log, string localisation)
         {
             IPersonalLogTextBuilder personalLogTextBuilder = GetTextBuilder(localisation);
-            string logText = personalLogTextBuilder
-                .GetType()
-                .GetMethod(
-                    $"Build{log.Template}LogText",
-                    BindingFlags.Public | BindingFlags.Instance)
-                .Invoke(personalLogTextBuilder, [log]) as string;
 
-            return normaliser.NormaliseSentence(logText);
+            try
+            {
+                string logText = personalLogTextBuilder
+                    .GetType()
+                    .GetMethod(
+                        $"Build{log.Template}LogText",
+                        BindingFlags.Public | BindingFlags.Instance)
+                    .Invoke(personalLogTextBuilder, [log]) as string;
+
+                return normaliser.NormaliseSentence(logText);
+            }
+            catch (TargetInvocationException ex)
+            {
+                throw ex.InnerException ?? ex;
+            }
         }
 
         IPersonalLogTextBuilder GetTextBuilder(string localisation)
