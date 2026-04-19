@@ -20,6 +20,7 @@ namespace PersonalLogManager
 
             services
                 .AddConfigurations(Configuration)
+                .AddNuciApiScannerProtection()
                 .AddCustomServices();
         }
 
@@ -30,6 +31,7 @@ namespace PersonalLogManager
 
             app.UseNuciApiRequestLogging();
             app.UseNuciApiExceptionHandling();
+            app.UseNuciApiScannerProtection();
 
             if (env.IsDevelopment())
             {
