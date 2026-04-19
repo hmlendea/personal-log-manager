@@ -179,7 +179,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountDeletionRequestFulfillmentLogText(PersonalLog log)
         {
-            string text = $"Cererea de ștergere a contului de {GetPlatform(log.Data)}";
+            string text = $"Solicitarea de ștergere a contului de {GetPlatform(log.Data)}";
 
             if (TryGetDataValue(log.Data, "request_id", out string requestId))
             {
@@ -198,7 +198,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountDeletionRequestRejectionLogText(PersonalLog log)
         {
-            string text = $"Cererea de ștergere a contului de {GetPlatform(log.Data)}";
+            string text = $"Solicitarea de ștergere a contului de {GetPlatform(log.Data)}";
 
             if (TryGetDataValue(log.Data, "request_id", out string requestId))
             {
@@ -338,7 +338,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountFriendshipRequestReceivalLogText(PersonalLog log)
         {
-            string text = $"Am primit o cerere de prietenie pe contul de {GetPlatform(log.Data)}";
+            string text = $"Am primit o solicitare de prietenie pe contul de {GetPlatform(log.Data)}";
 
             if (TryGetDataValue(log.Data, "from_account", out string fromAccount))
             {
@@ -813,7 +813,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (TryGetDevice(log.Data, out string device))
             {
-                text += $", folosind {device}";
+                text += $", utilizând {device}";
             }
 
             return text;
@@ -826,7 +826,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (TryGetDevice(log.Data, out string device))
             {
-                text += $", folosind {device}";
+                text += $", utilizând {device}";
             }
 
             return text;
@@ -839,7 +839,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (TryGetDevice(log.Data, out string device))
             {
-                text += $", folosind {device}";
+                text += $", utilizând {device}";
             }
 
             return text;
@@ -853,7 +853,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (TryGetDevice(log.Data, out string device))
             {
-                text += $", folosind {device}";
+                text += $", utilizând {device}";
             }
 
             return text;
@@ -1053,7 +1053,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (TryGetDevice(log.Data, out string device))
             {
-                text += $", folosind {device}";
+                text += $", utilizând {device}";
             }
 
             return text;
@@ -1892,7 +1892,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (TryGetDevice(log.Data, out string device))
             {
-                text += $", folosind {device}";
+                text += $", utilizând {device}";
             }
 
             return text;
