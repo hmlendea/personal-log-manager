@@ -3172,7 +3172,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string buildingName = string.Empty;
 
-            if (data.ContainsKey("church_name"))
+            if (data.ContainsKey("building_name"))
+            {
+                buildingName = GetDataValue(data, "building_name");
+            }
+            else if (data.ContainsKey("church_name"))
             {
                 buildingName = GetDataValue(data, "church_name");
             }
