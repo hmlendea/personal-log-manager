@@ -179,7 +179,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountDeletionRequestFulfillmentLogText(PersonalLog log)
         {
-            string text = $"Cererea de ștergere a contului de {GetPlatform(log.Data)}";
+            string text = $"Solicitarea de ștergere a contului de {GetPlatform(log.Data)}";
 
             if (TryGetDataValue(log.Data, "request_id", out string requestId))
             {
@@ -198,7 +198,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountDeletionRequestRejectionLogText(PersonalLog log)
         {
-            string text = $"Cererea de ștergere a contului de {GetPlatform(log.Data)}";
+            string text = $"Solicitarea de ștergere a contului de {GetPlatform(log.Data)}";
 
             if (TryGetDataValue(log.Data, "request_id", out string requestId))
             {
@@ -338,7 +338,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildAccountFriendshipRequestReceivalLogText(PersonalLog log)
         {
-            string text = $"Am primit o cerere de prietenie pe contul de {GetPlatform(log.Data)}";
+            string text = $"Am primit o solicitare de prietenie pe contul de {GetPlatform(log.Data)}";
 
             if (TryGetDataValue(log.Data, "from_account", out string fromAccount))
             {
@@ -813,7 +813,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (TryGetDevice(log.Data, out string device))
             {
-                text += $", folosind {device}";
+                text += $", utilizând {device}";
             }
 
             return text;
@@ -826,7 +826,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (TryGetDevice(log.Data, out string device))
             {
-                text += $", folosind {device}";
+                text += $", utilizând {device}";
             }
 
             return text;
@@ -839,7 +839,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (TryGetDevice(log.Data, out string device))
             {
-                text += $", folosind {device}";
+                text += $", utilizând {device}";
             }
 
             return text;
@@ -853,7 +853,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (TryGetDevice(log.Data, out string device))
             {
-                text += $", folosind {device}";
+                text += $", utilizând {device}";
             }
 
             return text;
@@ -1053,7 +1053,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (TryGetDevice(log.Data, out string device))
             {
-                text += $", folosind {device}";
+                text += $", utilizând {device}";
             }
 
             return text;
@@ -1492,7 +1492,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildGameArticlePublishingLogText(PersonalLog log)
         {
             TryGetDataValue(log.Data, "game_name", out string gameName);
-            string text = $"Am public un articol intitulat '{log.Data["article_title"]}' în {gameName}";
+            string text = $"Am publicat un articol intitulat '{log.Data["article_title"]}' în {gameName}";
 
             if (gameName?.Equals("eRepublik") == true)
             {
@@ -1763,19 +1763,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"Am avut {log.Data["contributions_count"]} de contribuții pe {GetPlatform(log.Data)}";
 
         public string BuildGitReleaseLogText(PersonalLog log)
-            => $"Am lansat versiunea '{GetDataValue(log.Data, "version")}' pentru repozitory-ul '{GetDataValue(log.Data, "repository")}' pe {GetPlatform(log.Data)}";
+            => $"Am lansat versiunea '{GetDataValue(log.Data, "version")}' pentru repozitoriul '{GetDataValue(log.Data, "repository")}' pe {GetPlatform(log.Data)}";
 
         public string BuildGitRepositoryArchivalLogText(PersonalLog log)
-            => $"Am arhivat repozitory-ul '{GetDataValue(log.Data, "repository")}' de pe {GetPlatform(log.Data)}";
+            => $"Am arhivat repozitoriul '{GetDataValue(log.Data, "repository")}' de pe {GetPlatform(log.Data)}";
 
         public string BuildGitRepositoryDeletionLogText(PersonalLog log)
-            => $"Am șters repozitory-ul '{GetDataValue(log.Data, "repository")}' de pe {GetPlatform(log.Data)}";
+            => $"Am șters repozitoriul '{GetDataValue(log.Data, "repository")}' de pe {GetPlatform(log.Data)}";
 
         public string BuildGitRepositoryCreationLogText(PersonalLog log)
-            => $"Am creat repozitory-ul '{GetDataValue(log.Data, "repository")}' pe {GetPlatform(log.Data)}";
+            => $"Am creat repozitoriul '{GetDataValue(log.Data, "repository")}' pe {GetPlatform(log.Data)}";
 
         public string BuildGitRepositoryRenameLogText(PersonalLog log)
-            => $"Am redenumit repozitory-ul '{GetDataValue(log.Data, "old_repository")}' de pe {GetPlatform(log.Data)} în '{GetDataValue(log.Data, "new_repository")}'";
+            => $"Am redenumit repozitoriul '{GetDataValue(log.Data, "old_repository")}' de pe {GetPlatform(log.Data)} în '{GetDataValue(log.Data, "new_repository")}'";
 
         public string BuildGoingToSleepLogText(PersonalLog log)
         {
@@ -1892,7 +1892,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             if (TryGetDevice(log.Data, out string device))
             {
-                text += $", folosind {device}";
+                text += $", utilizând {device}";
             }
 
             return text;
@@ -3219,7 +3219,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "VacuumCleaner", "aspiratorul" },
                     { "Watch", "ceasul" },
                     { "WaterFlosser", "irigatorul bucal" },
-                    { "WirelessSpeaker", "boxa fără fir" }
+                    { "WirelessSpeaker", "boxa fără fir" },
                 },
                 data["device_type"].ToLower()
             );
@@ -3310,7 +3310,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             string buildingName = string.Empty;
 
-            if (data.ContainsKey("church_name"))
+            if (data.ContainsKey("building_name"))
+            {
+                buildingName = GetDataValue(data, "building_name");
+            }
+            else if (data.ContainsKey("church_name"))
             {
                 buildingName = GetDataValue(data, "church_name");
             }
@@ -3637,6 +3641,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 return GetMappedDataValue(data, "vehicle_type", new()
                 {
+                    { "Bicycle", "bicicleta" },
                     { "Car", "mașina" },
                     { "ElectricScooter", "trotineta eletrică" }
                 },
@@ -3645,6 +3650,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             return GetMappedDataValue(data, "vehicle_type", new()
             {
+                { "Bicycle", "bicicletă" },
                 { "Car", "mașină" },
                 { "ElectricScooter", "trotinetă electrică" }
             },
