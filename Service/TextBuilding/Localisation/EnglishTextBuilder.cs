@@ -3475,8 +3475,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         {
             string vehicleType = GetMappedDataValue(data, "vehicle_type", new()
             {
+                { "Bicycle", "bicycle" },
                 { "Car", "car" },
-                { "ElectricScooter", "electric scooter" }
+                { "ElectricScooter", "electric scooter" },
             },
             "vehicle");
 

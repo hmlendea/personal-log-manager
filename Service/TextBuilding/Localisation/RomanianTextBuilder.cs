@@ -3219,7 +3219,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     { "VacuumCleaner", "aspiratorul" },
                     { "Watch", "ceasul" },
                     { "WaterFlosser", "irigatorul bucal" },
-                    { "WirelessSpeaker", "boxa fără fir" }
+                    { "WirelessSpeaker", "boxa fără fir" },
                 },
                 data["device_type"].ToLower()
             );
@@ -3641,6 +3641,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 return GetMappedDataValue(data, "vehicle_type", new()
                 {
+                    { "Bicycle", "bicicleta" },
                     { "Car", "mașina" },
                     { "ElectricScooter", "trotineta eletrică" }
                 },
@@ -3649,6 +3650,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
             return GetMappedDataValue(data, "vehicle_type", new()
             {
+                { "Bicycle", "bicicletă" },
                 { "Car", "mașină" },
                 { "ElectricScooter", "trotinetă electrică" }
             },
