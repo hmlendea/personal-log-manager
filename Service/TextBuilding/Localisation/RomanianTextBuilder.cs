@@ -1492,7 +1492,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildGameArticlePublishingLogText(PersonalLog log)
         {
             TryGetDataValue(log.Data, "game_name", out string gameName);
-            string text = $"Am public un articol intitulat '{log.Data["article_title"]}' în {gameName}";
+            string text = $"Am publicat un articol intitulat '{log.Data["article_title"]}' în {gameName}";
 
             if (gameName?.Equals("eRepublik") == true)
             {
