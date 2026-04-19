@@ -1763,19 +1763,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"Am avut {log.Data["contributions_count"]} de contribuții pe {GetPlatform(log.Data)}";
 
         public string BuildGitReleaseLogText(PersonalLog log)
-            => $"Am lansat versiunea '{GetDataValue(log.Data, "version")}' pentru repozitory-ul '{GetDataValue(log.Data, "repository")}' pe {GetPlatform(log.Data)}";
+            => $"Am lansat versiunea '{GetDataValue(log.Data, "version")}' pentru repozitoriul '{GetDataValue(log.Data, "repository")}' pe {GetPlatform(log.Data)}";
 
         public string BuildGitRepositoryArchivalLogText(PersonalLog log)
-            => $"Am arhivat repozitory-ul '{GetDataValue(log.Data, "repository")}' de pe {GetPlatform(log.Data)}";
+            => $"Am arhivat repozitoriul '{GetDataValue(log.Data, "repository")}' de pe {GetPlatform(log.Data)}";
 
         public string BuildGitRepositoryDeletionLogText(PersonalLog log)
-            => $"Am șters repozitory-ul '{GetDataValue(log.Data, "repository")}' de pe {GetPlatform(log.Data)}";
+            => $"Am șters repozitoriul '{GetDataValue(log.Data, "repository")}' de pe {GetPlatform(log.Data)}";
 
         public string BuildGitRepositoryCreationLogText(PersonalLog log)
-            => $"Am creat repozitory-ul '{GetDataValue(log.Data, "repository")}' pe {GetPlatform(log.Data)}";
+            => $"Am creat repozitoriul '{GetDataValue(log.Data, "repository")}' pe {GetPlatform(log.Data)}";
 
         public string BuildGitRepositoryRenameLogText(PersonalLog log)
-            => $"Am redenumit repozitory-ul '{GetDataValue(log.Data, "old_repository")}' de pe {GetPlatform(log.Data)} în '{GetDataValue(log.Data, "new_repository")}'";
+            => $"Am redenumit repozitoriul '{GetDataValue(log.Data, "old_repository")}' de pe {GetPlatform(log.Data)} în '{GetDataValue(log.Data, "new_repository")}'";
 
         public string BuildGoingToSleepLogText(PersonalLog log)
         {
