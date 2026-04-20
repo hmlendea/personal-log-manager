@@ -52,11 +52,11 @@ namespace PersonalLogManager
 
         static void CreateStoreIfMissing(string storePath)
         {
-            ArgumentNullException.ThrowIfNullOrWhiteSpace(storePath);
+            ArgumentException.ThrowIfNullOrWhiteSpace(storePath);
 
             var storeDirectory = Path.GetDirectoryName(storePath);
 
-            if (!Directory.Exists(storeDirectory))
+            if (!string.IsNullOrWhiteSpace(storeDirectory) && !Directory.Exists(storeDirectory))
             {
                 Directory.CreateDirectory(storeDirectory);
             }

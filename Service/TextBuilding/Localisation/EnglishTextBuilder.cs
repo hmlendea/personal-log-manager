@@ -99,7 +99,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             string text = $"I have saved the export of the data related to the {GetPlatform(log.Data)} account";
 
             string requestDate = GetDataValue(log.Data, "request_date");
-            string requestId = GetDataValue(log.Data, "request_id");;
+            string requestId = GetDataValue(log.Data, "request_id");
 
             if (!string.IsNullOrWhiteSpace(requestDate) && !string.IsNullOrWhiteSpace(requestId))
             {

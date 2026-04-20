@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using NuciText.Normalisation;
 using NuciText.Obfuscation;
@@ -12,6 +13,14 @@ namespace PersonalLogManager.Service.TextBuilding
         INuciTextObfuscator obfuscator)
         : IPersonalLogTextBuilderFactory
     {
+        private static readonly HashSet<string> RomanianLocalisations =
+            new(StringComparer.InvariantCultureIgnoreCase)
+            {
+                "ro",
+                "ro-RO",
+                "ro-MD"
+            };
+
         public string BuildLogText(PersonalLog log, string localisation)
         {
             string prefix = $"{log.Date:yyyy-MM-dd}";
@@ -29,15 +38,20 @@ namespace PersonalLogManager.Service.TextBuilding
         string BuildLogTextByTemplate(PersonalLog log, string localisation)
         {
             IPersonalLogTextBuilder personalLogTextBuilder = GetTextBuilder(localisation);
+            string methodName = $"Build{log.Template}LogText";
 
             try
             {
-                string logText = personalLogTextBuilder
+                MethodInfo buildMethod = personalLogTextBuilder
                     .GetType()
-                    .GetMethod(
-                        $"Build{log.Template}LogText",
-                        BindingFlags.Public | BindingFlags.Instance)
-                    .Invoke(personalLogTextBuilder, [log]) as string;
+                    .GetMethod(methodName, BindingFlags.Public | BindingFlags.Instance);
+
+                if (buildMethod is null)
+                {
+                    throw new MissingMethodException(personalLogTextBuilder.GetType().Name, methodName);
+                }
+
+                string logText = buildMethod.Invoke(personalLogTextBuilder, [log]) as string;
 
                 return normaliser.NormaliseSentence(logText);
             }
@@ -49,9 +63,8 @@ namespace PersonalLogManager.Service.TextBuilding
 
         IPersonalLogTextBuilder GetTextBuilder(string localisation)
         {
-            if (localisation.Equals("ro-RO", StringComparison.InvariantCultureIgnoreCase) ||
-                localisation.Equals("ro-MD", StringComparison.InvariantCultureIgnoreCase) ||
-                localisation.Equals("ro", StringComparison.InvariantCultureIgnoreCase))
+            if (!string.IsNullOrWhiteSpace(localisation) &&
+                RomanianLocalisations.Contains(localisation))
             {
                 return new RomanianTextBuilder(obfuscator);
             }
