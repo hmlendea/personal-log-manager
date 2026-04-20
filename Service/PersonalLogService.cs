@@ -18,6 +18,8 @@ namespace PersonalLogManager.Service
         IFileRepository<PersonalLogEntity> repository,
         ILogger logger) : IPersonalLogService
     {
+        private const int MaxLogIdValue = 1000000000;
+
         private readonly Random random = new();
 
         public void StorePersonalLog(StoreLogRequest request)
@@ -35,13 +37,7 @@ namespace PersonalLogManager.Service
                 OperationStatus.Started,
                 logInfos);
 
-            string id;
-
-            do
-            {
-                id = $"L{random.Next(0, 1000000000):D9}";
-            }
-            while (repository.ContainsId(id));
+            string id = GenerateUniqueLogId();
 
             try
             {
@@ -73,6 +69,19 @@ namespace PersonalLogManager.Service
                 OperationStatus.Success,
                 logInfos,
                 new LogInfo(MyLogInfoKey.Identifier, id));
+        }
+
+        private string GenerateUniqueLogId()
+        {
+            string id;
+
+            do
+            {
+                id = $"L{random.Next(0, MaxLogIdValue):D9}";
+            }
+            while (repository.ContainsId(id));
+
+            return id;
         }
 
         public GetLogResponse GetPersonalLogs(GetLogRequest request)
@@ -110,20 +119,7 @@ namespace PersonalLogManager.Service
                     logs = logs.Where(log => DoesFieldMatch(log.Template, request.Template));
                 }
 
-                if (request.Data is not null && request.Data.Count > 0)
-                {
-                    foreach (string dataKey in request.Data.Keys)
-                    {
-                        logs = logs.Where(log =>
-                            log.Data is not null &&
-                            log.Data.ContainsKey(dataKey) &&
-                            log.Data[dataKey] is not null &&
-                            DoesFieldMatch(
-                                log.Data[dataKey],
-                                request.Data[dataKey],
-                                RegexOptions.IgnoreCase));
-                    }
-                }
+                logs = FilterByRequestData(logs, request.Data);
 
                 logger.Debug(
                     MyOperation.GetPersonalLogs,
@@ -155,6 +151,27 @@ namespace PersonalLogManager.Service
             }
         }
 
+        private static IEnumerable<PersonalLogEntity> FilterByRequestData(
+            IEnumerable<PersonalLogEntity> logs,
+            Dictionary<string, string> requestedData)
+        {
+            if (requestedData is null || requestedData.Count == 0)
+            {
+                return logs;
+            }
+
+            foreach (KeyValuePair<string, string> requestedPair in requestedData)
+            {
+                logs = logs.Where(log =>
+                    log.Data is not null &&
+                    log.Data.TryGetValue(requestedPair.Key, out string existingValue) &&
+                    existingValue is not null &&
+                    DoesFieldMatch(existingValue, requestedPair.Value, RegexOptions.IgnoreCase));
+            }
+
+            return logs;
+        }
+
         List<string> BuildLogTexts(IEnumerable<PersonalLogEntity> logs, string localisation)
         {
             List<string> logTexts = [];
@@ -176,7 +193,7 @@ namespace PersonalLogManager.Service
             }
             catch (Exception ex)
             {
-                throw new InvalidCastException($"An error occurred while building log text for {lastLogId}.", ex);
+                throw new InvalidOperationException($"An error occurred while building log text for {lastLogId}.", ex);
             }
 
             return logTexts;
@@ -217,8 +234,15 @@ namespace PersonalLogManager.Service
                     personalLog.TimeZone = request.TimeZone;
                 }
 
+                if (request.Template is not null)
+                {
+                    personalLog.Template = request.Template;
+                }
+
                 if (request.Data is not null)
                 {
+                    personalLog.Data ??= [];
+
                     foreach (string parameter in request.Data.Keys)
                     {
                         personalLog.Data[parameter] = request.Data[parameter];
@@ -286,18 +310,19 @@ namespace PersonalLogManager.Service
             string pattern,
             RegexOptions options = RegexOptions.None)
         {
-            string anchoredPattern = pattern;
             if (input is null || pattern is null)
             {
                 return false;
             }
 
-            if (!pattern.StartsWith("^"))
+            string anchoredPattern = pattern;
+
+            if (!anchoredPattern.StartsWith("^"))
             {
                 anchoredPattern = "^" + pattern;
             }
 
-            if (!pattern.EndsWith("$"))
+            if (!anchoredPattern.EndsWith("$"))
             {
                 anchoredPattern += "$";
             }

@@ -17,6 +17,11 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string GetPlatform(Dictionary<string, string> data)
         {
+            if (data is null)
+            {
+                return null;
+            }
+
             data.TryGetValue("platform", out string platform);
 
             if (string.IsNullOrWhiteSpace(platform))
@@ -37,6 +42,11 @@ namespace PersonalLogManager.Service.TextBuilding
 
         public string GetDiscriminator(Dictionary<string, string> data)
         {
+            if (data is null)
+            {
+                return null;
+            }
+
             data.TryGetValue("discriminator", out string discriminator);
 
             if (string.IsNullOrWhiteSpace(discriminator))
@@ -149,7 +159,7 @@ namespace PersonalLogManager.Service.TextBuilding
         }
 
         public bool IsDataValuePresent(Dictionary<string, string> data, string key)
-            => data.ContainsKey(key);
+            => data is not null && data.ContainsKey(key);
 
         public string GetMappedDataValue(Dictionary<string, string> data, string key, Dictionary<string, string> mappings)
         {
