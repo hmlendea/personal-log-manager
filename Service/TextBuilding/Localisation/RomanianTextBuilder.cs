@@ -3054,6 +3054,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildWorkOnCallAlertReceivalLogText(PersonalLog log)
+        {
+            string text = $"A venit o alertă în timpul turei mele de gardă pentru {GetDataValue(log.Data, "employer_name")}";
+
+            if (TryGetPlatform(log.Data, out string platform))
+            {
+                text += $" pe {platform}";
+            }
+
+            if (TryGetDataValue(log.Data, "alert_subject", out string alertSubject))
+            {
+                text += $": {alertSubject}";
+            }
+
+            return text;
+        }
+
         public string BuildWorkOnCallShiftBeginningLogText(PersonalLog log)
             => $"Tura mea de gardă pentru {GetDataValue(log.Data, "employer_name")} a început";
 

@@ -2926,6 +2926,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildWorkOnCallAlertReceivalLogText(PersonalLog log)
+        {
+            string text = $"I have received an on-call alert for {GetDataValue(log.Data, "employer_name")}";
+
+            if (TryGetPlatform(log.Data, out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            if (TryGetDataValue(log.Data, "alert_subject", out string alertSubject))
+            {
+                text += $": {alertSubject}";
+            }
+
+            return text;
+        }
+
         public string BuildWorkOnCallShiftBeginningLogText(PersonalLog log)
             => $"My on-call work shift for {GetDataValue(log.Data, "employer_name")} has begun";
 

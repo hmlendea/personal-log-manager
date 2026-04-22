@@ -207,6 +207,7 @@ namespace PersonalLogManager.Service.Models
         WorkFromTheOffice,
         WorkMandatoryCourseBeginning,
         WorkMandatoryCourseCompletion,
+        WorkOnCallAlertReceival,
         WorkOnCallShiftBeginning,
         WorkOnCallShiftEnding,
         WorkTimesheetSubmission
