@@ -3049,11 +3049,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildWindowClosingLogText(PersonalLog log)
-        {
-            string text = $"Am închis fereastra" + GetLocation(log.Data);
-
-            return text;
-        }
+            => $"Am închis fereastra" + GetLocation(log.Data);
 
         public string BuildWindowOpeningLogText(PersonalLog log)
             => $"Am deschis fereastra" + GetLocation(log.Data);
