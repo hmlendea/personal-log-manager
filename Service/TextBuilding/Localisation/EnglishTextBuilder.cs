@@ -368,6 +368,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildAccountLoginLogText(PersonalLog log)
+        {
+            string text = $"I have logged in to the {GetPlatform(log.Data)} account";
+
+            if (TryGetDataValue(log.Data, "ip_address", out string ipAddress))
+            {
+                text += $" from the {ipAddress} IP address";
+            }
+
+            return text;
+        }
+
         public string BuildAccountMessagesErasureLogText(PersonalLog log)
             => $"I have erased all messages from the {GetPlatform(log.Data)} account";
 
@@ -425,6 +437,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
 
             return text;
+        }
+
+        public string BuildAccountPhoneNumberConfirmationLogText(PersonalLog log)
+        {
+            string text = $"I have confirmed the phone number";
+
+            if (TryGetDataValue(log.Data, "phone_number", out string phoneNumber))
+            {
+                text += $" ({phoneNumber})";
+            }
+
+            return text + $" for the {GetPlatform(log.Data)} account";
         }
 
         public string BuildAccountPhoneNumberRemovalLogText(PersonalLog log)
@@ -1019,6 +1043,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (TryGetDataValue(log.Data, "book_series_name", out string bookSeriesName))
             {
                 text += $" of the '{bookSeriesName}' series";
+            }
+
+            return text;
+        }
+
+        public string BuildBotPrizeWinningLogText(PersonalLog log)
+        {
+            string text = $"I have won a prize with my";
+
+            if (TryGetPlatform(log.Data, out string platform))
+            {
+                text += $" {platform}";
+            }
+
+            text += " bot";
+
+            if (TryGetDataValue(log.Data, "prize_description", out string prizeDescription))
+            {
+                text += $": {prizeDescription}";
             }
 
             return text;
@@ -2921,6 +2964,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (TryGetDataValue(log.Data, "score_obtained", out string scorePercentage))
             {
                 text += $", obtaining a score of {scorePercentage}%";
+            }
+
+            return text;
+        }
+
+        public string BuildWorkOnCallAlertReceivalLogText(PersonalLog log)
+        {
+            string text = $"I have received an on-call alert for {GetDataValue(log.Data, "employer_name")}";
+
+            if (TryGetPlatform(log.Data, out string platform))
+            {
+                text += $" on {platform}";
+            }
+
+            if (TryGetDataValue(log.Data, "alert_subject", out string alertSubject))
+            {
+                text += $": {alertSubject}";
             }
 
             return text;

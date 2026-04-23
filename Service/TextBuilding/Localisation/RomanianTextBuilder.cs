@@ -376,6 +376,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildAccountLoginLogText(PersonalLog log)
+        {
+            string text = $"M-am logat în contul de {GetPlatform(log.Data)}";
+
+            if (TryGetDataValue(log.Data, "ip_address", out string ipAddress))
+            {
+                text += $" de la adresa IP {ipAddress}";
+            }
+
+            return text;
+        }
+
         public string BuildAccountMessagesErasureLogText(PersonalLog log)
             => $"Am șters toate mesajele trimise de pe contul de {GetPlatform(log.Data)}";
 
@@ -433,6 +445,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
 
             return text;
+        }
+
+        public string BuildAccountPhoneNumberConfirmationLogText(PersonalLog log)
+        {
+            string text = $"Am confirmat numărul de telefon";
+
+            if (TryGetDataValue(log.Data, "phone_number", out string phoneNumber))
+            {
+                text += $" ({phoneNumber})";
+            }
+
+            return text + $" al contului de {GetPlatform(log.Data)}";
         }
 
         public string BuildAccountPhoneNumberRemovalLogText(PersonalLog log)
@@ -1031,6 +1055,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
 
             return text;
+        }
+
+        public string BuildBotPrizeWinningLogText(PersonalLog log)
+        {
+            string text = $"Am câștigat un premiu cu un bot";
+
+            if (TryGetPlatform(log.Data, out string platform))
+            {
+                text += $" de {platform}";
+            }
+
+            return $"{text}: {log.Data["prize_description"]}";
         }
 
         public string BuildBotsTotalBalanceMeasurementLogText(PersonalLog log)
@@ -3013,11 +3049,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         }
 
         public string BuildWindowClosingLogText(PersonalLog log)
-        {
-            string text = $"Am închis fereastra" + GetLocation(log.Data);
-
-            return text;
-        }
+            => $"Am închis fereastra" + GetLocation(log.Data);
 
         public string BuildWindowOpeningLogText(PersonalLog log)
             => $"Am deschis fereastra" + GetLocation(log.Data);
@@ -3049,6 +3081,23 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             if (TryGetDataValue(log.Data, "score_obtained", out string scorePercentage))
             {
                 text += $", obținând un scor de {scorePercentage}%";
+            }
+
+            return text;
+        }
+
+        public string BuildWorkOnCallAlertReceivalLogText(PersonalLog log)
+        {
+            string text = $"A venit o alertă în timpul turei mele de gardă pentru {GetDataValue(log.Data, "employer_name")}";
+
+            if (TryGetPlatform(log.Data, out string platform))
+            {
+                text += $" pe {platform}";
+            }
+
+            if (TryGetDataValue(log.Data, "alert_subject", out string alertSubject))
+            {
+                text += $": {alertSubject}";
             }
 
             return text;
