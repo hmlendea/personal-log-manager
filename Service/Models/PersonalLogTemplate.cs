@@ -33,6 +33,7 @@ namespace PersonalLogManager.Service.Models
         AccountPersonalNameChange,
         AccountPhoneNumberAddition,
         AccountPhoneNumberChange,
+        AccountPhoneNumberConfirmation,
         AccountPhoneNumberRemoval,
         AccountProfilePictureChange,
         AccountRecovery,

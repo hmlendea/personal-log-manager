@@ -427,6 +427,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildAccountPhoneNumberConfirmationLogText(PersonalLog log)
+        {
+            string text = $"I have confirmed the phone number";
+
+            if (TryGetDataValue(log.Data, "phone_number", out string phoneNumber))
+            {
+                text += $" ({phoneNumber})";
+            }
+
+            return text + $" for the {GetPlatform(log.Data)} account";
+        }
+
         public string BuildAccountPhoneNumberRemovalLogText(PersonalLog log)
         {
             string text = $"I have removed a phone number from the {GetPlatform(log.Data)} account";

@@ -435,6 +435,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildAccountPhoneNumberConfirmationLogText(PersonalLog log)
+        {
+            string text = $"Am confirmat numărul de telefon";
+
+            if (TryGetDataValue(log.Data, "phone_number", out string phoneNumber))
+            {
+                text += $" ({phoneNumber})";
+            }
+
+            return text + $" al contului de {GetPlatform(log.Data)}";
+        }
+
         public string BuildAccountPhoneNumberRemovalLogText(PersonalLog log)
         {
             string text = $"Am șters un număr de telefon din contul de {GetPlatform(log.Data)}";
