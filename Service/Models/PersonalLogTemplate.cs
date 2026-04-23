@@ -66,6 +66,7 @@ namespace PersonalLogManager.Service.Models
         BookCompletion,
         BookResuming,
         BookStopping,
+        BotPrizeWinning,
         BotsTotalBalanceMeasurement,
         CalciumLevelMeasurement,
         CertificationObtainment,

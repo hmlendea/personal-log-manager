@@ -1033,6 +1033,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildBotPrizeWinningLogText(PersonalLog log)
+        {
+            string text = $"Am câștigat un premiu cu un bot";
+
+            if (TryGetPlatform(log.Data, out string platform))
+            {
+                text += $" de {platform}";
+            }
+
+            return $"{text}: {log.Data["prize_description"]}";
+        }
+
         public string BuildBotsTotalBalanceMeasurementLogText(PersonalLog log)
         {
             string text = $"Soldul total al boților";

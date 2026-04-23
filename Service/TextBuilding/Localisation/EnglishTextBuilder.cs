@@ -1024,6 +1024,25 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildBotPrizeWinningLogText(PersonalLog log)
+        {
+            string text = $"I have won a prize with my";
+
+            if (TryGetPlatform(log.Data, out string platform))
+            {
+                text += $" {platform}";
+            }
+
+            text += " bot";
+
+            if (TryGetDataValue(log.Data, "prize_description", out string prizeDescription))
+            {
+                text += $": {prizeDescription}";
+            }
+
+            return text;
+        }
+
         public string BuildBotsTotalBalanceMeasurementLogText(PersonalLog log)
         {
             string text = $"The total balance of the";
