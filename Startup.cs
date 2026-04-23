@@ -29,9 +29,9 @@ namespace PersonalLogManager
             var dataStoreSettings = app.ApplicationServices.GetRequiredService<DataStoreSettings>();
             CreateStoreIfMissing(dataStoreSettings.LogStorePath);
 
-            app.UseNuciApiRequestLogging();
             app.UseNuciApiExceptionHandling();
             app.UseNuciApiScannerProtection();
+            app.UseNuciApiRequestLogging();
 
             if (env.IsDevelopment())
             {
