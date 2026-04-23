@@ -376,6 +376,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildAccountLoginLogText(PersonalLog log)
+        {
+            string text = $"M-am logat în contul de {GetPlatform(log.Data)}";
+
+            if (TryGetDataValue(log.Data, "ip_address", out string ipAddress))
+            {
+                text += $" de la adresa IP {ipAddress}";
+            }
+
+            return text;
+        }
+
         public string BuildAccountMessagesErasureLogText(PersonalLog log)
             => $"Am șters toate mesajele trimise de pe contul de {GetPlatform(log.Data)}";
 

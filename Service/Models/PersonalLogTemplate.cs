@@ -28,6 +28,7 @@ namespace PersonalLogManager.Service.Models
         AccountFriendshipRequestReceival,
         AccountIdentityVerification,
         AccountLinking,
+        AccountLogin,
         AccountMessagesErasure,
         AccountPasswordChange,
         AccountPersonalNameChange,

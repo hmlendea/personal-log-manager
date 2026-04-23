@@ -368,6 +368,18 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildAccountLoginLogText(PersonalLog log)
+        {
+            string text = $"I have logged in to the {GetPlatform(log.Data)} account";
+
+            if (TryGetDataValue(log.Data, "ip_address", out string ipAddress))
+            {
+                text += $" from the {ipAddress} IP address";
+            }
+
+            return text;
+        }
+
         public string BuildAccountMessagesErasureLogText(PersonalLog log)
             => $"I have erased all messages from the {GetPlatform(log.Data)} account";
 
