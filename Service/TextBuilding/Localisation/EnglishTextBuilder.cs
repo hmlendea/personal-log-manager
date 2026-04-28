@@ -3178,6 +3178,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => GetMappedDataValue(data, "furniture_type", new()
             {
                 { "Armchair", "armchair" },
+                { "BathroomSink", "sink" },
                 { "CatTree", "cat tree" },
                 { "Chair", "chair" },
                 { "Chairs", "chairs" },
@@ -3186,10 +3187,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 { "Countertop", "countertop" },
                 { "Desk", "desk" },
                 { "Doorstop", "doorstop" },
-                { "Table", "table" },
-                { "Toilet", "toilet" },
+                { "kitchenSink", "sink" },
                 { "Radiator", "radiator" },
                 { "Sink", "sink" },
+                { "Table", "table" },
+                { "Toilet", "toilet" },
                 { "TvStand", "television stand" },
                 { "Washbasin", "washbasin" },
                 { "WindowSill", "window sill" }
