@@ -3299,6 +3299,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => GetMappedDataValue(data, "furniture_type", new()
             {
                 { "Armchair", "fotoliul" },
+                { "BathroomSink", "lavoarul" },
                 { "CatTree", "pomul pentru pisici" },
                 { "Chair", "scaunul" },
                 { "Chairs", "scaunele" },
@@ -3307,10 +3308,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 { "Countertop", "blatul" },
                 { "Desk", "biroul" },
                 { "Doorstop", "opritorul de ușă" },
-                { "Table", "masa" },
-                { "Toilet", "toaleta" },
+                { "KitchenSink", "chiuveta" },
                 { "Radiator", "radiatorul" },
                 { "Sink", "chiuveta" },
+                { "Table", "masa" },
+                { "Toilet", "toaleta" },
                 { "TvStand", "comoda pentru televizor" },
                 { "Washbasin", "lavoarul" },
                 { "WindowSill", "pervazul" }
