@@ -272,6 +272,7 @@ Please:
 
 - [Personal Data Logger](https://github.com/hmlendea/personal-data-logger)
 - [Personal Log Manager](https://github.com/hmlendea/personal-log-manager)
+- [Personal Log Manager Client](https://github.com/hmlendea/personal-log-manager-client)
 
 ## License
 
