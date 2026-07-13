@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="PersonalLogManager/PersonalLogManager.csproj" />
+  <Project Path="PersonalLogManager.UnitTests/PersonalLogManager.UnitTests.csproj" />
 </Solution>
