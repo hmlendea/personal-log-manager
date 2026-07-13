@@ -279,7 +279,7 @@ namespace PersonalLogManager.UnitTests.Service.TextBuilding
 
             Assert.That(
                 () => textBuilder.GetDecimalValue(data, "amount"),
-                Throws.TypeOf<ArgumentException>());
+                Throws.InstanceOf<ArgumentException>());
         }
 
         // ── GetLocalisedValue (English) ────────────────────────
