@@ -4,7 +4,7 @@ namespace PersonalLogManager.Logging
 {
     public sealed class MyOperation : Operation
     {
-        MyOperation(string name) : base(name) { }
+        private MyOperation(string name) : base(name) { }
 
         public static Operation StorePersonalLog => new MyOperation(nameof(StorePersonalLog));
 

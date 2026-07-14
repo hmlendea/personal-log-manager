@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using PersonalLogManager.DataAccess.DataObjects;
 using PersonalLogManager.Service.Models;
 
@@ -17,17 +18,33 @@ namespace PersonalLogManager.Service.Mapping
         /// <returns>The domain model.</returns>
         /// <param name="dataObject">The data object.</param>
         internal static PersonalLog ToDomainModel(this PersonalLogEntity dataObject)
-            => new(
+        {
+            TimeOnly? time = null;
+
+            if (TimeOnly.TryParse(dataObject.Time, out TimeOnly parsedTime))
+            {
+                time = parsedTime;
+            }
+
+            DateTime? updatedDateTime = null;
+
+            if (DateTime.TryParse(dataObject.UpdatedDT, out DateTime parsedUpdatedDT))
+            {
+                updatedDateTime = parsedUpdatedDT;
+            }
+
+            return new(
                 DateOnly.Parse(dataObject.Date),
-                TimeOnly.TryParse(dataObject.Time, out TimeOnly time) ? time : null,
+                time,
                 dataObject.TimeZone)
             {
                 Id = dataObject.Id,
                 Template = Enum.Parse<PersonalLogTemplate>(dataObject.Template),
                 Data = dataObject.Data ?? [],
                 CreatedDateTime = DateTime.Parse(dataObject.CreatedDT),
-                UpdatedDateTime = DateTime.TryParse(dataObject.UpdatedDT, out DateTime updatedDT) ? updatedDT : null
+                UpdatedDateTime = updatedDateTime
             };
+        }
 
         /// <summary>
         /// Converts the domain model into a data object.
