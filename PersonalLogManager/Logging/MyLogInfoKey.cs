@@ -4,7 +4,7 @@ namespace PersonalLogManager.Logging
 {
     public sealed class MyLogInfoKey : LogInfoKey
     {
-        MyLogInfoKey(string name) : base(name) { }
+        private MyLogInfoKey(string name) : base(name) { }
 
         public static LogInfoKey Identifier => new MyLogInfoKey(nameof(Identifier));
 

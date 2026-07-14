@@ -3,7 +3,7 @@ using NuciDAL.DataObjects;
 
 namespace PersonalLogManager.DataAccess.DataObjects
 {
-    public class PersonalLogEntity : EntityBase
+    public sealed class PersonalLogEntity : EntityBase
     {
         public string Date { get; set; }
 

@@ -1,8 +1,10 @@
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+
 using NuciText.Normalisation;
 using NuciText.Obfuscation;
+
 using PersonalLogManager.Service.Models;
 using PersonalLogManager.Service.TextBuilding.Localisation;
 
@@ -13,13 +15,8 @@ namespace PersonalLogManager.Service.TextBuilding
         INuciTextObfuscator obfuscator)
         : IPersonalLogTextBuilderFactory
     {
-        private static readonly HashSet<string> RomanianLocalisations =
-            new(StringComparer.InvariantCultureIgnoreCase)
-            {
-                "ro",
-                "ro-RO",
-                "ro-MD"
-            };
+        private static readonly string[] RomanianLocalisationCodes =
+            ["ro", "ro-RO", "ro-MD"];
 
         public string BuildLogText(PersonalLog log, string localisation)
         {
@@ -35,7 +32,7 @@ namespace PersonalLogManager.Service.TextBuilding
             return $"{prefix}: {text}";
         }
 
-        string BuildLogTextByTemplate(PersonalLog log, string localisation)
+        private string BuildLogTextByTemplate(PersonalLog log, string localisation)
         {
             IPersonalLogTextBuilder personalLogTextBuilder = GetTextBuilder(localisation);
             string methodName = $"Build{log.Template}LogText";
@@ -61,10 +58,14 @@ namespace PersonalLogManager.Service.TextBuilding
             }
         }
 
-        IPersonalLogTextBuilder GetTextBuilder(string localisation)
+        private IPersonalLogTextBuilder GetTextBuilder(string localisation)
         {
             if (!string.IsNullOrWhiteSpace(localisation) &&
-                RomanianLocalisations.Contains(localisation))
+                RomanianLocalisationCodes.Any(
+                    code => string.Equals(
+                        code,
+                        localisation,
+                        StringComparison.InvariantCultureIgnoreCase)))
             {
                 return new RomanianTextBuilder(obfuscator);
             }

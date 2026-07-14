@@ -2,10 +2,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using NuciDAL.Repositories;
+
 using NuciLog;
 using NuciLog.Core;
+
 using NuciText.Normalisation;
 using NuciText.Obfuscation;
+
 using PersonalLogManager.Configuration;
 using PersonalLogManager.DataAccess.DataObjects;
 using PersonalLogManager.Service;
@@ -39,6 +42,6 @@ namespace PersonalLogManager
             .AddSingleton<IPersonalLogService, PersonalLogService>()
             .AddSingleton<INuciTextNormaliser, NuciTextNormaliser>()
             .AddSingleton<INuciTextObfuscator, NuciTextObfuscator>()
-            .AddScoped<ILogger, NuciLogger>();
+            .AddSingleton<ILogger, NuciLogger>();
     }
 }

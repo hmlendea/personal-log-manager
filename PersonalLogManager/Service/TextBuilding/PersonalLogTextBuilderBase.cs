@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+
 using NuciText.Obfuscation;
+
 using PersonalLogManager.Service.Models;
 
 namespace PersonalLogManager.Service.TextBuilding
@@ -118,7 +120,7 @@ namespace PersonalLogManager.Service.TextBuilding
                 return defaultValue;
             }
 
-            if (LanguageCode.Equals("ro"))
+            if (string.Equals(LanguageCode, "ro"))
             {
                 return value
                     .Replace(" and ", " și ")
@@ -192,9 +194,10 @@ namespace PersonalLogManager.Service.TextBuilding
                     .Replace("_", string.Empty)
                     .Replace("&", "And");
 
-                if (normalisedMapKey.Equals(expectedMapKey, StringComparison.InvariantCultureIgnoreCase))
+                if (string.Equals(normalisedMapKey, expectedMapKey, StringComparison.InvariantCultureIgnoreCase))
                 {
                     mappedValue = mappings[expectedMapKey];
+
                     break;
                 }
             }
@@ -204,7 +207,10 @@ namespace PersonalLogManager.Service.TextBuilding
 
         protected abstract string GetAccessoryType(
             Dictionary<string, string> data,
-            bool useDefinitiveForm = false);
+            bool useDefinitiveForm);
+
+        protected string GetAccessoryType(Dictionary<string, string> data)
+            => GetAccessoryType(data, false);
 
         protected string GetBalance(Dictionary<string, string> data)
         {
@@ -300,8 +306,14 @@ namespace PersonalLogManager.Service.TextBuilding
 
         protected abstract string GetPetType(
             Dictionary<string, string> data,
-            bool useDefinitiveForm = false,
-            bool usePluralForm = false);
+            bool useDefinitiveForm,
+            bool usePluralForm);
+
+        protected string GetPetType(Dictionary<string, string> data)
+            => GetPetType(data, false, false);
+
+        protected string GetPetType(Dictionary<string, string> data, bool useDefinitiveForm)
+            => GetPetType(data, useDefinitiveForm, false);
 
         protected abstract string GetPlantType(
             Dictionary<string, string> data,
@@ -313,59 +325,5 @@ namespace PersonalLogManager.Service.TextBuilding
         protected abstract string GetSide(Dictionary<string, string> data);
 
         protected abstract string GetVehicleType(Dictionary<string, string> data, bool useDefinitiveForm);
-
-        protected bool TryGetCleaningMethod(Dictionary<string, string> data, out string cleaningMethod)
-        {
-            cleaningMethod = GetCleaningMethod(data);
-
-            return
-                !string.IsNullOrWhiteSpace(cleaningMethod) &&
-                !MissingValue.Equals(cleaningMethod);
-        }
-
-        protected bool TryGetDevice(Dictionary<string, string> data, out string device)
-        {
-            device = GetDevice(data);
-
-            return
-                !string.IsNullOrWhiteSpace(device) &&
-                !MissingValue.Equals(device);
-        }
-
-        protected bool TryGetByPerson(Dictionary<string, string> data, out string byPerson)
-        {
-            byPerson = GetByPerson(data);
-
-            return
-                !string.IsNullOrWhiteSpace(byPerson) &&
-                !MissingValue.Equals(byPerson);
-        }
-
-        protected bool TryGetDataValue(Dictionary<string, string> data, string key, out string value)
-        {
-            value = GetDataValue(data, key, null);
-
-            return
-                !string.IsNullOrWhiteSpace(value) &&
-                !MissingValue.Equals(value);
-        }
-
-        protected bool TryGetPlatform(Dictionary<string, string> data, out string platform)
-        {
-            platform = GetPlatform(data);
-
-            return
-                !string.IsNullOrWhiteSpace(platform) &&
-                !MissingValue.Equals(platform);
-        }
-
-        protected bool TryGetSide(Dictionary<string, string> data, out string side)
-        {
-            side = GetSide(data);
-
-            return
-                !string.IsNullOrWhiteSpace(side) &&
-                !MissingValue.Equals(side);
-        }
     }
 }

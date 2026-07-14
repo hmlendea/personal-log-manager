@@ -2,9 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+
 using NuciDAL.Repositories;
+
 using NuciExtensions;
+
 using NuciLog.Core;
+
 using PersonalLogManager.Api.Models;
 using PersonalLogManager.DataAccess.DataObjects;
 using PersonalLogManager.Logging;
@@ -18,7 +22,7 @@ namespace PersonalLogManager.Service
         IFileRepository<PersonalLogEntity> repository,
         ILogger logger) : IPersonalLogService
     {
-        private const int MaxLogIdValue = 1000000000;
+        private static int MaxLogIdValue => 1000000000;
 
         private readonly Random random = new();
 
@@ -134,7 +138,7 @@ namespace PersonalLogManager.Service
                     .ThenBy(log => log.CreatedDT)
                     .Take(request.Count);
 
-                return new GetLogResponse()
+                return new()
                 {
                     Logs = BuildLogTexts(sorted, request.Localisation)
                 };
@@ -172,7 +176,7 @@ namespace PersonalLogManager.Service
             return logs;
         }
 
-        List<string> BuildLogTexts(IEnumerable<PersonalLogEntity> logs, string localisation)
+        private IEnumerable<string> BuildLogTexts(IEnumerable<PersonalLogEntity> logs, string localisation)
         {
             List<string> logTexts = [];
 
@@ -203,11 +207,11 @@ namespace PersonalLogManager.Service
         {
             IEnumerable<LogInfo> logInfos =
             [
-                new LogInfo(MyLogInfoKey.Identifier, request.Identifier),
-                new LogInfo(MyLogInfoKey.Date, request.Date),
-                new LogInfo(MyLogInfoKey.Time, request.Time),
-                new LogInfo(MyLogInfoKey.TimeZone, request.TimeZone),
-                new LogInfo(MyLogInfoKey.Template, request.Template)
+                new(MyLogInfoKey.Identifier, request.Identifier),
+                new(MyLogInfoKey.Date, request.Date),
+                new(MyLogInfoKey.Time, request.Time),
+                new(MyLogInfoKey.TimeZone, request.TimeZone),
+                new(MyLogInfoKey.Template, request.Template)
             ];
 
             logger.Info(
@@ -305,10 +309,13 @@ namespace PersonalLogManager.Service
                 logInfos);
         }
 
+        private static bool DoesFieldMatch(string input, string pattern)
+            => DoesFieldMatch(input, pattern, RegexOptions.None);
+
         private static bool DoesFieldMatch(
             string input,
             string pattern,
-            RegexOptions options = RegexOptions.None)
+            RegexOptions options)
         {
             if (input is null || pattern is null)
             {

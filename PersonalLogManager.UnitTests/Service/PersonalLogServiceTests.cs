@@ -94,7 +94,7 @@ namespace PersonalLogManager.UnitTests.Service
             GetLogResponse response = service.GetPersonalLogs(request);
 
             Assert.That(response.Logs, Has.Count.EqualTo(1));
-            Assert.That(response.Logs[0], Does.StartWith("L000000001 "));
+            Assert.That(response.Logs.ElementAt(0), Does.StartWith("L000000001 "));
         }
 
         [Test]
@@ -144,7 +144,7 @@ namespace PersonalLogManager.UnitTests.Service
             GetLogResponse response = service.GetPersonalLogs(request);
 
             Assert.That(response.Logs, Has.Count.EqualTo(1));
-            Assert.That(response.Logs[0], Does.StartWith("L000000001 "));
+            Assert.That(response.Logs.ElementAt(0), Does.StartWith("L000000001 "));
         }
 
         [Test]
@@ -169,7 +169,7 @@ namespace PersonalLogManager.UnitTests.Service
             GetLogResponse response = service.GetPersonalLogs(request);
 
             Assert.That(response.Logs, Has.Count.EqualTo(1));
-            Assert.That(response.Logs[0], Does.StartWith("L000000001 "));
+            Assert.That(response.Logs.ElementAt(0), Does.StartWith("L000000001 "));
         }
 
         [Test]
@@ -200,7 +200,7 @@ namespace PersonalLogManager.UnitTests.Service
             GetLogResponse response = service.GetPersonalLogs(request);
 
             Assert.That(response.Logs, Has.Count.EqualTo(1));
-            Assert.That(response.Logs[0], Does.StartWith("L000000001 "));
+            Assert.That(response.Logs.ElementAt(0), Does.StartWith("L000000001 "));
         }
 
         [Test]
@@ -248,9 +248,9 @@ namespace PersonalLogManager.UnitTests.Service
 
             GetLogResponse response = service.GetPersonalLogs(request);
 
-            Assert.That(response.Logs[0], Does.StartWith("L000000003 "));
-            Assert.That(response.Logs[1], Does.StartWith("L000000002 "));
-            Assert.That(response.Logs[2], Does.StartWith("L000000001 "));
+            Assert.That(response.Logs.ElementAt(0), Does.StartWith("L000000003 "));
+            Assert.That(response.Logs.ElementAt(1), Does.StartWith("L000000002 "));
+            Assert.That(response.Logs.ElementAt(2), Does.StartWith("L000000001 "));
         }
 
         [Test]
@@ -273,8 +273,8 @@ namespace PersonalLogManager.UnitTests.Service
 
             GetLogResponse response = service.GetPersonalLogs(request);
 
-            Assert.That(response.Logs[0], Does.StartWith("L000000002 "));
-            Assert.That(response.Logs[1], Does.StartWith("L000000001 "));
+            Assert.That(response.Logs.ElementAt(0), Does.StartWith("L000000002 "));
+            Assert.That(response.Logs.ElementAt(1), Does.StartWith("L000000001 "));
         }
 
         [Test]

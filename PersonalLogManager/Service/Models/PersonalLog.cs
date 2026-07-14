@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PersonalLogManager.Service.Models
 {
-    public class PersonalLog(DateOnly date, TimeOnly? time, string timeZone)
+    public sealed class PersonalLog(DateOnly date, TimeOnly? time, string timeZone)
     {
         public string Id { get; set; } = Guid.NewGuid().ToString();
 

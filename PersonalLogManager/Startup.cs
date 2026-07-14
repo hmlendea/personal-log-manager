@@ -1,13 +1,16 @@
 using System;
 using System.IO;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
 using NuciAPI.Middleware.ExceptionHandling;
 using NuciAPI.Middleware.Logging;
 using NuciAPI.Middleware.Security;
+
 using PersonalLogManager.Configuration;
 
 namespace PersonalLogManager
@@ -43,7 +46,7 @@ namespace PersonalLogManager
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            var dataStoreSettings = app.ApplicationServices.GetRequiredService<DataStoreSettings>();
+            DataStoreSettings dataStoreSettings = app.ApplicationServices.GetRequiredService<DataStoreSettings>();
             CreateStoreIfMissing(dataStoreSettings.LogStorePath);
 
             app.UseNuciApiExceptionHandling();
@@ -68,13 +71,14 @@ namespace PersonalLogManager
             });
         }
 
-        static void CreateStoreIfMissing(string storePath)
+        private static void CreateStoreIfMissing(string storePath)
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(storePath);
 
-            var storeDirectory = Path.GetDirectoryName(storePath);
+            string storeDirectory = Path.GetDirectoryName(storePath);
 
-            if (!string.IsNullOrWhiteSpace(storeDirectory) && !Directory.Exists(storeDirectory))
+            if (!string.IsNullOrWhiteSpace(storeDirectory) &&
+                !Directory.Exists(storeDirectory))
             {
                 Directory.CreateDirectory(storeDirectory);
             }
