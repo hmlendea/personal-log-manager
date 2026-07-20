@@ -9,10 +9,10 @@ using NuciExtensions;
 
 using NuciLog.Core;
 
-using PersonalLogManager.Api.Models;
 using PersonalLogManager.DataAccess.DataObjects;
 using PersonalLogManager.Logging;
 using PersonalLogManager.Service.Mapping;
+using PersonalLogManager.Service.Models;
 using PersonalLogManager.Service.TextBuilding;
 
 namespace PersonalLogManager.Service
@@ -26,14 +26,14 @@ namespace PersonalLogManager.Service
 
         private readonly Random random = new();
 
-        public void StorePersonalLog(StoreLogRequest request)
+        public void StorePersonalLog(PersonalLogCreation creation)
         {
             IEnumerable<LogInfo> logInfos =
             [
-                new(MyLogInfoKey.Template, request.Template),
-                new(MyLogInfoKey.Date, request.Date),
-                new(MyLogInfoKey.Time, request.Time),
-                new(MyLogInfoKey.TimeZone, request.TimeZone)
+                new(MyLogInfoKey.Template, creation.Template),
+                new(MyLogInfoKey.Date, creation.Date),
+                new(MyLogInfoKey.Time, creation.Time),
+                new(MyLogInfoKey.TimeZone, creation.TimeZone)
             ];
 
             logger.Info(
@@ -48,11 +48,11 @@ namespace PersonalLogManager.Service
                 repository.Add(new()
                 {
                     Id = id,
-                    Date = request.Date,
-                    Time = request.Time,
-                    TimeZone = request.TimeZone,
-                    Template = request.Template,
-                    Data = request.Data,
+                    Date = creation.Date,
+                    Time = creation.Time,
+                    TimeZone = creation.TimeZone,
+                    Template = creation.Template,
+                    Data = creation.Data,
                     CreatedDT = DateTime.UtcNow.ToString("o")
                 });
 
@@ -88,15 +88,15 @@ namespace PersonalLogManager.Service
             return id;
         }
 
-        public GetLogResponse GetPersonalLogs(GetLogRequest request)
+        public IEnumerable<string> GetPersonalLogs(PersonalLogFilter filter)
         {
             IEnumerable<LogInfo> logInfos =
             [
-                new(MyLogInfoKey.Template, request.Template),
-                new(MyLogInfoKey.Date, request.Date),
-                new(MyLogInfoKey.Time, request.Time),
-                new(MyLogInfoKey.Localisation, request.Localisation),
-                new(MyLogInfoKey.Count, request.Count)
+                new(MyLogInfoKey.Template, filter.Template),
+                new(MyLogInfoKey.Date, filter.Date),
+                new(MyLogInfoKey.Time, filter.Time),
+                new(MyLogInfoKey.Localisation, filter.Localisation),
+                new(MyLogInfoKey.Count, filter.Count)
             ];
 
             logger.Info(
@@ -108,22 +108,22 @@ namespace PersonalLogManager.Service
             {
                 IEnumerable<PersonalLogEntity> logs = repository.GetAll();
 
-                if (!string.IsNullOrWhiteSpace(request.Date))
+                if (!string.IsNullOrWhiteSpace(filter.Date))
                 {
-                    logs = logs.Where(log => DoesFieldMatch(log.Date, request.Date));
+                    logs = logs.Where(log => DoesFieldMatch(log.Date, filter.Date));
                 }
 
-                if (!string.IsNullOrWhiteSpace(request.Time))
+                if (!string.IsNullOrWhiteSpace(filter.Time))
                 {
-                    logs = logs.Where(log => DoesFieldMatch(log.Time, request.Time));
+                    logs = logs.Where(log => DoesFieldMatch(log.Time, filter.Time));
                 }
 
-                if (!string.IsNullOrWhiteSpace(request.Template))
+                if (!string.IsNullOrWhiteSpace(filter.Template))
                 {
-                    logs = logs.Where(log => DoesFieldMatch(log.Template, request.Template));
+                    logs = logs.Where(log => DoesFieldMatch(log.Template, filter.Template));
                 }
 
-                logs = FilterByRequestData(logs, request.Data);
+                logs = FilterByRequestData(logs, filter.Data);
 
                 logger.Debug(
                     MyOperation.GetPersonalLogs,
@@ -136,12 +136,9 @@ namespace PersonalLogManager.Service
                     .ThenByDescending(log => log.Time)
                     .ThenBy(log => log.Template)
                     .ThenBy(log => log.CreatedDT)
-                    .Take(request.Count);
+                    .Take(filter.Count);
 
-                return new()
-                {
-                    Logs = BuildLogTexts(sorted, request.Localisation)
-                };
+                return BuildLogTexts(sorted, filter.Localisation);
             }
             catch (Exception ex)
             {
@@ -203,15 +200,15 @@ namespace PersonalLogManager.Service
             return logTexts;
         }
 
-        public void UpdatePersonalLog(UpdateLogRequest request)
+        public void UpdatePersonalLog(PersonalLogUpdate update)
         {
             IEnumerable<LogInfo> logInfos =
             [
-                new(MyLogInfoKey.Identifier, request.Identifier),
-                new(MyLogInfoKey.Date, request.Date),
-                new(MyLogInfoKey.Time, request.Time),
-                new(MyLogInfoKey.TimeZone, request.TimeZone),
-                new(MyLogInfoKey.Template, request.Template)
+                new(MyLogInfoKey.Identifier, update.Identifier),
+                new(MyLogInfoKey.Date, update.Date),
+                new(MyLogInfoKey.Time, update.Time),
+                new(MyLogInfoKey.TimeZone, update.TimeZone),
+                new(MyLogInfoKey.Template, update.Template)
             ];
 
             logger.Info(
@@ -221,35 +218,35 @@ namespace PersonalLogManager.Service
 
             try
             {
-                PersonalLogEntity personalLog = repository.Get(request.Identifier);
+                PersonalLogEntity personalLog = repository.Get(update.Identifier);
 
-                if (request.Date is not null)
+                if (update.Date is not null)
                 {
-                    personalLog.Date = request.Date;
+                    personalLog.Date = update.Date;
                 }
 
-                if (request.Time is not null)
+                if (update.Time is not null)
                 {
-                    personalLog.Time = request.Time;
+                    personalLog.Time = update.Time;
                 }
 
-                if (request.TimeZone is not null)
+                if (update.TimeZone is not null)
                 {
-                    personalLog.TimeZone = request.TimeZone;
+                    personalLog.TimeZone = update.TimeZone;
                 }
 
-                if (request.Template is not null)
+                if (update.Template is not null)
                 {
-                    personalLog.Template = request.Template;
+                    personalLog.Template = update.Template;
                 }
 
-                if (request.Data is not null)
+                if (update.Data is not null)
                 {
                     personalLog.Data ??= [];
 
-                    foreach (string parameter in request.Data.Keys)
+                    foreach (string parameter in update.Data.Keys)
                     {
-                        personalLog.Data[parameter] = request.Data[parameter];
+                        personalLog.Data[parameter] = update.Data[parameter];
                     }
                 }
 
@@ -275,11 +272,11 @@ namespace PersonalLogManager.Service
             }
         }
 
-        public void DeletePersonalLog(DeleteLogRequest request)
+        public void DeletePersonalLog(string id)
         {
             IEnumerable<LogInfo> logInfos =
             [
-                new(MyLogInfoKey.Identifier, request.Identifier)
+                new(MyLogInfoKey.Identifier, id)
             ];
 
             logger.Info(
@@ -289,7 +286,7 @@ namespace PersonalLogManager.Service
 
             try
             {
-                repository.Remove(request.Identifier);
+                repository.Remove(id);
                 repository.SaveChanges();
             }
             catch (Exception ex)

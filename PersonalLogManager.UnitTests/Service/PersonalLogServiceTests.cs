@@ -9,7 +9,6 @@ using NUnit.Framework;
 using NuciDAL.Repositories;
 using NuciLog.Core;
 
-using PersonalLogManager.Api.Models;
 using PersonalLogManager.DataAccess.DataObjects;
 using PersonalLogManager.Service;
 using PersonalLogManager.Service.Models;
@@ -62,14 +61,14 @@ namespace PersonalLogManager.UnitTests.Service
                 .Setup(repository => repository.GetAll())
                 .Returns(entities);
 
-            GetLogRequest request = new()
+            PersonalLogFilter filter = new()
             {
                 Count = 10
             };
 
-            GetLogResponse response = service.GetPersonalLogs(request);
+            IEnumerable<string> logs = service.GetPersonalLogs(filter);
 
-            Assert.That(response.Logs, Has.Count.EqualTo(3));
+            Assert.That(logs, Has.Count.EqualTo(3));
         }
 
         [Test]
@@ -85,16 +84,16 @@ namespace PersonalLogManager.UnitTests.Service
                 .Setup(repository => repository.GetAll())
                 .Returns(entities);
 
-            GetLogRequest request = new()
+            PersonalLogFilter filter = new()
             {
                 Date = "2012-09-05",
                 Count = 10
             };
 
-            GetLogResponse response = service.GetPersonalLogs(request);
+            IEnumerable<string> logs = service.GetPersonalLogs(filter);
 
-            Assert.That(response.Logs, Has.Count.EqualTo(1));
-            Assert.That(response.Logs.ElementAt(0), Does.StartWith("L000000001 "));
+            Assert.That(logs, Has.Count.EqualTo(1));
+            Assert.That(logs.ElementAt(0), Does.StartWith("L000000001 "));
         }
 
         [Test]
@@ -111,15 +110,15 @@ namespace PersonalLogManager.UnitTests.Service
                 .Setup(repository => repository.GetAll())
                 .Returns(entities);
 
-            GetLogRequest request = new()
+            PersonalLogFilter filter = new()
             {
                 Date = "2012-.*",
                 Count = 10
             };
 
-            GetLogResponse response = service.GetPersonalLogs(request);
+            IEnumerable<string> logs = service.GetPersonalLogs(filter);
 
-            Assert.That(response.Logs, Has.Count.EqualTo(2));
+            Assert.That(logs, Has.Count.EqualTo(2));
         }
 
         [Test]
@@ -135,16 +134,16 @@ namespace PersonalLogManager.UnitTests.Service
                 .Setup(repository => repository.GetAll())
                 .Returns(entities);
 
-            GetLogRequest request = new()
+            PersonalLogFilter filter = new()
             {
                 Time = "09:00",
                 Count = 10
             };
 
-            GetLogResponse response = service.GetPersonalLogs(request);
+            IEnumerable<string> logs = service.GetPersonalLogs(filter);
 
-            Assert.That(response.Logs, Has.Count.EqualTo(1));
-            Assert.That(response.Logs.ElementAt(0), Does.StartWith("L000000001 "));
+            Assert.That(logs, Has.Count.EqualTo(1));
+            Assert.That(logs.ElementAt(0), Does.StartWith("L000000001 "));
         }
 
         [Test]
@@ -160,16 +159,16 @@ namespace PersonalLogManager.UnitTests.Service
                 .Setup(repository => repository.GetAll())
                 .Returns(entities);
 
-            GetLogRequest request = new()
+            PersonalLogFilter filter = new()
             {
                 Template = "Text",
                 Count = 10
             };
 
-            GetLogResponse response = service.GetPersonalLogs(request);
+            IEnumerable<string> logs = service.GetPersonalLogs(filter);
 
-            Assert.That(response.Logs, Has.Count.EqualTo(1));
-            Assert.That(response.Logs.ElementAt(0), Does.StartWith("L000000001 "));
+            Assert.That(logs, Has.Count.EqualTo(1));
+            Assert.That(logs.ElementAt(0), Does.StartWith("L000000001 "));
         }
 
         [Test]
@@ -191,16 +190,16 @@ namespace PersonalLogManager.UnitTests.Service
                 .Setup(repository => repository.GetAll())
                 .Returns(entities);
 
-            GetLogRequest request = new()
+            PersonalLogFilter filter = new()
             {
                 Data = new Dictionary<string, string> { { "platform", "Nucilandia" } },
                 Count = 10
             };
 
-            GetLogResponse response = service.GetPersonalLogs(request);
+            IEnumerable<string> logs = service.GetPersonalLogs(filter);
 
-            Assert.That(response.Logs, Has.Count.EqualTo(1));
-            Assert.That(response.Logs.ElementAt(0), Does.StartWith("L000000001 "));
+            Assert.That(logs, Has.Count.EqualTo(1));
+            Assert.That(logs.ElementAt(0), Does.StartWith("L000000001 "));
         }
 
         [Test]
@@ -217,14 +216,14 @@ namespace PersonalLogManager.UnitTests.Service
                 .Setup(repository => repository.GetAll())
                 .Returns(entities);
 
-            GetLogRequest request = new()
+            PersonalLogFilter filter = new()
             {
                 Count = 2
             };
 
-            GetLogResponse response = service.GetPersonalLogs(request);
+            IEnumerable<string> logs = service.GetPersonalLogs(filter);
 
-            Assert.That(response.Logs, Has.Count.EqualTo(2));
+            Assert.That(logs, Has.Count.EqualTo(2));
         }
 
         [Test]
@@ -241,16 +240,16 @@ namespace PersonalLogManager.UnitTests.Service
                 .Setup(repository => repository.GetAll())
                 .Returns(entities);
 
-            GetLogRequest request = new()
+            PersonalLogFilter filter = new()
             {
                 Count = 10
             };
 
-            GetLogResponse response = service.GetPersonalLogs(request);
+            IEnumerable<string> logs = service.GetPersonalLogs(filter);
 
-            Assert.That(response.Logs.ElementAt(0), Does.StartWith("L000000003 "));
-            Assert.That(response.Logs.ElementAt(1), Does.StartWith("L000000002 "));
-            Assert.That(response.Logs.ElementAt(2), Does.StartWith("L000000001 "));
+            Assert.That(logs.ElementAt(0), Does.StartWith("L000000003 "));
+            Assert.That(logs.ElementAt(1), Does.StartWith("L000000002 "));
+            Assert.That(logs.ElementAt(2), Does.StartWith("L000000001 "));
         }
 
         [Test]
@@ -266,15 +265,15 @@ namespace PersonalLogManager.UnitTests.Service
                 .Setup(repository => repository.GetAll())
                 .Returns(entities);
 
-            GetLogRequest request = new()
+            PersonalLogFilter filter = new()
             {
                 Count = 10
             };
 
-            GetLogResponse response = service.GetPersonalLogs(request);
+            IEnumerable<string> logs = service.GetPersonalLogs(filter);
 
-            Assert.That(response.Logs.ElementAt(0), Does.StartWith("L000000002 "));
-            Assert.That(response.Logs.ElementAt(1), Does.StartWith("L000000001 "));
+            Assert.That(logs.ElementAt(0), Does.StartWith("L000000002 "));
+            Assert.That(logs.ElementAt(1), Does.StartWith("L000000001 "));
         }
 
         [Test]
@@ -286,10 +285,10 @@ namespace PersonalLogManager.UnitTests.Service
                 .Setup(repository => repository.GetAll())
                 .Throws(expectedException);
 
-            GetLogRequest request = new() { Count = 10 };
+            PersonalLogFilter filter = new() { Count = 10 };
 
             Assert.That(
-                () => service.GetPersonalLogs(request),
+                () => service.GetPersonalLogs(filter),
                 Throws.InstanceOf<InvalidOperationException>()
                       .With.Message.EqualTo("Repository failure."));
         }
@@ -301,15 +300,15 @@ namespace PersonalLogManager.UnitTests.Service
                 .Setup(repository => repository.GetAll())
                 .Returns([]);
 
-            GetLogRequest request = new()
+            PersonalLogFilter filter = new()
             {
                 Date = "2099-01-01",
                 Count = 10
             };
 
-            GetLogResponse response = service.GetPersonalLogs(request);
+            IEnumerable<string> logs = service.GetPersonalLogs(filter);
 
-            Assert.That(response.Logs, Is.Empty);
+            Assert.That(logs, Is.Empty);
         }
 
         // ── StorePersonalLog ───────────────────────────────────
@@ -317,7 +316,7 @@ namespace PersonalLogManager.UnitTests.Service
         [Test]
         public void GivenValidRequest_WhenStorePersonalLog_ThenAddsEntityToRepository()
         {
-            StoreLogRequest request = new()
+            PersonalLogCreation creation = new()
             {
                 Date = "2012-09-05",
                 Time = "09:00",
@@ -326,7 +325,7 @@ namespace PersonalLogManager.UnitTests.Service
                 Data = new Dictionary<string, string> { { "text", "Hello world" } }
             };
 
-            service.StorePersonalLog(request);
+            service.StorePersonalLog(creation);
 
             repositoryMock.Verify(
                 repository => repository.Add(It.Is<PersonalLogEntity>(entity =>
@@ -340,13 +339,13 @@ namespace PersonalLogManager.UnitTests.Service
         [Test]
         public void GivenValidRequest_WhenStorePersonalLog_ThenSavesChangesToRepository()
         {
-            StoreLogRequest request = new()
+            PersonalLogCreation creation = new()
             {
                 Date = "2012-09-05",
                 Template = "Text"
             };
 
-            service.StorePersonalLog(request);
+            service.StorePersonalLog(creation);
 
             repositoryMock.Verify(
                 repository => repository.SaveChanges(),
@@ -362,13 +361,13 @@ namespace PersonalLogManager.UnitTests.Service
                 .Setup(repository => repository.Add(It.IsAny<PersonalLogEntity>()))
                 .Callback<PersonalLogEntity>(entity => addedEntity = entity);
 
-            StoreLogRequest request = new()
+            PersonalLogCreation creation = new()
             {
                 Date = "2012-09-05",
                 Template = "Text"
             };
 
-            service.StorePersonalLog(request);
+            service.StorePersonalLog(creation);
 
             Assert.That(addedEntity.Id, Does.StartWith("L"));
             Assert.That(addedEntity.Id, Has.Length.EqualTo(10));
@@ -383,13 +382,13 @@ namespace PersonalLogManager.UnitTests.Service
                 .Setup(repository => repository.ContainsId(It.IsAny<string>()))
                 .Returns(() => callCount++ < 2);
 
-            StoreLogRequest request = new()
+            PersonalLogCreation creation = new()
             {
                 Date = "2012-09-05",
                 Template = "Text"
             };
 
-            service.StorePersonalLog(request);
+            service.StorePersonalLog(creation);
 
             repositoryMock.Verify(
                 repository => repository.ContainsId(It.IsAny<string>()),
@@ -405,14 +404,14 @@ namespace PersonalLogManager.UnitTests.Service
                 .Setup(repository => repository.Add(It.IsAny<PersonalLogEntity>()))
                 .Throws(expectedException);
 
-            StoreLogRequest request = new()
+            PersonalLogCreation creation = new()
             {
                 Date = "2012-09-05",
                 Template = "Text"
             };
 
             Assert.That(
-                () => service.StorePersonalLog(request),
+                () => service.StorePersonalLog(creation),
                 Throws.InstanceOf<InvalidOperationException>()
                       .With.Message.EqualTo("Add failure."));
         }
@@ -428,7 +427,7 @@ namespace PersonalLogManager.UnitTests.Service
                 .Setup(repository => repository.Get("L000000001"))
                 .Returns(existingEntity);
 
-            UpdateLogRequest request = new()
+            PersonalLogUpdate update = new()
             {
                 Identifier = "L000000001",
                 Date = "2020-03-01",
@@ -437,7 +436,7 @@ namespace PersonalLogManager.UnitTests.Service
                 Template = "AccountActivation"
             };
 
-            service.UpdatePersonalLog(request);
+            service.UpdatePersonalLog(update);
 
             repositoryMock.Verify(
                 repository => repository.Update(It.Is<PersonalLogEntity>(entity =>
@@ -464,13 +463,13 @@ namespace PersonalLogManager.UnitTests.Service
                 .Setup(repository => repository.Get("L000000001"))
                 .Returns(existingEntity);
 
-            UpdateLogRequest request = new()
+            PersonalLogUpdate update = new()
             {
                 Identifier = "L000000001",
                 Date = "2020-03-01"
             };
 
-            service.UpdatePersonalLog(request);
+            service.UpdatePersonalLog(update);
 
             repositoryMock.Verify(
                 repository => repository.Update(It.Is<PersonalLogEntity>(entity =>
@@ -489,14 +488,14 @@ namespace PersonalLogManager.UnitTests.Service
                 .Setup(repository => repository.Get(It.IsAny<string>()))
                 .Throws(expectedException);
 
-            UpdateLogRequest request = new()
+            PersonalLogUpdate update = new()
             {
                 Identifier = "L000000001",
                 Date = "2020-03-01"
             };
 
             Assert.That(
-                () => service.UpdatePersonalLog(request),
+                () => service.UpdatePersonalLog(update),
                 Throws.InstanceOf<InvalidOperationException>()
                       .With.Message.EqualTo("Get failure."));
         }
@@ -506,12 +505,7 @@ namespace PersonalLogManager.UnitTests.Service
         [Test]
         public void GivenValidRequest_WhenDeletePersonalLog_ThenRemovesEntityFromRepository()
         {
-            DeleteLogRequest request = new()
-            {
-                Identifier = "L000000001"
-            };
-
-            service.DeletePersonalLog(request);
+            service.DeletePersonalLog("L000000001");
 
             repositoryMock.Verify(
                 repository => repository.Remove("L000000001"),
@@ -521,12 +515,7 @@ namespace PersonalLogManager.UnitTests.Service
         [Test]
         public void GivenValidRequest_WhenDeletePersonalLog_ThenSavesChangesToRepository()
         {
-            DeleteLogRequest request = new()
-            {
-                Identifier = "L000000001"
-            };
-
-            service.DeletePersonalLog(request);
+            service.DeletePersonalLog("L000000001");
 
             repositoryMock.Verify(
                 repository => repository.SaveChanges(),
@@ -542,13 +531,8 @@ namespace PersonalLogManager.UnitTests.Service
                 .Setup(repository => repository.Remove(It.IsAny<string>()))
                 .Throws(expectedException);
 
-            DeleteLogRequest request = new()
-            {
-                Identifier = "L000000001"
-            };
-
             Assert.That(
-                () => service.DeletePersonalLog(request),
+                () => service.DeletePersonalLog("L000000001"),
                 Throws.InstanceOf<InvalidOperationException>()
                       .With.Message.EqualTo("Remove failure."));
         }

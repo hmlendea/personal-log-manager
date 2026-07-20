@@ -1,15 +1,17 @@
-using PersonalLogManager.Api.Models;
+using System.Collections.Generic;
+
+using PersonalLogManager.Service.Models;
 
 namespace PersonalLogManager.Service
 {
     public interface IPersonalLogService
     {
-        void StorePersonalLog(StoreLogRequest request);
+        void StorePersonalLog(PersonalLogCreation creation);
 
-        GetLogResponse GetPersonalLogs(GetLogRequest request);
+        IEnumerable<string> GetPersonalLogs(PersonalLogFilter filter);
 
-        void UpdatePersonalLog(UpdateLogRequest request);
+        void UpdatePersonalLog(PersonalLogUpdate update);
 
-        void DeletePersonalLog(DeleteLogRequest request);
+        void DeletePersonalLog(string id);
     }
 }

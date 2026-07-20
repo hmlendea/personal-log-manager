@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using NuciAPI.Controllers;
 
+using PersonalLogManager.Api.Mapping;
 using PersonalLogManager.Api.Models;
 using PersonalLogManager.Configuration;
 using PersonalLogManager.Service;
@@ -20,14 +21,14 @@ namespace PersonalLogManager.Api.Controllers
         public ActionResult AddPersonalLog([FromBody] StoreLogRequest request)
             => ProcessRequest(
                 request,
-                () => service.StorePersonalLog(request),
+                () => service.StorePersonalLog(request.ToServiceModel()),
                 Authorisation);
 
         [HttpGet]
         public ActionResult GetPersonalLogs([FromQuery] GetLogRequest request)
             => ProcessRequest(
                 request,
-                () => service.GetPersonalLogs(request),
+                () => new GetLogResponse { Logs = service.GetPersonalLogs(request.ToServiceModel()) },
                 Authorisation);
 
         [HttpPut("{id}")]
@@ -37,7 +38,7 @@ namespace PersonalLogManager.Api.Controllers
         {
             request.Identifier = id;
 
-            return ProcessRequest(request, () => service.UpdatePersonalLog(request), Authorisation);
+            return ProcessRequest(request, () => service.UpdatePersonalLog(request.ToServiceModel()), Authorisation);
         }
 
         [HttpDelete("{id}")]
@@ -45,7 +46,7 @@ namespace PersonalLogManager.Api.Controllers
         {
             DeleteLogRequest request = new() { Identifier = id };
 
-            return ProcessRequest(request, () => service.DeletePersonalLog(request), Authorisation);
+            return ProcessRequest(request, () => service.DeletePersonalLog(id), Authorisation);
         }
     }
 }
