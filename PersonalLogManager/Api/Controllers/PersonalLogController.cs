@@ -30,18 +30,22 @@ namespace PersonalLogManager.Api.Controllers
                 () => service.GetPersonalLogs(request),
                 Authorisation);
 
-        [HttpPut]
-        public ActionResult UpdatePersonalLogs([FromBody] UpdateLogRequest request)
-            => ProcessRequest(
-                request,
-                () => service.UpdatePersonalLog(request),
-                Authorisation);
+        [HttpPut("{id}")]
+        public ActionResult UpdatePersonalLog(
+            [FromRoute] string id,
+            [FromBody] UpdateLogRequest request)
+        {
+            request.Identifier = id;
 
-        [HttpDelete]
-        public ActionResult DeletePersonalLog([FromBody] DeleteLogRequest request)
-            => ProcessRequest(
-                request,
-                () => service.DeletePersonalLog(request),
-                Authorisation);
+            return ProcessRequest(request, () => service.UpdatePersonalLog(request), Authorisation);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult DeletePersonalLog([FromRoute] string id)
+        {
+            DeleteLogRequest request = new() { Identifier = id };
+
+            return ProcessRequest(request, () => service.DeletePersonalLog(request), Authorisation);
+        }
     }
 }
