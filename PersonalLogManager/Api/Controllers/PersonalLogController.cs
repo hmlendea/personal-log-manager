@@ -31,7 +31,7 @@ namespace PersonalLogManager.Api.Controllers
                 Authorisation);
 
         [HttpPut]
-        public ActionResult UpdatePersonalLogs([FromBody] UpdateLogRequest request)
+        public ActionResult UpdatePersonalLog([FromBody] UpdateLogRequest request)
             => ProcessRequest(
                 request,
                 () => service.UpdatePersonalLog(request),
