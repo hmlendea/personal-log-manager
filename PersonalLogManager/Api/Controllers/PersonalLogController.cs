@@ -30,6 +30,15 @@ namespace PersonalLogManager.Api.Controllers
                 () => service.GetPersonalLogs(request),
                 Authorisation);
 
+        [HttpGet("{id}")]
+        public ActionResult GetPersonalLog([FromRoute] string id)
+            => ProcessRequest(
+                new GetLogByIdRequest()
+                {
+                    Identifier = id
+                },
+                () => service.GetPersonalLog(id), Authorisation);
+
         [HttpPut("{id}")]
         public ActionResult UpdatePersonalLog(
             [FromRoute] string id,

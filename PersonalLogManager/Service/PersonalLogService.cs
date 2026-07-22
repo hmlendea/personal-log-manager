@@ -155,6 +155,51 @@ namespace PersonalLogManager.Service
             }
         }
 
+        public GetLogByIdResponse GetPersonalLog(string id)
+        {
+            IEnumerable<LogInfo> logInfos =
+            [
+                new(MyLogInfoKey.Identifier, id)
+            ];
+
+            logger.Info(
+                MyOperation.GetPersonalLog,
+                OperationStatus.Started,
+                logInfos);
+
+            try
+            {
+                PersonalLogEntity entity = repository.Get(id);
+
+                logger.Debug(
+                    MyOperation.GetPersonalLog,
+                    OperationStatus.Success,
+                    logInfos);
+
+                return new()
+                {
+                    Id = entity.Id,
+                    Date = entity.Date,
+                    Time = entity.Time,
+                    TimeZone = entity.TimeZone,
+                    Template = entity.Template,
+                    Data = entity.Data ?? [],
+                    CreatedDateTime = entity.CreatedDT,
+                    UpdatedDateTime = entity.UpdatedDT
+                };
+            }
+            catch (Exception ex)
+            {
+                logger.Error(
+                    MyOperation.GetPersonalLog,
+                    OperationStatus.Failure,
+                    ex,
+                    logInfos);
+
+                throw;
+            }
+        }
+
         private static IEnumerable<PersonalLogEntity> FilterByRequestData(
             IEnumerable<PersonalLogEntity> logs,
             Dictionary<string, string> requestedData)

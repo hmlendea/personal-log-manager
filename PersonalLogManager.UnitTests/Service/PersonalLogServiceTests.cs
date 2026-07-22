@@ -312,6 +312,146 @@ namespace PersonalLogManager.UnitTests.Service
             Assert.That(response.Logs, Is.Empty);
         }
 
+        // ── GetPersonalLog ─────────────────────────────────────
+
+        [Test]
+        public void GivenExistingId_WhenGetPersonalLog_ThenReturnsCorrectLogData()
+        {
+            PersonalLogEntity entity = BuildEntity("L000000001", "2012-09-05", time: "09:00");
+            entity.TimeZone = "EET";
+            entity.Template = "AccountActivation";
+            entity.CreatedDT = "2012-09-05T08:00:00Z";
+            entity.UpdatedDT = "2020-03-01T10:00:00Z";
+            entity.Data = new Dictionary<string, string> { { "platform", "Nucilandia" } };
+
+            repositoryMock
+                .Setup(repository => repository.Get("L000000001"))
+                .Returns(entity);
+
+            GetLogByIdResponse response = service.GetPersonalLog("L000000001");
+
+            Assert.That(response.Id, Is.EqualTo("L000000001"));
+            Assert.That(response.Date, Is.EqualTo("2012-09-05"));
+            Assert.That(response.Time, Is.EqualTo("09:00"));
+            Assert.That(response.TimeZone, Is.EqualTo("EET"));
+            Assert.That(response.Template, Is.EqualTo("AccountActivation"));
+            Assert.That(response.CreatedDateTime, Is.EqualTo("2012-09-05T08:00:00Z"));
+            Assert.That(response.UpdatedDateTime, Is.EqualTo("2020-03-01T10:00:00Z"));
+            Assert.That(response.Data, Contains.Key("platform"));
+            Assert.That(response.Data["platform"], Is.EqualTo("Nucilandia"));
+        }
+
+        [Test]
+        public void GivenEntityWithNoTime_WhenGetPersonalLog_ThenReturnsNullTime()
+        {
+            PersonalLogEntity entity = BuildEntity("L000000002", "2020-03-01", time: null);
+
+            repositoryMock
+                .Setup(repository => repository.Get("L000000002"))
+                .Returns(entity);
+
+            GetLogByIdResponse response = service.GetPersonalLog("L000000002");
+
+            Assert.That(response.Time, Is.Null);
+        }
+
+        [Test]
+        public void GivenEntityWithNoUpdatedDateTime_WhenGetPersonalLog_ThenReturnsNullUpdatedDateTime()
+        {
+            PersonalLogEntity entity = BuildEntity("L000000003", "2021-06-15");
+            entity.UpdatedDT = null;
+
+            repositoryMock
+                .Setup(repository => repository.Get("L000000003"))
+                .Returns(entity);
+
+            GetLogByIdResponse response = service.GetPersonalLog("L000000003");
+
+            Assert.That(response.UpdatedDateTime, Is.Null);
+        }
+
+        [Test]
+        public void GivenEntityWithNullData_WhenGetPersonalLog_ThenReturnsEmptyDictionary()
+        {
+            PersonalLogEntity entity = BuildEntity("L000000004", "2012-09-05");
+            entity.Data = null;
+
+            repositoryMock
+                .Setup(repository => repository.Get("L000000004"))
+                .Returns(entity);
+
+            GetLogByIdResponse response = service.GetPersonalLog("L000000004");
+
+            Assert.That(response.Data, Is.Empty);
+        }
+
+        [Test]
+        public void GivenEntityWithMultipleDataEntries_WhenGetPersonalLog_ThenReturnsAllDataEntries()
+        {
+            PersonalLogEntity entity = BuildEntityWithData("L000000005", "2012-09-05",
+                new Dictionary<string, string>
+                {
+                    { "platform", "Astora" },
+                    { "username", "solaire_of_astora" },
+                    { "role", "Admin" }
+                });
+
+            repositoryMock
+                .Setup(repository => repository.Get("L000000005"))
+                .Returns(entity);
+
+            GetLogByIdResponse response = service.GetPersonalLog("L000000005");
+
+            Assert.That(response.Data, Has.Count.EqualTo(3));
+            Assert.That(response.Data["platform"], Is.EqualTo("Astora"));
+            Assert.That(response.Data["username"], Is.EqualTo("solaire_of_astora"));
+            Assert.That(response.Data["role"], Is.EqualTo("Admin"));
+        }
+
+        [Test]
+        public void GivenRepositoryException_WhenGetPersonalLog_ThenRethrowsException()
+        {
+            InvalidOperationException expectedException = new("Get failure.");
+
+            repositoryMock
+                .Setup(repository => repository.Get(It.IsAny<string>()))
+                .Throws(expectedException);
+
+            Assert.That(
+                () => service.GetPersonalLog("L000000001"),
+                Throws.InstanceOf<InvalidOperationException>()
+                      .With.Message.EqualTo("Get failure."));
+        }
+
+        [Test]
+        public void GivenTextTemplate_WhenGetPersonalLog_ThenReturnsTextTemplate()
+        {
+            PersonalLogEntity entity = BuildEntity("L000000006", "2012-09-05", template: "Text");
+
+            repositoryMock
+                .Setup(repository => repository.Get("L000000006"))
+                .Returns(entity);
+
+            GetLogByIdResponse response = service.GetPersonalLog("L000000006");
+
+            Assert.That(response.Template, Is.EqualTo("Text"));
+        }
+
+        [Test]
+        public void GivenCreatedDateTimeIsSet_WhenGetPersonalLog_ThenReturnsCreatedDateTime()
+        {
+            PersonalLogEntity entity = BuildEntity("L000000007", "2020-03-01");
+            entity.CreatedDT = "2020-03-01T12:30:00Z";
+
+            repositoryMock
+                .Setup(repository => repository.Get("L000000007"))
+                .Returns(entity);
+
+            GetLogByIdResponse response = service.GetPersonalLog("L000000007");
+
+            Assert.That(response.CreatedDateTime, Is.EqualTo("2020-03-01T12:30:00Z"));
+        }
+
         // ── StorePersonalLog ───────────────────────────────────
 
         [Test]
