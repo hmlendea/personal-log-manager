@@ -10,6 +10,8 @@ namespace PersonalLogManager.Logging
 
         public static Operation GetPersonalLogs => new MyOperation(nameof(GetPersonalLogs));
 
+        public static Operation GetPersonalLog => new MyOperation(nameof(GetPersonalLog));
+
         public static Operation UpdatePersonalLog => new MyOperation(nameof(UpdatePersonalLog));
 
         public static Operation DeletePersonalLog => new MyOperation(nameof(DeletePersonalLog));

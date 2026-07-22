@@ -8,6 +8,8 @@ namespace PersonalLogManager.Service
 
         GetLogResponse GetPersonalLogs(GetLogRequest request);
 
+        GetLogByIdResponse GetPersonalLog(string id);
+
         void UpdatePersonalLog(UpdateLogRequest request);
 
         void DeletePersonalLog(DeleteLogRequest request);
