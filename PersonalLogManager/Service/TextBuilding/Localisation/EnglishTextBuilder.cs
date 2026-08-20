@@ -2608,6 +2608,43 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildPaymentLogText(PersonalLog log)
+        {
+            string text = "I have made a payment";
+
+            string paymentName = GetDataValue(log.Data, "payment_name");
+            if (!string.IsNullOrWhiteSpace(paymentName))
+            {
+                text += $" ({paymentName})";
+            }
+
+            string value = GetBalance(log.Data);
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                text += $" of {value}";
+            }
+
+            string vendorName = GetDataValue(log.Data, "vendor_name");
+            if (!string.IsNullOrWhiteSpace(vendorName))
+            {
+                text += $" to {vendorName}";
+            }
+
+            string cardName = GetDataValue(log.Data, "card_name");
+            if (!string.IsNullOrWhiteSpace(cardName))
+            {
+                text += $" with the {cardName} card";
+            }
+
+            string device = GetDevice(log.Data);
+            if (!string.IsNullOrWhiteSpace(device))
+            {
+                text += $", using my {device}";
+            }
+
+            return text + GetLocation(log.Data);
+        }
+
         public string BuildPetAdoptionLogText(PersonalLog log)
             => $"I have adopted {GetPet(log.Data)}" +
                 GetLocation(log.Data);

@@ -208,6 +208,68 @@ namespace PersonalLogManager.UnitTests.Service.TextBuilding.Localisation
                 Is.EqualTo("Am salvat exportul datelor contului de Nucilandia"));
         }
 
+        // ── BuildPaymentLogText ───────────────────────────────
+
+        [Test]
+        public void GivenNoOptionalData_WhenBuildPaymentLogText_ThenReturnsBaseText()
+        {
+            PersonalLog log = BuildLog(new Dictionary<string, string>());
+
+            string result = textBuilder.BuildPaymentLogText(log);
+
+            Assert.That(result, Is.EqualTo("Am efectuat o plată în valoare de 0.0"));
+        }
+
+        [Test]
+        public void GivenPaymentNameAndAmountAndCurrency_WhenBuildPaymentLogText_ThenIncludesPaymentDetails()
+        {
+            PersonalLog log = BuildLog(new Dictionary<string, string>
+            {
+                { "payment_name", "Factura internet" },
+                { "cost_amount", "75.50" },
+                { "cost_currency", "RON" }
+            });
+
+            string result = textBuilder.BuildPaymentLogText(log);
+
+            Assert.That(
+                result,
+                Is.EqualTo("Am efectuat o plată (Factura internet) în valoare de 75.50 RON"));
+        }
+
+        [Test]
+        public void GivenVendorAndCard_WhenBuildPaymentLogText_ThenIncludesVendorAndCard()
+        {
+            PersonalLog log = BuildLog(new Dictionary<string, string>
+            {
+                { "vendor_name", "Aqua Vita" },
+                { "card_name", "BCR Gold" }
+            });
+
+            string result = textBuilder.BuildPaymentLogText(log);
+
+            Assert.That(result, Is.EqualTo("Am efectuat o plată în valoare de 0.0 la Aqua Vita cu cardul BCR Gold"));
+        }
+
+        [Test]
+        public void GivenDeviceAndLocation_WhenBuildPaymentLogText_ThenIncludesDeviceAndLocation()
+        {
+            PersonalLog log = BuildLog(new Dictionary<string, string>
+            {
+                { "device_type", "Phone" },
+                { "device_name", "Pixel 11" },
+                { "room", "Kitchen" },
+                { "building_name", "UBC" }
+            });
+
+            string result = textBuilder.BuildPaymentLogText(log);
+
+            Assert.That(
+                result,
+                Is.EqualTo(
+                    "Am efectuat o plată în valoare de 0.0, utilizând telefonul Pixel 11, în bucătărie la UBC"));
+        }
+
         // ── GetLocalisedValue (Romanian-specific behaviour) ────
 
         [Test]
