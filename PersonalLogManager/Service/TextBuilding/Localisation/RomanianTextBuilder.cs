@@ -2639,6 +2639,43 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildPaymentLogText(PersonalLog log)
+        {
+            string text = "Am efectuat o plată";
+
+            string paymentName = GetDataValue(log.Data, "payment_name");
+            if (!string.IsNullOrWhiteSpace(paymentName))
+            {
+                text += $" ({paymentName})";
+            }
+
+            string value = GetBalance(log.Data);
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                text += $" în valoare de {value}";
+            }
+
+            string vendorName = GetDataValue(log.Data, "vendor_name");
+            if (!string.IsNullOrWhiteSpace(vendorName))
+            {
+                text += $" la {vendorName}";
+            }
+
+            string cardName = GetDataValue(log.Data, "card_name");
+            if (!string.IsNullOrWhiteSpace(cardName))
+            {
+                text += $" cu cardul {cardName}";
+            }
+
+            string device = GetDevice(log.Data);
+            if (!string.IsNullOrWhiteSpace(device))
+            {
+                text += $", utilizând {device}";
+            }
+
+            return text + GetLocation(log.Data);
+        }
+
         public string BuildPetAdoptionLogText(PersonalLog log)
             => $"Am adoptat {GetPetType(log.Data, true)} {GetPet(log.Data)}" +
                 GetLocation(log.Data);

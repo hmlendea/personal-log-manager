@@ -159,6 +159,7 @@ namespace PersonalLogManager.Service.Models
         ObjectSale,
         OnlineReviewSubmission,
         OnlineStorePurchase,
+        Payment,
         PetAdoption,
         PetBathing,
         PetBrushing,
