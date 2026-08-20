@@ -257,6 +257,68 @@ namespace PersonalLogManager.UnitTests.Service.TextBuilding.Localisation
                     "I have saved the export of the data related to the Nucilandia account"));
         }
 
+        // ── BuildPaymentLogText ───────────────────────────────
+
+        [Test]
+        public void GivenNoOptionalData_WhenBuildPaymentLogText_ThenReturnsBaseText()
+        {
+            PersonalLog log = BuildLog(new Dictionary<string, string>());
+
+            string result = textBuilder.BuildPaymentLogText(log);
+
+            Assert.That(result, Is.EqualTo("I have made a payment of 0.0"));
+        }
+
+        [Test]
+        public void GivenPaymentNameAndAmountAndCurrency_WhenBuildPaymentLogText_ThenIncludesPaymentDetails()
+        {
+            PersonalLog log = BuildLog(new Dictionary<string, string>
+            {
+                { "payment_name", "Internet bill" },
+                { "cost_amount", "75.50" },
+                { "cost_currency", "RON" }
+            });
+
+            string result = textBuilder.BuildPaymentLogText(log);
+
+            Assert.That(
+                result,
+                Is.EqualTo("I have made a payment (Internet bill) of 75.50 RON"));
+        }
+
+        [Test]
+        public void GivenVendorAndCard_WhenBuildPaymentLogText_ThenIncludesVendorAndCard()
+        {
+            PersonalLog log = BuildLog(new Dictionary<string, string>
+            {
+                { "vendor_name", "Aqua Vita" },
+                { "card_name", "BCR Gold" }
+            });
+
+            string result = textBuilder.BuildPaymentLogText(log);
+
+            Assert.That(result, Is.EqualTo("I have made a payment of 0.0 to Aqua Vita with the BCR Gold card"));
+        }
+
+        [Test]
+        public void GivenDeviceAndLocation_WhenBuildPaymentLogText_ThenIncludesDeviceAndLocation()
+        {
+            PersonalLog log = BuildLog(new Dictionary<string, string>
+            {
+                { "device_type", "Phone" },
+                { "device_name", "Pixel 11" },
+                { "room", "Kitchen" },
+                { "building_name", "UBC" }
+            });
+
+            string result = textBuilder.BuildPaymentLogText(log);
+
+            Assert.That(
+                result,
+                Is.EqualTo(
+                    "I have made a payment of 0.0, using my Pixel 11 phone, in the kitchen at UBC"));
+        }
+
         // ── BuildAccountDeletionLogText ────────────────────────
 
         [Test]
