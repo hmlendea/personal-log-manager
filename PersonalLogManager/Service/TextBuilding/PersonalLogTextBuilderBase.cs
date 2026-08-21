@@ -275,11 +275,13 @@ namespace PersonalLogManager.Service.TextBuilding
                 text += $" {currency}";
             }
 
-            if (string.IsNullOrWhiteSpace(text))
+            if (string.IsNullOrWhiteSpace(text) ||
+                string.Equals(text, "0", StringComparison.InvariantCultureIgnoreCase) ||
+                string.Equals(text, "0.0", StringComparison.InvariantCultureIgnoreCase))
             {
                 if (data.ContainsKey("value"))
                 {
-                    text = GetDataValue(data, "value");
+                    text = GetDataValue(data, "value").Replace(',', '.');
                 }
             }
 
