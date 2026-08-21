@@ -240,10 +240,6 @@ namespace PersonalLogManager.Service.TextBuilding
             {
                 amount = decimal.Parse(GetDataValue(data, "total_amount"));
             }
-            else if (data.ContainsKey("value"))
-            {
-                amount = decimal.Parse(GetDataValue(data, "value"));
-            }
 
             string currency = string.Empty;
 
@@ -277,6 +273,14 @@ namespace PersonalLogManager.Service.TextBuilding
             if (!string.IsNullOrWhiteSpace(currency))
             {
                 text += $" {currency}";
+            }
+
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                if (data.ContainsKey("value"))
+                {
+                    text = GetDataValue(data, "value");
+                }
             }
 
             return text;
