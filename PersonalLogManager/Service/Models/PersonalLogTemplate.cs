@@ -145,6 +145,7 @@ namespace PersonalLogManager.Service.Models
         InternshipApplicationSubmission,
         KinetotherapySession,
         LdlCholesterolMeasurement,
+        Location,
         MagnesiumLevelMeasurement,
         MealVoucherCardCreditation,
         MedicationIntake,

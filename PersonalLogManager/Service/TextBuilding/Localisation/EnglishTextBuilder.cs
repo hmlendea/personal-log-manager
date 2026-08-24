@@ -2315,6 +2315,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildLdlCholesterolMeasurementLogText(PersonalLog log)
             => $"My LDL cholesterol level measured {log.Data["ldl_cholesterol_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
+        public string BuildLocationLogText(PersonalLog log)
+            => "I am" + GetLocation(log.Data);
+
         public string BuildMagnesiumLevelMeasurementLogText(PersonalLog log)
             => $"My magnesium level measured {GetDecimalValue(log.Data, "magnesium_level")} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
@@ -3737,6 +3740,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         protected override string GetLocation(Dictionary<string, string> data)
         {
+            if (data is null)
+            {
+                return string.Empty;
+            }
+
             string text = string.Empty;
             string room = string.Empty;
 
@@ -3803,6 +3811,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" at {buildingName}";
             }
 
+            if (!string.IsNullOrWhiteSpace(text) &&
+                data.ContainsKey("floor_index"))
+            {
+                text += $", on floor {GetDataValue(data, "floor_index")}";
+            }
+
+            string streetName = string.Empty;
+
+            if (data.ContainsKey("street"))
+            {
+                streetName = GetDataValue(data, "street");
+            }
+
             string location = string.Empty;
 
             if (data.ContainsKey("location"))
@@ -3818,6 +3839,47 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 location = GetDataValue(data, "event_location");
             }
 
+            if (data.ContainsKey("region"))
+            {
+                if (!string.IsNullOrWhiteSpace(location))
+                {
+                    location += ", ";
+                }
+
+                location += GetDataValue(data, "region");
+            }
+
+            if (data.ContainsKey("country"))
+            {
+                if (!string.IsNullOrWhiteSpace(location))
+                {
+                    location += ", ";
+                }
+
+                location += GetDataValue(data, "country");
+            }
+
+            string postalCode = string.Empty;
+
+            if (data.ContainsKey("postal_code"))
+            {
+                postalCode = GetDataValue(data, "postal_code");
+            }
+
+            string longitute = string.Empty;
+
+            if (data.ContainsKey("longitude"))
+            {
+                longitute = GetDataValue(data, "longitude");
+            }
+
+            string latitude = string.Empty;
+
+            if (data.ContainsKey("latitude"))
+            {
+                latitude = GetDataValue(data, "latitude");
+            }
+
             if (!string.IsNullOrWhiteSpace(location))
             {
                 if (string.IsNullOrWhiteSpace(text))
@@ -3825,7 +3887,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     text += ",";
                 }
 
-                if (string.IsNullOrWhiteSpace(buildingName))
+                if (!string.IsNullOrWhiteSpace(streetName))
+                {
+                    text += $" on street {streetName}";
+                }
+                else if (string.IsNullOrWhiteSpace(buildingName))
                 {
                     text += " at";
                 }
@@ -3835,12 +3901,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 }
 
                 text += $" {location}";
-            }
 
-            if (!string.IsNullOrWhiteSpace(text) &&
-                data.ContainsKey("floor_index"))
-            {
-                text += $", on floor {GetDataValue(data, "floor_index")}";
+                if (!string.IsNullOrWhiteSpace(postalCode))
+                {
+                    text += $", with the postal code {postalCode}";
+                }
+
+                if (!string.IsNullOrWhiteSpace(longitute) &&
+                    !string.IsNullOrWhiteSpace(latitude))
+                {
+                    text += $", at the coordinates {latitude}, {longitute}";
+                }
             }
 
             string with = string.Empty;

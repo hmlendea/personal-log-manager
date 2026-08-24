@@ -2319,6 +2319,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildLdlCholesterolMeasurementLogText(PersonalLog log)
             => $"Nivelul de LDL Colesterol a fost măsurat la {log.Data["ldl_cholesterol_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
+        public string BuildLocationLogText(PersonalLog log)
+            => "Mă aflu" + GetLocation(log.Data);
+
         public string BuildMagnesiumLevelMeasurementLogText(PersonalLog log)
             => $"Nivelul de magneziu a fost măsurat la {log.Data["magnesium_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 
@@ -3932,6 +3935,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" la {buildingName}";
             }
 
+            if (!string.IsNullOrWhiteSpace(text) &&
+                data.ContainsKey("floor_index"))
+            {
+                text += $", la etajul {GetDataValue(data, "floor_index")}";
+            }
+
+            string streetName = string.Empty;
+
+            if (data.ContainsKey("street"))
+            {
+                streetName = GetDataValue(data, "street");
+            }
+
             string location = string.Empty;
 
             if (data.ContainsKey("location"))
@@ -3943,6 +3959,48 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 location = GetDataValue(data, "event_location");
             }
 
+
+            if (data.ContainsKey("region"))
+            {
+                if (!string.IsNullOrWhiteSpace(location))
+                {
+                    location += ", ";
+                }
+
+                location += GetDataValue(data, "region");
+            }
+
+            if (data.ContainsKey("country"))
+            {
+                if (!string.IsNullOrWhiteSpace(location))
+                {
+                    location += ", ";
+                }
+
+                location += GetDataValue(data, "country");
+            }
+
+            string postalCode = string.Empty;
+
+            if (data.ContainsKey("postal_code"))
+            {
+                postalCode = GetDataValue(data, "postal_code");
+            }
+
+            string longitute = string.Empty;
+
+            if (data.ContainsKey("longitude"))
+            {
+                longitute = GetDataValue(data, "longitude");
+            }
+
+            string latitude = string.Empty;
+
+            if (data.ContainsKey("latitude"))
+            {
+                latitude = GetDataValue(data, "latitude");
+            }
+
             if (!string.IsNullOrWhiteSpace(location))
             {
                 if (string.IsNullOrWhiteSpace(text))
@@ -3950,7 +4008,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     text += ",";
                 }
 
-                if (string.IsNullOrWhiteSpace(buildingName))
+                if (!string.IsNullOrWhiteSpace(streetName))
+                {
+                    text += $" pe strada {streetName}";
+                }
+                else if (string.IsNullOrWhiteSpace(buildingName))
                 {
                     text += " la";
                 }
@@ -3960,12 +4022,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 }
 
                 text += $" {location}";
-            }
 
-            if (!string.IsNullOrWhiteSpace(text) &&
-                data.ContainsKey("floor_index"))
-            {
-                text += $", de la etajul {GetDataValue(data, "floor_index")}";
+                if (!string.IsNullOrWhiteSpace(postalCode))
+                {
+                    text += $", cu codul poștal {postalCode}";
+                }
+
+                if (!string.IsNullOrWhiteSpace(longitute) &&
+                    !string.IsNullOrWhiteSpace(latitude))
+                {
+                    text += $", la coordonatele {latitude}, {longitute}";
+                }
             }
 
             string with = string.Empty;
