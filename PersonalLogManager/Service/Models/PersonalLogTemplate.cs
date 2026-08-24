@@ -83,6 +83,8 @@ namespace PersonalLogManager.Service.Models
         DentalScaling,
         DeviceBatteryHealth,
         DeviceBatteryLevel,
+        DeviceBatterySavingModeActivation,
+        DeviceBatterySavingModeDeactivation,
         DeviceBreaking,
         DeviceCharging,
         DeviceChargingPlugging,

@@ -1403,6 +1403,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildDeviceBatteryLevelLogText(PersonalLog log)
             => $"The battery level of my {GetDevice(log.Data)} was measured at {log.Data["battery_level_percentage"]}%";
 
+        public string BuildDeviceBatterySavingModeActivationLogText(PersonalLog log)
+            => $"The battery saving mode on my {GetDevice(log.Data)} was activated" +
+                GetLocation(log.Data);
+
+        public string BuildDeviceBatterySavingModeDeactivationLogText(PersonalLog log)
+            => $"The battery saving mode on my {GetDevice(log.Data)} was deactivated" +
+                GetLocation(log.Data);
+
         public string BuildDeviceBreakingLogText(PersonalLog log)
         {
             string text;

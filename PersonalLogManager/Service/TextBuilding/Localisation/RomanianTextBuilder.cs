@@ -1403,6 +1403,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildDeviceBatteryLevelLogText(PersonalLog log)
             => $"Nivelul bateriei din {GetDevice(log.Data)} a fost măsurat la {log.Data["battery_level_percentage"]}%";
 
+        public string BuildDeviceBatterySavingModeActivationLogText(PersonalLog log)
+            => $"Modul de economisire a energiei de pe {GetDevice(log.Data)} a fost activat" +
+                GetLocation(log.Data);
+
+        public string BuildDeviceBatterySavingModeDeactivationLogText(PersonalLog log)
+            => $"Modul de economisire a energiei de pe {GetDevice(log.Data)} a fost dezactivat" +
+                GetLocation(log.Data);
+
         public string BuildDeviceBreakingLogText(PersonalLog log)
         {
             string deviceType = GetDeviceType(log.Data);
@@ -1442,6 +1450,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildDeviceChargingLogText(PersonalLog log)
             => $"Am pus la încărcat {GetDevice(log.Data)}" + GetLocation(log.Data);
+
+        public string BuildDeviceChargingPluggingLogText(PersonalLog log)
+            => $"Am pus {GetDevice(log.Data)} la încărcare" +
+                GetLocation(log.Data);
+
+        public string BuildDeviceChargingUnpluggingLogText(PersonalLog log)
+            => $"Am scos {GetDevice(log.Data)} de la încărcare" +
+                GetLocation(log.Data);
 
         public string BuildDeviceContainerEmptyingLogText(PersonalLog log)
             => $"Am golit rezervorul de la {GetDevice(log.Data)}" + GetLocation(log.Data);
