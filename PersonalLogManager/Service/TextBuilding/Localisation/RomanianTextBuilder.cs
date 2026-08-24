@@ -1403,6 +1403,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
         public string BuildDeviceBatteryLevelLogText(PersonalLog log)
             => $"Nivelul bateriei din {GetDevice(log.Data)} a fost măsurat la {log.Data["battery_level_percentage"]}%";
 
+        public string BuildDeviceBatterySavingModeActivationLogText(PersonalLog log)
+            => $"Modul de economisire a energiei de pe {GetDevice(log.Data)} a fost activat" +
+                GetLocation(log.Data);
+
+        public string BuildDeviceBatterySavingModeDeactivationLogText(PersonalLog log)
+            => $"Modul de economisire a energiei de pe {GetDevice(log.Data)} a fost dezactivat" +
+                GetLocation(log.Data);
+
         public string BuildDeviceBreakingLogText(PersonalLog log)
         {
             string deviceType = GetDeviceType(log.Data);
@@ -1442,6 +1450,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildDeviceChargingLogText(PersonalLog log)
             => $"Am pus la încărcat {GetDevice(log.Data)}" + GetLocation(log.Data);
+
+        public string BuildDeviceChargingPluggingLogText(PersonalLog log)
+            => $"Am pus {GetDevice(log.Data)} la încărcare" +
+                GetLocation(log.Data);
+
+        public string BuildDeviceChargingUnpluggingLogText(PersonalLog log)
+            => $"Am scos {GetDevice(log.Data)} de la încărcare" +
+                GetLocation(log.Data);
 
         public string BuildDeviceContainerEmptyingLogText(PersonalLog log)
             => $"Am golit rezervorul de la {GetDevice(log.Data)}" + GetLocation(log.Data);
@@ -1546,6 +1562,40 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             }
 
             return text;
+        }
+
+        public string BuildDeviceWiFiConnectionLogText(PersonalLog log)
+        {
+            string text = $"{GetDevice(log.Data)} s-a conectat la";
+            string networkName = GetDataValue(log.Data, "network_name");
+
+            if (string.IsNullOrWhiteSpace(networkName))
+            {
+                text += " o rețea Wi-Fi";
+            }
+            else
+            {
+                text += $" rețeaua Wi-Fi '{networkName}'";
+            }
+
+            return text + GetLocation(log.Data);
+        }
+
+        public string BuildDeviceWifiDosconnectionLogText(PersonalLog log)
+        {
+            string text = $"{GetDevice(log.Data)} s-a decnectat de la";
+            string networkName = GetDataValue(log.Data, "network_name");
+
+            if (string.IsNullOrWhiteSpace(networkName))
+            {
+                text += " o rețea Wi-Fi";
+            }
+            else
+            {
+                text += $" rețeaua Wi-Fi '{networkName}'";
+            }
+
+            return text + GetLocation(log.Data);
         }
 
         public string BuildDirectBilirubinMeasurementLogText(PersonalLog log)
@@ -2268,6 +2318,9 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
         public string BuildLdlCholesterolMeasurementLogText(PersonalLog log)
             => $"Nivelul de LDL Colesterol a fost măsurat la {log.Data["ldl_cholesterol_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
+
+        public string BuildLocationLogText(PersonalLog log)
+            => "Mă aflu" + GetLocation(log.Data);
 
         public string BuildMagnesiumLevelMeasurementLogText(PersonalLog log)
             => $"Nivelul de magneziu a fost măsurat la {log.Data["magnesium_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
@@ -3882,6 +3935,19 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 text += $" la {buildingName}";
             }
 
+            if (!string.IsNullOrWhiteSpace(text) &&
+                data.ContainsKey("floor_index"))
+            {
+                text += $", la etajul {GetDataValue(data, "floor_index")}";
+            }
+
+            string streetName = string.Empty;
+
+            if (data.ContainsKey("street"))
+            {
+                streetName = GetDataValue(data, "street");
+            }
+
             string location = string.Empty;
 
             if (data.ContainsKey("location"))
@@ -3892,6 +3958,56 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 location = GetDataValue(data, "event_location");
             }
+            else if (data.ContainsKey("city"))
+            {
+                location = GetDataValue(data, "city");
+            }
+
+            if (data.ContainsKey("region"))
+            {
+                if (!string.IsNullOrWhiteSpace(location))
+                {
+                    location += ", ";
+                }
+
+                location += GetDataValue(data, "region");
+            }
+
+            if (data.ContainsKey("country"))
+            {
+                if (!string.IsNullOrWhiteSpace(location))
+                {
+                    location += ", ";
+                }
+
+                location += GetDataValue(data, "country");
+            }
+
+            string postalCode = string.Empty;
+
+            if (data.ContainsKey("postal_code"))
+            {
+                postalCode = GetDataValue(data, "postal_code");
+            }
+
+            string longitute = string.Empty;
+
+            if (data.ContainsKey("longitude"))
+            {
+                longitute = GetDataValue(data, "longitude");
+            }
+
+            string latitude = string.Empty;
+
+            if (data.ContainsKey("latitude"))
+            {
+                latitude = GetDataValue(data, "latitude");
+            }
+
+            if (!string.IsNullOrWhiteSpace(streetName))
+            {
+                text += $" pe strada {streetName}";
+            }
 
             if (!string.IsNullOrWhiteSpace(location))
             {
@@ -3900,7 +4016,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                     text += ",";
                 }
 
-                if (string.IsNullOrWhiteSpace(buildingName))
+                if (!string.IsNullOrWhiteSpace(streetName))
+                {
+                    text += " din";
+                }
+                else if (string.IsNullOrWhiteSpace(buildingName))
                 {
                     text += " la";
                 }
@@ -3910,12 +4030,17 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 }
 
                 text += $" {location}";
-            }
 
-            if (!string.IsNullOrWhiteSpace(text) &&
-                data.ContainsKey("floor_index"))
-            {
-                text += $", de la etajul {GetDataValue(data, "floor_index")}";
+                if (!string.IsNullOrWhiteSpace(postalCode))
+                {
+                    text += $", cu codul poștal {postalCode}";
+                }
+
+                if (!string.IsNullOrWhiteSpace(longitute) &&
+                    !string.IsNullOrWhiteSpace(latitude))
+                {
+                    text += $", la coordonatele {latitude}, {longitute}";
+                }
             }
 
             string with = string.Empty;
