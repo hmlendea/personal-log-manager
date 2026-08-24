@@ -1548,7 +1548,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
-        public string BuildDeviceWifiConnectionLogText(PersonalLog log)
+        public string BuildDeviceWiFiConnectionLogText(PersonalLog log)
         {
             string text = $"{GetDevice(log.Data)} s-a conectat la";
             string networkName = GetDataValue(log.Data, "network_name");

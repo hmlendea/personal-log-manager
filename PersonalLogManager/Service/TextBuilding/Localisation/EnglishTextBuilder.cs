@@ -1440,6 +1440,14 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             => $"I have charged my {GetDevice(log.Data)}" +
                 GetLocation(log.Data);
 
+        public string BuildDeviceChargingPluggingLogText(PersonalLog log)
+            => $"I have plugged in my {GetDevice(log.Data)} for charging" +
+                GetLocation(log.Data);
+
+        public string BuildDeviceChargingUnpluggingLogText(PersonalLog log)
+            => $"I have unplugged my {GetDevice(log.Data)} from charging" +
+                GetLocation(log.Data);
+
         public string BuildDeviceContainerEmptyingLogText(PersonalLog log)
             => $"I have emptied the container of my {GetDevice(log.Data)}" +
                 GetLocation(log.Data);
