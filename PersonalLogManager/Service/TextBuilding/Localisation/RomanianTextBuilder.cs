@@ -1548,6 +1548,40 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildDeviceWifiConnectionLogText(PersonalLog log)
+        {
+            string text = $"{GetDevice(log.Data)} s-a conectat la";
+            string networkName = GetDataValue(log.Data, "network_name");
+
+            if (string.IsNullOrWhiteSpace(networkName))
+            {
+                text += " o rețea Wi-Fi";
+            }
+            else
+            {
+                text += $" rețeaua Wi-Fi '{networkName}'";
+            }
+
+            return text + GetLocation(log.Data);
+        }
+
+        public string BuildDeviceWifiDosconnectionLogText(PersonalLog log)
+        {
+            string text = $"{GetDevice(log.Data)} s-a decnectat de la";
+            string networkName = GetDataValue(log.Data, "network_name");
+
+            if (string.IsNullOrWhiteSpace(networkName))
+            {
+                text += " o rețea Wi-Fi";
+            }
+            else
+            {
+                text += $" rețeaua Wi-Fi '{networkName}'";
+            }
+
+            return text + GetLocation(log.Data);
+        }
+
         public string BuildDirectBilirubinMeasurementLogText(PersonalLog log)
             => $"Nivelul de bilirubină directă a fost măsurat la {log.Data["direct_bilirubin_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 

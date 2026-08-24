@@ -1528,6 +1528,40 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text;
         }
 
+        public string BuildDeviceWiFiConnectionLogText(PersonalLog log)
+        {
+            string text = $"My {GetDevice(log.Data)} has connected to";
+            string networkName = GetDataValue(log.Data, "network_name");
+
+            if (string.IsNullOrWhiteSpace(networkName))
+            {
+                text += " a Wi-Fi network";
+            }
+            else
+            {
+                text += $" the '{networkName}' Wi-Fi network";
+            }
+
+            return text + GetLocation(log.Data);
+        }
+
+        public string BuildDeviceWifiDisconnectionLogText(PersonalLog log)
+        {
+            string text = $"My {GetDevice(log.Data)} has disconnected from";
+            string networkName = GetDataValue(log.Data, "network_name");
+
+            if (string.IsNullOrWhiteSpace(networkName))
+            {
+                text += " a Wi-Fi network";
+            }
+            else
+            {
+                text += $" the '{networkName}' Wi-Fi network";
+            }
+
+            return text + GetLocation(log.Data);
+        }
+
         public string BuildDirectBilirubinMeasurementLogText(PersonalLog log)
             => $"My direct bilirubin level measured {log.Data["direct_bilirubin_level"]} {GetDataValue(log.Data, "unit", "mg/dL")}";
 

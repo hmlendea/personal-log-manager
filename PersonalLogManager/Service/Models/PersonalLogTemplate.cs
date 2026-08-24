@@ -90,6 +90,8 @@ namespace PersonalLogManager.Service.Models
         DeviceInternalCleaning,
         DeviceRepair,
         DeviceScreentimeMeasurement,
+        DeviceWifiConnection,
+        DeviceWifiDisconnection,
         DirectBilirubinMeasurement,
         Donation,
         EarwaxCleaning,
