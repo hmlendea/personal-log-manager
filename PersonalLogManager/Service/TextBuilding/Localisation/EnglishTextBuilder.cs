@@ -3880,6 +3880,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 latitude = GetDataValue(data, "latitude");
             }
 
+            if (!string.IsNullOrWhiteSpace(streetName))
+            {
+                text += $" on street {streetName}";
+            }
+
             if (!string.IsNullOrWhiteSpace(location))
             {
                 if (string.IsNullOrWhiteSpace(text))
@@ -3889,7 +3894,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
                 if (!string.IsNullOrWhiteSpace(streetName))
                 {
-                    text += $" on street {streetName}";
+                    text += " in";
                 }
                 else if (string.IsNullOrWhiteSpace(buildingName))
                 {

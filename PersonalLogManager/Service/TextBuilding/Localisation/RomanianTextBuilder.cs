@@ -3958,7 +3958,10 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             {
                 location = GetDataValue(data, "event_location");
             }
-
+            else if (data.ContainsKey("city"))
+            {
+                location = GetDataValue(data, "city");
+            }
 
             if (data.ContainsKey("region"))
             {
@@ -4001,6 +4004,11 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
                 latitude = GetDataValue(data, "latitude");
             }
 
+            if (!string.IsNullOrWhiteSpace(streetName))
+            {
+                text += $" pe strada {streetName}";
+            }
+
             if (!string.IsNullOrWhiteSpace(location))
             {
                 if (string.IsNullOrWhiteSpace(text))
@@ -4010,7 +4018,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
 
                 if (!string.IsNullOrWhiteSpace(streetName))
                 {
-                    text += $" pe strada {streetName}";
+                    text += " din";
                 }
                 else if (string.IsNullOrWhiteSpace(buildingName))
                 {
