@@ -245,6 +245,8 @@ dotnet run --project PersonalLogManager/PersonalLogManager.csproj
 dotnet test PersonalLogManager.slnx
 ```
 
+The solution includes isolated HTTP integration tests in `PersonalLogManager.IntegrationTests`; each test uses a temporary JSON store and exercises the configured ASP.NET Core middleware, controller routes, validation, persistence, filtering, localisation, update, and deletion paths.
+
 ### Release
 
 The repository includes `release.sh`, which delegates to the upstream deployment script used by the project maintainer.
@@ -272,6 +274,7 @@ This script downloads and executes an external release helper from `https://raw.
 The solution contains the subsequent projects:
 - `PersonalLogManager`: ASP.NET Core API, application service, persistence adapter, and localised text builders
 - `PersonalLogManager.UnitTests`: NUnit tests for service orchestration and text rendering
+- `PersonalLogManager.IntegrationTests`: NUnit HTTP integration tests for the running API pipeline and JSON persistence
 
 The key directories inside `PersonalLogManager/` are:
 | Directory | Purpose |
