@@ -290,6 +290,8 @@ The key directories inside `PersonalLogManager/` are:
 
 See [ARCHITECTURE.md](./ARCHITECTURE.md) for a structural synopsis and component interactions.
 
+See [docs/README.md](./docs/README.md) for the implementation-grounded documentation corpus.
+
 ## 🤝 Contributing
 
 You are welcome to submit any suggestion, feedback, or modification to this project.
