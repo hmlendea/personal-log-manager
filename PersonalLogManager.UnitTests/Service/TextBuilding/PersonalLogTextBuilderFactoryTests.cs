@@ -159,6 +159,30 @@ namespace PersonalLogManager.UnitTests.Service.TextBuilding
                 Throws.TypeOf<MissingMethodException>());
         }
 
+        [TestCase("en", "", "My Devicius has disconnected from a Wi-Fi network")]
+        [TestCase("en", "Nucilandia", "My Devicius has disconnected from the 'Nucilandia' Wi-Fi network")]
+        [TestCase("ro", "", "Devicius s-a deconectat de la o rețea Wi-Fi")]
+        [TestCase("ro", "Nucilandia", "Devicius s-a deconectat de la rețeaua Wi-Fi 'Nucilandia'")]
+        public void GivenAWiFiDisconnection_WhenBuildingLogText_ThenTheLocalisedTextIsReturned(
+            string localisation,
+            string networkName,
+            string expectedText)
+        {
+            PersonalLog log = new(new DateOnly(2012, 9, 5))
+            {
+                Template = PersonalLogTemplate.DeviceWiFiDisconnection,
+                Data = new Dictionary<string, string>
+                {
+                    { "device_name", "Devicius" },
+                    { "network_name", networkName }
+                }
+            };
+
+            string renderedText = factory.BuildLogText(log, localisation);
+
+            Assert.That(renderedText, Is.EqualTo($"2012-09-05: {expectedText}"));
+        }
+
         private static PersonalLog BuildTextLog(
             DateOnly date,
             TimeOnly? time,
