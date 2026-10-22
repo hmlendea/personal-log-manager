@@ -1581,7 +1581,7 @@ namespace PersonalLogManager.Service.TextBuilding.Localisation
             return text + GetLocation(log.Data);
         }
 
-        public string BuildDeviceWifiDisconnectionLogText(PersonalLog log)
+        public string BuildDeviceWiFiDisconnectionLogText(PersonalLog log)
         {
             string text = $"{GetDevice(log.Data)} s-a deconectat de la";
             string networkName = GetDataValue(log.Data, "network_name");
