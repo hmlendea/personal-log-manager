@@ -1,7 +1,7 @@
 [![Donate](https://img.shields.io/badge/-%E2%99%A5%20Donate-%23ff69b4)](https://hmlendea.go.ro/funding)
 [![Latest Release](https://img.shields.io/github/v/release/hmlendea/personal-log-manager)](https://github.com/hmlendea/personal-log-manager/releases/latest)
 [![Build Status](https://github.com/hmlendea/personal-log-manager/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hmlendea/personal-log-manager/actions/workflows/dotnet.yml)
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://gnu.org/licenses/gpl-3.0)
+[![License](https://img.shields.io/github/license/hmlendea/personal-log-manager)](https://github.com/hmlendea/personal-log-manager/blob/master/LICENSE)
 
 # Personal Log Manager
 
@@ -9,7 +9,6 @@ Personal Log Manager is a self-hosted ASP.NET Core REST API for recording, query
 
 ## 📑 Table of Contents
 
-- [Table of Contents](#table-of-contents)
 - [Capabilities](#capabilities)
 - [Usage](#usage)
   - [Authentication](#authentication)
@@ -25,8 +24,9 @@ Personal Log Manager is a self-hosted ASP.NET Core REST API for recording, query
 - [Known Limitations](#known-limitations)
 - [System Requirements](#system-requirements)
 - [Installation](#installation)
-  - [CLI Installation](#cli-installation)
 - [Configuration](#configuration)
+  - [Configuration Files](#configuration-files)
+  - [Settings](#settings)
 - [Localisation](#localisation)
 - [Development](#development)
   - [Requirements](#requirements)
@@ -37,10 +37,15 @@ Personal Log Manager is a self-hosted ASP.NET Core REST API for recording, query
   - [Release](#release)
   - [Dependencies](#dependencies)
 - [Project Structure](#project-structure)
+  - [Projects and Packages](#projects-and-packages)
+  - [Directories](#directories)
 - [Architecture](#architecture)
+- [Privacy and Data](#privacy-and-data)
+- [Security](#security)
 - [Contributing](#contributing)
+- [Code of Conduct](#code-of-conduct)
 - [Related Projects](#related-projects)
-- [Supporting the Project](#supporting-the-project)
+- [Project Engagement](#project-engagement)
 - [License](#license)
 
 ## ✨ Capabilities
@@ -175,9 +180,11 @@ Logs are persisted as JSON records at the configured `logStorePath`. Stored valu
 
 ## 🖥️ System Requirements
 
-- **OS:** Linux (`arm`, `arm64`, or `x64`), macOS (`arm64` or `x64`), or Windows (`arm64` or `x64`)
-- **RAM:** No project-specific minimum is specified
-- Read-write filesystem access for the JSON store and configured log output
+| Component | Minimum | Recommended |
+|-----------|---------|-------------|
+| OS | Linux (`arm`, `arm64`, or `x64`), macOS (`arm64` or `x64`), or Windows (`arm64` or `x64`) | — |
+| RAM | No project-specific minimum is specified | — |
+| Filesystem | Read-write access for the JSON store and configured log output | — |
 
 ## 📦 Installation
 
@@ -185,26 +192,25 @@ Logs are persisted as JSON records at the configured `logStorePath`. Stored valu
 
 Download the archive for your operating system and architecture from the [latest release](https://github.com/hmlendea/personal-log-manager/releases/latest), extract it, configure the API key and storage path, then launch the included executable.
 
-### CLI Installation
-
-For a source installation:
-
-```bash
-git clone https://github.com/hmlendea/personal-log-manager.git
-cd personal-log-manager
-dotnet restore
-```
-
 ## ⚙️ Configuration
 
 All settings are loaded from the configuration file. The subsequent keys are recognised:
 
-| Section | Key | Description |
-|---------|-----|-------------|
-| `dataStoreSettings` | `logStorePath` | Filesystem path of the JSON record store; defaults to `Data/logs.json` |
-| `securitySettings` | `apiKey` | Secret used by the controller API-key authorisation policy |
-| `nuciLoggerSettings` | `logFilePath` | Destination used when file logging is active; defaults to `logfile.log` |
-| `nuciLoggerSettings` | `isFileOutputEnabled` | Activates or deactivates file output; defaults to `true` |
+### Configuration Files
+
+| File | Scope | Purpose |
+|------|-------|---------|
+| `appsettings.json` | Application | Data-store path, API key, and logger settings |
+
+### Settings
+
+The subsequent settings are recognised:
+| Section | Key | Type | Default | Required | Description |
+|---------|-----|------|---------|----------|-------------|
+| `dataStoreSettings` | `logStorePath` | `string` | `Data/logs.json` | No | Filesystem path of the JSON record store |
+| `securitySettings` | `apiKey` | `string` | — | Yes | Secret used by the controller API-key authorisation policy |
+| `nuciLoggerSettings` | `logFilePath` | `string` | `logfile.log` | No | Destination used when file logging is active |
+| `nuciLoggerSettings` | `isFileOutputEnabled` | `bool` | `true` | No | Activates or deactivates file output |
 
 Default values are defined in [appsettings.json](PersonalLogManager/appsettings.json). Supply the genuine API key through protected deployment configuration rather than committing it. Startup creates the configured store when it is absent.
 
@@ -212,8 +218,8 @@ Default values are defined in [appsettings.json](PersonalLogManager/appsettings.
 
 Translations are located in the project's localisation resources. The subsequent languages are currently supported:
 
-| Language | Code | Status |
-|----------|------|--------|
+| Language | Locale | Status |
+|----------|--------|--------|
 | English | `en` and all unrecognised values | Complete |
 | Romanian | `ro`, `ro-RO`, `ro-MD` | Complete |
 
@@ -255,40 +261,52 @@ The repository includes `release.sh`, which delegates to the upstream deployment
 bash ./release.sh 2.9.0
 ```
 
-This script downloads and executes an external release helper from `https://raw.githubusercontent.com/hmlendea/deployment-scripts/master/release/dotnet/10.0.sh`.
+This script downloads and executes an external release helper from `https://raw.githubusercontent.com/hmlendea/dotnet-release-scripts/refs/heads/master/dotnet/10.0.sh`.
 
 **Note:** Piping into `bash` is an intensely controversial topic. Please review any external scripts before running them in your environment!
 
 ### Dependencies
 
-| Package | Purpose |
-|---------|---------|
-| `NuciAPI`, `NuciAPI.Controllers`, and NuciAPI middleware packages | Request processing, API-key authorisation, scanner protection, exception handling, and request logging |
-| `NuciDAL` | File-repository abstraction and JSON persistence |
-| `NuciLog` and `NuciLog.Core` | Structured operation logging |
-| `NuciSecurity.HMAC` | Deterministic request and response field ordering for HMAC integration |
-| `NuciText.Normalisation` and `NuciText.Obfuscation` | Sentence normalisation and stored-value deobfuscation |
+| Package | Version | Scope | Purpose |
+|---------|---------|-------|---------|
+| `NuciAPI` | 3.5.1 | Runtime | Request processing and API-key authorisation |
+| `NuciAPI.Controllers` | 2.3.1 | Runtime | Controller base classes and request contracts |
+| `NuciAPI.Middleware` | 2.0.2 | Runtime | Middleware pipeline components |
+| `NuciAPI.Middleware.ExceptionHandling` | 1.0.1 | Runtime | Exception handling middleware |
+| `NuciAPI.Middleware.Logging` | 1.0.1 | Runtime | Request logging middleware |
+| `NuciAPI.Middleware.Security` | 1.0.5 | Runtime | Security middleware |
+| `NuciDAL` | 3.2.1 | Runtime | File-repository abstraction and JSON persistence |
+| `NuciLog` | 1.2.1 | Runtime | Structured operation logging |
+| `NuciLog.Core` | 3.0.0 | Runtime | Core logging contracts |
+| `NuciSecurity.HMAC` | 4.1.3 | Runtime | Deterministic request and response field ordering for HMAC integration |
+| `NuciText.Normalisation` | 1.0.1 | Runtime | Sentence normalisation |
+| `NuciText.Obfuscation` | 1.1.1 | Runtime | Stored-value deobfuscation |
 
 ## 🗂️ Project Structure
 
-The solution contains the subsequent projects:
-- `PersonalLogManager`: ASP.NET Core API, application service, persistence adapter, and localised text builders
-- `PersonalLogManager.UnitTests`: NUnit tests for service orchestration and text rendering
-- `PersonalLogManager.IntegrationTests`: NUnit HTTP integration tests for the running API pipeline and JSON persistence
+### Projects and Packages
 
-The key directories inside `PersonalLogManager/` are:
+| Project | Type | Purpose |
+|---------|------|---------|
+| `PersonalLogManager` | ASP.NET Core API | API, application service, persistence adapter, and localised text builders |
+| `PersonalLogManager.UnitTests` | Unit tests | NUnit tests for service orchestration and text rendering |
+| `PersonalLogManager.IntegrationTests` | Integration tests | NUnit HTTP integration tests for the running API pipeline and JSON persistence |
+| `PersonalLogManager.ArchitectureTests` | Architecture tests | ArchUnit.NET and Roslyn fitness tests for layer dependencies and conventions |
+
+### Directories
+
 | Directory | Purpose |
 |-----------|---------|
-| `Api/` | Controller and transport request/response models |
-| `Configuration/` | Bound data-store and security settings |
-| `Data/` | Default JSON store |
-| `DataAccess/` | Persistence entity definitions |
-| `Logging/` | Operation and log-context identifiers |
-| `Service/` | Use cases, domain models, mapping, and localised text building |
+| `PersonalLogManager/Api/` | Controller and transport request/response models |
+| `PersonalLogManager/Configuration/` | Bound data-store and security settings |
+| `PersonalLogManager/Data/` | Default JSON store |
+| `PersonalLogManager/DataAccess/` | Persistence entity definitions |
+| `PersonalLogManager/Logging/` | Operation and log-context identifiers |
+| `PersonalLogManager/Service/` | Use cases, domain models, mapping, and localised text building |
 
 ## 🏗️ Architecture
 
-See [ARCHITECTURE.md](./ARCHITECTURE.md) for a structural synopsis and component interactions.
+Personal Log Manager is a single-process ASP.NET Core REST API that stores structured personal activity records and returns either structured records or localised natural-language text. See the [Architecture Documentation](./ARCHITECTURE.md) for the system context, principal components, runtime flows, ownership boundaries, dependencies, constraints, and extension points.
 
 See [docs/README.md](./docs/README.md) for the implementation-grounded documentation corpus.
 
@@ -325,7 +343,7 @@ See the [Code of Conduct](./CODE_OF_CONDUCT.md) for the standards of conduct exp
 - [Personal Data Logger](https://github.com/hmlendea/personal-data-logger): Companion service for collecting personal data from external sources
 - [Personal Log Manager Client](https://github.com/hmlendea/personal-log-manager-client): Client application for interacting with this API
 
-## 💝 Supporting the Project
+## 💝 Project Engagement
 
 Discovered a problem or have a suggestion? [Open an issue](https://github.com/hmlendea/personal-log-manager/issues)!
 
