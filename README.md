@@ -296,6 +296,10 @@ See [docs/README.md](./docs/README.md) for the implementation-grounded documenta
 
 Personal Log Manager is a self-hosted ASP.NET Core REST API that processes personal log data locally within the operator's deployment. It stores log records in a configurable JSON file and writes structured application logs to a local file. No telemetry, crash reports, update checks, or other data is transmitted to project maintainers or external services. All data processing occurs locally. For complete details, see [PRIVACY.md](./PRIVACY.md).
 
+## 🔒 Security
+
+Personal Log Manager uses HMAC-based API key authentication for all controller operations. The application processes log data locally with no external data transmission. Supported versions receive security updates via GitHub Releases. For vulnerability reporting, supported versions, scope, and disclosure policy, see [SECURITY.md](./SECURITY.md).
+
 ## 🤝 Contributing
 
 You are welcome to submit any suggestion, feedback, or modification to this project.
