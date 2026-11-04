@@ -292,6 +292,10 @@ See [ARCHITECTURE.md](./ARCHITECTURE.md) for a structural synopsis and component
 
 See [docs/README.md](./docs/README.md) for the implementation-grounded documentation corpus.
 
+## 🛡️ Privacy and Data
+
+Personal Log Manager is a self-hosted ASP.NET Core REST API that processes personal log data locally within the operator's deployment. It stores log records in a configurable JSON file and writes structured application logs to a local file. No telemetry, crash reports, update checks, or other data is transmitted to project maintainers or external services. All data processing occurs locally. For complete details, see [PRIVACY.md](./PRIVACY.md).
+
 ## 🤝 Contributing
 
 You are welcome to submit any suggestion, feedback, or modification to this project.
