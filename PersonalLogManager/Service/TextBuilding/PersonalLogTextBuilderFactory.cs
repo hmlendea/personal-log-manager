@@ -52,10 +52,20 @@ namespace PersonalLogManager.Service.TextBuilding
 
                 return normaliser.NormaliseSentence(logText);
             }
-            catch (TargetInvocationException ex)
+            catch (TargetInvocationException targetInvocationException)
             {
-                throw ex.InnerException ?? ex;
+                throw GetActualCause(targetInvocationException);
             }
+        }
+
+        private static Exception GetActualCause(TargetInvocationException targetInvocationException)
+        {
+            if (targetInvocationException.InnerException is not null)
+            {
+                return targetInvocationException.InnerException;
+            }
+
+            return targetInvocationException;
         }
 
         private IPersonalLogTextBuilder GetTextBuilder(string localisation)

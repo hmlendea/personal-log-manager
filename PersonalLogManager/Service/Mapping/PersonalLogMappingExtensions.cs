@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 using PersonalLogManager.DataAccess.DataObjects;
@@ -12,6 +13,16 @@ namespace PersonalLogManager.Service.Mapping
     /// </summary>
     static class PersonalLogMappingExtensions
     {
+        private static Dictionary<string, string> GetData(Dictionary<string, string> data)
+        {
+            if (data is not null)
+            {
+                return data;
+            }
+
+            return [];
+        }
+
         /// <summary>
         /// Converts the data object into a domain model.
         /// </summary>
@@ -21,27 +32,39 @@ namespace PersonalLogManager.Service.Mapping
         {
             TimeOnly? time = null;
 
-            if (TimeOnly.TryParse(dataObject.Time, out TimeOnly parsedTime))
+            if (TimeOnly.TryParseExact(
+                dataObject.Time,
+                "HH:mm",
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out TimeOnly parsedTime))
             {
                 time = parsedTime;
             }
 
             DateTime? updatedDateTime = null;
 
-            if (DateTime.TryParse(dataObject.UpdatedDT, out DateTime parsedUpdatedDT))
+            if (DateTime.TryParse(
+                dataObject.UpdatedDT,
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.RoundtripKind,
+                out DateTime parsedUpdatedDateTime))
             {
-                updatedDateTime = parsedUpdatedDT;
+                updatedDateTime = parsedUpdatedDateTime;
             }
 
             return new(
-                DateOnly.Parse(dataObject.Date),
+                DateOnly.ParseExact(dataObject.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture),
                 time,
                 dataObject.TimeZone)
             {
                 Id = dataObject.Id,
                 Template = Enum.Parse<PersonalLogTemplate>(dataObject.Template),
-                Data = dataObject.Data ?? [],
-                CreatedDateTime = DateTime.Parse(dataObject.CreatedDT),
+                Data = GetData(dataObject.Data),
+                CreatedDateTime = DateTime.Parse(
+                    dataObject.CreatedDT,
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.RoundtripKind),
                 UpdatedDateTime = updatedDateTime
             };
         }
@@ -54,13 +77,13 @@ namespace PersonalLogManager.Service.Mapping
         internal static PersonalLogEntity ToDataObject(this PersonalLog domainModel) => new()
         {
             Id = domainModel.Id,
-            Date = domainModel.Date.ToString("yyyy-MM-dd"),
-            Time = domainModel.Time?.ToString("HH:mm"),
+            Date = domainModel.Date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+            Time = domainModel.Time?.ToString("HH:mm", CultureInfo.InvariantCulture),
             TimeZone = domainModel.TimeZone,
             Template = domainModel.Template.ToString(),
             Data = domainModel.Data,
-            CreatedDT = domainModel.CreatedDateTime.ToString("o"),
-            UpdatedDT = domainModel.UpdatedDateTime?.ToString("o")
+            CreatedDT = domainModel.CreatedDateTime.ToString("o", CultureInfo.InvariantCulture),
+            UpdatedDT = domainModel.UpdatedDateTime?.ToString("o", CultureInfo.InvariantCulture)
         };
 
         /// <summary>

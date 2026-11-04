@@ -58,12 +58,12 @@ namespace PersonalLogManager.Service
 
                 repository.SaveChanges();
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
                 logger.Error(
                     MyOperation.StorePersonalLog,
                     OperationStatus.Failure,
-                    ex,
+                    exception,
                     logInfos);
                 throw;
             }
@@ -143,12 +143,12 @@ namespace PersonalLogManager.Service
                     Logs = BuildLogTexts(sorted, request.Localisation)
                 };
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
                 logger.Error(
                     MyOperation.GetPersonalLogs,
                     OperationStatus.Failure,
-                    ex,
+                    exception,
                     logInfos);
 
                 throw;
@@ -176,24 +176,34 @@ namespace PersonalLogManager.Service
                     OperationStatus.Success,
                     logInfos);
 
-                return new()
+                GetLogByIdResponse response = new()
                 {
                     Id = entity.Id,
                     Date = entity.Date,
                     Time = entity.Time,
                     TimeZone = entity.TimeZone,
                     Template = entity.Template,
-                    Data = entity.Data ?? [],
                     CreatedDateTime = entity.CreatedDT,
                     UpdatedDateTime = entity.UpdatedDT
                 };
+
+                if (entity.Data is not null)
+                {
+                    response.Data = entity.Data;
+                }
+                else
+                {
+                    response.Data = [];
+                }
+
+                return response;
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
                 logger.Error(
                     MyOperation.GetPersonalLog,
                     OperationStatus.Failure,
-                    ex,
+                    exception,
                     logInfos);
 
                 throw;
@@ -240,9 +250,11 @@ namespace PersonalLogManager.Service
                     logTexts.Add($"{log.Id} {logTextBuilder.BuildLogText(log.ToDomainModel(), localisation)}");
                 }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                throw new InvalidOperationException($"An error occurred while building log text for {lastLogId}.", ex);
+                throw new InvalidOperationException(
+                    $"An error occurred while building log text for {lastLogId}.",
+                    exception);
             }
 
             return logTexts;
@@ -290,7 +302,10 @@ namespace PersonalLogManager.Service
 
                 if (request.Data is not null)
                 {
-                    personalLog.Data ??= [];
+                    if (personalLog.Data is null)
+                    {
+                        personalLog.Data = [];
+                    }
 
                     foreach (string parameter in request.Data.Keys)
                     {
@@ -308,12 +323,12 @@ namespace PersonalLogManager.Service
                     OperationStatus.Success,
                     logInfos);
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
                 logger.Error(
                     MyOperation.UpdatePersonalLog,
                     OperationStatus.Failure,
-                    ex,
+                    exception,
                     logInfos);
 
                 throw;
@@ -337,12 +352,12 @@ namespace PersonalLogManager.Service
                 repository.Remove(request.Identifier);
                 repository.SaveChanges();
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
                 logger.Error(
                     MyOperation.DeletePersonalLog,
                     OperationStatus.Failure,
-                    ex,
+                    exception,
                     logInfos);
 
                 throw;
