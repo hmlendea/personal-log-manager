@@ -11,7 +11,7 @@ namespace PersonalLogManager.Service.Models
 
         public TimeOnly? Time { get; set; } = time;
 
-        public string TimeZone { get; set; } = timeZone ?? "UTC";
+        public string TimeZone { get; set; } = GetTimeZone(timeZone);
 
         public DateTime CreatedDateTime { get; set; } = DateTime.Now;
 
@@ -24,5 +24,15 @@ namespace PersonalLogManager.Service.Models
         public PersonalLog(DateOnly date) : this(date, null, null) { }
 
         public PersonalLog(DateOnly date, TimeOnly time) : this(date, time, "UTC") { }
+
+        private static string GetTimeZone(string timeZone)
+        {
+            if (timeZone is not null)
+            {
+                return timeZone;
+            }
+
+            return "UTC";
+        }
     }
 }
